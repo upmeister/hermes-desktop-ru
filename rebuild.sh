@@ -77,10 +77,19 @@ echo "  ✓ Dist copied"
 echo "[6/6] Patching resolveRendererIndex to prefer HERMES_DESKTOP_WEB_DIST..."
 for MJS in \
   "$DESKTOP_SRC/dist/electron-main.mjs" \
-  "$HERMES_SRC/apps/desktop/release/win-unpacked/resources/app.asar.unpacked/dist/electron-main.mjs"; do
+  "$HERMES_SRC/apps/desktop/release/win-unpacked/resources/app.asar.unpacked/dist/electron-main.mjs" \
+  "$MOD_DIR/dist/electron-main.mjs"; do
   if [ -f "$MJS" ]; then
     # Patch: swap candidate order so resolveWebDist() comes first
-    sed -i 's|const candidates = \[path13\.join(APP_ROOT, "dist", "index\.html"), path13\.join(resolveWebDist(), "index\.html")\];|const candidates = [path13.join(resolveWebDist(), "index.html"), path13.join(APP_ROOT, "dist", "index.html")];|' "$MJS"
+    # Use path1[0-9]* wildcard because minified var name changes between versions
+    sed -i 's|const candidates = \[path1[0-9]*\.join(APP_ROOT, "dist", "index\.html"), path1[0-9]*\.join(resolveWebDist(), "index\.html")\];|const candidates = [path14.join(resolveWebDist(), "index.html"), path14.join(APP_ROOT, "dist", "index.html")];|' "$MJS"
+    
+    # Patch: increase fetch timeout (15s → 60s, handles Windows Defender GIL stalls)
+    sed -i 's/var DEFAULT_FETCH_TIMEOUT_MS = 15e3/var DEFAULT_FETCH_TIMEOUT_MS = 60e3/' "$MJS"
+    
+    # Patch: increase backend readiness deadline (45s → 180s)
+    sed -i 's/const deadline = Date.now() + 45e3/const deadline = Date.now() + 180e3/' "$MJS"
+    
     echo "  ✓ Patched: $(basename "$MJS")"
   else
     echo "  [~] Skipped (not found): $(basename "$MJS")"
