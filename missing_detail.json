@@ -1,0 +1,2770 @@
+{
+  "assistant.approval.command": {
+    "line": 2325,
+    "en": "'Command',"
+  },
+  "assistant.approval.jumpToApproval": {
+    "line": 2329,
+    "en": "'Approval needed',"
+  },
+  "assistant.clarify.continueLabel": {
+    "line": 2345,
+    "en": "'Continue'"
+  },
+  "assistant.clarify.skipped": {
+    "line": 2344,
+    "en": "'Skipped',"
+  },
+  "assistant.thread.attachingFile": {
+    "line": 2319,
+    "en": "'Attaching…'"
+  },
+  "assistant.thread.dismissError": {
+    "line": 2300,
+    "en": "'Dismiss error',"
+  },
+  "assistant.thread.expandMessage": {
+    "line": 2306,
+    "en": "'Expand message',"
+  },
+  "assistant.thread.restoreBody": {
+    "line": 2313,
+    "en": ""
+  },
+  "assistant.thread.restoreConfirm": {
+    "line": 2315,
+    "en": "'Restore & rerun',"
+  },
+  "assistant.thread.restoreFromHere": {
+    "line": 2311,
+    "en": "'Restore checkpoint — rerun from this prompt',"
+  },
+  "assistant.thread.restoreTitle": {
+    "line": 2312,
+    "en": "'Restore to this checkpoint?',"
+  },
+  "assistant.thread.resumeWhenBackgroundDone": {
+    "line": 2289,
+    "en": "count =>"
+  },
+  "assistant.thread.scrollToBottom": {
+    "line": 2307,
+    "en": "'Scroll to bottom',"
+  },
+  "assistant.thread.showEarlier": {
+    "line": 2287,
+    "en": "'Show earlier messages',"
+  },
+  "assistant.tool.actions.failedToOpen": {
+    "line": 2375,
+    "en": "'Failed to open',"
+  },
+  "assistant.tool.actions.opened": {
+    "line": 2373,
+    "en": "'Opened',"
+  },
+  "assistant.tool.actions.opening": {
+    "line": 2374,
+    "en": "'Opening',"
+  },
+  "assistant.tool.actions.ran": {
+    "line": 2378,
+    "en": "'Ran',"
+  },
+  "assistant.tool.actions.ranCode": {
+    "line": 2380,
+    "en": "'Ran code',"
+  },
+  "assistant.tool.actions.read": {
+    "line": 2371,
+    "en": "'Read',"
+  },
+  "assistant.tool.actions.reading": {
+    "line": 2372,
+    "en": "'Reading',"
+  },
+  "assistant.tool.actions.running": {
+    "line": 2379,
+    "en": "'Running',"
+  },
+  "assistant.tool.actions.runningCode": {
+    "line": 2381,
+    "en": "'Scripting'"
+  },
+  "assistant.tool.actions.searched": {
+    "line": 2376,
+    "en": "'Searched',"
+  },
+  "assistant.tool.actions.searching": {
+    "line": 2377,
+    "en": "'Searching',"
+  },
+  "assistant.tool.prefixes.browser": {
+    "line": 2384,
+    "en": "'Browser',"
+  },
+  "assistant.tool.prefixes.web": {
+    "line": 2385,
+    "en": "'Web'"
+  },
+  "assistant.tool.titleTemplates.actionCommand": {
+    "line": 2388,
+    "en": "(action, command) => `${action} ${command}`,"
+  },
+  "assistant.tool.titleTemplates.actionQuoted": {
+    "line": 2389,
+    "en": "(action, value) => `${action} “${value}”`,"
+  },
+  "assistant.tool.titleTemplates.actionTarget": {
+    "line": 2390,
+    "en": "(action, target) => `${action} ${target}`,"
+  },
+  "assistant.tool.titleTemplates.prefixedDone": {
+    "line": 2391,
+    "en": "(prefix, action) => `${prefix} ${action}`,"
+  },
+  "assistant.tool.titleTemplates.runningPrefixedTool": {
+    "line": 2392,
+    "en": "(prefix, action) => `Running ${prefix.toLowerCase()} ${action.toLowerCase()}`,"
+  },
+  "assistant.tool.titleTemplates.runningTool": {
+    "line": 2393,
+    "en": "action => `Running ${action.toLowerCase()}`"
+  },
+  "assistant.tool.titles.browser_snapshot.done": {
+    "line": 2400,
+    "en": "'Captured page snapshot',"
+  },
+  "assistant.tool.titles.browser_snapshot.pending": {
+    "line": 2401,
+    "en": "'Capturing page snapshot',"
+  },
+  "assistant.tool.titles.browser_snapshot.pendingAction": {
+    "line": 2402,
+    "en": "'Capturing'"
+  },
+  "assistant.tool.titles.browser_take_screenshot.done": {
+    "line": 2405,
+    "en": "'Captured screenshot',"
+  },
+  "assistant.tool.titles.browser_take_screenshot.pending": {
+    "line": 2406,
+    "en": "'Capturing screenshot',"
+  },
+  "assistant.tool.titles.browser_take_screenshot.pendingAction": {
+    "line": 2407,
+    "en": "'Capturing'"
+  },
+  "assistant.tool.titles.session_search_recall.done": {
+    "line": 2420,
+    "en": "'Searched session history',"
+  },
+  "assistant.tool.titles.session_search_recall.pending": {
+    "line": 2421,
+    "en": "'Searching session history',"
+  },
+  "assistant.tool.titles.session_search_recall.pendingAction": {
+    "line": 2422,
+    "en": "'Searching'"
+  },
+  "boot.errors.gatewayConnectionLost": {
+    "line": 78,
+    "en": "'Lost connection to the gateway',"
+  },
+  "boot.failure.back": {
+    "line": 93,
+    "en": "'Back',"
+  },
+  "boot.failure.gatewaySettings": {
+    "line": 92,
+    "en": "'Gateway settings',"
+  },
+  "boot.failure.remoteFailureHint": {
+    "line": 99,
+    "en": "'Check the gateway URL and sign-in under Gateway settings, or switch to the local gateway.',"
+  },
+  "boot.failure.signOutAndSignIn": {
+    "line": 98,
+    "en": "'Sign out & sign in',"
+  },
+  "commandCenter.branches": {
+    "line": 988,
+    "en": "'Branches',"
+  },
+  "commandCenter.gatewayRestartFailed": {
+    "line": 1088,
+    "en": "'Gateway restart failed.',"
+  },
+  "commandCenter.generatePet.adopt": {
+    "line": 1037,
+    "en": "'Adopt',"
+  },
+  "commandCenter.generatePet.backgroundHint": {
+    "line": 1028,
+    "en": "'You can close this — Hermes will notify you when it’s done.',"
+  },
+  "commandCenter.generatePet.generate": {
+    "line": 1015,
+    "en": "'Generate',"
+  },
+  "commandCenter.generatePet.generating": {
+    "line": 1016,
+    "en": "'Generating…',"
+  },
+  "commandCenter.generatePet.genericError": {
+    "line": 1034,
+    "en": "'Generation failed — try again or pick a suggestion.',"
+  },
+  "commandCenter.generatePet.hatch": {
+    "line": 1018,
+    "en": "'Hatch',"
+  },
+  "commandCenter.generatePet.hatchComposing": {
+    "line": 1024,
+    "en": "'Piecing it together…',"
+  },
+  "commandCenter.generatePet.hatchRow": {
+    "line": 1023,
+    "en": "(_state, done, total) => `Sketching frame ${done} of ${total}…`,"
+  },
+  "commandCenter.generatePet.hatchSaving": {
+    "line": 1025,
+    "en": "'Almost there…',"
+  },
+  "commandCenter.generatePet.hatched": {
+    "line": 1022,
+    "en": "'It hatched!',"
+  },
+  "commandCenter.generatePet.hatching": {
+    "line": 1020,
+    "en": "'Hatching your pet…',"
+  },
+  "commandCenter.generatePet.hatchingSub": {
+    "line": 1021,
+    "en": "'Bringing it to life…',"
+  },
+  "commandCenter.generatePet.namePlaceholder": {
+    "line": 1026,
+    "en": "'Name your pet',"
+  },
+  "commandCenter.generatePet.placeholder": {
+    "line": 1012,
+    "en": "'Describe a pet to generate…',"
+  },
+  "commandCenter.generatePet.promptHint": {
+    "line": 1013,
+    "en": "'Type a description, then press Enter to draft four looks.',"
+  },
+  "commandCenter.generatePet.readyHint": {
+    "line": 1014,
+    "en": "'Press Enter to draft four looks from your description.',"
+  },
+  "commandCenter.generatePet.referenceImageInvalid": {
+    "line": 1036,
+    "en": "'Could not read that reference image. Try a PNG, JPG, WebP, or GIF.',"
+  },
+  "commandCenter.generatePet.referenceImageTooLarge": {
+    "line": 1035,
+    "en": "'Reference image is too large. Use one under 16 MB.',"
+  },
+  "commandCenter.generatePet.remix": {
+    "line": 1030,
+    "en": "'Remix',"
+  },
+  "commandCenter.generatePet.remixConfirmBody": {
+    "line": 1032,
+    "en": ""
+  },
+  "commandCenter.generatePet.remixConfirmTitle": {
+    "line": 1031,
+    "en": "'Remix this look?',"
+  },
+  "commandCenter.generatePet.retry": {
+    "line": 1017,
+    "en": "'Retry',"
+  },
+  "commandCenter.generatePet.slowProviderHint": {
+    "line": 1029,
+    "en": "'This can take several minutes',"
+  },
+  "commandCenter.generatePet.spawning": {
+    "line": 1019,
+    "en": "'Spawning…',"
+  },
+  "commandCenter.generatePet.staleBackend": {
+    "line": 1027,
+    "en": "'Update Hermes to generate pets.',"
+  },
+  "commandCenter.generatePet.startOver": {
+    "line": 1038,
+    "en": "'Start over'"
+  },
+  "commandCenter.generatePet.title": {
+    "line": 1011,
+    "en": "'Generate a pet',"
+  },
+  "commandCenter.goToSession": {
+    "line": 987,
+    "en": "'Go to session',"
+  },
+  "commandCenter.installTheme.empty": {
+    "line": 1046,
+    "en": "'No matching themes.',"
+  },
+  "commandCenter.installTheme.error": {
+    "line": 1045,
+    "en": "'Could not reach the Marketplace.',"
+  },
+  "commandCenter.installTheme.install": {
+    "line": 1047,
+    "en": "'Install',"
+  },
+  "commandCenter.installTheme.installed": {
+    "line": 1049,
+    "en": "'Installed',"
+  },
+  "commandCenter.installTheme.installing": {
+    "line": 1048,
+    "en": "'Installing...',"
+  },
+  "commandCenter.installTheme.installs": {
+    "line": 1050,
+    "en": "count => `${count} installs`"
+  },
+  "commandCenter.installTheme.loading": {
+    "line": 1044,
+    "en": "'Searching the Marketplace...',"
+  },
+  "commandCenter.installTheme.pageTitle": {
+    "line": 1042,
+    "en": "'Install theme',"
+  },
+  "commandCenter.installTheme.placeholder": {
+    "line": 1043,
+    "en": "'Search the VS Code Marketplace...',"
+  },
+  "commandCenter.installTheme.title": {
+    "line": 1041,
+    "en": "'Install theme…',"
+  },
+  "commandCenter.logFile": {
+    "line": 1115,
+    "en": "'Log file',"
+  },
+  "commandCenter.logLevel": {
+    "line": 1116,
+    "en": "'Level',"
+  },
+  "commandCenter.logSearchPlaceholder": {
+    "line": 1117,
+    "en": "'Filter log lines...',"
+  },
+  "commandCenter.maintenance.actionFailed": {
+    "line": 1158,
+    "en": "name => `${name} failed to start`,"
+  },
+  "commandCenter.maintenance.actionStarted": {
+    "line": 1157,
+    "en": "name => `${name} started — tailing log...`,"
+  },
+  "commandCenter.maintenance.backup": {
+    "line": 1124,
+    "en": "'Create backup',"
+  },
+  "commandCenter.maintenance.backupDesc": {
+    "line": 1125,
+    "en": "'Zip config, memories, skills, and sessions',"
+  },
+  "commandCenter.maintenance.builtinMemory": {
+    "line": 1146,
+    "en": "'built-in',"
+  },
+  "commandCenter.maintenance.bytes": {
+    "line": 1149,
+    "en": "size => size,"
+  },
+  "commandCenter.maintenance.copyLink": {
+    "line": 1131,
+    "en": "'Copy link',"
+  },
+  "commandCenter.maintenance.curator": {
+    "line": 1133,
+    "en": "'Skill curator',"
+  },
+  "commandCenter.maintenance.curatorActive": {
+    "line": 1136,
+    "en": "'Active',"
+  },
+  "commandCenter.maintenance.curatorDesc": {
+    "line": 1134,
+    "en": "'Background review that archives stale agent-created skills',"
+  },
+  "commandCenter.maintenance.curatorDisabled": {
+    "line": 1137,
+    "en": "'Disabled',"
+  },
+  "commandCenter.maintenance.curatorLastRun": {
+    "line": 1138,
+    "en": "when => `Last run ${when}`,"
+  },
+  "commandCenter.maintenance.curatorNeverRan": {
+    "line": 1139,
+    "en": "'Never ran',"
+  },
+  "commandCenter.maintenance.curatorPaused": {
+    "line": 1135,
+    "en": "'Paused',"
+  },
+  "commandCenter.maintenance.debugShare": {
+    "line": 1126,
+    "en": "'Debug share',"
+  },
+  "commandCenter.maintenance.debugShareDesc": {
+    "line": 1127,
+    "en": "'Upload a redacted report + logs, get shareable links (auto-deletes in 6h)',"
+  },
+  "commandCenter.maintenance.debugShareFailed": {
+    "line": 1130,
+    "en": "'Debug share failed',"
+  },
+  "commandCenter.maintenance.debugShareLinks": {
+    "line": 1129,
+    "en": "'Share links',"
+  },
+  "commandCenter.maintenance.debugShareRunning": {
+    "line": 1128,
+    "en": "'Uploading debug report...',"
+  },
+  "commandCenter.maintenance.doctor": {
+    "line": 1120,
+    "en": "'Run doctor',"
+  },
+  "commandCenter.maintenance.doctorDesc": {
+    "line": 1121,
+    "en": "'Health-check the install, config, and providers',"
+  },
+  "commandCenter.maintenance.empty": {
+    "line": 1150,
+    "en": "'empty',"
+  },
+  "commandCenter.maintenance.linkCopied": {
+    "line": 1132,
+    "en": "'Link copied',"
+  },
+  "commandCenter.maintenance.memoryData": {
+    "line": 1143,
+    "en": "'Memory data',"
+  },
+  "commandCenter.maintenance.memoryDataDesc": {
+    "line": 1144,
+    "en": "'Built-in memory files injected into every session',"
+  },
+  "commandCenter.maintenance.memoryFile": {
+    "line": 1147,
+    "en": "'Agent memory (MEMORY.md)',"
+  },
+  "commandCenter.maintenance.memoryProvider": {
+    "line": 1145,
+    "en": "name => `Active provider: ${name}`,"
+  },
+  "commandCenter.maintenance.pause": {
+    "line": 1140,
+    "en": "'Pause',"
+  },
+  "commandCenter.maintenance.resetAll": {
+    "line": 1153,
+    "en": "'Reset both',"
+  },
+  "commandCenter.maintenance.resetConfirm": {
+    "line": 1154,
+    "en": "target => `Delete ${target}? This cannot be undone.`,"
+  },
+  "commandCenter.maintenance.resetDone": {
+    "line": 1155,
+    "en": "files => `Deleted ${files}.`,"
+  },
+  "commandCenter.maintenance.resetFailed": {
+    "line": 1156,
+    "en": "'Memory reset failed',"
+  },
+  "commandCenter.maintenance.resetMemory": {
+    "line": 1151,
+    "en": "'Reset memory',"
+  },
+  "commandCenter.maintenance.resetUser": {
+    "line": 1152,
+    "en": "'Reset profile',"
+  },
+  "commandCenter.maintenance.resume": {
+    "line": 1141,
+    "en": "'Resume',"
+  },
+  "commandCenter.maintenance.runNow": {
+    "line": 1142,
+    "en": "'Run now',"
+  },
+  "commandCenter.maintenance.runOps": {
+    "line": 1119,
+    "en": "'Diagnostics',"
+  },
+  "commandCenter.maintenance.running": {
+    "line": 1159,
+    "en": "'Running...',"
+  },
+  "commandCenter.maintenance.securityAudit": {
+    "line": 1122,
+    "en": "'Security audit',"
+  },
+  "commandCenter.maintenance.securityAuditDesc": {
+    "line": 1123,
+    "en": "'Scan config and skills for risky settings',"
+  },
+  "commandCenter.maintenance.userFile": {
+    "line": 1148,
+    "en": "'User profile (USER.md)',"
+  },
+  "commandCenter.maintenance.viewLog": {
+    "line": 1160,
+    "en": "'Action log'"
+  },
+  "commandCenter.pets.adoptFailed": {
+    "line": 1006,
+    "en": "'Could not adopt that pet.',"
+  },
+  "commandCenter.pets.empty": {
+    "line": 1001,
+    "en": "'No matching pets.',"
+  },
+  "commandCenter.pets.error": {
+    "line": 999,
+    "en": "'Could not reach the petdex gallery.',"
+  },
+  "commandCenter.pets.generatedTag": {
+    "line": 1005,
+    "en": "'Generated',"
+  },
+  "commandCenter.pets.installed": {
+    "line": 1004,
+    "en": "'Installed',"
+  },
+  "commandCenter.pets.loading": {
+    "line": 998,
+    "en": "'Loading petdex gallery…',"
+  },
+  "commandCenter.pets.noneAvailable": {
+    "line": 1008,
+    "en": "'No pets available — pick one below to install.'"
+  },
+  "commandCenter.pets.placeholder": {
+    "line": 997,
+    "en": "'Search pets…',"
+  },
+  "commandCenter.pets.staleBackend": {
+    "line": 1000,
+    "en": "'Restart Hermes to use pets — the backend predates this feature.',"
+  },
+  "commandCenter.pets.title": {
+    "line": 996,
+    "en": "'Pets',"
+  },
+  "commandCenter.pets.toggleFailed": {
+    "line": 1007,
+    "en": "'Could not toggle the pet.',"
+  },
+  "commandCenter.pets.turnOff": {
+    "line": 1002,
+    "en": "'Turn off',"
+  },
+  "commandCenter.pets.turnOn": {
+    "line": 1003,
+    "en": "'Turn on',"
+  },
+  "commandCenter.restartGateway": {
+    "line": 1087,
+    "en": "'Restart gateway',"
+  },
+  "commandCenter.sectionDescriptions.maintenance": {
+    "line": 1057,
+    "en": "'Diagnostics, backups, curator, and memory data',"
+  },
+  "commandCenter.startInBranch": {
+    "line": 989,
+    "en": "branch => `New conversation in ${branch}`,"
+  },
+  "common.expand": {
+    "line": 27,
+    "en": "'Expand',"
+  },
+  "common.formatJson": {
+    "line": 29,
+    "en": "'Format JSON',"
+  },
+  "common.tryHint": {
+    "line": 42,
+    "en": "term => `Try “${term}”`,"
+  },
+  "composer.hotkeyDescs.composer.cancel": {
+    "line": 1715,
+    "en": "'close popover · cancel run',"
+  },
+  "composer.hotkeyDescs.composer.help": {
+    "line": 1711,
+    "en": "'this quick help (delete to dismiss)',"
+  },
+  "composer.hotkeyDescs.composer.history": {
+    "line": 1716,
+    "en": "'cycle popover / history'"
+  },
+  "composer.hotkeyDescs.composer.mention": {
+    "line": 1709,
+    "en": "'reference files, folders, urls, git',"
+  },
+  "composer.hotkeyDescs.composer.sendNewline": {
+    "line": 1712,
+    "en": "'send · Shift+Enter for newline',"
+  },
+  "composer.hotkeyDescs.composer.sendQueued": {
+    "line": 1713,
+    "en": "'send next queued turn',"
+  },
+  "composer.hotkeyDescs.composer.slash": {
+    "line": 1710,
+    "en": "'slash command palette',"
+  },
+  "composer.hotkeyDescs.keybinds.openPanel": {
+    "line": 1714,
+    "en": "'all keyboard shortcuts',"
+  },
+  "composer.queueDelete": {
+    "line": 1732,
+    "en": "'Delete',"
+  },
+  "composer.queueEdit": {
+    "line": 1729,
+    "en": "'Edit',"
+  },
+  "composer.queueSend": {
+    "line": 1731,
+    "en": "'Send',"
+  },
+  "composer.queueSendNext": {
+    "line": 1730,
+    "en": "'Next',"
+  },
+  "composer.queueStuckBody": {
+    "line": 1734,
+    "en": "'A queued turn kept failing to send. It is still in the queue — try sending it again.',"
+  },
+  "composer.queueStuckTitle": {
+    "line": 1733,
+    "en": "'Queued message not sent',"
+  },
+  "composer.speakReplies": {
+    "line": 1691,
+    "en": "'Read replies aloud',"
+  },
+  "composer.stopSpeakingReplies": {
+    "line": 1692,
+    "en": "'Stop reading replies aloud',"
+  },
+  "cron.count": {
+    "line": 1378,
+    "en": "count => `${count} ${count === 1 ? 'job' : 'jobs'}`,"
+  },
+  "cron.promptRequired": {
+    "line": 1482,
+    "en": "'Prompt is required.',"
+  },
+  "cron.scheduleRequired": {
+    "line": 1484,
+    "en": "'Schedule is required.',"
+  },
+  "cron.scriptOnlyEditHint": {
+    "line": 1485,
+    "en": "'Script-only job (no AI prompt). Job id:',"
+  },
+  "cron.title": {
+    "line": 1377,
+    "en": "'Scheduled jobs',"
+  },
+  "desktop.handoff.failed": {
+    "line": 2513,
+    "en": "error => `Handoff failed: ${error}`,"
+  },
+  "desktop.handoff.pickPlatform": {
+    "line": 2510,
+    "en": "'Choose a destination',"
+  },
+  "desktop.handoff.success": {
+    "line": 2511,
+    "en": "platform => `Handed off to ${platform}. Resume here anytime.`,"
+  },
+  "desktop.handoff.systemNote": {
+    "line": 2512,
+    "en": "platform => `↻ Handed off to ${platform} — resume here anytime.`,"
+  },
+  "desktop.handoff.timedOut": {
+    "line": 2514,
+    "en": "'Timed out waiting for the gateway. Is `hermes gateway` running?'"
+  },
+  "desktop.resumeRetry": {
+    "line": 2475,
+    "en": "'Retry',"
+  },
+  "desktop.resumeStrandedBody": {
+    "line": 2473,
+    "en": ""
+  },
+  "desktop.resumeStrandedTitle": {
+    "line": 2472,
+    "en": "\"Couldn't load this session\","
+  },
+  "fileMenu.copyPath": {
+    "line": 52,
+    "en": "'Copy Path',"
+  },
+  "fileMenu.copyRelativePath": {
+    "line": 53,
+    "en": "'Copy Relative Path',"
+  },
+  "fileMenu.delete": {
+    "line": 55,
+    "en": "'Delete',"
+  },
+  "fileMenu.deleteBody": {
+    "line": 59,
+    "en": "'It will be moved to the Trash — you can restore it from there.',"
+  },
+  "fileMenu.deleteTitle": {
+    "line": 58,
+    "en": "name => `Delete ${name}?`,"
+  },
+  "fileMenu.pathCopied": {
+    "line": 60,
+    "en": "'Path copied'"
+  },
+  "fileMenu.rename": {
+    "line": 54,
+    "en": "'Rename…',"
+  },
+  "fileMenu.renameLabel": {
+    "line": 57,
+    "en": "'New name',"
+  },
+  "fileMenu.renameTitle": {
+    "line": 56,
+    "en": "'Rename',"
+  },
+  "fileMenu.revealExplorer": {
+    "line": 49,
+    "en": "'Reveal in File Explorer',"
+  },
+  "fileMenu.revealFileManager": {
+    "line": 50,
+    "en": "'Open Containing Folder',"
+  },
+  "fileMenu.revealFinder": {
+    "line": 48,
+    "en": "'Reveal in Finder',"
+  },
+  "fileMenu.revealInSidebar": {
+    "line": 51,
+    "en": "'Reveal in filetree',"
+  },
+  "keybinds.actions.composer.voice": {
+    "line": 240,
+    "en": "'Start / stop voice conversation',"
+  },
+  "keybinds.actions.session.newWindow": {
+    "line": 223,
+    "en": "'New session in window',"
+  },
+  "keybinds.actions.session.slot.1": {
+    "line": 226,
+    "en": "'Switch to recent session 1',"
+  },
+  "keybinds.actions.session.slot.2": {
+    "line": 227,
+    "en": "'Switch to recent session 2',"
+  },
+  "keybinds.actions.session.slot.3": {
+    "line": 228,
+    "en": "'Switch to recent session 3',"
+  },
+  "keybinds.actions.session.slot.4": {
+    "line": 229,
+    "en": "'Switch to recent session 4',"
+  },
+  "keybinds.actions.session.slot.5": {
+    "line": 230,
+    "en": "'Switch to recent session 5',"
+  },
+  "keybinds.actions.session.slot.6": {
+    "line": 231,
+    "en": "'Switch to recent session 6',"
+  },
+  "keybinds.actions.session.slot.7": {
+    "line": 232,
+    "en": "'Switch to recent session 7',"
+  },
+  "keybinds.actions.session.slot.8": {
+    "line": 233,
+    "en": "'Switch to recent session 8',"
+  },
+  "keybinds.actions.session.slot.9": {
+    "line": 234,
+    "en": "'Switch to recent session 9',"
+  },
+  "keybinds.actions.view.closeTerminal": {
+    "line": 249,
+    "en": "'Close terminal',"
+  },
+  "keybinds.actions.view.newTerminal": {
+    "line": 246,
+    "en": "'New terminal',"
+  },
+  "keybinds.actions.view.nextTerminal": {
+    "line": 247,
+    "en": "'Next terminal',"
+  },
+  "keybinds.actions.view.prevTerminal": {
+    "line": 248,
+    "en": "'Previous terminal',"
+  },
+  "keybinds.actions.view.toggleReview": {
+    "line": 243,
+    "en": "'Toggle review pane',"
+  },
+  "keybinds.actions.workspace.newWorktree": {
+    "line": 237,
+    "en": "'New worktree',"
+  },
+  "notifications.installMethodUnsupportedTitle": {
+    "line": 126,
+    "en": "'Unsupported install method',"
+  },
+  "notifications.native.approvalTitle": {
+    "line": 161,
+    "en": "'Approval needed',"
+  },
+  "notifications.native.approveAction": {
+    "line": 162,
+    "en": "'Approve',"
+  },
+  "notifications.native.backgroundDoneTitle": {
+    "line": 169,
+    "en": "'Background task finished',"
+  },
+  "notifications.native.backgroundFailedTitle": {
+    "line": 170,
+    "en": "'Background task failed'"
+  },
+  "notifications.native.inputBody": {
+    "line": 165,
+    "en": "'Hermes is waiting for your response.',"
+  },
+  "notifications.native.inputTitle": {
+    "line": 164,
+    "en": "'Input needed',"
+  },
+  "notifications.native.rejectAction": {
+    "line": 163,
+    "en": "'Reject',"
+  },
+  "notifications.native.turnDoneBody": {
+    "line": 167,
+    "en": "'The response is ready.',"
+  },
+  "notifications.native.turnDoneTitle": {
+    "line": 166,
+    "en": "'Hermes finished',"
+  },
+  "notifications.native.turnErrorTitle": {
+    "line": 168,
+    "en": "'Turn failed',"
+  },
+  "onboarding.apiKeyOptions.fireworks.description": {
+    "line": 1950,
+    "en": "'Direct access to models hosted by Fireworks AI.'"
+  },
+  "onboarding.apiKeyOptions.fireworks.short": {
+    "line": 1949,
+    "en": "'direct model API',"
+  },
+  "onboarding.localApiKeyPlaceholder": {
+    "line": 1968,
+    "en": "'API key (optional — only if your endpoint requires one)',"
+  },
+  "preview.closeAll": {
+    "line": 2195,
+    "en": "'Close all',"
+  },
+  "preview.closeOthers": {
+    "line": 2193,
+    "en": "'Close others',"
+  },
+  "preview.closeToRight": {
+    "line": 2194,
+    "en": "'Close to the right',"
+  },
+  "preview.diff": {
+    "line": 2207,
+    "en": "'DIFF',"
+  },
+  "preview.discardReload": {
+    "line": 2225,
+    "en": "'Discard & reload',"
+  },
+  "preview.diskChangedBody": {
+    "line": 2222,
+    "en": ""
+  },
+  "preview.diskChangedTitle": {
+    "line": 2221,
+    "en": "'File changed on disk',"
+  },
+  "preview.edit": {
+    "line": 2217,
+    "en": "'Edit',"
+  },
+  "preview.editing": {
+    "line": 2218,
+    "en": "'Editing',"
+  },
+  "preview.linkHint": {
+    "line": 2203,
+    "en": "'⌘/Ctrl-click for preview pane',"
+  },
+  "preview.openInBrowser": {
+    "line": 2202,
+    "en": "'Open in browser',"
+  },
+  "preview.overwrite": {
+    "line": 2224,
+    "en": "'Overwrite',"
+  },
+  "preview.saveFailed": {
+    "line": 2220,
+    "en": "message => `Couldn't save: ${message}`,"
+  },
+  "preview.unsavedChanges": {
+    "line": 2219,
+    "en": "'Unsaved changes',"
+  },
+  "profiles.cloneFrom": {
+    "line": 1347,
+    "en": "'Clone from',"
+  },
+  "profiles.cloneFromDesc": {
+    "line": 1349,
+    "en": "'Copies config, skills, and SOUL.md from the selected source profile.',"
+  },
+  "profiles.cloneFromNone": {
+    "line": 1348,
+    "en": "'None (blank)',"
+  },
+  "profiles.editSoul": {
+    "line": 1324,
+    "en": "'Edit SOUL.md…',"
+  },
+  "profiles.renameMenu": {
+    "line": 1323,
+    "en": "'Rename…',"
+  },
+  "profiles.search": {
+    "line": 1302,
+    "en": "'Search profiles...',"
+  },
+  "remoteDisplayBanner.message": {
+    "line": 175,
+    "en": "reason =>"
+  },
+  "rightSidebar.noDiffs": {
+    "line": 2172,
+    "en": "'No diffs',"
+  },
+  "rightSidebar.noProjectOpen": {
+    "line": 2171,
+    "en": "'No project open',"
+  },
+  "rightSidebar.remotePickerDescription": {
+    "line": 2161,
+    "en": "'Browse folders on the connected backend.',"
+  },
+  "rightSidebar.remotePickerSelect": {
+    "line": 2162,
+    "en": "'Select folder',"
+  },
+  "rightSidebar.remotePickerTitle": {
+    "line": 2160,
+    "en": "'Choose remote folder',"
+  },
+  "rightSidebar.terminalCloseAll": {
+    "line": 2186,
+    "en": "'Close all',"
+  },
+  "rightSidebar.terminalCloseOthers": {
+    "line": 2185,
+    "en": "'Close others',"
+  },
+  "rightSidebar.terminalHide": {
+    "line": 2182,
+    "en": "'Hide terminal',"
+  },
+  "rightSidebar.terminalNew": {
+    "line": 2184,
+    "en": "'New terminal',"
+  },
+  "rightSidebar.terminalsAria": {
+    "line": 2183,
+    "en": "'Terminals',"
+  },
+  "settings.about.updateNow": {
+    "line": 470,
+    "en": "'Update now',"
+  },
+  "settings.appearance.backdropDesc": {
+    "line": 395,
+    "en": "'The faint statue image behind the conversation.',"
+  },
+  "settings.appearance.backdropTitle": {
+    "line": 394,
+    "en": "'Chat Backdrop',"
+  },
+  "settings.appearance.embedsAlways": {
+    "line": 400,
+    "en": "'Always',"
+  },
+  "settings.appearance.embedsAsk": {
+    "line": 399,
+    "en": "'Ask',"
+  },
+  "settings.appearance.embedsDesc": {
+    "line": 397,
+    "en": ""
+  },
+  "settings.appearance.embedsOff": {
+    "line": 401,
+    "en": "'Off',"
+  },
+  "settings.appearance.embedsReset": {
+    "line": 402,
+    "en": "(count: number) => `Reset ${count} allowed ${count === 1 ? 'service' : 'services'}`,"
+  },
+  "settings.appearance.embedsTitle": {
+    "line": 396,
+    "en": "'Inline Embeds',"
+  },
+  "settings.appearance.importedBadge": {
+    "line": 419,
+    "en": "'Imported',"
+  },
+  "settings.appearance.installButton": {
+    "line": 414,
+    "en": "'Install',"
+  },
+  "settings.appearance.installDesc": {
+    "line": 411,
+    "en": ""
+  },
+  "settings.appearance.installError": {
+    "line": 416,
+    "en": "'Could not install that theme.',"
+  },
+  "settings.appearance.installPlaceholder": {
+    "line": 413,
+    "en": "'publisher.extension',"
+  },
+  "settings.appearance.installTitle": {
+    "line": 410,
+    "en": "'Install from VS Code',"
+  },
+  "settings.appearance.installed": {
+    "line": 417,
+    "en": "name => `Installed “${name}”.`,"
+  },
+  "settings.appearance.installing": {
+    "line": 415,
+    "en": "'Installing…',"
+  },
+  "settings.appearance.pet.adoptFailed": {
+    "line": 451,
+    "en": "slug => `Could not adopt ${slug}`,"
+  },
+  "settings.appearance.pet.chooseDesc": {
+    "line": 433,
+    "en": "'Picking one installs it (if needed) and makes it active.',"
+  },
+  "settings.appearance.pet.chooseTitle": {
+    "line": 432,
+    "en": "'Choose a pet',"
+  },
+  "settings.appearance.pet.count": {
+    "line": 440,
+    "en": "n => `${n} pet${n === 1 ? '' : 's'}.`,"
+  },
+  "settings.appearance.pet.countCapped": {
+    "line": 439,
+    "en": "(cap, total) => `Showing ${cap} of ${total} — type to narrow it down.`,"
+  },
+  "settings.appearance.pet.delete": {
+    "line": 442,
+    "en": "name => `Delete ${name}`,"
+  },
+  "settings.appearance.pet.deleteBody": {
+    "line": 444,
+    "en": "\"This permanently deletes the pet — it can't be reinstalled.\","
+  },
+  "settings.appearance.pet.deleteConfirm": {
+    "line": 445,
+    "en": "'Delete',"
+  },
+  "settings.appearance.pet.deleteTitle": {
+    "line": 443,
+    "en": "name => `Delete ${name}?`,"
+  },
+  "settings.appearance.pet.exportFailed": {
+    "line": 454,
+    "en": "slug => `Could not export ${slug}`,"
+  },
+  "settings.appearance.pet.exportPet": {
+    "line": 450,
+    "en": "name => `Export ${name}`,"
+  },
+  "settings.appearance.pet.generatedTag": {
+    "line": 438,
+    "en": "'Generated',"
+  },
+  "settings.appearance.pet.installedTag": {
+    "line": 437,
+    "en": "'installed',"
+  },
+  "settings.appearance.pet.intro": {
+    "line": 422,
+    "en": ""
+  },
+  "settings.appearance.pet.noMatch": {
+    "line": 436,
+    "en": "query => `No pets match \"${query}\".`,"
+  },
+  "settings.appearance.pet.noneAvailable": {
+    "line": 455,
+    "en": "'No pets available to turn on right now.',"
+  },
+  "settings.appearance.pet.off": {
+    "line": 427,
+    "en": "'Off',"
+  },
+  "settings.appearance.pet.on": {
+    "line": 426,
+    "en": "'On',"
+  },
+  "settings.appearance.pet.rename": {
+    "line": 446,
+    "en": "name => `Rename ${name}`,"
+  },
+  "settings.appearance.pet.renameFailed": {
+    "line": 453,
+    "en": "slug => `Could not rename ${slug}`,"
+  },
+  "settings.appearance.pet.renamePlaceholder": {
+    "line": 448,
+    "en": "'Name your pet',"
+  },
+  "settings.appearance.pet.renameSave": {
+    "line": 449,
+    "en": "'Save',"
+  },
+  "settings.appearance.pet.renameTitle": {
+    "line": 447,
+    "en": "'Rename pet',"
+  },
+  "settings.appearance.pet.restartHint": {
+    "line": 424,
+    "en": ""
+  },
+  "settings.appearance.pet.roamDesc": {
+    "line": 431,
+    "en": "'Let the pet wander the window on its own while idle.',"
+  },
+  "settings.appearance.pet.roamTitle": {
+    "line": 430,
+    "en": "'Roam',"
+  },
+  "settings.appearance.pet.scaleDesc": {
+    "line": 429,
+    "en": "'Resize the floating mascot. Applies everywhere instantly.',"
+  },
+  "settings.appearance.pet.scaleTitle": {
+    "line": 428,
+    "en": "'Size',"
+  },
+  "settings.appearance.pet.searchPlaceholder": {
+    "line": 434,
+    "en": "'Search pets…',"
+  },
+  "settings.appearance.pet.title": {
+    "line": 421,
+    "en": "'Pet',"
+  },
+  "settings.appearance.pet.turnOffFailed": {
+    "line": 457,
+    "en": "'Could not turn the pet off.'"
+  },
+  "settings.appearance.pet.turnOnFailed": {
+    "line": 456,
+    "en": "'Could not turn the pet on.',"
+  },
+  "settings.appearance.pet.uninstall": {
+    "line": 441,
+    "en": "name => `Uninstall ${name}`,"
+  },
+  "settings.appearance.pet.uninstallFailed": {
+    "line": 452,
+    "en": "slug => `Could not uninstall ${slug}`,"
+  },
+  "settings.appearance.pet.unreachable": {
+    "line": 435,
+    "en": "\"Couldn't reach the petdex gallery. Check your connection and reopen this page.\","
+  },
+  "settings.appearance.removeTheme": {
+    "line": 418,
+    "en": "'Remove theme',"
+  },
+  "settings.appearance.themeProfileNote": {
+    "line": 409,
+    "en": "profile => `Saved for the ${profile} profile — each profile keeps its own theme.`,"
+  },
+  "settings.appearance.translucencyDesc": {
+    "line": 393,
+    "en": "'See your desktop through the whole window. macOS and Windows only.',"
+  },
+  "settings.appearance.translucencyTitle": {
+    "line": 392,
+    "en": "'Window Translucency',"
+  },
+  "settings.appearance.uiScaleDesc": {
+    "line": 390,
+    "en": "(percent: number) =>"
+  },
+  "settings.appearance.uiScaleTitle": {
+    "line": 389,
+    "en": "'UI Scale',"
+  },
+  "settings.gateway.cloudAgentProvisioning": {
+    "line": 575,
+    "en": "'Provisioning…',"
+  },
+  "settings.gateway.cloudAgentsTitle": {
+    "line": 553,
+    "en": "'Your agents',"
+  },
+  "settings.gateway.cloudConnect": {
+    "line": 565,
+    "en": "'Connect',"
+  },
+  "settings.gateway.cloudConnectFailed": {
+    "line": 568,
+    "en": "'Could not connect to that agent',"
+  },
+  "settings.gateway.cloudConnectedPill": {
+    "line": 573,
+    "en": "'Connected',"
+  },
+  "settings.gateway.cloudConnectedTitle": {
+    "line": 572,
+    "en": "'Connected',"
+  },
+  "settings.gateway.cloudConnectedTo": {
+    "line": 574,
+    "en": "name => `Connected to ${name}.`,"
+  },
+  "settings.gateway.cloudConnecting": {
+    "line": 566,
+    "en": "'Connecting…',"
+  },
+  "settings.gateway.cloudDesc": {
+    "line": 547,
+    "en": "'Sign in once to Hermes Cloud and pick from the agents on your account — no URL to paste.',"
+  },
+  "settings.gateway.cloudDiscoverFailed": {
+    "line": 567,
+    "en": "'Could not load your Hermes Cloud agents',"
+  },
+  "settings.gateway.cloudLoadingAgents": {
+    "line": 558,
+    "en": "'Loading your agents…',"
+  },
+  "settings.gateway.cloudNeedsSignIn": {
+    "line": 551,
+    "en": "'Sign in to Hermes Cloud to discover the agents on your account.',"
+  },
+  "settings.gateway.cloudNoAgents.after": {
+    "line": 562,
+    "en": "', then refresh.'"
+  },
+  "settings.gateway.cloudNoAgents.before": {
+    "line": 560,
+    "en": "'No agents found on this account. Create one in the ',"
+  },
+  "settings.gateway.cloudNoAgents.linkText": {
+    "line": 561,
+    "en": "'Nous portal',"
+  },
+  "settings.gateway.cloudOrgChange": {
+    "line": 556,
+    "en": "'Change org',"
+  },
+  "settings.gateway.cloudOrgPickerTitle": {
+    "line": 554,
+    "en": "'Choose an organization',"
+  },
+  "settings.gateway.cloudOrgRole": {
+    "line": 557,
+    "en": "role => `Role: ${role}`,"
+  },
+  "settings.gateway.cloudOrgSelect": {
+    "line": 555,
+    "en": "'Select',"
+  },
+  "settings.gateway.cloudRefresh": {
+    "line": 564,
+    "en": "'Refresh',"
+  },
+  "settings.gateway.cloudSignIn": {
+    "line": 549,
+    "en": "'Sign in to Hermes Cloud',"
+  },
+  "settings.gateway.cloudSignInFailed": {
+    "line": 569,
+    "en": "'Hermes Cloud sign-in failed',"
+  },
+  "settings.gateway.cloudSignInTitle": {
+    "line": 548,
+    "en": "'Hermes Cloud',"
+  },
+  "settings.gateway.cloudSignedIn": {
+    "line": 550,
+    "en": "'Signed in to Hermes Cloud',"
+  },
+  "settings.gateway.cloudSignedInDesc": {
+    "line": 552,
+    "en": "'You are signed in. Pick an agent below; the session refreshes automatically.',"
+  },
+  "settings.gateway.cloudSignedOutMessage": {
+    "line": 571,
+    "en": "'Cleared the Hermes Cloud session.',"
+  },
+  "settings.gateway.cloudSignedOutTitle": {
+    "line": 570,
+    "en": "'Signed out of Hermes Cloud',"
+  },
+  "settings.gateway.cloudStatusLabel": {
+    "line": 576,
+    "en": "status => `Status: ${status}`,"
+  },
+  "settings.gateway.cloudTitle": {
+    "line": 546,
+    "en": "'Hermes Cloud',"
+  },
+  "settings.gateway.modeTitle": {
+    "line": 539,
+    "en": "'Connection mode',"
+  },
+  "settings.gateway.remoteAuthHint": {
+    "line": 544,
+    "en": ""
+  },
+  "settings.mcp.allServers": {
+    "line": 684,
+    "en": "'All servers',"
+  },
+  "settings.mcp.authenticate": {
+    "line": 688,
+    "en": "'Authenticate',"
+  },
+  "settings.mcp.authenticatedMessage": {
+    "line": 686,
+    "en": "(server, count) => `${server}: ${count} tools`,"
+  },
+  "settings.mcp.authenticatedTitle": {
+    "line": 685,
+    "en": "'Authenticated',"
+  },
+  "settings.mcp.capabilitySummary": {
+    "line": 678,
+    "en": "(tools, prompts, resources) =>"
+  },
+  "settings.mcp.catalogEmpty": {
+    "line": 668,
+    "en": "'No catalog entries available.',"
+  },
+  "settings.mcp.catalogEnabled": {
+    "line": 670,
+    "en": "'Enabled',"
+  },
+  "settings.mcp.catalogEnvPrompt": {
+    "line": 676,
+    "en": "name => `${name} requires credentials`,"
+  },
+  "settings.mcp.catalogEnvRequired": {
+    "line": 677,
+    "en": "'Fill in the required values before installing.',"
+  },
+  "settings.mcp.catalogInstall": {
+    "line": 672,
+    "en": "'Install',"
+  },
+  "settings.mcp.catalogInstallFailed": {
+    "line": 675,
+    "en": "name => `Failed to install ${name}`,"
+  },
+  "settings.mcp.catalogInstallStarted": {
+    "line": 674,
+    "en": "name => `Installing ${name}... applies to new sessions when done.`,"
+  },
+  "settings.mcp.catalogInstalled": {
+    "line": 669,
+    "en": "'Installed',"
+  },
+  "settings.mcp.catalogInstalling": {
+    "line": 673,
+    "en": "'Installing...',"
+  },
+  "settings.mcp.catalogLoadFailed": {
+    "line": 667,
+    "en": "'MCP catalog failed to load',"
+  },
+  "settings.mcp.catalogLoading": {
+    "line": 666,
+    "en": "'Loading MCP catalog...',"
+  },
+  "settings.mcp.catalogNeedsInstall": {
+    "line": 671,
+    "en": "'Needs build',"
+  },
+  "settings.mcp.disableServer": {
+    "line": 660,
+    "en": "name => `Disable ${name}`,"
+  },
+  "settings.mcp.disableTool": {
+    "line": 691,
+    "en": "tool => `Disable ${tool}`,"
+  },
+  "settings.mcp.enableServer": {
+    "line": 659,
+    "en": "name => `Enable ${name}`,"
+  },
+  "settings.mcp.enableTool": {
+    "line": 690,
+    "en": "tool => `Enable ${tool}`,"
+  },
+  "settings.mcp.noOutput": {
+    "line": 692,
+    "en": "'No output yet.'"
+  },
+  "settings.mcp.serverDisabled": {
+    "line": 662,
+    "en": "name => `${name} disabled — applies to new sessions.`,"
+  },
+  "settings.mcp.serverEnabled": {
+    "line": 661,
+    "en": "name => `${name} enabled — applies to new sessions.`,"
+  },
+  "settings.mcp.statusConnecting": {
+    "line": 680,
+    "en": "'Connecting…',"
+  },
+  "settings.mcp.statusError": {
+    "line": 682,
+    "en": "'Error',"
+  },
+  "settings.mcp.statusNeedsAuth": {
+    "line": 681,
+    "en": "'Needs authentication',"
+  },
+  "settings.mcp.statusOff": {
+    "line": 683,
+    "en": "'Off',"
+  },
+  "settings.mcp.tabCatalog": {
+    "line": 665,
+    "en": "'Catalog',"
+  },
+  "settings.mcp.tabServers": {
+    "line": 664,
+    "en": "'Servers',"
+  },
+  "settings.mcp.test": {
+    "line": 655,
+    "en": "'Test connection',"
+  },
+  "settings.mcp.testFailed": {
+    "line": 658,
+    "en": "'Connection failed',"
+  },
+  "settings.mcp.testOk": {
+    "line": 657,
+    "en": "count => `Connected — ${count} tool${count === 1 ? '' : 's'} available`,"
+  },
+  "settings.mcp.testing": {
+    "line": 656,
+    "en": "'Testing...',"
+  },
+  "settings.mcp.toggleFailed": {
+    "line": 663,
+    "en": "name => `Failed to toggle ${name}`,"
+  },
+  "settings.mcp.unsavedConnect": {
+    "line": 689,
+    "en": "'Unsaved — save mcp.json to connect.',"
+  },
+  "settings.mcp.waitingForBrowser": {
+    "line": 687,
+    "en": "'Waiting for browser…',"
+  },
+  "settings.model.defaultsFailed": {
+    "line": 703,
+    "en": "'Failed to save model defaults',"
+  },
+  "settings.model.defaultsLabel": {
+    "line": 700,
+    "en": "'Defaults',"
+  },
+  "settings.model.fallbackAdd": {
+    "line": 711,
+    "en": "'Add fallback',"
+  },
+  "settings.model.fallbackEmpty": {
+    "line": 712,
+    "en": "'No fallback models — the default model is used unless it fails.',"
+  },
+  "settings.model.notInCatalog": {
+    "line": 713,
+    "en": "\"isn't in this provider's model list — calls may fall back to a backup.\","
+  },
+  "settings.model.reasoning": {
+    "line": 701,
+    "en": "'Reasoning',"
+  },
+  "settings.model.reasoningOff": {
+    "line": 702,
+    "en": "'Off',"
+  },
+  "settings.nav.notifications": {
+    "line": 318,
+    "en": "'Notifications'"
+  },
+  "settings.notifications.completionSoundDesc": {
+    "line": 355,
+    "en": "'Plays when an agent turn finishes. Pick a preset and preview it here.',"
+  },
+  "settings.notifications.completionSoundPreview": {
+    "line": 356,
+    "en": "'Preview'"
+  },
+  "settings.notifications.completionSoundTitle": {
+    "line": 354,
+    "en": "'Completion Sound',"
+  },
+  "settings.notifications.enableAll": {
+    "line": 324,
+    "en": "'Enable notifications',"
+  },
+  "settings.notifications.enableAllDesc": {
+    "line": 325,
+    "en": "'Master switch. Turn this off to silence every notification below.',"
+  },
+  "settings.notifications.focusedHint": {
+    "line": 326,
+    "en": "'Completion alerts only fire while Hermes is in the background.',"
+  },
+  "settings.notifications.intro": {
+    "line": 322,
+    "en": ""
+  },
+  "settings.notifications.kinds.approval.description": {
+    "line": 330,
+    "en": "'A command is waiting for you to approve or reject it.'"
+  },
+  "settings.notifications.kinds.approval.label": {
+    "line": 329,
+    "en": "'Approval needed',"
+  },
+  "settings.notifications.kinds.backgroundDone.description": {
+    "line": 346,
+    "en": "'A backgrounded terminal command completed.'"
+  },
+  "settings.notifications.kinds.backgroundDone.label": {
+    "line": 345,
+    "en": "'Background task finished',"
+  },
+  "settings.notifications.kinds.input.description": {
+    "line": 334,
+    "en": "'Hermes asked a question or needs a password or secret.'"
+  },
+  "settings.notifications.kinds.input.label": {
+    "line": 333,
+    "en": "'Input needed',"
+  },
+  "settings.notifications.kinds.turnDone.description": {
+    "line": 338,
+    "en": "'A turn finished while Hermes was in the background.'"
+  },
+  "settings.notifications.kinds.turnDone.label": {
+    "line": 337,
+    "en": "'Response ready',"
+  },
+  "settings.notifications.kinds.turnError.description": {
+    "line": 342,
+    "en": "'A turn ended with an error.'"
+  },
+  "settings.notifications.kinds.turnError.label": {
+    "line": 341,
+    "en": "'Turn failed',"
+  },
+  "settings.notifications.test": {
+    "line": 349,
+    "en": "'Send test notification',"
+  },
+  "settings.notifications.testBody": {
+    "line": 351,
+    "en": "'Notifications are working.',"
+  },
+  "settings.notifications.testSent": {
+    "line": 352,
+    "en": "'Test sent. If nothing appears, check your OS notification permissions and Focus/Do Not Disturb.',"
+  },
+  "settings.notifications.testTitle": {
+    "line": 350,
+    "en": "'Hermes',"
+  },
+  "settings.notifications.testUnsupported": {
+    "line": 353,
+    "en": "'This system does not support native notifications.',"
+  },
+  "settings.notifications.title": {
+    "line": 321,
+    "en": "'Notifications',"
+  },
+  "settings.providers.disconnect": {
+    "line": 734,
+    "en": "'Disconnect',"
+  },
+  "settings.providers.disconnectInTerminal": {
+    "line": 735,
+    "en": "'Disconnect (runs the removal command in the terminal)',"
+  },
+  "settings.providers.failedRemove": {
+    "line": 744,
+    "en": "provider => `Could not remove ${provider}`,"
+  },
+  "settings.providers.noKeysMatch": {
+    "line": 747,
+    "en": "'No providers match your search.',"
+  },
+  "settings.providers.removeConfirm": {
+    "line": 736,
+    "en": "provider => `Remove ${provider}?`,"
+  },
+  "settings.providers.removeExternalGeneric": {
+    "line": 737,
+    "en": "provider => `${provider} is managed by its own CLI — remove it there.`,"
+  },
+  "settings.providers.removeKeyManaged": {
+    "line": 738,
+    "en": "provider => `${provider} is configured from an API key. Remove it from API Keys.`,"
+  },
+  "settings.providers.removeTerminalConfirm": {
+    "line": 739,
+    "en": "(provider, command) =>"
+  },
+  "settings.providers.removeTerminalRunning": {
+    "line": 741,
+    "en": "provider => `Running ${provider} disconnect in the terminal…`,"
+  },
+  "settings.providers.removedMessage": {
+    "line": 743,
+    "en": "provider => `${provider} was removed.`,"
+  },
+  "settings.providers.removedTitle": {
+    "line": 742,
+    "en": "'Account removed',"
+  },
+  "settings.providers.searchKeys": {
+    "line": 746,
+    "en": "'Search providers…',"
+  },
+  "settings.toolsets.failedSelectModel": {
+    "line": 816,
+    "en": "model => `Failed to select ${model}`"
+  },
+  "settings.toolsets.loadingModels": {
+    "line": 808,
+    "en": "'Loading model catalog...',"
+  },
+  "settings.toolsets.modelCount": {
+    "line": 810,
+    "en": "count => `${count} model${count === 1 ? '' : 's'}`,"
+  },
+  "settings.toolsets.modelDefault": {
+    "line": 812,
+    "en": "'default',"
+  },
+  "settings.toolsets.modelInUse": {
+    "line": 811,
+    "en": "'In use',"
+  },
+  "settings.toolsets.modelInactiveHint": {
+    "line": 813,
+    "en": "'Select this backend first to change its model.',"
+  },
+  "settings.toolsets.modelSectionTitle": {
+    "line": 809,
+    "en": "'Model',"
+  },
+  "settings.toolsets.modelSelectedMessage": {
+    "line": 815,
+    "en": "model => `${model} applies to new sessions.`,"
+  },
+  "settings.toolsets.modelSelectedTitle": {
+    "line": 814,
+    "en": "'Model selected',"
+  },
+  "shell.approvalMode.ariaLabel": {
+    "line": 2077,
+    "en": "mode => `Approval mode: ${mode}`,"
+  },
+  "shell.approvalMode.manual": {
+    "line": 2078,
+    "en": "'Manual',"
+  },
+  "shell.approvalMode.manualDescription": {
+    "line": 2079,
+    "en": "'Ask before actions that require approval',"
+  },
+  "shell.approvalMode.off": {
+    "line": 2082,
+    "en": "'Off',"
+  },
+  "shell.approvalMode.offDescription": {
+    "line": 2083,
+    "en": "'Run without approval prompts'"
+  },
+  "shell.approvalMode.smart": {
+    "line": 2080,
+    "en": "'Smart',"
+  },
+  "shell.approvalMode.smartDescription": {
+    "line": 2081,
+    "en": "'Automatically assess actions and ask when needed',"
+  },
+  "shell.approvalMode.title": {
+    "line": 2076,
+    "en": "'Approval mode',"
+  },
+  "shell.modelMenu.refreshModels": {
+    "line": 2040,
+    "en": "'Refresh Models',"
+  },
+  "shell.modelOptions.ultra": {
+    "line": 2056,
+    "en": "'Ultra',"
+  },
+  "shell.modelOptions.xhigh": {
+    "line": 2054,
+    "en": "'Extra High',"
+  },
+  "shell.statusbar.backendLabel": {
+    "line": 2094,
+    "en": "version => `backend v${version}`,"
+  },
+  "shell.statusbar.backendVersion": {
+    "line": 2092,
+    "en": "version => `Backend v${version}`,"
+  },
+  "shell.statusbar.clientLabel": {
+    "line": 2093,
+    "en": "version => `client v${version}`,"
+  },
+  "shell.statusbar.contextUsagePanel.categories.conversation": {
+    "line": 2124,
+    "en": "'Conversation',"
+  },
+  "shell.statusbar.contextUsagePanel.categories.mcp": {
+    "line": 2125,
+    "en": "'MCP',"
+  },
+  "shell.statusbar.contextUsagePanel.categories.memory": {
+    "line": 2126,
+    "en": "'Memory',"
+  },
+  "shell.statusbar.contextUsagePanel.categories.rules": {
+    "line": 2127,
+    "en": "'Rules',"
+  },
+  "shell.statusbar.contextUsagePanel.categories.skills": {
+    "line": 2128,
+    "en": "'Skills',"
+  },
+  "shell.statusbar.contextUsagePanel.categories.subagent_definitions": {
+    "line": 2129,
+    "en": "'Subagent definitions',"
+  },
+  "shell.statusbar.contextUsagePanel.categories.system_prompt": {
+    "line": 2130,
+    "en": "'System prompt',"
+  },
+  "shell.statusbar.contextUsagePanel.categories.tool_definitions": {
+    "line": 2131,
+    "en": "'Tool definitions'"
+  },
+  "shell.statusbar.contextUsagePanel.empty": {
+    "line": 2133,
+    "en": "'No context data yet',"
+  },
+  "shell.statusbar.contextUsagePanel.loading": {
+    "line": 2134,
+    "en": "'Loading breakdown…',"
+  },
+  "shell.statusbar.contextUsagePanel.percentFull": {
+    "line": 2135,
+    "en": "percent => `${percent}% Full`,"
+  },
+  "shell.statusbar.contextUsagePanel.title": {
+    "line": 2136,
+    "en": "'Context Usage',"
+  },
+  "shell.statusbar.contextUsagePanel.tokenSummary": {
+    "line": 2137,
+    "en": "(used, max) => `${used} / ${max} Tokens`"
+  },
+  "shell.statusbar.gatewayRestarting": {
+    "line": 2107,
+    "en": "'restarting…',"
+  },
+  "shell.statusbar.hideTerminal": {
+    "line": 2100,
+    "en": "'Hide terminal',"
+  },
+  "shell.statusbar.openContextUsage": {
+    "line": 2139,
+    "en": "'Open context usage breakdown',"
+  },
+  "shell.statusbar.openStarmap": {
+    "line": 2118,
+    "en": "'Open memory graph',"
+  },
+  "shell.statusbar.showTerminal": {
+    "line": 2099,
+    "en": "'Show terminal',"
+  },
+  "shell.statusbar.starmap": {
+    "line": 2117,
+    "en": "'Memory Graph',"
+  },
+  "sidebar.noProject": {
+    "line": 1549,
+    "en": "'No project',"
+  },
+  "sidebar.noSessions": {
+    "line": 1551,
+    "en": "'No sessions yet',"
+  },
+  "sidebar.projectEmpty": {
+    "line": 1550,
+    "en": "'No sessions yet',"
+  },
+  "sidebar.projects.addFolder": {
+    "line": 1567,
+    "en": "'Add folder',"
+  },
+  "sidebar.projects.addFolderTitle": {
+    "line": 1558,
+    "en": "'Add folder',"
+  },
+  "sidebar.projects.back": {
+    "line": 1613,
+    "en": "'All projects'"
+  },
+  "sidebar.projects.baseBranchNone": {
+    "line": 1591,
+    "en": "'No branches found',"
+  },
+  "sidebar.projects.baseBranchPlaceholder": {
+    "line": 1590,
+    "en": "'Search branches…',"
+  },
+  "sidebar.projects.branchCreateWorktree": {
+    "line": 1600,
+    "en": "'new worktree',"
+  },
+  "sidebar.projects.branchOff": {
+    "line": 1589,
+    "en": "() => ({ after: '', before: 'branch off ' }),"
+  },
+  "sidebar.projects.branchOpenExisting": {
+    "line": 1598,
+    "en": "'open',"
+  },
+  "sidebar.projects.branchPlaceholder": {
+    "line": 1588,
+    "en": "'e.g. my-feature',"
+  },
+  "sidebar.projects.branchSwitchHome": {
+    "line": 1599,
+    "en": "'switch home',"
+  },
+  "sidebar.projects.branchesLoading": {
+    "line": 1601,
+    "en": "'Loading branches…',"
+  },
+  "sidebar.projects.convertBranch": {
+    "line": 1593,
+    "en": "'Convert a branch…',"
+  },
+  "sidebar.projects.convertBranchDesc": {
+    "line": 1595,
+    "en": "'Open checked-out branches, or create a worktree for a free branch.',"
+  },
+  "sidebar.projects.convertBranchInstead": {
+    "line": 1597,
+    "en": "'Convert an existing branch',"
+  },
+  "sidebar.projects.convertBranchPlaceholder": {
+    "line": 1596,
+    "en": "'Search branches…',"
+  },
+  "sidebar.projects.convertBranchTitle": {
+    "line": 1594,
+    "en": "'Convert a branch',"
+  },
+  "sidebar.projects.copyPath": {
+    "line": 1579,
+    "en": "'Copy path',"
+  },
+  "sidebar.projects.create": {
+    "line": 1570,
+    "en": "'Create',"
+  },
+  "sidebar.projects.createDesc": {
+    "line": 1556,
+    "en": "'Name a workspace and add one or more folders.',"
+  },
+  "sidebar.projects.createFailed": {
+    "line": 1581,
+    "en": "'Could not create project',"
+  },
+  "sidebar.projects.createTitle": {
+    "line": 1555,
+    "en": "'New project',"
+  },
+  "sidebar.projects.deleteConfirm": {
+    "line": 1584,
+    "en": "'This removes the saved project from Hermes. Files, git repos, and worktrees stay untouched.',"
+  },
+  "sidebar.projects.enter": {
+    "line": 1610,
+    "en": "label => `Open ${label}`,"
+  },
+  "sidebar.projects.foldersLabel": {
+    "line": 1560,
+    "en": "'Folders',"
+  },
+  "sidebar.projects.forceRemove": {
+    "line": 1609,
+    "en": "'Force remove',"
+  },
+  "sidebar.projects.ideaGenerate": {
+    "line": 1563,
+    "en": "'Generate idea',"
+  },
+  "sidebar.projects.ideaGenerating": {
+    "line": 1564,
+    "en": "'Generating…',"
+  },
+  "sidebar.projects.ideaLabel": {
+    "line": 1561,
+    "en": "'Idea',"
+  },
+  "sidebar.projects.ideaPlaceholder": {
+    "line": 1562,
+    "en": "\"What's this project about? (saved to IDEA.md)\","
+  },
+  "sidebar.projects.ideaShuffle": {
+    "line": 1565,
+    "en": "'Shuffle templates',"
+  },
+  "sidebar.projects.menu": {
+    "line": 1571,
+    "en": "'Project actions',"
+  },
+  "sidebar.projects.menuAddFolder": {
+    "line": 1575,
+    "en": "'Add folder',"
+  },
+  "sidebar.projects.menuAppearance": {
+    "line": 1573,
+    "en": "'Appearance',"
+  },
+  "sidebar.projects.menuDelete": {
+    "line": 1577,
+    "en": "'Delete',"
+  },
+  "sidebar.projects.menuRename": {
+    "line": 1572,
+    "en": "'Rename',"
+  },
+  "sidebar.projects.menuSetActive": {
+    "line": 1576,
+    "en": "'Set active',"
+  },
+  "sidebar.projects.namePlaceholder": {
+    "line": 1559,
+    "en": "'e.g. Skunkworks',"
+  },
+  "sidebar.projects.newButton": {
+    "line": 1554,
+    "en": "'New project',"
+  },
+  "sidebar.projects.newWorktreeDesc": {
+    "line": 1587,
+    "en": "'Name the branch for this worktree.',"
+  },
+  "sidebar.projects.newWorktreeTitle": {
+    "line": 1586,
+    "en": "'New worktree',"
+  },
+  "sidebar.projects.noBranches": {
+    "line": 1602,
+    "en": "'No branches found',"
+  },
+  "sidebar.projects.noColor": {
+    "line": 1574,
+    "en": "'No color',"
+  },
+  "sidebar.projects.noFolders": {
+    "line": 1566,
+    "en": "'No folders added yet.',"
+  },
+  "sidebar.projects.primaryBadge": {
+    "line": 1568,
+    "en": "'primary',"
+  },
+  "sidebar.projects.removeFolder": {
+    "line": 1569,
+    "en": "'Remove',"
+  },
+  "sidebar.projects.removeFromSidebar": {
+    "line": 1580,
+    "en": "'Hide from sidebar',"
+  },
+  "sidebar.projects.removeWorktree": {
+    "line": 1603,
+    "en": "'Remove worktree',"
+  },
+  "sidebar.projects.removeWorktreeConfirm": {
+    "line": 1605,
+    "en": ""
+  },
+  "sidebar.projects.removeWorktreeDirty": {
+    "line": 1607,
+    "en": ""
+  },
+  "sidebar.projects.removeWorktreeFailed": {
+    "line": 1604,
+    "en": "'Could not remove worktree (uncommitted changes?)',"
+  },
+  "sidebar.projects.renameTitle": {
+    "line": 1557,
+    "en": "'Rename project',"
+  },
+  "sidebar.projects.reorder": {
+    "line": 1611,
+    "en": "label => `Reorder ${label}`,"
+  },
+  "sidebar.projects.reveal": {
+    "line": 1578,
+    "en": "'Reveal in folder',"
+  },
+  "sidebar.projects.sectionLabel": {
+    "line": 1553,
+    "en": "'Projects',"
+  },
+  "sidebar.projects.staleBackend": {
+    "line": 1582,
+    "en": ""
+  },
+  "sidebar.projects.startWork": {
+    "line": 1585,
+    "en": "'New worktree',"
+  },
+  "sidebar.projects.startWorkFailed": {
+    "line": 1592,
+    "en": "'Could not create worktree',"
+  },
+  "sidebar.projects.toggle": {
+    "line": 1612,
+    "en": "label => `Toggle ${label} sessions`,"
+  },
+  "sidebar.row.branchFrom": {
+    "line": 1625,
+    "en": "'Branch',"
+  },
+  "sidebar.row.handoffOrigin": {
+    "line": 1635,
+    "en": "platform => `Handed off from ${platform}`,"
+  },
+  "sidebar.row.newWindow": {
+    "line": 1628,
+    "en": "'New window',"
+  },
+  "sidebar.showProjects": {
+    "line": 1542,
+    "en": "'Show projects',"
+  },
+  "sidebar.showSessions": {
+    "line": 1543,
+    "en": "'Show sessions',"
+  },
+  "skills.archive": {
+    "line": 870,
+    "en": "'Archive',"
+  },
+  "skills.bulkNoChange": {
+    "line": 857,
+    "en": "'Nothing to change.',"
+  },
+  "skills.bulkUpdated": {
+    "line": 856,
+    "en": "count => `Updated ${count} ${count === 1 ? 'item' : 'items'} for new sessions.`,"
+  },
+  "skills.changesApplyNewSessions": {
+    "line": 867,
+    "en": "'Changes apply to new sessions.',"
+  },
+  "skills.disableAll": {
+    "line": 854,
+    "en": "'Disable all',"
+  },
+  "skills.disableUnused": {
+    "line": 855,
+    "en": "'Disable unused',"
+  },
+  "skills.edit": {
+    "line": 869,
+    "en": "'Edit',"
+  },
+  "skills.emptyNoneAvailable": {
+    "line": 866,
+    "en": "noun => `No ${noun} available yet.`,"
+  },
+  "skills.emptyNoneFound": {
+    "line": 864,
+    "en": "noun => `No ${noun} found`,"
+  },
+  "skills.emptyNothingMatches": {
+    "line": 865,
+    "en": "query => `Nothing matches “${query}”.`,"
+  },
+  "skills.enableAll": {
+    "line": 853,
+    "en": "'Enable all',"
+  },
+  "skills.hub.actionFailed": {
+    "line": 914,
+    "en": "'Skill action failed',"
+  },
+  "skills.hub.actionLog": {
+    "line": 915,
+    "en": "'Action log',"
+  },
+  "skills.hub.close": {
+    "line": 895,
+    "en": "'Close',"
+  },
+  "skills.hub.connectedHubs": {
+    "line": 878,
+    "en": "'Connected hubs:',"
+  },
+  "skills.hub.connectingHubs": {
+    "line": 877,
+    "en": "'Connecting to skill hubs...',"
+  },
+  "skills.hub.featured": {
+    "line": 879,
+    "en": "'Featured skills',"
+  },
+  "skills.hub.files": {
+    "line": 896,
+    "en": "'Files',"
+  },
+  "skills.hub.findings": {
+    "line": 909,
+    "en": "count => `${count} finding${count === 1 ? '' : 's'}`,"
+  },
+  "skills.hub.install": {
+    "line": 886,
+    "en": "'Install',"
+  },
+  "skills.hub.installStarted": {
+    "line": 911,
+    "en": "name => `Installing ${name}...`,"
+  },
+  "skills.hub.installed": {
+    "line": 885,
+    "en": "'Installed',"
+  },
+  "skills.hub.installing": {
+    "line": 887,
+    "en": "'Installing...',"
+  },
+  "skills.hub.landingHint": {
+    "line": 880,
+    "en": ""
+  },
+  "skills.hub.loadFailed": {
+    "line": 916,
+    "en": "'Skill hub failed to load',"
+  },
+  "skills.hub.noFindings": {
+    "line": 910,
+    "en": "'No security findings.',"
+  },
+  "skills.hub.noReadme": {
+    "line": 897,
+    "en": "'This skill has no SKILL.md preview.',"
+  },
+  "skills.hub.noResults": {
+    "line": 882,
+    "en": "'No matching skills found in the hub.',"
+  },
+  "skills.hub.policyAllow": {
+    "line": 906,
+    "en": "'Install allowed',"
+  },
+  "skills.hub.policyAsk": {
+    "line": 907,
+    "en": "'Review before installing',"
+  },
+  "skills.hub.policyBlock": {
+    "line": 908,
+    "en": "'Install blocked by policy',"
+  },
+  "skills.hub.preview": {
+    "line": 892,
+    "en": "'Preview',"
+  },
+  "skills.hub.previewFailed": {
+    "line": 917,
+    "en": "'Skill preview failed',"
+  },
+  "skills.hub.resultCount": {
+    "line": 883,
+    "en": "(count, ms) => `${count} result${count === 1 ? '' : 's'}${ms !== null ? ` in ${ms}ms` : ''}`,"
+  },
+  "skills.hub.scan": {
+    "line": 893,
+    "en": "'Scan',"
+  },
+  "skills.hub.scanFailed": {
+    "line": 918,
+    "en": "'Security scan failed',"
+  },
+  "skills.hub.scanning": {
+    "line": 894,
+    "en": "'Scanning...',"
+  },
+  "skills.hub.search": {
+    "line": 875,
+    "en": "'Search',"
+  },
+  "skills.hub.searchFailed": {
+    "line": 919,
+    "en": "'Hub search failed'"
+  },
+  "skills.hub.searchPlaceholder": {
+    "line": 874,
+    "en": "'Search the skill hub',"
+  },
+  "skills.hub.searching": {
+    "line": 876,
+    "en": "'Searching...',"
+  },
+  "skills.hub.timedOut": {
+    "line": 884,
+    "en": "sources => `Timed out: ${sources}`,"
+  },
+  "skills.hub.trust.builtin": {
+    "line": 899,
+    "en": "'builtin',"
+  },
+  "skills.hub.trust.community": {
+    "line": 901,
+    "en": "'community'"
+  },
+  "skills.hub.trust.trusted": {
+    "line": 900,
+    "en": "'trusted',"
+  },
+  "skills.hub.uninstall": {
+    "line": 888,
+    "en": "'Uninstall',"
+  },
+  "skills.hub.uninstallStarted": {
+    "line": 912,
+    "en": "name => `Uninstalling ${name}...`,"
+  },
+  "skills.hub.uninstalling": {
+    "line": 889,
+    "en": "'Uninstalling...',"
+  },
+  "skills.hub.updateAll": {
+    "line": 890,
+    "en": "'Update installed',"
+  },
+  "skills.hub.updateStarted": {
+    "line": 913,
+    "en": "'Updating installed skills...',"
+  },
+  "skills.hub.updating": {
+    "line": 891,
+    "en": "'Updating...',"
+  },
+  "skills.hub.verdictCaution": {
+    "line": 904,
+    "en": "'Caution',"
+  },
+  "skills.hub.verdictDangerous": {
+    "line": 905,
+    "en": "'Dangerous',"
+  },
+  "skills.hub.verdictSafe": {
+    "line": 903,
+    "en": "'Safe',"
+  },
+  "skills.provenance.agent": {
+    "line": 860,
+    "en": "'Learned',"
+  },
+  "skills.provenance.bundled": {
+    "line": 861,
+    "en": "'Built-in',"
+  },
+  "skills.provenance.hub": {
+    "line": 862,
+    "en": "'Hub'"
+  },
+  "skills.skillArchivedMessage": {
+    "line": 872,
+    "en": "'Restorable via hermes curator restore.',"
+  },
+  "skills.skillArchivedTitle": {
+    "line": 871,
+    "en": "'Skill archived',"
+  },
+  "skills.skillUpdated": {
+    "line": 868,
+    "en": "'Skill updated',"
+  },
+  "skills.sortAlpha": {
+    "line": 850,
+    "en": "'A–Z',"
+  },
+  "skills.sortLeastUsedAsc": {
+    "line": 852,
+    "en": "'↑ Least used',"
+  },
+  "skills.sortMostUsed": {
+    "line": 849,
+    "en": "'Most used',"
+  },
+  "skills.sortMostUsedDesc": {
+    "line": 851,
+    "en": "'↓ Most used',"
+  },
+  "skills.tabHub": {
+    "line": 824,
+    "en": "'Browse Hub',"
+  },
+  "skills.tabMcp": {
+    "line": 823,
+    "en": "'MCP',"
+  },
+  "skills.usageCount": {
+    "line": 858,
+    "en": "count => `used ${count}×`,"
+  },
+  "starmap.close": {
+    "line": 926,
+    "en": "'Close memory graph',"
+  },
+  "starmap.copied": {
+    "line": 943,
+    "en": "'Copied!',"
+  },
+  "starmap.copy": {
+    "line": 942,
+    "en": "'Copy map code',"
+  },
+  "starmap.emptyDesc": {
+    "line": 936,
+    "en": "'As Hermes builds skills and memories for your work, they appear here.',"
+  },
+  "starmap.emptyTitle": {
+    "line": 935,
+    "en": "'Nothing learned yet',"
+  },
+  "starmap.filterAll": {
+    "line": 929,
+    "en": "'All',"
+  },
+  "starmap.filterLearned": {
+    "line": 931,
+    "en": "'Learned',"
+  },
+  "starmap.filterUsed": {
+    "line": 930,
+    "en": "'Used',"
+  },
+  "starmap.importBtn": {
+    "line": 945,
+    "en": "'Load',"
+  },
+  "starmap.importEmpty": {
+    "line": 946,
+    "en": "'Paste a map code to load it.',"
+  },
+  "starmap.importMap": {
+    "line": 944,
+    "en": "'Import a map',"
+  },
+  "starmap.importSuccess": {
+    "line": 947,
+    "en": "nodes => `Loaded a map with ${nodes} ${nodes === 1 ? 'node' : 'nodes'}.`,"
+  },
+  "starmap.importedBadge": {
+    "line": 948,
+    "en": "'imported map',"
+  },
+  "starmap.loadFailed": {
+    "line": 933,
+    "en": "'Could not load memory graph',"
+  },
+  "starmap.loading": {
+    "line": 934,
+    "en": "'Loading…',"
+  },
+  "starmap.memory": {
+    "line": 928,
+    "en": "'Memory',"
+  },
+  "starmap.refresh": {
+    "line": 927,
+    "en": "'Refresh',"
+  },
+  "starmap.resetToMine": {
+    "line": 949,
+    "en": "'Back to my map'"
+  },
+  "starmap.share": {
+    "line": 937,
+    "en": "'Share map',"
+  },
+  "starmap.shareHint": {
+    "line": 938,
+    "en": ""
+  },
+  "starmap.sharePlaceholder": {
+    "line": 941,
+    "en": "'Paste a map code…',"
+  },
+  "starmap.shareTitle": {
+    "line": 940,
+    "en": "'Import / export map',"
+  },
+  "starmap.subtitle": {
+    "line": 925,
+    "en": "(nodes, clusters) => `${nodes} skills across ${clusters} categories`,"
+  },
+  "starmap.title": {
+    "line": 924,
+    "en": "'Memory Graph',"
+  },
+  "starmap.viewGraph": {
+    "line": 932,
+    "en": "'Graph',"
+  },
+  "statusStack.agents": {
+    "line": 1780,
+    "en": "'Agents',"
+  },
+  "statusStack.background": {
+    "line": 1781,
+    "en": "count => `${count} Background`,"
+  },
+  "statusStack.coding.agentShip": {
+    "line": 1824,
+    "en": "'Ask Hermes to open PR',"
+  },
+  "statusStack.coding.agentShipPrompt": {
+    "line": 1825,
+    "en": ""
+  },
+  "statusStack.coding.ahead": {
+    "line": 1794,
+    "en": "count => `${count} ahead`,"
+  },
+  "statusStack.coding.behind": {
+    "line": 1795,
+    "en": "count => `${count} behind`,"
+  },
+  "statusStack.coding.branchOffFrom": {
+    "line": 1828,
+    "en": "base => `New branch from ${base}`,"
+  },
+  "statusStack.coding.changed": {
+    "line": 1793,
+    "en": "count => `${count} changed`,"
+  },
+  "statusStack.coding.clean": {
+    "line": 1792,
+    "en": "'Clean',"
+  },
+  "statusStack.coding.close": {
+    "line": 1797,
+    "en": "'Close',"
+  },
+  "statusStack.coding.commit": {
+    "line": 1816,
+    "en": "'Commit',"
+  },
+  "statusStack.coding.commitAndPush": {
+    "line": 1817,
+    "en": "'Commit & Push',"
+  },
+  "statusStack.coding.commitPlaceholder": {
+    "line": 1818,
+    "en": "'Message (⌘↵ to commit)',"
+  },
+  "statusStack.coding.createPr": {
+    "line": 1821,
+    "en": "'Create PR',"
+  },
+  "statusStack.coding.detached": {
+    "line": 1791,
+    "en": "'detached',"
+  },
+  "statusStack.coding.generateCommitMessage": {
+    "line": 1819,
+    "en": "'Generate commit message',"
+  },
+  "statusStack.coding.ghMissing": {
+    "line": 1823,
+    "en": "'Install the GitHub CLI (gh) and sign in to open PRs',"
+  },
+  "statusStack.coding.newBranch": {
+    "line": 1827,
+    "en": "'New branch',"
+  },
+  "statusStack.coding.noBranch": {
+    "line": 1790,
+    "en": "'No branch',"
+  },
+  "statusStack.coding.noChanges": {
+    "line": 1810,
+    "en": "'No changes',"
+  },
+  "statusStack.coding.noDiff": {
+    "line": 1812,
+    "en": "'No diff to show',"
+  },
+  "statusStack.coding.notRepo": {
+    "line": 1811,
+    "en": "'Not a git repository',"
+  },
+  "statusStack.coding.openChanges": {
+    "line": 1798,
+    "en": "'Open Changes',"
+  },
+  "statusStack.coding.openFile": {
+    "line": 1799,
+    "en": "'Open File',"
+  },
+  "statusStack.coding.openPr": {
+    "line": 1822,
+    "en": "'Open PR',"
+  },
+  "statusStack.coding.revert": {
+    "line": 1805,
+    "en": "'Revert',"
+  },
+  "statusStack.coding.revertAll": {
+    "line": 1806,
+    "en": "'Revert all',"
+  },
+  "statusStack.coding.revertAllConfirm": {
+    "line": 1808,
+    "en": "'Discard every change and restore files to the committed state? This cannot be undone.',"
+  },
+  "statusStack.coding.revertConfirm": {
+    "line": 1807,
+    "en": "'Discard changes to this file and restore it to the committed state? This cannot be undone.',"
+  },
+  "statusStack.coding.review": {
+    "line": 1796,
+    "en": "'Review',"
+  },
+  "statusStack.coding.scopeBranch": {
+    "line": 1814,
+    "en": "'Branch',"
+  },
+  "statusStack.coding.scopeLastTurn": {
+    "line": 1815,
+    "en": "'Last turn',"
+  },
+  "statusStack.coding.scopeUncommitted": {
+    "line": 1813,
+    "en": "'Uncommitted',"
+  },
+  "statusStack.coding.stage": {
+    "line": 1800,
+    "en": "'Stage',"
+  },
+  "statusStack.coding.stageAll": {
+    "line": 1802,
+    "en": "'Stage all',"
+  },
+  "statusStack.coding.staged": {
+    "line": 1809,
+    "en": "'Staged',"
+  },
+  "statusStack.coding.stopGenerating": {
+    "line": 1820,
+    "en": "'Stop generating',"
+  },
+  "statusStack.coding.switchFailed": {
+    "line": 1830,
+    "en": "branch => `Could not switch to ${branch}`,"
+  },
+  "statusStack.coding.switchTo": {
+    "line": 1829,
+    "en": "branch => `Switch to ${branch}`,"
+  },
+  "statusStack.coding.title": {
+    "line": 1789,
+    "en": "'Working tree',"
+  },
+  "statusStack.coding.unstage": {
+    "line": 1801,
+    "en": "'Unstage',"
+  },
+  "statusStack.coding.viewAsList": {
+    "line": 1804,
+    "en": "'View as list',"
+  },
+  "statusStack.coding.viewAsTree": {
+    "line": 1803,
+    "en": "'View as tree',"
+  },
+  "statusStack.coding.worktrees": {
+    "line": 1831,
+    "en": "'Worktrees'"
+  },
+  "statusStack.dismiss": {
+    "line": 1786,
+    "en": "'Dismiss',"
+  },
+  "statusStack.exit": {
+    "line": 1787,
+    "en": "code => `exit ${code}`,"
+  },
+  "statusStack.running": {
+    "line": 1784,
+    "en": "'Running',"
+  },
+  "statusStack.stop": {
+    "line": 1785,
+    "en": "'Stop',"
+  },
+  "statusStack.subagents": {
+    "line": 1782,
+    "en": "count => `${count} Subagent${count === 1 ? '' : 's'}`,"
+  },
+  "statusStack.todos": {
+    "line": 1783,
+    "en": "(done, total) => `Tasks ${done}/${total}`,"
+  },
+  "titlebar.openStarmap": {
+    "line": 191,
+    "en": "'Open memory graph',"
+  },
+  "updates.applyStatus.failed": {
+    "line": 1889,
+    "en": "'Backend update failed.',"
+  },
+  "updates.applyStatus.noReturn": {
+    "line": 1890,
+    "en": "'Backend didn’t come back online. The update may not have completed — check the backend host.'"
+  },
+  "updates.applyStatus.notAvailable": {
+    "line": 1888,
+    "en": "'Update not available for this backend.',"
+  },
+  "updates.applyStatus.preparing": {
+    "line": 1885,
+    "en": "'Updating backend…',"
+  },
+  "updates.applyStatus.pulling": {
+    "line": 1886,
+    "en": "'Backend updating…',"
+  },
+  "updates.applyStatus.restarting": {
+    "line": 1887,
+    "en": "'Backend restarting to load the update…',"
+  },
+  "updates.applyingBodyBackend": {
+    "line": 1878,
+    "en": ""
+  },
+  "updates.availableBodyBackend": {
+    "line": 1862,
+    "en": "'A newer version of the connected Hermes backend is ready to install.',"
+  },
+  "updates.availableBodyNoChangelog": {
+    "line": 1863,
+    "en": "'A newer version is ready. Release notes aren’t available for this install type.',"
+  },
+  "updates.availableTitleBackend": {
+    "line": 1861,
+    "en": "'Backend update available',"
+  },
+  "updates.guiSkewBody": {
+    "line": 1871,
+    "en": ""
+  },
+  "updates.guiSkewTitle": {
+    "line": 1870,
+    "en": "'Update the desktop app',"
+  },
+  "updates.latestBodyBackend": {
+    "line": 1857,
+    "en": "'The backend is running the latest version.',"
+  },
+  "updates.stages.done": {
+    "line": 1845,
+    "en": "'Update complete',"
+  },
+  "updates.stages.guiSkew": {
+    "line": 1847,
+    "en": "'Update the desktop app',"
+  },
+  "updates.stages.rebuild": {
+    "line": 1843,
+    "en": "'Rebuilding the desktop app…',"
+  },
+  "updates.stages.update": {
+    "line": 1842,
+    "en": "'Updating Hermes…',"
+  }
+}

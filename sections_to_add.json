@@ -1,0 +1,3508 @@
+{
+  "assistant": [
+    [
+      "approval.command",
+      "'Command'",
+      2325
+    ],
+    [
+      "approval.jumpToApproval",
+      "'Approval needed'",
+      2329
+    ],
+    [
+      "clarify.continueLabel",
+      "'Continue'",
+      2345
+    ],
+    [
+      "clarify.skipped",
+      "'Skipped'",
+      2344
+    ],
+    [
+      "thread.attachingFile",
+      "'Attaching…'",
+      2319
+    ],
+    [
+      "thread.dismissError",
+      "'Dismiss error'",
+      2300
+    ],
+    [
+      "thread.expandMessage",
+      "'Expand message'",
+      2306
+    ],
+    [
+      "thread.restoreBody",
+      "",
+      2313
+    ],
+    [
+      "thread.restoreConfirm",
+      "'Restore & rerun'",
+      2315
+    ],
+    [
+      "thread.restoreFromHere",
+      "'Restore checkpoint — rerun from this prompt'",
+      2311
+    ],
+    [
+      "thread.restoreTitle",
+      "'Restore to this checkpoint?'",
+      2312
+    ],
+    [
+      "thread.resumeWhenBackgroundDone",
+      "count =>",
+      2289
+    ],
+    [
+      "thread.scrollToBottom",
+      "'Scroll to bottom'",
+      2307
+    ],
+    [
+      "thread.showEarlier",
+      "'Show earlier messages'",
+      2287
+    ],
+    [
+      "tool.actions.failedToOpen",
+      "'Failed to open'",
+      2375
+    ],
+    [
+      "tool.actions.opened",
+      "'Opened'",
+      2373
+    ],
+    [
+      "tool.actions.opening",
+      "'Opening'",
+      2374
+    ],
+    [
+      "tool.actions.ran",
+      "'Ran'",
+      2378
+    ],
+    [
+      "tool.actions.ranCode",
+      "'Ran code'",
+      2380
+    ],
+    [
+      "tool.actions.read",
+      "'Read'",
+      2371
+    ],
+    [
+      "tool.actions.reading",
+      "'Reading'",
+      2372
+    ],
+    [
+      "tool.actions.running",
+      "'Running'",
+      2379
+    ],
+    [
+      "tool.actions.runningCode",
+      "'Scripting'",
+      2381
+    ],
+    [
+      "tool.actions.searched",
+      "'Searched'",
+      2376
+    ],
+    [
+      "tool.actions.searching",
+      "'Searching'",
+      2377
+    ],
+    [
+      "tool.prefixes.browser",
+      "'Browser'",
+      2384
+    ],
+    [
+      "tool.prefixes.web",
+      "'Web'",
+      2385
+    ],
+    [
+      "tool.titleTemplates.actionCommand",
+      "(action, command) => `${action} ${command}`",
+      2388
+    ],
+    [
+      "tool.titleTemplates.actionQuoted",
+      "(action, value) => `${action} “${value}”`",
+      2389
+    ],
+    [
+      "tool.titleTemplates.actionTarget",
+      "(action, target) => `${action} ${target}`",
+      2390
+    ],
+    [
+      "tool.titleTemplates.prefixedDone",
+      "(prefix, action) => `${prefix} ${action}`",
+      2391
+    ],
+    [
+      "tool.titleTemplates.runningPrefixedTool",
+      "(prefix, action) => `Running ${prefix.toLowerCase()} ${action.toLowerCase()}`",
+      2392
+    ],
+    [
+      "tool.titleTemplates.runningTool",
+      "action => `Running ${action.toLowerCase()}`",
+      2393
+    ],
+    [
+      "tool.titles.browser_snapshot.done",
+      "'Captured page snapshot'",
+      2400
+    ],
+    [
+      "tool.titles.browser_snapshot.pending",
+      "'Capturing page snapshot'",
+      2401
+    ],
+    [
+      "tool.titles.browser_snapshot.pendingAction",
+      "'Capturing'",
+      2402
+    ],
+    [
+      "tool.titles.browser_take_screenshot.done",
+      "'Captured screenshot'",
+      2405
+    ],
+    [
+      "tool.titles.browser_take_screenshot.pending",
+      "'Capturing screenshot'",
+      2406
+    ],
+    [
+      "tool.titles.browser_take_screenshot.pendingAction",
+      "'Capturing'",
+      2407
+    ],
+    [
+      "tool.titles.session_search_recall.done",
+      "'Searched session history'",
+      2420
+    ],
+    [
+      "tool.titles.session_search_recall.pending",
+      "'Searching session history'",
+      2421
+    ],
+    [
+      "tool.titles.session_search_recall.pendingAction",
+      "'Searching'",
+      2422
+    ]
+  ],
+  "boot": [
+    [
+      "errors.gatewayConnectionLost",
+      "'Lost connection to the gateway'",
+      78
+    ],
+    [
+      "failure.back",
+      "'Back'",
+      93
+    ],
+    [
+      "failure.gatewaySettings",
+      "'Gateway settings'",
+      92
+    ],
+    [
+      "failure.remoteFailureHint",
+      "'Check the gateway URL and sign-in under Gateway settings, or switch to the local gateway.'",
+      99
+    ],
+    [
+      "failure.signOutAndSignIn",
+      "'Sign out & sign in'",
+      98
+    ]
+  ],
+  "commandCenter": [
+    [
+      "branches",
+      "'Branches'",
+      988
+    ],
+    [
+      "gatewayRestartFailed",
+      "'Gateway restart failed.'",
+      1088
+    ],
+    [
+      "generatePet.adopt",
+      "'Adopt'",
+      1037
+    ],
+    [
+      "generatePet.backgroundHint",
+      "'You can close this — Hermes will notify you when it’s done.'",
+      1028
+    ],
+    [
+      "generatePet.generate",
+      "'Generate'",
+      1015
+    ],
+    [
+      "generatePet.generating",
+      "'Generating…'",
+      1016
+    ],
+    [
+      "generatePet.genericError",
+      "'Generation failed — try again or pick a suggestion.'",
+      1034
+    ],
+    [
+      "generatePet.hatch",
+      "'Hatch'",
+      1018
+    ],
+    [
+      "generatePet.hatchComposing",
+      "'Piecing it together…'",
+      1024
+    ],
+    [
+      "generatePet.hatchRow",
+      "(_state, done, total) => `Sketching frame ${done} of ${total}…`",
+      1023
+    ],
+    [
+      "generatePet.hatchSaving",
+      "'Almost there…'",
+      1025
+    ],
+    [
+      "generatePet.hatched",
+      "'It hatched!'",
+      1022
+    ],
+    [
+      "generatePet.hatching",
+      "'Hatching your pet…'",
+      1020
+    ],
+    [
+      "generatePet.hatchingSub",
+      "'Bringing it to life…'",
+      1021
+    ],
+    [
+      "generatePet.namePlaceholder",
+      "'Name your pet'",
+      1026
+    ],
+    [
+      "generatePet.placeholder",
+      "'Describe a pet to generate…'",
+      1012
+    ],
+    [
+      "generatePet.promptHint",
+      "'Type a description, then press Enter to draft four looks.'",
+      1013
+    ],
+    [
+      "generatePet.readyHint",
+      "'Press Enter to draft four looks from your description.'",
+      1014
+    ],
+    [
+      "generatePet.referenceImageInvalid",
+      "'Could not read that reference image. Try a PNG, JPG, WebP, or GIF.'",
+      1036
+    ],
+    [
+      "generatePet.referenceImageTooLarge",
+      "'Reference image is too large. Use one under 16 MB.'",
+      1035
+    ],
+    [
+      "generatePet.remix",
+      "'Remix'",
+      1030
+    ],
+    [
+      "generatePet.remixConfirmBody",
+      "",
+      1032
+    ],
+    [
+      "generatePet.remixConfirmTitle",
+      "'Remix this look?'",
+      1031
+    ],
+    [
+      "generatePet.retry",
+      "'Retry'",
+      1017
+    ],
+    [
+      "generatePet.slowProviderHint",
+      "'This can take several minutes'",
+      1029
+    ],
+    [
+      "generatePet.spawning",
+      "'Spawning…'",
+      1019
+    ],
+    [
+      "generatePet.staleBackend",
+      "'Update Hermes to generate pets.'",
+      1027
+    ],
+    [
+      "generatePet.startOver",
+      "'Start over'",
+      1038
+    ],
+    [
+      "generatePet.title",
+      "'Generate a pet'",
+      1011
+    ],
+    [
+      "goToSession",
+      "'Go to session'",
+      987
+    ],
+    [
+      "installTheme.empty",
+      "'No matching themes.'",
+      1046
+    ],
+    [
+      "installTheme.error",
+      "'Could not reach the Marketplace.'",
+      1045
+    ],
+    [
+      "installTheme.install",
+      "'Install'",
+      1047
+    ],
+    [
+      "installTheme.installed",
+      "'Installed'",
+      1049
+    ],
+    [
+      "installTheme.installing",
+      "'Installing...'",
+      1048
+    ],
+    [
+      "installTheme.installs",
+      "count => `${count} installs`",
+      1050
+    ],
+    [
+      "installTheme.loading",
+      "'Searching the Marketplace...'",
+      1044
+    ],
+    [
+      "installTheme.pageTitle",
+      "'Install theme'",
+      1042
+    ],
+    [
+      "installTheme.placeholder",
+      "'Search the VS Code Marketplace...'",
+      1043
+    ],
+    [
+      "installTheme.title",
+      "'Install theme…'",
+      1041
+    ],
+    [
+      "logFile",
+      "'Log file'",
+      1115
+    ],
+    [
+      "logLevel",
+      "'Level'",
+      1116
+    ],
+    [
+      "logSearchPlaceholder",
+      "'Filter log lines...'",
+      1117
+    ],
+    [
+      "maintenance.actionFailed",
+      "name => `${name} failed to start`",
+      1158
+    ],
+    [
+      "maintenance.actionStarted",
+      "name => `${name} started — tailing log...`",
+      1157
+    ],
+    [
+      "maintenance.backup",
+      "'Create backup'",
+      1124
+    ],
+    [
+      "maintenance.backupDesc",
+      "'Zip config, memories, skills, and sessions'",
+      1125
+    ],
+    [
+      "maintenance.builtinMemory",
+      "'built-in'",
+      1146
+    ],
+    [
+      "maintenance.bytes",
+      "size => size",
+      1149
+    ],
+    [
+      "maintenance.copyLink",
+      "'Copy link'",
+      1131
+    ],
+    [
+      "maintenance.curator",
+      "'Skill curator'",
+      1133
+    ],
+    [
+      "maintenance.curatorActive",
+      "'Active'",
+      1136
+    ],
+    [
+      "maintenance.curatorDesc",
+      "'Background review that archives stale agent-created skills'",
+      1134
+    ],
+    [
+      "maintenance.curatorDisabled",
+      "'Disabled'",
+      1137
+    ],
+    [
+      "maintenance.curatorLastRun",
+      "when => `Last run ${when}`",
+      1138
+    ],
+    [
+      "maintenance.curatorNeverRan",
+      "'Never ran'",
+      1139
+    ],
+    [
+      "maintenance.curatorPaused",
+      "'Paused'",
+      1135
+    ],
+    [
+      "maintenance.debugShare",
+      "'Debug share'",
+      1126
+    ],
+    [
+      "maintenance.debugShareDesc",
+      "'Upload a redacted report + logs, get shareable links (auto-deletes in 6h)'",
+      1127
+    ],
+    [
+      "maintenance.debugShareFailed",
+      "'Debug share failed'",
+      1130
+    ],
+    [
+      "maintenance.debugShareLinks",
+      "'Share links'",
+      1129
+    ],
+    [
+      "maintenance.debugShareRunning",
+      "'Uploading debug report...'",
+      1128
+    ],
+    [
+      "maintenance.doctor",
+      "'Run doctor'",
+      1120
+    ],
+    [
+      "maintenance.doctorDesc",
+      "'Health-check the install, config, and providers'",
+      1121
+    ],
+    [
+      "maintenance.empty",
+      "'empty'",
+      1150
+    ],
+    [
+      "maintenance.linkCopied",
+      "'Link copied'",
+      1132
+    ],
+    [
+      "maintenance.memoryData",
+      "'Memory data'",
+      1143
+    ],
+    [
+      "maintenance.memoryDataDesc",
+      "'Built-in memory files injected into every session'",
+      1144
+    ],
+    [
+      "maintenance.memoryFile",
+      "'Agent memory (MEMORY.md)'",
+      1147
+    ],
+    [
+      "maintenance.memoryProvider",
+      "name => `Active provider: ${name}`",
+      1145
+    ],
+    [
+      "maintenance.pause",
+      "'Pause'",
+      1140
+    ],
+    [
+      "maintenance.resetAll",
+      "'Reset both'",
+      1153
+    ],
+    [
+      "maintenance.resetConfirm",
+      "target => `Delete ${target}? This cannot be undone.`",
+      1154
+    ],
+    [
+      "maintenance.resetDone",
+      "files => `Deleted ${files}.`",
+      1155
+    ],
+    [
+      "maintenance.resetFailed",
+      "'Memory reset failed'",
+      1156
+    ],
+    [
+      "maintenance.resetMemory",
+      "'Reset memory'",
+      1151
+    ],
+    [
+      "maintenance.resetUser",
+      "'Reset profile'",
+      1152
+    ],
+    [
+      "maintenance.resume",
+      "'Resume'",
+      1141
+    ],
+    [
+      "maintenance.runNow",
+      "'Run now'",
+      1142
+    ],
+    [
+      "maintenance.runOps",
+      "'Diagnostics'",
+      1119
+    ],
+    [
+      "maintenance.running",
+      "'Running...'",
+      1159
+    ],
+    [
+      "maintenance.securityAudit",
+      "'Security audit'",
+      1122
+    ],
+    [
+      "maintenance.securityAuditDesc",
+      "'Scan config and skills for risky settings'",
+      1123
+    ],
+    [
+      "maintenance.userFile",
+      "'User profile (USER.md)'",
+      1148
+    ],
+    [
+      "maintenance.viewLog",
+      "'Action log'",
+      1160
+    ],
+    [
+      "pets.adoptFailed",
+      "'Could not adopt that pet.'",
+      1006
+    ],
+    [
+      "pets.empty",
+      "'No matching pets.'",
+      1001
+    ],
+    [
+      "pets.error",
+      "'Could not reach the petdex gallery.'",
+      999
+    ],
+    [
+      "pets.generatedTag",
+      "'Generated'",
+      1005
+    ],
+    [
+      "pets.installed",
+      "'Installed'",
+      1004
+    ],
+    [
+      "pets.loading",
+      "'Loading petdex gallery…'",
+      998
+    ],
+    [
+      "pets.noneAvailable",
+      "'No pets available — pick one below to install.'",
+      1008
+    ],
+    [
+      "pets.placeholder",
+      "'Search pets…'",
+      997
+    ],
+    [
+      "pets.staleBackend",
+      "'Restart Hermes to use pets — the backend predates this feature.'",
+      1000
+    ],
+    [
+      "pets.title",
+      "'Pets'",
+      996
+    ],
+    [
+      "pets.toggleFailed",
+      "'Could not toggle the pet.'",
+      1007
+    ],
+    [
+      "pets.turnOff",
+      "'Turn off'",
+      1002
+    ],
+    [
+      "pets.turnOn",
+      "'Turn on'",
+      1003
+    ],
+    [
+      "restartGateway",
+      "'Restart gateway'",
+      1087
+    ],
+    [
+      "sectionDescriptions.maintenance",
+      "'Diagnostics, backups, curator, and memory data'",
+      1057
+    ],
+    [
+      "startInBranch",
+      "branch => `New conversation in ${branch}`",
+      989
+    ]
+  ],
+  "common": [
+    [
+      "expand",
+      "'Expand'",
+      27
+    ],
+    [
+      "formatJson",
+      "'Format JSON'",
+      29
+    ],
+    [
+      "tryHint",
+      "term => `Try “${term}”`",
+      42
+    ]
+  ],
+  "composer": [
+    [
+      "hotkeyDescs.composer.cancel",
+      "'close popover · cancel run'",
+      1715
+    ],
+    [
+      "hotkeyDescs.composer.help",
+      "'this quick help (delete to dismiss)'",
+      1711
+    ],
+    [
+      "hotkeyDescs.composer.history",
+      "'cycle popover / history'",
+      1716
+    ],
+    [
+      "hotkeyDescs.composer.mention",
+      "'reference files, folders, urls, git'",
+      1709
+    ],
+    [
+      "hotkeyDescs.composer.sendNewline",
+      "'send · Shift+Enter for newline'",
+      1712
+    ],
+    [
+      "hotkeyDescs.composer.sendQueued",
+      "'send next queued turn'",
+      1713
+    ],
+    [
+      "hotkeyDescs.composer.slash",
+      "'slash command palette'",
+      1710
+    ],
+    [
+      "hotkeyDescs.keybinds.openPanel",
+      "'all keyboard shortcuts'",
+      1714
+    ],
+    [
+      "queueDelete",
+      "'Delete'",
+      1732
+    ],
+    [
+      "queueEdit",
+      "'Edit'",
+      1729
+    ],
+    [
+      "queueSend",
+      "'Send'",
+      1731
+    ],
+    [
+      "queueSendNext",
+      "'Next'",
+      1730
+    ],
+    [
+      "queueStuckBody",
+      "'A queued turn kept failing to send. It is still in the queue — try sending it again.'",
+      1734
+    ],
+    [
+      "queueStuckTitle",
+      "'Queued message not sent'",
+      1733
+    ],
+    [
+      "speakReplies",
+      "'Read replies aloud'",
+      1691
+    ],
+    [
+      "stopSpeakingReplies",
+      "'Stop reading replies aloud'",
+      1692
+    ]
+  ],
+  "cron": [
+    [
+      "count",
+      "count => `${count} ${count === 1 ? 'job' : 'jobs'}`",
+      1378
+    ],
+    [
+      "promptRequired",
+      "'Prompt is required.'",
+      1482
+    ],
+    [
+      "scheduleRequired",
+      "'Schedule is required.'",
+      1484
+    ],
+    [
+      "scriptOnlyEditHint",
+      "'Script-only job (no AI prompt). Job id:'",
+      1485
+    ],
+    [
+      "title",
+      "'Scheduled jobs'",
+      1377
+    ]
+  ],
+  "desktop": [
+    [
+      "handoff.failed",
+      "error => `Handoff failed: ${error}`",
+      2513
+    ],
+    [
+      "handoff.pickPlatform",
+      "'Choose a destination'",
+      2510
+    ],
+    [
+      "handoff.success",
+      "platform => `Handed off to ${platform}. Resume here anytime.`",
+      2511
+    ],
+    [
+      "handoff.systemNote",
+      "platform => `↻ Handed off to ${platform} — resume here anytime.`",
+      2512
+    ],
+    [
+      "handoff.timedOut",
+      "'Timed out waiting for the gateway. Is `hermes gateway` running?'",
+      2514
+    ],
+    [
+      "resumeRetry",
+      "'Retry'",
+      2475
+    ],
+    [
+      "resumeStrandedBody",
+      "",
+      2473
+    ],
+    [
+      "resumeStrandedTitle",
+      "\"Couldn't load this session\"",
+      2472
+    ]
+  ],
+  "fileMenu": [
+    [
+      "copyPath",
+      "'Copy Path'",
+      52
+    ],
+    [
+      "copyRelativePath",
+      "'Copy Relative Path'",
+      53
+    ],
+    [
+      "delete",
+      "'Delete'",
+      55
+    ],
+    [
+      "deleteBody",
+      "'It will be moved to the Trash — you can restore it from there.'",
+      59
+    ],
+    [
+      "deleteTitle",
+      "name => `Delete ${name}?`",
+      58
+    ],
+    [
+      "pathCopied",
+      "'Path copied'",
+      60
+    ],
+    [
+      "rename",
+      "'Rename…'",
+      54
+    ],
+    [
+      "renameLabel",
+      "'New name'",
+      57
+    ],
+    [
+      "renameTitle",
+      "'Rename'",
+      56
+    ],
+    [
+      "revealExplorer",
+      "'Reveal in File Explorer'",
+      49
+    ],
+    [
+      "revealFileManager",
+      "'Open Containing Folder'",
+      50
+    ],
+    [
+      "revealFinder",
+      "'Reveal in Finder'",
+      48
+    ],
+    [
+      "revealInSidebar",
+      "'Reveal in filetree'",
+      51
+    ]
+  ],
+  "keybinds": [
+    [
+      "actions.composer.voice",
+      "'Start / stop voice conversation'",
+      240
+    ],
+    [
+      "actions.session.newWindow",
+      "'New session in window'",
+      223
+    ],
+    [
+      "actions.session.slot.1",
+      "'Switch to recent session 1'",
+      226
+    ],
+    [
+      "actions.session.slot.2",
+      "'Switch to recent session 2'",
+      227
+    ],
+    [
+      "actions.session.slot.3",
+      "'Switch to recent session 3'",
+      228
+    ],
+    [
+      "actions.session.slot.4",
+      "'Switch to recent session 4'",
+      229
+    ],
+    [
+      "actions.session.slot.5",
+      "'Switch to recent session 5'",
+      230
+    ],
+    [
+      "actions.session.slot.6",
+      "'Switch to recent session 6'",
+      231
+    ],
+    [
+      "actions.session.slot.7",
+      "'Switch to recent session 7'",
+      232
+    ],
+    [
+      "actions.session.slot.8",
+      "'Switch to recent session 8'",
+      233
+    ],
+    [
+      "actions.session.slot.9",
+      "'Switch to recent session 9'",
+      234
+    ],
+    [
+      "actions.view.closeTerminal",
+      "'Close terminal'",
+      249
+    ],
+    [
+      "actions.view.newTerminal",
+      "'New terminal'",
+      246
+    ],
+    [
+      "actions.view.nextTerminal",
+      "'Next terminal'",
+      247
+    ],
+    [
+      "actions.view.prevTerminal",
+      "'Previous terminal'",
+      248
+    ],
+    [
+      "actions.view.toggleReview",
+      "'Toggle review pane'",
+      243
+    ],
+    [
+      "actions.workspace.newWorktree",
+      "'New worktree'",
+      237
+    ]
+  ],
+  "notifications": [
+    [
+      "installMethodUnsupportedTitle",
+      "'Unsupported install method'",
+      126
+    ],
+    [
+      "native.approvalTitle",
+      "'Approval needed'",
+      161
+    ],
+    [
+      "native.approveAction",
+      "'Approve'",
+      162
+    ],
+    [
+      "native.backgroundDoneTitle",
+      "'Background task finished'",
+      169
+    ],
+    [
+      "native.backgroundFailedTitle",
+      "'Background task failed'",
+      170
+    ],
+    [
+      "native.inputBody",
+      "'Hermes is waiting for your response.'",
+      165
+    ],
+    [
+      "native.inputTitle",
+      "'Input needed'",
+      164
+    ],
+    [
+      "native.rejectAction",
+      "'Reject'",
+      163
+    ],
+    [
+      "native.turnDoneBody",
+      "'The response is ready.'",
+      167
+    ],
+    [
+      "native.turnDoneTitle",
+      "'Hermes finished'",
+      166
+    ],
+    [
+      "native.turnErrorTitle",
+      "'Turn failed'",
+      168
+    ]
+  ],
+  "onboarding": [
+    [
+      "apiKeyOptions.fireworks.description",
+      "'Direct access to models hosted by Fireworks AI.'",
+      1950
+    ],
+    [
+      "apiKeyOptions.fireworks.short",
+      "'direct model API'",
+      1949
+    ],
+    [
+      "localApiKeyPlaceholder",
+      "'API key (optional — only if your endpoint requires one)'",
+      1968
+    ]
+  ],
+  "preview": [
+    [
+      "closeAll",
+      "'Close all'",
+      2195
+    ],
+    [
+      "closeOthers",
+      "'Close others'",
+      2193
+    ],
+    [
+      "closeToRight",
+      "'Close to the right'",
+      2194
+    ],
+    [
+      "diff",
+      "'DIFF'",
+      2207
+    ],
+    [
+      "discardReload",
+      "'Discard & reload'",
+      2225
+    ],
+    [
+      "diskChangedBody",
+      "",
+      2222
+    ],
+    [
+      "diskChangedTitle",
+      "'File changed on disk'",
+      2221
+    ],
+    [
+      "edit",
+      "'Edit'",
+      2217
+    ],
+    [
+      "editing",
+      "'Editing'",
+      2218
+    ],
+    [
+      "linkHint",
+      "'⌘/Ctrl-click for preview pane'",
+      2203
+    ],
+    [
+      "openInBrowser",
+      "'Open in browser'",
+      2202
+    ],
+    [
+      "overwrite",
+      "'Overwrite'",
+      2224
+    ],
+    [
+      "saveFailed",
+      "message => `Couldn't save: ${message}`",
+      2220
+    ],
+    [
+      "unsavedChanges",
+      "'Unsaved changes'",
+      2219
+    ]
+  ],
+  "profiles": [
+    [
+      "cloneFrom",
+      "'Clone from'",
+      1347
+    ],
+    [
+      "cloneFromDesc",
+      "'Copies config, skills, and SOUL.md from the selected source profile.'",
+      1349
+    ],
+    [
+      "cloneFromNone",
+      "'None (blank)'",
+      1348
+    ],
+    [
+      "editSoul",
+      "'Edit SOUL.md…'",
+      1324
+    ],
+    [
+      "renameMenu",
+      "'Rename…'",
+      1323
+    ],
+    [
+      "search",
+      "'Search profiles...'",
+      1302
+    ]
+  ],
+  "remoteDisplayBanner": [
+    [
+      "message",
+      "reason =>",
+      175
+    ]
+  ],
+  "rightSidebar": [
+    [
+      "noDiffs",
+      "'No diffs'",
+      2172
+    ],
+    [
+      "noProjectOpen",
+      "'No project open'",
+      2171
+    ],
+    [
+      "remotePickerDescription",
+      "'Browse folders on the connected backend.'",
+      2161
+    ],
+    [
+      "remotePickerSelect",
+      "'Select folder'",
+      2162
+    ],
+    [
+      "remotePickerTitle",
+      "'Choose remote folder'",
+      2160
+    ],
+    [
+      "terminalCloseAll",
+      "'Close all'",
+      2186
+    ],
+    [
+      "terminalCloseOthers",
+      "'Close others'",
+      2185
+    ],
+    [
+      "terminalHide",
+      "'Hide terminal'",
+      2182
+    ],
+    [
+      "terminalNew",
+      "'New terminal'",
+      2184
+    ],
+    [
+      "terminalsAria",
+      "'Terminals'",
+      2183
+    ]
+  ],
+  "settings": [
+    [
+      "about.updateNow",
+      "'Update now'",
+      470
+    ],
+    [
+      "appearance.backdropDesc",
+      "'The faint statue image behind the conversation.'",
+      395
+    ],
+    [
+      "appearance.backdropTitle",
+      "'Chat Backdrop'",
+      394
+    ],
+    [
+      "appearance.embedsAlways",
+      "'Always'",
+      400
+    ],
+    [
+      "appearance.embedsAsk",
+      "'Ask'",
+      399
+    ],
+    [
+      "appearance.embedsDesc",
+      "",
+      397
+    ],
+    [
+      "appearance.embedsOff",
+      "'Off'",
+      401
+    ],
+    [
+      "appearance.embedsReset",
+      "(count: number) => `Reset ${count} allowed ${count === 1 ? 'service' : 'services'}`",
+      402
+    ],
+    [
+      "appearance.embedsTitle",
+      "'Inline Embeds'",
+      396
+    ],
+    [
+      "appearance.importedBadge",
+      "'Imported'",
+      419
+    ],
+    [
+      "appearance.installButton",
+      "'Install'",
+      414
+    ],
+    [
+      "appearance.installDesc",
+      "",
+      411
+    ],
+    [
+      "appearance.installError",
+      "'Could not install that theme.'",
+      416
+    ],
+    [
+      "appearance.installPlaceholder",
+      "'publisher.extension'",
+      413
+    ],
+    [
+      "appearance.installTitle",
+      "'Install from VS Code'",
+      410
+    ],
+    [
+      "appearance.installed",
+      "name => `Installed “${name}”.`",
+      417
+    ],
+    [
+      "appearance.installing",
+      "'Installing…'",
+      415
+    ],
+    [
+      "appearance.pet.adoptFailed",
+      "slug => `Could not adopt ${slug}`",
+      451
+    ],
+    [
+      "appearance.pet.chooseDesc",
+      "'Picking one installs it (if needed) and makes it active.'",
+      433
+    ],
+    [
+      "appearance.pet.chooseTitle",
+      "'Choose a pet'",
+      432
+    ],
+    [
+      "appearance.pet.count",
+      "n => `${n} pet${n === 1 ? '' : 's'}.`",
+      440
+    ],
+    [
+      "appearance.pet.countCapped",
+      "(cap, total) => `Showing ${cap} of ${total} — type to narrow it down.`",
+      439
+    ],
+    [
+      "appearance.pet.delete",
+      "name => `Delete ${name}`",
+      442
+    ],
+    [
+      "appearance.pet.deleteBody",
+      "\"This permanently deletes the pet — it can't be reinstalled.\"",
+      444
+    ],
+    [
+      "appearance.pet.deleteConfirm",
+      "'Delete'",
+      445
+    ],
+    [
+      "appearance.pet.deleteTitle",
+      "name => `Delete ${name}?`",
+      443
+    ],
+    [
+      "appearance.pet.exportFailed",
+      "slug => `Could not export ${slug}`",
+      454
+    ],
+    [
+      "appearance.pet.exportPet",
+      "name => `Export ${name}`",
+      450
+    ],
+    [
+      "appearance.pet.generatedTag",
+      "'Generated'",
+      438
+    ],
+    [
+      "appearance.pet.installedTag",
+      "'installed'",
+      437
+    ],
+    [
+      "appearance.pet.intro",
+      "",
+      422
+    ],
+    [
+      "appearance.pet.noMatch",
+      "query => `No pets match \"${query}\".`",
+      436
+    ],
+    [
+      "appearance.pet.noneAvailable",
+      "'No pets available to turn on right now.'",
+      455
+    ],
+    [
+      "appearance.pet.off",
+      "'Off'",
+      427
+    ],
+    [
+      "appearance.pet.on",
+      "'On'",
+      426
+    ],
+    [
+      "appearance.pet.rename",
+      "name => `Rename ${name}`",
+      446
+    ],
+    [
+      "appearance.pet.renameFailed",
+      "slug => `Could not rename ${slug}`",
+      453
+    ],
+    [
+      "appearance.pet.renamePlaceholder",
+      "'Name your pet'",
+      448
+    ],
+    [
+      "appearance.pet.renameSave",
+      "'Save'",
+      449
+    ],
+    [
+      "appearance.pet.renameTitle",
+      "'Rename pet'",
+      447
+    ],
+    [
+      "appearance.pet.restartHint",
+      "",
+      424
+    ],
+    [
+      "appearance.pet.roamDesc",
+      "'Let the pet wander the window on its own while idle.'",
+      431
+    ],
+    [
+      "appearance.pet.roamTitle",
+      "'Roam'",
+      430
+    ],
+    [
+      "appearance.pet.scaleDesc",
+      "'Resize the floating mascot. Applies everywhere instantly.'",
+      429
+    ],
+    [
+      "appearance.pet.scaleTitle",
+      "'Size'",
+      428
+    ],
+    [
+      "appearance.pet.searchPlaceholder",
+      "'Search pets…'",
+      434
+    ],
+    [
+      "appearance.pet.title",
+      "'Pet'",
+      421
+    ],
+    [
+      "appearance.pet.turnOffFailed",
+      "'Could not turn the pet off.'",
+      457
+    ],
+    [
+      "appearance.pet.turnOnFailed",
+      "'Could not turn the pet on.'",
+      456
+    ],
+    [
+      "appearance.pet.uninstall",
+      "name => `Uninstall ${name}`",
+      441
+    ],
+    [
+      "appearance.pet.uninstallFailed",
+      "slug => `Could not uninstall ${slug}`",
+      452
+    ],
+    [
+      "appearance.pet.unreachable",
+      "\"Couldn't reach the petdex gallery. Check your connection and reopen this page.\"",
+      435
+    ],
+    [
+      "appearance.removeTheme",
+      "'Remove theme'",
+      418
+    ],
+    [
+      "appearance.themeProfileNote",
+      "profile => `Saved for the ${profile} profile — each profile keeps its own theme.`",
+      409
+    ],
+    [
+      "appearance.translucencyDesc",
+      "'See your desktop through the whole window. macOS and Windows only.'",
+      393
+    ],
+    [
+      "appearance.translucencyTitle",
+      "'Window Translucency'",
+      392
+    ],
+    [
+      "appearance.uiScaleDesc",
+      "(percent: number) =>",
+      390
+    ],
+    [
+      "appearance.uiScaleTitle",
+      "'UI Scale'",
+      389
+    ],
+    [
+      "gateway.cloudAgentProvisioning",
+      "'Provisioning…'",
+      575
+    ],
+    [
+      "gateway.cloudAgentsTitle",
+      "'Your agents'",
+      553
+    ],
+    [
+      "gateway.cloudConnect",
+      "'Connect'",
+      565
+    ],
+    [
+      "gateway.cloudConnectFailed",
+      "'Could not connect to that agent'",
+      568
+    ],
+    [
+      "gateway.cloudConnectedPill",
+      "'Connected'",
+      573
+    ],
+    [
+      "gateway.cloudConnectedTitle",
+      "'Connected'",
+      572
+    ],
+    [
+      "gateway.cloudConnectedTo",
+      "name => `Connected to ${name}.`",
+      574
+    ],
+    [
+      "gateway.cloudConnecting",
+      "'Connecting…'",
+      566
+    ],
+    [
+      "gateway.cloudDesc",
+      "'Sign in once to Hermes Cloud and pick from the agents on your account — no URL to paste.'",
+      547
+    ],
+    [
+      "gateway.cloudDiscoverFailed",
+      "'Could not load your Hermes Cloud agents'",
+      567
+    ],
+    [
+      "gateway.cloudLoadingAgents",
+      "'Loading your agents…'",
+      558
+    ],
+    [
+      "gateway.cloudNeedsSignIn",
+      "'Sign in to Hermes Cloud to discover the agents on your account.'",
+      551
+    ],
+    [
+      "gateway.cloudNoAgents.after",
+      "', then refresh.'",
+      562
+    ],
+    [
+      "gateway.cloudNoAgents.before",
+      "'No agents found on this account. Create one in the '",
+      560
+    ],
+    [
+      "gateway.cloudNoAgents.linkText",
+      "'Nous portal'",
+      561
+    ],
+    [
+      "gateway.cloudOrgChange",
+      "'Change org'",
+      556
+    ],
+    [
+      "gateway.cloudOrgPickerTitle",
+      "'Choose an organization'",
+      554
+    ],
+    [
+      "gateway.cloudOrgRole",
+      "role => `Role: ${role}`",
+      557
+    ],
+    [
+      "gateway.cloudOrgSelect",
+      "'Select'",
+      555
+    ],
+    [
+      "gateway.cloudRefresh",
+      "'Refresh'",
+      564
+    ],
+    [
+      "gateway.cloudSignIn",
+      "'Sign in to Hermes Cloud'",
+      549
+    ],
+    [
+      "gateway.cloudSignInFailed",
+      "'Hermes Cloud sign-in failed'",
+      569
+    ],
+    [
+      "gateway.cloudSignInTitle",
+      "'Hermes Cloud'",
+      548
+    ],
+    [
+      "gateway.cloudSignedIn",
+      "'Signed in to Hermes Cloud'",
+      550
+    ],
+    [
+      "gateway.cloudSignedInDesc",
+      "'You are signed in. Pick an agent below; the session refreshes automatically.'",
+      552
+    ],
+    [
+      "gateway.cloudSignedOutMessage",
+      "'Cleared the Hermes Cloud session.'",
+      571
+    ],
+    [
+      "gateway.cloudSignedOutTitle",
+      "'Signed out of Hermes Cloud'",
+      570
+    ],
+    [
+      "gateway.cloudStatusLabel",
+      "status => `Status: ${status}`",
+      576
+    ],
+    [
+      "gateway.cloudTitle",
+      "'Hermes Cloud'",
+      546
+    ],
+    [
+      "gateway.modeTitle",
+      "'Connection mode'",
+      539
+    ],
+    [
+      "gateway.remoteAuthHint",
+      "",
+      544
+    ],
+    [
+      "mcp.allServers",
+      "'All servers'",
+      684
+    ],
+    [
+      "mcp.authenticate",
+      "'Authenticate'",
+      688
+    ],
+    [
+      "mcp.authenticatedMessage",
+      "(server, count) => `${server}: ${count} tools`",
+      686
+    ],
+    [
+      "mcp.authenticatedTitle",
+      "'Authenticated'",
+      685
+    ],
+    [
+      "mcp.capabilitySummary",
+      "(tools, prompts, resources) =>",
+      678
+    ],
+    [
+      "mcp.catalogEmpty",
+      "'No catalog entries available.'",
+      668
+    ],
+    [
+      "mcp.catalogEnabled",
+      "'Enabled'",
+      670
+    ],
+    [
+      "mcp.catalogEnvPrompt",
+      "name => `${name} requires credentials`",
+      676
+    ],
+    [
+      "mcp.catalogEnvRequired",
+      "'Fill in the required values before installing.'",
+      677
+    ],
+    [
+      "mcp.catalogInstall",
+      "'Install'",
+      672
+    ],
+    [
+      "mcp.catalogInstallFailed",
+      "name => `Failed to install ${name}`",
+      675
+    ],
+    [
+      "mcp.catalogInstallStarted",
+      "name => `Installing ${name}... applies to new sessions when done.`",
+      674
+    ],
+    [
+      "mcp.catalogInstalled",
+      "'Installed'",
+      669
+    ],
+    [
+      "mcp.catalogInstalling",
+      "'Installing...'",
+      673
+    ],
+    [
+      "mcp.catalogLoadFailed",
+      "'MCP catalog failed to load'",
+      667
+    ],
+    [
+      "mcp.catalogLoading",
+      "'Loading MCP catalog...'",
+      666
+    ],
+    [
+      "mcp.catalogNeedsInstall",
+      "'Needs build'",
+      671
+    ],
+    [
+      "mcp.disableServer",
+      "name => `Disable ${name}`",
+      660
+    ],
+    [
+      "mcp.disableTool",
+      "tool => `Disable ${tool}`",
+      691
+    ],
+    [
+      "mcp.enableServer",
+      "name => `Enable ${name}`",
+      659
+    ],
+    [
+      "mcp.enableTool",
+      "tool => `Enable ${tool}`",
+      690
+    ],
+    [
+      "mcp.noOutput",
+      "'No output yet.'",
+      692
+    ],
+    [
+      "mcp.serverDisabled",
+      "name => `${name} disabled — applies to new sessions.`",
+      662
+    ],
+    [
+      "mcp.serverEnabled",
+      "name => `${name} enabled — applies to new sessions.`",
+      661
+    ],
+    [
+      "mcp.statusConnecting",
+      "'Connecting…'",
+      680
+    ],
+    [
+      "mcp.statusError",
+      "'Error'",
+      682
+    ],
+    [
+      "mcp.statusNeedsAuth",
+      "'Needs authentication'",
+      681
+    ],
+    [
+      "mcp.statusOff",
+      "'Off'",
+      683
+    ],
+    [
+      "mcp.tabCatalog",
+      "'Catalog'",
+      665
+    ],
+    [
+      "mcp.tabServers",
+      "'Servers'",
+      664
+    ],
+    [
+      "mcp.test",
+      "'Test connection'",
+      655
+    ],
+    [
+      "mcp.testFailed",
+      "'Connection failed'",
+      658
+    ],
+    [
+      "mcp.testOk",
+      "count => `Connected — ${count} tool${count === 1 ? '' : 's'} available`",
+      657
+    ],
+    [
+      "mcp.testing",
+      "'Testing...'",
+      656
+    ],
+    [
+      "mcp.toggleFailed",
+      "name => `Failed to toggle ${name}`",
+      663
+    ],
+    [
+      "mcp.unsavedConnect",
+      "'Unsaved — save mcp.json to connect.'",
+      689
+    ],
+    [
+      "mcp.waitingForBrowser",
+      "'Waiting for browser…'",
+      687
+    ],
+    [
+      "model.defaultsFailed",
+      "'Failed to save model defaults'",
+      703
+    ],
+    [
+      "model.defaultsLabel",
+      "'Defaults'",
+      700
+    ],
+    [
+      "model.fallbackAdd",
+      "'Add fallback'",
+      711
+    ],
+    [
+      "model.fallbackEmpty",
+      "'No fallback models — the default model is used unless it fails.'",
+      712
+    ],
+    [
+      "model.notInCatalog",
+      "\"isn't in this provider's model list — calls may fall back to a backup.\"",
+      713
+    ],
+    [
+      "model.reasoning",
+      "'Reasoning'",
+      701
+    ],
+    [
+      "model.reasoningOff",
+      "'Off'",
+      702
+    ],
+    [
+      "nav.notifications",
+      "'Notifications'",
+      318
+    ],
+    [
+      "notifications.completionSoundDesc",
+      "'Plays when an agent turn finishes. Pick a preset and preview it here.'",
+      355
+    ],
+    [
+      "notifications.completionSoundPreview",
+      "'Preview'",
+      356
+    ],
+    [
+      "notifications.completionSoundTitle",
+      "'Completion Sound'",
+      354
+    ],
+    [
+      "notifications.enableAll",
+      "'Enable notifications'",
+      324
+    ],
+    [
+      "notifications.enableAllDesc",
+      "'Master switch. Turn this off to silence every notification below.'",
+      325
+    ],
+    [
+      "notifications.focusedHint",
+      "'Completion alerts only fire while Hermes is in the background.'",
+      326
+    ],
+    [
+      "notifications.intro",
+      "",
+      322
+    ],
+    [
+      "notifications.kinds.approval.description",
+      "'A command is waiting for you to approve or reject it.'",
+      330
+    ],
+    [
+      "notifications.kinds.approval.label",
+      "'Approval needed'",
+      329
+    ],
+    [
+      "notifications.kinds.backgroundDone.description",
+      "'A backgrounded terminal command completed.'",
+      346
+    ],
+    [
+      "notifications.kinds.backgroundDone.label",
+      "'Background task finished'",
+      345
+    ],
+    [
+      "notifications.kinds.input.description",
+      "'Hermes asked a question or needs a password or secret.'",
+      334
+    ],
+    [
+      "notifications.kinds.input.label",
+      "'Input needed'",
+      333
+    ],
+    [
+      "notifications.kinds.turnDone.description",
+      "'A turn finished while Hermes was in the background.'",
+      338
+    ],
+    [
+      "notifications.kinds.turnDone.label",
+      "'Response ready'",
+      337
+    ],
+    [
+      "notifications.kinds.turnError.description",
+      "'A turn ended with an error.'",
+      342
+    ],
+    [
+      "notifications.kinds.turnError.label",
+      "'Turn failed'",
+      341
+    ],
+    [
+      "notifications.test",
+      "'Send test notification'",
+      349
+    ],
+    [
+      "notifications.testBody",
+      "'Notifications are working.'",
+      351
+    ],
+    [
+      "notifications.testSent",
+      "'Test sent. If nothing appears, check your OS notification permissions and Focus/Do Not Disturb.'",
+      352
+    ],
+    [
+      "notifications.testTitle",
+      "'Hermes'",
+      350
+    ],
+    [
+      "notifications.testUnsupported",
+      "'This system does not support native notifications.'",
+      353
+    ],
+    [
+      "notifications.title",
+      "'Notifications'",
+      321
+    ],
+    [
+      "providers.disconnect",
+      "'Disconnect'",
+      734
+    ],
+    [
+      "providers.disconnectInTerminal",
+      "'Disconnect (runs the removal command in the terminal)'",
+      735
+    ],
+    [
+      "providers.failedRemove",
+      "provider => `Could not remove ${provider}`",
+      744
+    ],
+    [
+      "providers.noKeysMatch",
+      "'No providers match your search.'",
+      747
+    ],
+    [
+      "providers.removeConfirm",
+      "provider => `Remove ${provider}?`",
+      736
+    ],
+    [
+      "providers.removeExternalGeneric",
+      "provider => `${provider} is managed by its own CLI — remove it there.`",
+      737
+    ],
+    [
+      "providers.removeKeyManaged",
+      "provider => `${provider} is configured from an API key. Remove it from API Keys.`",
+      738
+    ],
+    [
+      "providers.removeTerminalConfirm",
+      "(provider, command) =>",
+      739
+    ],
+    [
+      "providers.removeTerminalRunning",
+      "provider => `Running ${provider} disconnect in the terminal…`",
+      741
+    ],
+    [
+      "providers.removedMessage",
+      "provider => `${provider} was removed.`",
+      743
+    ],
+    [
+      "providers.removedTitle",
+      "'Account removed'",
+      742
+    ],
+    [
+      "providers.searchKeys",
+      "'Search providers…'",
+      746
+    ],
+    [
+      "toolsets.failedSelectModel",
+      "model => `Failed to select ${model}`",
+      816
+    ],
+    [
+      "toolsets.loadingModels",
+      "'Loading model catalog...'",
+      808
+    ],
+    [
+      "toolsets.modelCount",
+      "count => `${count} model${count === 1 ? '' : 's'}`",
+      810
+    ],
+    [
+      "toolsets.modelDefault",
+      "'default'",
+      812
+    ],
+    [
+      "toolsets.modelInUse",
+      "'In use'",
+      811
+    ],
+    [
+      "toolsets.modelInactiveHint",
+      "'Select this backend first to change its model.'",
+      813
+    ],
+    [
+      "toolsets.modelSectionTitle",
+      "'Model'",
+      809
+    ],
+    [
+      "toolsets.modelSelectedMessage",
+      "model => `${model} applies to new sessions.`",
+      815
+    ],
+    [
+      "toolsets.modelSelectedTitle",
+      "'Model selected'",
+      814
+    ]
+  ],
+  "shell": [
+    [
+      "approvalMode.ariaLabel",
+      "mode => `Approval mode: ${mode}`",
+      2077
+    ],
+    [
+      "approvalMode.manual",
+      "'Manual'",
+      2078
+    ],
+    [
+      "approvalMode.manualDescription",
+      "'Ask before actions that require approval'",
+      2079
+    ],
+    [
+      "approvalMode.off",
+      "'Off'",
+      2082
+    ],
+    [
+      "approvalMode.offDescription",
+      "'Run without approval prompts'",
+      2083
+    ],
+    [
+      "approvalMode.smart",
+      "'Smart'",
+      2080
+    ],
+    [
+      "approvalMode.smartDescription",
+      "'Automatically assess actions and ask when needed'",
+      2081
+    ],
+    [
+      "approvalMode.title",
+      "'Approval mode'",
+      2076
+    ],
+    [
+      "modelMenu.refreshModels",
+      "'Refresh Models'",
+      2040
+    ],
+    [
+      "modelOptions.ultra",
+      "'Ultra'",
+      2056
+    ],
+    [
+      "modelOptions.xhigh",
+      "'Extra High'",
+      2054
+    ],
+    [
+      "statusbar.backendLabel",
+      "version => `backend v${version}`",
+      2094
+    ],
+    [
+      "statusbar.backendVersion",
+      "version => `Backend v${version}`",
+      2092
+    ],
+    [
+      "statusbar.clientLabel",
+      "version => `client v${version}`",
+      2093
+    ],
+    [
+      "statusbar.contextUsagePanel.categories.conversation",
+      "'Conversation'",
+      2124
+    ],
+    [
+      "statusbar.contextUsagePanel.categories.mcp",
+      "'MCP'",
+      2125
+    ],
+    [
+      "statusbar.contextUsagePanel.categories.memory",
+      "'Memory'",
+      2126
+    ],
+    [
+      "statusbar.contextUsagePanel.categories.rules",
+      "'Rules'",
+      2127
+    ],
+    [
+      "statusbar.contextUsagePanel.categories.skills",
+      "'Skills'",
+      2128
+    ],
+    [
+      "statusbar.contextUsagePanel.categories.subagent_definitions",
+      "'Subagent definitions'",
+      2129
+    ],
+    [
+      "statusbar.contextUsagePanel.categories.system_prompt",
+      "'System prompt'",
+      2130
+    ],
+    [
+      "statusbar.contextUsagePanel.categories.tool_definitions",
+      "'Tool definitions'",
+      2131
+    ],
+    [
+      "statusbar.contextUsagePanel.empty",
+      "'No context data yet'",
+      2133
+    ],
+    [
+      "statusbar.contextUsagePanel.loading",
+      "'Loading breakdown…'",
+      2134
+    ],
+    [
+      "statusbar.contextUsagePanel.percentFull",
+      "percent => `${percent}% Full`",
+      2135
+    ],
+    [
+      "statusbar.contextUsagePanel.title",
+      "'Context Usage'",
+      2136
+    ],
+    [
+      "statusbar.contextUsagePanel.tokenSummary",
+      "(used, max) => `${used} / ${max} Tokens`",
+      2137
+    ],
+    [
+      "statusbar.gatewayRestarting",
+      "'restarting…'",
+      2107
+    ],
+    [
+      "statusbar.hideTerminal",
+      "'Hide terminal'",
+      2100
+    ],
+    [
+      "statusbar.openContextUsage",
+      "'Open context usage breakdown'",
+      2139
+    ],
+    [
+      "statusbar.openStarmap",
+      "'Open memory graph'",
+      2118
+    ],
+    [
+      "statusbar.showTerminal",
+      "'Show terminal'",
+      2099
+    ],
+    [
+      "statusbar.starmap",
+      "'Memory Graph'",
+      2117
+    ]
+  ],
+  "sidebar": [
+    [
+      "noProject",
+      "'No project'",
+      1549
+    ],
+    [
+      "noSessions",
+      "'No sessions yet'",
+      1551
+    ],
+    [
+      "projectEmpty",
+      "'No sessions yet'",
+      1550
+    ],
+    [
+      "projects.addFolder",
+      "'Add folder'",
+      1567
+    ],
+    [
+      "projects.addFolderTitle",
+      "'Add folder'",
+      1558
+    ],
+    [
+      "projects.back",
+      "'All projects'",
+      1613
+    ],
+    [
+      "projects.baseBranchNone",
+      "'No branches found'",
+      1591
+    ],
+    [
+      "projects.baseBranchPlaceholder",
+      "'Search branches…'",
+      1590
+    ],
+    [
+      "projects.branchCreateWorktree",
+      "'new worktree'",
+      1600
+    ],
+    [
+      "projects.branchOff",
+      "() => ({ after: '', before: 'branch off ' })",
+      1589
+    ],
+    [
+      "projects.branchOpenExisting",
+      "'open'",
+      1598
+    ],
+    [
+      "projects.branchPlaceholder",
+      "'e.g. my-feature'",
+      1588
+    ],
+    [
+      "projects.branchSwitchHome",
+      "'switch home'",
+      1599
+    ],
+    [
+      "projects.branchesLoading",
+      "'Loading branches…'",
+      1601
+    ],
+    [
+      "projects.convertBranch",
+      "'Convert a branch…'",
+      1593
+    ],
+    [
+      "projects.convertBranchDesc",
+      "'Open checked-out branches, or create a worktree for a free branch.'",
+      1595
+    ],
+    [
+      "projects.convertBranchInstead",
+      "'Convert an existing branch'",
+      1597
+    ],
+    [
+      "projects.convertBranchPlaceholder",
+      "'Search branches…'",
+      1596
+    ],
+    [
+      "projects.convertBranchTitle",
+      "'Convert a branch'",
+      1594
+    ],
+    [
+      "projects.copyPath",
+      "'Copy path'",
+      1579
+    ],
+    [
+      "projects.create",
+      "'Create'",
+      1570
+    ],
+    [
+      "projects.createDesc",
+      "'Name a workspace and add one or more folders.'",
+      1556
+    ],
+    [
+      "projects.createFailed",
+      "'Could not create project'",
+      1581
+    ],
+    [
+      "projects.createTitle",
+      "'New project'",
+      1555
+    ],
+    [
+      "projects.deleteConfirm",
+      "'This removes the saved project from Hermes. Files, git repos, and worktrees stay untouched.'",
+      1584
+    ],
+    [
+      "projects.enter",
+      "label => `Open ${label}`",
+      1610
+    ],
+    [
+      "projects.foldersLabel",
+      "'Folders'",
+      1560
+    ],
+    [
+      "projects.forceRemove",
+      "'Force remove'",
+      1609
+    ],
+    [
+      "projects.ideaGenerate",
+      "'Generate idea'",
+      1563
+    ],
+    [
+      "projects.ideaGenerating",
+      "'Generating…'",
+      1564
+    ],
+    [
+      "projects.ideaLabel",
+      "'Idea'",
+      1561
+    ],
+    [
+      "projects.ideaPlaceholder",
+      "\"What's this project about? (saved to IDEA.md)\"",
+      1562
+    ],
+    [
+      "projects.ideaShuffle",
+      "'Shuffle templates'",
+      1565
+    ],
+    [
+      "projects.menu",
+      "'Project actions'",
+      1571
+    ],
+    [
+      "projects.menuAddFolder",
+      "'Add folder'",
+      1575
+    ],
+    [
+      "projects.menuAppearance",
+      "'Appearance'",
+      1573
+    ],
+    [
+      "projects.menuDelete",
+      "'Delete'",
+      1577
+    ],
+    [
+      "projects.menuRename",
+      "'Rename'",
+      1572
+    ],
+    [
+      "projects.menuSetActive",
+      "'Set active'",
+      1576
+    ],
+    [
+      "projects.namePlaceholder",
+      "'e.g. Skunkworks'",
+      1559
+    ],
+    [
+      "projects.newButton",
+      "'New project'",
+      1554
+    ],
+    [
+      "projects.newWorktreeDesc",
+      "'Name the branch for this worktree.'",
+      1587
+    ],
+    [
+      "projects.newWorktreeTitle",
+      "'New worktree'",
+      1586
+    ],
+    [
+      "projects.noBranches",
+      "'No branches found'",
+      1602
+    ],
+    [
+      "projects.noColor",
+      "'No color'",
+      1574
+    ],
+    [
+      "projects.noFolders",
+      "'No folders added yet.'",
+      1566
+    ],
+    [
+      "projects.primaryBadge",
+      "'primary'",
+      1568
+    ],
+    [
+      "projects.removeFolder",
+      "'Remove'",
+      1569
+    ],
+    [
+      "projects.removeFromSidebar",
+      "'Hide from sidebar'",
+      1580
+    ],
+    [
+      "projects.removeWorktree",
+      "'Remove worktree'",
+      1603
+    ],
+    [
+      "projects.removeWorktreeConfirm",
+      "",
+      1605
+    ],
+    [
+      "projects.removeWorktreeDirty",
+      "",
+      1607
+    ],
+    [
+      "projects.removeWorktreeFailed",
+      "'Could not remove worktree (uncommitted changes?)'",
+      1604
+    ],
+    [
+      "projects.renameTitle",
+      "'Rename project'",
+      1557
+    ],
+    [
+      "projects.reorder",
+      "label => `Reorder ${label}`",
+      1611
+    ],
+    [
+      "projects.reveal",
+      "'Reveal in folder'",
+      1578
+    ],
+    [
+      "projects.sectionLabel",
+      "'Projects'",
+      1553
+    ],
+    [
+      "projects.staleBackend",
+      "",
+      1582
+    ],
+    [
+      "projects.startWork",
+      "'New worktree'",
+      1585
+    ],
+    [
+      "projects.startWorkFailed",
+      "'Could not create worktree'",
+      1592
+    ],
+    [
+      "projects.toggle",
+      "label => `Toggle ${label} sessions`",
+      1612
+    ],
+    [
+      "row.branchFrom",
+      "'Branch'",
+      1625
+    ],
+    [
+      "row.handoffOrigin",
+      "platform => `Handed off from ${platform}`",
+      1635
+    ],
+    [
+      "row.newWindow",
+      "'New window'",
+      1628
+    ],
+    [
+      "showProjects",
+      "'Show projects'",
+      1542
+    ],
+    [
+      "showSessions",
+      "'Show sessions'",
+      1543
+    ]
+  ],
+  "skills": [
+    [
+      "archive",
+      "'Archive'",
+      870
+    ],
+    [
+      "bulkNoChange",
+      "'Nothing to change.'",
+      857
+    ],
+    [
+      "bulkUpdated",
+      "count => `Updated ${count} ${count === 1 ? 'item' : 'items'} for new sessions.`",
+      856
+    ],
+    [
+      "changesApplyNewSessions",
+      "'Changes apply to new sessions.'",
+      867
+    ],
+    [
+      "disableAll",
+      "'Disable all'",
+      854
+    ],
+    [
+      "disableUnused",
+      "'Disable unused'",
+      855
+    ],
+    [
+      "edit",
+      "'Edit'",
+      869
+    ],
+    [
+      "emptyNoneAvailable",
+      "noun => `No ${noun} available yet.`",
+      866
+    ],
+    [
+      "emptyNoneFound",
+      "noun => `No ${noun} found`",
+      864
+    ],
+    [
+      "emptyNothingMatches",
+      "query => `Nothing matches “${query}”.`",
+      865
+    ],
+    [
+      "enableAll",
+      "'Enable all'",
+      853
+    ],
+    [
+      "hub.actionFailed",
+      "'Skill action failed'",
+      914
+    ],
+    [
+      "hub.actionLog",
+      "'Action log'",
+      915
+    ],
+    [
+      "hub.close",
+      "'Close'",
+      895
+    ],
+    [
+      "hub.connectedHubs",
+      "'Connected hubs:'",
+      878
+    ],
+    [
+      "hub.connectingHubs",
+      "'Connecting to skill hubs...'",
+      877
+    ],
+    [
+      "hub.featured",
+      "'Featured skills'",
+      879
+    ],
+    [
+      "hub.files",
+      "'Files'",
+      896
+    ],
+    [
+      "hub.findings",
+      "count => `${count} finding${count === 1 ? '' : 's'}`",
+      909
+    ],
+    [
+      "hub.install",
+      "'Install'",
+      886
+    ],
+    [
+      "hub.installStarted",
+      "name => `Installing ${name}...`",
+      911
+    ],
+    [
+      "hub.installed",
+      "'Installed'",
+      885
+    ],
+    [
+      "hub.installing",
+      "'Installing...'",
+      887
+    ],
+    [
+      "hub.landingHint",
+      "",
+      880
+    ],
+    [
+      "hub.loadFailed",
+      "'Skill hub failed to load'",
+      916
+    ],
+    [
+      "hub.noFindings",
+      "'No security findings.'",
+      910
+    ],
+    [
+      "hub.noReadme",
+      "'This skill has no SKILL.md preview.'",
+      897
+    ],
+    [
+      "hub.noResults",
+      "'No matching skills found in the hub.'",
+      882
+    ],
+    [
+      "hub.policyAllow",
+      "'Install allowed'",
+      906
+    ],
+    [
+      "hub.policyAsk",
+      "'Review before installing'",
+      907
+    ],
+    [
+      "hub.policyBlock",
+      "'Install blocked by policy'",
+      908
+    ],
+    [
+      "hub.preview",
+      "'Preview'",
+      892
+    ],
+    [
+      "hub.previewFailed",
+      "'Skill preview failed'",
+      917
+    ],
+    [
+      "hub.resultCount",
+      "(count, ms) => `${count} result${count === 1 ? '' : 's'}${ms !== null ? ` in ${ms}ms` : ''}`",
+      883
+    ],
+    [
+      "hub.scan",
+      "'Scan'",
+      893
+    ],
+    [
+      "hub.scanFailed",
+      "'Security scan failed'",
+      918
+    ],
+    [
+      "hub.scanning",
+      "'Scanning...'",
+      894
+    ],
+    [
+      "hub.search",
+      "'Search'",
+      875
+    ],
+    [
+      "hub.searchFailed",
+      "'Hub search failed'",
+      919
+    ],
+    [
+      "hub.searchPlaceholder",
+      "'Search the skill hub'",
+      874
+    ],
+    [
+      "hub.searching",
+      "'Searching...'",
+      876
+    ],
+    [
+      "hub.timedOut",
+      "sources => `Timed out: ${sources}`",
+      884
+    ],
+    [
+      "hub.trust.builtin",
+      "'builtin'",
+      899
+    ],
+    [
+      "hub.trust.community",
+      "'community'",
+      901
+    ],
+    [
+      "hub.trust.trusted",
+      "'trusted'",
+      900
+    ],
+    [
+      "hub.uninstall",
+      "'Uninstall'",
+      888
+    ],
+    [
+      "hub.uninstallStarted",
+      "name => `Uninstalling ${name}...`",
+      912
+    ],
+    [
+      "hub.uninstalling",
+      "'Uninstalling...'",
+      889
+    ],
+    [
+      "hub.updateAll",
+      "'Update installed'",
+      890
+    ],
+    [
+      "hub.updateStarted",
+      "'Updating installed skills...'",
+      913
+    ],
+    [
+      "hub.updating",
+      "'Updating...'",
+      891
+    ],
+    [
+      "hub.verdictCaution",
+      "'Caution'",
+      904
+    ],
+    [
+      "hub.verdictDangerous",
+      "'Dangerous'",
+      905
+    ],
+    [
+      "hub.verdictSafe",
+      "'Safe'",
+      903
+    ],
+    [
+      "provenance.agent",
+      "'Learned'",
+      860
+    ],
+    [
+      "provenance.bundled",
+      "'Built-in'",
+      861
+    ],
+    [
+      "provenance.hub",
+      "'Hub'",
+      862
+    ],
+    [
+      "skillArchivedMessage",
+      "'Restorable via hermes curator restore.'",
+      872
+    ],
+    [
+      "skillArchivedTitle",
+      "'Skill archived'",
+      871
+    ],
+    [
+      "skillUpdated",
+      "'Skill updated'",
+      868
+    ],
+    [
+      "sortAlpha",
+      "'A–Z'",
+      850
+    ],
+    [
+      "sortLeastUsedAsc",
+      "'↑ Least used'",
+      852
+    ],
+    [
+      "sortMostUsed",
+      "'Most used'",
+      849
+    ],
+    [
+      "sortMostUsedDesc",
+      "'↓ Most used'",
+      851
+    ],
+    [
+      "tabHub",
+      "'Browse Hub'",
+      824
+    ],
+    [
+      "tabMcp",
+      "'MCP'",
+      823
+    ],
+    [
+      "usageCount",
+      "count => `used ${count}×`",
+      858
+    ]
+  ],
+  "starmap": [
+    [
+      "close",
+      "'Close memory graph'",
+      926
+    ],
+    [
+      "copied",
+      "'Copied!'",
+      943
+    ],
+    [
+      "copy",
+      "'Copy map code'",
+      942
+    ],
+    [
+      "emptyDesc",
+      "'As Hermes builds skills and memories for your work, they appear here.'",
+      936
+    ],
+    [
+      "emptyTitle",
+      "'Nothing learned yet'",
+      935
+    ],
+    [
+      "filterAll",
+      "'All'",
+      929
+    ],
+    [
+      "filterLearned",
+      "'Learned'",
+      931
+    ],
+    [
+      "filterUsed",
+      "'Used'",
+      930
+    ],
+    [
+      "importBtn",
+      "'Load'",
+      945
+    ],
+    [
+      "importEmpty",
+      "'Paste a map code to load it.'",
+      946
+    ],
+    [
+      "importMap",
+      "'Import a map'",
+      944
+    ],
+    [
+      "importSuccess",
+      "nodes => `Loaded a map with ${nodes} ${nodes === 1 ? 'node' : 'nodes'}.`",
+      947
+    ],
+    [
+      "importedBadge",
+      "'imported map'",
+      948
+    ],
+    [
+      "loadFailed",
+      "'Could not load memory graph'",
+      933
+    ],
+    [
+      "loading",
+      "'Loading…'",
+      934
+    ],
+    [
+      "memory",
+      "'Memory'",
+      928
+    ],
+    [
+      "refresh",
+      "'Refresh'",
+      927
+    ],
+    [
+      "resetToMine",
+      "'Back to my map'",
+      949
+    ],
+    [
+      "share",
+      "'Share map'",
+      937
+    ],
+    [
+      "shareHint",
+      "",
+      938
+    ],
+    [
+      "sharePlaceholder",
+      "'Paste a map code…'",
+      941
+    ],
+    [
+      "shareTitle",
+      "'Import / export map'",
+      940
+    ],
+    [
+      "subtitle",
+      "(nodes, clusters) => `${nodes} skills across ${clusters} categories`",
+      925
+    ],
+    [
+      "title",
+      "'Memory Graph'",
+      924
+    ],
+    [
+      "viewGraph",
+      "'Graph'",
+      932
+    ]
+  ],
+  "statusStack": [
+    [
+      "agents",
+      "'Agents'",
+      1780
+    ],
+    [
+      "background",
+      "count => `${count} Background`",
+      1781
+    ],
+    [
+      "coding.agentShip",
+      "'Ask Hermes to open PR'",
+      1824
+    ],
+    [
+      "coding.agentShipPrompt",
+      "",
+      1825
+    ],
+    [
+      "coding.ahead",
+      "count => `${count} ahead`",
+      1794
+    ],
+    [
+      "coding.behind",
+      "count => `${count} behind`",
+      1795
+    ],
+    [
+      "coding.branchOffFrom",
+      "base => `New branch from ${base}`",
+      1828
+    ],
+    [
+      "coding.changed",
+      "count => `${count} changed`",
+      1793
+    ],
+    [
+      "coding.clean",
+      "'Clean'",
+      1792
+    ],
+    [
+      "coding.close",
+      "'Close'",
+      1797
+    ],
+    [
+      "coding.commit",
+      "'Commit'",
+      1816
+    ],
+    [
+      "coding.commitAndPush",
+      "'Commit & Push'",
+      1817
+    ],
+    [
+      "coding.commitPlaceholder",
+      "'Message (⌘↵ to commit)'",
+      1818
+    ],
+    [
+      "coding.createPr",
+      "'Create PR'",
+      1821
+    ],
+    [
+      "coding.detached",
+      "'detached'",
+      1791
+    ],
+    [
+      "coding.generateCommitMessage",
+      "'Generate commit message'",
+      1819
+    ],
+    [
+      "coding.ghMissing",
+      "'Install the GitHub CLI (gh) and sign in to open PRs'",
+      1823
+    ],
+    [
+      "coding.newBranch",
+      "'New branch'",
+      1827
+    ],
+    [
+      "coding.noBranch",
+      "'No branch'",
+      1790
+    ],
+    [
+      "coding.noChanges",
+      "'No changes'",
+      1810
+    ],
+    [
+      "coding.noDiff",
+      "'No diff to show'",
+      1812
+    ],
+    [
+      "coding.notRepo",
+      "'Not a git repository'",
+      1811
+    ],
+    [
+      "coding.openChanges",
+      "'Open Changes'",
+      1798
+    ],
+    [
+      "coding.openFile",
+      "'Open File'",
+      1799
+    ],
+    [
+      "coding.openPr",
+      "'Open PR'",
+      1822
+    ],
+    [
+      "coding.revert",
+      "'Revert'",
+      1805
+    ],
+    [
+      "coding.revertAll",
+      "'Revert all'",
+      1806
+    ],
+    [
+      "coding.revertAllConfirm",
+      "'Discard every change and restore files to the committed state? This cannot be undone.'",
+      1808
+    ],
+    [
+      "coding.revertConfirm",
+      "'Discard changes to this file and restore it to the committed state? This cannot be undone.'",
+      1807
+    ],
+    [
+      "coding.review",
+      "'Review'",
+      1796
+    ],
+    [
+      "coding.scopeBranch",
+      "'Branch'",
+      1814
+    ],
+    [
+      "coding.scopeLastTurn",
+      "'Last turn'",
+      1815
+    ],
+    [
+      "coding.scopeUncommitted",
+      "'Uncommitted'",
+      1813
+    ],
+    [
+      "coding.stage",
+      "'Stage'",
+      1800
+    ],
+    [
+      "coding.stageAll",
+      "'Stage all'",
+      1802
+    ],
+    [
+      "coding.staged",
+      "'Staged'",
+      1809
+    ],
+    [
+      "coding.stopGenerating",
+      "'Stop generating'",
+      1820
+    ],
+    [
+      "coding.switchFailed",
+      "branch => `Could not switch to ${branch}`",
+      1830
+    ],
+    [
+      "coding.switchTo",
+      "branch => `Switch to ${branch}`",
+      1829
+    ],
+    [
+      "coding.title",
+      "'Working tree'",
+      1789
+    ],
+    [
+      "coding.unstage",
+      "'Unstage'",
+      1801
+    ],
+    [
+      "coding.viewAsList",
+      "'View as list'",
+      1804
+    ],
+    [
+      "coding.viewAsTree",
+      "'View as tree'",
+      1803
+    ],
+    [
+      "coding.worktrees",
+      "'Worktrees'",
+      1831
+    ],
+    [
+      "dismiss",
+      "'Dismiss'",
+      1786
+    ],
+    [
+      "exit",
+      "code => `exit ${code}`",
+      1787
+    ],
+    [
+      "running",
+      "'Running'",
+      1784
+    ],
+    [
+      "stop",
+      "'Stop'",
+      1785
+    ],
+    [
+      "subagents",
+      "count => `${count} Subagent${count === 1 ? '' : 's'}`",
+      1782
+    ],
+    [
+      "todos",
+      "(done, total) => `Tasks ${done}/${total}`",
+      1783
+    ]
+  ],
+  "titlebar": [
+    [
+      "openStarmap",
+      "'Open memory graph'",
+      191
+    ]
+  ],
+  "updates": [
+    [
+      "applyStatus.failed",
+      "'Backend update failed.'",
+      1889
+    ],
+    [
+      "applyStatus.noReturn",
+      "'Backend didn’t come back online. The update may not have completed — check the backend host.'",
+      1890
+    ],
+    [
+      "applyStatus.notAvailable",
+      "'Update not available for this backend.'",
+      1888
+    ],
+    [
+      "applyStatus.preparing",
+      "'Updating backend…'",
+      1885
+    ],
+    [
+      "applyStatus.pulling",
+      "'Backend updating…'",
+      1886
+    ],
+    [
+      "applyStatus.restarting",
+      "'Backend restarting to load the update…'",
+      1887
+    ],
+    [
+      "applyingBodyBackend",
+      "",
+      1878
+    ],
+    [
+      "availableBodyBackend",
+      "'A newer version of the connected Hermes backend is ready to install.'",
+      1862
+    ],
+    [
+      "availableBodyNoChangelog",
+      "'A newer version is ready. Release notes aren’t available for this install type.'",
+      1863
+    ],
+    [
+      "availableTitleBackend",
+      "'Backend update available'",
+      1861
+    ],
+    [
+      "guiSkewBody",
+      "",
+      1871
+    ],
+    [
+      "guiSkewTitle",
+      "'Update the desktop app'",
+      1870
+    ],
+    [
+      "latestBodyBackend",
+      "'The backend is running the latest version.'",
+      1857
+    ],
+    [
+      "stages.done",
+      "'Update complete'",
+      1845
+    ],
+    [
+      "stages.guiSkew",
+      "'Update the desktop app'",
+      1847
+    ],
+    [
+      "stages.rebuild",
+      "'Rebuilding the desktop app…'",
+      1843
+    ],
+    [
+      "stages.update",
+      "'Updating Hermes…'",
+      1842
+    ]
+  ]
+}
