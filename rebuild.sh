@@ -3,6 +3,8 @@
 # Run this after `hermes update` to rebuild the Russian translation.
 #
 # Usage: bash ~/.hermes/desktop-ru-mod/rebuild.sh
+#
+# Repo: https://github.com/upmeister/hermes-desktop-ru
 set -euo pipefail
 
 HERMES_HOME="${HERMES_HOME:-$(cygpath -u "$LOCALAPPDATA" 2>/dev/null || echo "$HOME/AppData/Local")/hermes}"
@@ -14,6 +16,18 @@ DIST_BACKUP="$MOD_DIR/dist"
 echo "=== Hermes Desktop Russian mod — rebuild ==="
 echo "Source: $DESKTOP_SRC"
 echo "Mod dir: $MOD_DIR"
+echo ""
+
+# --- 0. Pull latest translations from GitHub ---
+echo "[0/6] Pulling latest translations from GitHub..."
+if [ -d "$MOD_DIR/.git" ]; then
+  cd "$MOD_DIR"
+  git pull --ff-only origin master 2>&1 || echo "  [~] Could not pull (offline or no remote configured)"
+  cd - >/dev/null
+  echo "  ✓ Translations up to date"
+else
+  echo "  [~] Not a git repo, skipping pull"
+fi
 echo ""
 
 # --- 1. Check source exists ---
