@@ -371,6 +371,9 @@ export const ru = defineLocale({
         toggleFailed: (name: string) => `Не удалось переключить ${name}`,
         sources: { bundled: 'встроенный', user: 'пользовательский', git: 'git', project: 'проект', entrypoint: 'pip' },
       },
+      descriptions: {
+        kanban: 'Мультиагентная доска задач — страница доски, запись в боковой панели и счётчик выполняющихся задач в статус-баре.',
+      },
     },
     notifications: {
       title: 'Уведомления',

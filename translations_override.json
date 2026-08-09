@@ -20,5 +20,6 @@
  "settings.toolsets.terminalBackend.selectedMessage",
  "settings.toolsets.webCapabilitySelectedMessage",
  "settings.toolsets.terminalBackend.needsSetupHint",
- "assistant.clarify.lateAnswerHint"
+ "assistant.clarify.lateAnswerHint",
+ "settings.plugins.descriptions.kanban"
 ]
