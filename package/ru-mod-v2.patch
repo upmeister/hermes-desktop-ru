@@ -1,0 +1,1811 @@
+diff --git a/apps/desktop/src/app/chat/index.tsx b/apps/desktop/src/app/chat/index.tsx
+index f8c2c86a6..da2d01637 100644
+--- a/apps/desktop/src/app/chat/index.tsx
++++ b/apps/desktop/src/app/chat/index.tsx
+@@ -8,6 +8,7 @@ import { useLocation } from 'react-router'
+ 
+ import type { SubmitTextOptions } from '@/app/session/hooks/use-prompt-actions/utils'
+ import { Thread } from '@/components/assistant-ui/thread'
++import { translateNow } from '@/i18n'
+ import { TranscriptWindowProvider } from '@/components/assistant-ui/thread/transcript-window'
+ import { Backdrop } from '@/components/Backdrop'
+ import { COMPOSER_HEART_CONFIG, HeartField } from '@/components/chat/vibe-hearts'
+@@ -116,7 +117,7 @@ function ChatHeader({
+   const activeStoredSession =
+     (selectedSessionId && sessions.find(session => sessionMatchesStoredId(session, selectedSessionId))) || null
+ 
+-  const title = activeStoredSession ? sessionTitle(activeStoredSession) : 'New session'
++  const title = activeStoredSession ? sessionTitle(activeStoredSession) : translateNow('common.newSession')
+ 
+   // Which agent/persona owns this chat — glanceable in the header once a
+   // second profile exists, so the open session's ownership is never ambiguous
+diff --git a/apps/desktop/src/app/contrib/controller.tsx b/apps/desktop/src/app/contrib/controller.tsx
+index 1bd11309a..13b9a4064 100644
+--- a/apps/desktop/src/app/contrib/controller.tsx
++++ b/apps/desktop/src/app/contrib/controller.tsx
+@@ -6,6 +6,7 @@ import { SessionStatusDot } from '@/app/chat/session-status-dot'
+ import { PALETTE_AREA, type PaletteContribution, paletteToggle } from '@/app/command-palette/contrib'
+ import { type StatusbarItem } from '@/app/shell/statusbar-controls'
+ import { IdleMount } from '@/components/idle-mount'
++import { translateNow } from '@/i18n'
+ import { $layoutEditMode, toggleLayoutEditMode } from '@/components/pane-shell/edit-mode'
+ import { allPaneIds, group, groupLeafIds, split } from '@/components/pane-shell/tree/model'
+ import { LayoutTreeRoot } from '@/components/pane-shell/tree/renderer'
+@@ -159,7 +160,7 @@ registry.registerMany([
+     id: 'workspace',
+     area: 'panes',
+     // Live-retitled to the loaded session by syncWorkspaceTitle below.
+-    title: 'New session',
++    title: translateNow('common.newSession'),
+     data: {
+       placement: 'main',
+       minWidth: '22vw',
+@@ -293,7 +294,7 @@ registry.registerMany([
+     area: PALETTE_AREA,
+     data: {
+       id: 'keybinds.panel',
+-      label: 'Keyboard shortcuts',
++      label: translateNow('keybinds.actions.keybinds.openPanel'),
+       keywords: ['keybinds', 'shortcuts', 'hotkeys', 'keyboard'],
+       run: () => window.dispatchEvent(new CustomEvent('hermes:open-keybinds'))
+     } satisfies PaletteContribution
+@@ -430,7 +431,7 @@ const syncWorkspaceTitle = () => {
+   registry.register({
+     id: 'workspace',
+     area: 'panes',
+-    title: stored ? storedSessionTitle(stored) : 'New session',
++    title: stored ? storedSessionTitle(stored) : translateNow('common.newSession'),
+     data: {
+       // The tab's status dot — the SAME primitive the sidebar row and session
+       // tiles render, so the main tab never disagrees with its sidebar row. No
+@@ -625,7 +626,7 @@ $logsOpen.listen(syncLogsPane)
+ registry.register(
+   paletteToggle({
+     id: 'logs.toggle',
+-    label: 'Toggle logs',
++    label: translateNow('common.toggleLogs'),
+     icon: FileText,
+     keywords: ['logs', 'agent log', 'tail', 'debug'],
+     // On-screen, not the store's boolean. Summon-only keeps the two in step
+diff --git a/apps/desktop/src/app/pet-generate/components/generate-unavailable.tsx b/apps/desktop/src/app/pet-generate/components/generate-unavailable.tsx
+index 465dbc667..de22d6efa 100644
+--- a/apps/desktop/src/app/pet-generate/components/generate-unavailable.tsx
++++ b/apps/desktop/src/app/pet-generate/components/generate-unavailable.tsx
+@@ -1,4 +1,5 @@
+ import { Button } from '@/components/ui/button'
++import { useI18n } from '@/i18n'
+ import { ExternalLink } from '@/lib/external-link'
+ import { PawPrint, Settings2 } from '@/lib/icons'
+ 
+@@ -10,6 +11,7 @@ interface GenerateUnavailableProps {
+ // impossible, so we replace the prompt entirely with a friendly path to set one
+ // up (in-app) plus where to grab a key.
+ export function GenerateUnavailable({ onSetup }: GenerateUnavailableProps) {
++  const { t } = useI18n()
+   return (
+     <div className="flex flex-col items-center gap-4 text-center">
+       <span className="grid size-11 place-items-center rounded-full bg-primary/10 text-primary">
+@@ -25,10 +27,10 @@ export function GenerateUnavailable({ onSetup }: GenerateUnavailableProps) {
+       </div>
+       <Button onClick={onSetup} size="sm">
+         <Settings2 className="size-4" />
+-        Set up image generation
++        {t.commandCenter.generatePet.setupImageGeneration}
+       </Button>
+       <p className="flex flex-wrap items-center justify-center gap-x-1.5 text-[0.6875rem] text-(--ui-text-tertiary)">
+-        <span>Grab a key from</span>
++        <span>{t.commandCenter.generatePet.grabKeyFrom}</span>
+         <ExternalLink href="https://portal.nousresearch.com" showExternalIcon={false}>
+           Nous Portal
+         </ExternalLink>
+diff --git a/apps/desktop/src/app/pet-generate/components/reference-chip.tsx b/apps/desktop/src/app/pet-generate/components/reference-chip.tsx
+index 266658a9d..332943e1d 100644
+--- a/apps/desktop/src/app/pet-generate/components/reference-chip.tsx
++++ b/apps/desktop/src/app/pet-generate/components/reference-chip.tsx
+@@ -26,7 +26,7 @@ export function ReferenceChip({ name, onRemove, src }: ReferenceChipProps) {
+ 
+       <span className="max-w-40 truncate text-[0.64rem] font-medium text-foreground/50">{name || 'Reference'}</span>
+       <button
+-        aria-label="Remove reference"
++        aria-label={t.commandCenter.generatePet.removeReference}
+         className="text-(--ui-text-tertiary) transition not-hover:opacity-50"
+         onClick={onRemove}
+         type="button"
+diff --git a/apps/desktop/src/app/pet-overlay/pet-overlay-app.tsx b/apps/desktop/src/app/pet-overlay/pet-overlay-app.tsx
+index 928294c48..761dd4f74 100644
+--- a/apps/desktop/src/app/pet-overlay/pet-overlay-app.tsx
++++ b/apps/desktop/src/app/pet-overlay/pet-overlay-app.tsx
+@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
+ import { PetHeartField, playVibeHearts } from '@/components/chat/vibe-hearts'
+ import { PetBubble } from '@/components/pet/pet-bubble'
+ import { PetSprite } from '@/components/pet/pet-sprite'
++import { useI18n } from '@/i18n'
+ import { type PetZoomAnchor, usePetZoomGesture } from '@/components/pet/use-pet-zoom-gesture'
+ import { Mail } from '@/lib/icons'
+ import { $petActivity, $petInfo, setPetInfo } from '@/store/pet'
+@@ -61,6 +62,7 @@ interface DragState {
+ }
+ 
+ export function PetOverlayApp() {
++  const { t } = useI18n()
+   const info = useStore($petInfo)
+   const [composerOpen, setComposerOpen] = useState(false)
+   const [draft, setDraft] = useState('')
+@@ -447,7 +449,7 @@ export function PetOverlayApp() {
+               stopPropagation keeps a click from starting a window drag. */}
+           {unread && (
+             <button
+-              aria-label="Open in Hermes"
++              aria-label={t.pet.openInHermes}
+               onClick={openApp}
+               onPointerDown={e => e.stopPropagation()}
+               onPointerUp={e => e.stopPropagation()}
+@@ -468,7 +470,7 @@ export function PetOverlayApp() {
+                 top: 0,
+                 width: 24
+               }}
+-              title="Open in Hermes"
++              title={t.pet.openInHermes}
+               type="button"
+             >
+               <Mail style={{ height: 13, width: 13 }} />
+diff --git a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx b/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
+index 3f5d54835..1ec72e882 100644
+--- a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
++++ b/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
+@@ -8,6 +8,7 @@ import {
+   quickComposerReducer,
+   type QuickComposerState
+ } from '@/store/quick-entry'
++import { useI18n } from '@/i18n'
+ 
+ /**
+  * The Quick Entry composer — the whole renderer surface of the global-hotkey
+@@ -26,6 +27,7 @@ import {
+  * the primary renderer's normal prompt-submit path.
+  */
+ export function QuickEntryApp() {
++  const { t } = useI18n()
+   const inputRef = useRef<HTMLInputElement>(null)
+ 
+   // The reducer returns { send, state }; this wrapper performs the side effect
+@@ -110,7 +112,7 @@ export function QuickEntryApp() {
+             ›
+           </span>
+           <input
+-            aria-label="Quick Entry"
++            aria-label={t.settings.quickEntry.windowAriaLabel}
+             autoCapitalize="off"
+             autoComplete="off"
+             autoCorrect="off"
+@@ -182,8 +184,8 @@ export function QuickEntryApp() {
+             }}
+             value={state.target}
+           >
+-            <option value={QUICK_TARGET_CURRENT}>Current chat</option>
+-            <option value={QUICK_TARGET_NEW}>New session</option>
++            <option value={QUICK_TARGET_CURRENT}>{t.settings.quickEntry.currentTarget}</option>
++            <option value={QUICK_TARGET_NEW}>{t.settings.quickEntry.newTarget}</option>
+             {state.sessions.map(session => (
+               <option key={session.id} value={session.id}>
+                 {session.title}
+diff --git a/apps/desktop/src/app/settings/appearance-settings.tsx b/apps/desktop/src/app/settings/appearance-settings.tsx
+index 998f84bb6..513af573a 100644
+--- a/apps/desktop/src/app/settings/appearance-settings.tsx
++++ b/apps/desktop/src/app/settings/appearance-settings.tsx
+@@ -325,7 +325,7 @@ export function AppearanceSettings() {
+                   <input
+                     className="w-full rounded-lg border border-(--ui-stroke-tertiary) bg-(--ui-bg-quinary) px-3 py-1.5 text-[length:var(--conversation-caption-font-size)] outline-none placeholder:text-(--ui-text-tertiary) focus:border-(--ui-stroke-secondary)"
+                     onChange={event => setQuery(event.target.value)}
+-                    placeholder="Search your themes or the VS Code Marketplace…"
++                    placeholder={t.settings.appearance.searchThemes}
+                     spellCheck={false}
+                     value={query}
+                   />
+diff --git a/apps/desktop/src/app/settings/billing/auto-reload-row.tsx b/apps/desktop/src/app/settings/billing/auto-reload-row.tsx
+index 876e82b89..539ba64db 100644
+--- a/apps/desktop/src/app/settings/billing/auto-reload-row.tsx
++++ b/apps/desktop/src/app/settings/billing/auto-reload-row.tsx
+@@ -2,6 +2,7 @@ import { useQueryClient } from '@tanstack/react-query'
+ import { useState } from 'react'
+ 
+ import { Button } from '@/components/ui/button'
++import { useI18n } from '@/i18n'
+ import { Input } from '@/components/ui/input'
+ import { cn } from '@/lib/utils'
+ 
+@@ -24,6 +25,7 @@ export function AutoReloadRow({
+   bounds: Pick<BillingStateResponse, 'max_usd' | 'min_usd'>
+   row: BillingAccountRowView
+ }) {
++  const { t } = useI18n()
+   const api = useBillingApi()
+   const queryClient = useQueryClient()
+   const [confirmDisable, setConfirmDisable] = useState(false)
+@@ -95,7 +97,7 @@ export function AutoReloadRow({
+     }
+ 
+     await queryClient.invalidateQueries({ queryKey: ['billing', 'state'] })
+-    setMessage({ kind: 'success', text: 'Auto-refill updated.' })
++    setMessage({ kind: 'success', text: t.settings.billingPage.autoRefillUpdated })
+     setEditing(false)
+   }
+ 
+@@ -125,7 +127,7 @@ export function AutoReloadRow({
+     }
+ 
+     await queryClient.invalidateQueries({ queryKey: ['billing', 'state'] })
+-    setMessage({ kind: 'success', text: 'Auto-refill turned off.' })
++    setMessage({ kind: 'success', text: t.settings.billingPage.autoRefillTurnedOff })
+     setEditing(false)
+   }
+ 
+@@ -178,9 +180,9 @@ export function AutoReloadRow({
+             <div aria-hidden={!editing} className={cn('space-y-2 [grid-area:stack]', !editing && 'invisible')}>
+               <div className="grid gap-2 @2xl:grid-cols-2">
+                 <label className="min-w-0 text-[length:var(--conversation-caption-font-size)] text-(--ui-text-tertiary)">
+-                  Threshold
++                  {t.settings.billingPage.autoRefillThreshold}
+                   <Input
+-                    aria-label="Auto-refill threshold"
++                    aria-label={t.settings.billingPage.autoRefillThresholdAria}
+                     className="mt-1 py-[3px]"
+                     disabled={busy || !editing}
+                     inputMode="decimal"
+@@ -195,9 +197,9 @@ export function AutoReloadRow({
+                   />
+                 </label>
+                 <label className="min-w-0 text-[length:var(--conversation-caption-font-size)] text-(--ui-text-tertiary)">
+-                  Reload to
++                  {t.settings.billingPage.autoRefillReloadTo}
+                   <Input
+-                    aria-label="Auto-refill reload-to amount"
++                    aria-label={t.settings.billingPage.autoRefillReloadToAria}
+                     className="mt-1 py-[3px]"
+                     disabled={busy || !editing}
+                     inputMode="decimal"
+@@ -218,9 +220,9 @@ export function AutoReloadRow({
+               </div>
+               {confirmDisable ? (
+                 <div className="flex min-w-0 flex-wrap items-center gap-2 text-[length:var(--conversation-caption-font-size)] text-(--ui-text-tertiary)">
+-                  <span>Turn off auto-refill?</span>
++                  <span>{t.settings.billingPage.turnOffAutoRefill}</span>
+                   <Button disabled={busy} onClick={() => void disable()} size="sm" type="button" variant="outline">
+-                    Turn off
++                    {t.settings.billingPage.turnOff}
+                   </Button>
+                   <Button
+                     disabled={busy}
+@@ -229,7 +231,7 @@ export function AutoReloadRow({
+                     type="button"
+                     variant="ghost"
+                   >
+-                    Cancel
++                    {t.common.cancel}
+                   </Button>
+                 </div>
+               ) : (
+@@ -241,7 +243,7 @@ export function AutoReloadRow({
+                   type="button"
+                   variant="outline"
+                 >
+-                  Disable
++                  {t.settings.billingPage.turnOff}
+                 </Button>
+               )}
+               {/* Refusal stays INSIDE the reserved layer so it never pushes Usage. */}
+@@ -261,15 +263,15 @@ export function AutoReloadRow({
+           {editing ? (
+             <>
+               <Button disabled={busy || !validation.values} onClick={() => void save()} size="sm" type="button">
+-                {busy ? 'Saving…' : 'Save'}
++                {busy ? t.common.saving : t.common.save}
+               </Button>
+               <Button disabled={busy} onClick={cancelEdit} size="sm" type="button" variant="outline">
+-                Cancel
++                {t.common.cancel}
+               </Button>
+             </>
+           ) : (
+             <Button onClick={openEdit} size="sm" type="button" variant="outline">
+-              Manage
++              {t.settings.billingPage.manage}
+             </Button>
+           )}
+         </div>
+diff --git a/apps/desktop/src/app/settings/billing/current-plan-card.tsx b/apps/desktop/src/app/settings/billing/current-plan-card.tsx
+index c9118e574..5c7462787 100644
+--- a/apps/desktop/src/app/settings/billing/current-plan-card.tsx
++++ b/apps/desktop/src/app/settings/billing/current-plan-card.tsx
+@@ -1,4 +1,5 @@
+ import { Button } from '@/components/ui/button'
++import { useI18n } from '@/i18n'
+ import { ExternalLink } from '@/lib/icons'
+ 
+ import { BillingRefusalInline } from './inline-feedback'
+@@ -8,6 +9,7 @@ import type { BillingPlanCardView } from './use-billing-state'
+ import { useResumeFlow } from './use-subscription-change'
+ 
+ export function CurrentPlanCard({ onViewPlans, plan }: { onViewPlans: () => void; plan: BillingPlanCardView }) {
++  const { t } = useI18n()
+   const resumeFlow = useResumeFlow()
+ 
+   return (
+@@ -40,7 +42,7 @@ export function CurrentPlanCard({ onViewPlans, plan }: { onViewPlans: () => void
+           {/* Scheduled downgrade → chargeless undo (subscription.resume), no confirm. */}
+           {plan.pending && (
+             <Button disabled={resumeFlow.busy} onClick={() => void resumeFlow.resume()} size="sm" type="button">
+-              {resumeFlow.busy ? 'Undoing…' : 'Undo'}
++              {resumeFlow.busy ? t.settings.billingPage.undoing : t.settings.billingPage.undo}
+             </Button>
+           )}
+           {plan.link && (
+diff --git a/apps/desktop/src/app/settings/billing/index.tsx b/apps/desktop/src/app/settings/billing/index.tsx
+index 040d37b3b..cd76965ad 100644
+--- a/apps/desktop/src/app/settings/billing/index.tsx
++++ b/apps/desktop/src/app/settings/billing/index.tsx
+@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
+ 
+ import { Button } from '@/components/ui/button'
+ import { Input } from '@/components/ui/input'
++import { useI18n } from '@/i18n'
+ import { Progress } from '@/components/ui/progress'
+ import { SegmentedControl } from '@/components/ui/segmented-control'
+ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+@@ -375,13 +376,14 @@ function BillingFixtureSelect({
+   onValueChange: (value: BillingFixtureSelection) => void
+   value: BillingFixtureSelection
+ }) {
++  const { t } = useI18n()
+   return (
+     <div className="flex items-center gap-1.5 text-(--ui-text-tertiary)">
+       <Wrench className="size-3.5 shrink-0" />
+       <span className="text-xs font-normal">preview</span>
+       <Select onValueChange={value => onValueChange(value as BillingFixtureSelection)} value={value}>
+         <SelectTrigger
+-          aria-label="Billing preview fixture (dev only)"
++          aria-label={t.settings.billingPage.devFixture}
+           className="h-7 w-36 border-dashed border-(--ui-stroke-secondary) bg-transparent px-2 text-xs font-normal text-(--ui-text-tertiary) shadow-none hover:bg-(--ui-bg-tertiary) focus-visible:ring-0 focus-visible:ring-offset-0 data-[state=open]:bg-(--ui-bg-tertiary)"
+           size="sm"
+         >
+@@ -455,6 +457,7 @@ function BillingSettingsContent({
+   fixtureName?: BillingFixtureSelection
+   onFixtureChange?: (value: BillingFixtureSelection) => void
+ }) {
++  const { t } = useI18n()
+   const [subView, setSubView] = useRouteEnumParam<BillingSubView>('bview', BILLING_VIEWS, 'overview')
+ 
+   // Fixture mode flows through the SAME query path — the simulated api (supplied by
+@@ -544,7 +547,7 @@ function BillingSettingsContent({
+ 
+       {
+         // no endpoint yet — NAS capability-board gap
+-        FEATURE_BILLING_INVOICES ? <SectionHeading icon={BarChart3} title="Invoices" /> : null
++        FEATURE_BILLING_INVOICES ? <SectionHeading icon={BarChart3} title={t.settings.billingPage.invoices} /> : null
+       }
+     </SettingsContent>
+   )
+diff --git a/apps/desktop/src/app/settings/billing/inline-feedback.tsx b/apps/desktop/src/app/settings/billing/inline-feedback.tsx
+index dcc3e2799..94e04aaaf 100644
+--- a/apps/desktop/src/app/settings/billing/inline-feedback.tsx
++++ b/apps/desktop/src/app/settings/billing/inline-feedback.tsx
+@@ -1,4 +1,5 @@
+ import { Button } from '@/components/ui/button'
++import { useI18n } from '@/i18n'
+ import { openExternalLink } from '@/lib/external-link'
+ import { ExternalLink } from '@/lib/icons'
+ 
+@@ -7,12 +8,13 @@ import { resolveRefusal } from './errors'
+ import { useStepUpFlow } from './use-step-up'
+ 
+ export function StepUpInlineAction({ flow }: { flow: ReturnType<typeof useStepUpFlow> }) {
++  const { t } = useI18n()
+   if (flow.verification) {
+     return (
+       <span className="inline-flex min-w-0 flex-wrap items-center gap-2">
+         <span className="font-mono text-[0.72rem] font-semibold text-foreground">{flow.verification.code}</span>
+         <Button onClick={flow.openVerification} size="sm" type="button" variant="outline">
+-          Open verification page
++          {t.settings.billingPage.openVerificationPage}
+           <ExternalLink className="size-3.5" />
+         </Button>
+       </span>
+@@ -26,19 +28,19 @@ export function StepUpInlineAction({ flow }: { flow: ReturnType<typeof useStepUp
+           {flow.message.title}: {flow.message.text}
+         </span>
+         <Button onClick={flow.dismiss} size="sm" type="button" variant="outline">
+-          Dismiss
++          {t.common.dismiss}
+         </Button>
+       </span>
+     )
+   }
+ 
+   if (flow.phase === 'waiting') {
+-    return <span>Waiting for verification link…</span>
++    return <span>{t.settings.billingPage.waitingForVerification}</span>
+   }
+ 
+   return (
+     <Button onClick={() => void flow.start()} size="sm" type="button" variant="outline">
+-      Verify to continue
++      {t.settings.billingPage.verifyToContinue}
+     </Button>
+   )
+ }
+diff --git a/apps/desktop/src/app/settings/billing/plans-view.tsx b/apps/desktop/src/app/settings/billing/plans-view.tsx
+index 728a81423..40b636d14 100644
+--- a/apps/desktop/src/app/settings/billing/plans-view.tsx
++++ b/apps/desktop/src/app/settings/billing/plans-view.tsx
+@@ -1,6 +1,7 @@
+ import { useEffect, useRef } from 'react'
+ 
+ import { Button } from '@/components/ui/button'
++import { translateNow, useI18n } from '@/i18n'
+ import { openExternalLink } from '@/lib/external-link'
+ import { ChevronLeft, ExternalLink } from '@/lib/icons'
+ import { cn } from '@/lib/utils'
+@@ -18,7 +19,7 @@ type DowngradeFlow = ReturnType<typeof useDowngradeFlow>
+ // a refusal is the only thing to show (BillingRefusalInline renders that separately).
+ function previewMessage(phase: DowngradePhase, fallbackTierName: string): null | string {
+   if (phase.kind === 'previewing') {
+-    return 'Checking this change…'
++    return translateNow('settings.billingPage.checkingChange')
+   }
+ 
+   if (phase.kind === 'previewFailed') {
+@@ -31,24 +32,22 @@ function previewMessage(phase: DowngradePhase, fallbackTierName: string): null |
+ 
+   switch (preview.effect) {
+     case 'blocked':
+-      return preview.reason ?? 'That change cannot be made here.'
++      return preview.reason ?? translateNow('settings.billingPage.cannotChange')
+ 
+     case 'no_op':
+-      return `You are already on ${targetName} — nothing to change.`
++      return translateNow('settings.billingPage.alreadyOnPlan', targetName)
+ 
+     case 'scheduled':
+-      return (
+-        `Change to ${targetName} — takes effect ${formatBillingDate(preview.effective_at)}. No charge now; ` +
+-        `you keep your current plan until then.${creditsDelta ? ` Monthly credits change: ${creditsDelta}.` : ''}`
+-      )
++      return translateNow('settings.billingPage.changeTakesEffect', targetName, formatBillingDate(preview.effective_at), creditsDelta)
+ 
+     default:
+-      return 'This change cannot be scheduled here.'
++      return translateNow('settings.billingPage.cannotSchedule')
+   }
+ }
+ 
+ // The in-card preview → confirm panel for a downgrade (mirrors the TUI confirm flow).
+ function DowngradeConfirm({ flow, tier }: { flow: DowngradeFlow; tier: BillingPlanTierView }) {
++  const { t } = useI18n()
+   const active = flow.active
+   const panelRef = useRef<HTMLDivElement>(null)
+   const open = active?.target.tierId === tier.tierId
+@@ -91,19 +90,19 @@ function DowngradeConfirm({ flow, tier }: { flow: DowngradeFlow; tier: BillingPl
+       <div className="flex min-w-0 flex-wrap items-center gap-2">
+         {phase.kind === 'previewFailed' ? (
+           <Button disabled={busy} onClick={flow.retryPreview} size="sm" type="button">
+-            Try again
++            {t.settings.billingPage.tryAgain}
+           </Button>
+         ) : canConfirm ? (
+           <Button disabled={busy} onClick={() => void flow.confirm()} size="sm" type="button">
+             {phase.kind === 'scheduling'
+-              ? 'Scheduling…'
++              ? t.settings.billingPage.scheduling
+               : phase.kind === 'scheduleFailed'
+-                ? 'Try again'
+-                : 'Confirm downgrade'}
++                ? t.settings.billingPage.tryAgain
++                : t.settings.billingPage.confirmDowngrade}
+           </Button>
+         ) : null}
+         <Button disabled={busy} onClick={flow.cancel} size="sm" type="button" variant="outline">
+-          Cancel
++          {t.common.cancel}
+         </Button>
+       </div>
+     </div>
+@@ -111,6 +110,7 @@ function DowngradeConfirm({ flow, tier }: { flow: DowngradeFlow; tier: BillingPl
+ }
+ 
+ function PlanCard({ flow, tier }: { flow: DowngradeFlow; tier: BillingPlanTierView }) {
++  const { t } = useI18n()
+   const isCurrent = tier.state === 'current'
+   const confirming = flow.active?.target.tierId === tier.tierId
+   const cardRef = useRef<HTMLDivElement>(null)
+@@ -155,9 +155,9 @@ function PlanCard({ flow, tier }: { flow: DowngradeFlow; tier: BillingPlanTierVi
+       )}
+ 
+       <div className="mt-auto min-w-0 pt-1">
+-        {isCurrent && <Pill tone="primary">Current plan</Pill>}
++        {isCurrent && <Pill tone="primary">{t.settings.billingPage.currentPlan}</Pill>}
+ 
+-        {tier.state === 'scheduled' && <Pill>Scheduled</Pill>}
++        {tier.state === 'scheduled' && <Pill>{t.settings.billingPage.scheduled}</Pill>}
+ 
+         {tier.state === 'upgrade' && (
+           <Button
+@@ -183,7 +183,7 @@ function PlanCard({ flow, tier }: { flow: DowngradeFlow; tier: BillingPlanTierVi
+               type="button"
+               variant="outline"
+             >
+-              Downgrade
++              {t.settings.billingPage.downgrade}
+             </Button>
+           ))}
+       </div>
+@@ -192,6 +192,7 @@ function PlanCard({ flow, tier }: { flow: DowngradeFlow; tier: BillingPlanTierVi
+ }
+ 
+ export function BillingPlansView({ onBack, tiers }: { onBack: () => void; tiers: BillingPlanTierView[] }) {
++  const { t } = useI18n()
+   // A scheduled downgrade lands the user back on the overview, where the plan card
+   // now shows the pending state with its undo.
+   const flow = useDowngradeFlow({ onScheduled: onBack })
+@@ -200,7 +201,7 @@ export function BillingPlansView({ onBack, tiers }: { onBack: () => void; tiers:
+     <div className="@container">
+       <div className="mb-2.5 flex items-center gap-2 pt-2 text-[length:var(--conversation-text-font-size)] font-medium">
+         <Button
+-          aria-label="Back to billing"
++          aria-label={t.settings.billingPage.backToBilling}
+           className="size-7 p-0 text-(--ui-text-tertiary)"
+           disabled={flow.mutating}
+           onClick={onBack}
+@@ -210,7 +211,7 @@ export function BillingPlansView({ onBack, tiers }: { onBack: () => void; tiers:
+         >
+           <ChevronLeft className="size-4" />
+         </Button>
+-        <span>Plans</span>
++        <span>{t.settings.billingPage.plans}</span>
+       </div>
+ 
+       {tiers.length > 0 ? (
+@@ -221,7 +222,7 @@ export function BillingPlansView({ onBack, tiers }: { onBack: () => void; tiers:
+         </div>
+       ) : (
+         <div className="rounded-xl bg-(--ui-bg-quaternary) p-4 text-[length:var(--conversation-caption-font-size)] text-(--ui-text-tertiary)">
+-          No plans are available to change to right now.
++          {t.settings.billingPage.noPlansAvailable}
+         </div>
+       )}
+     </div>
+diff --git a/apps/desktop/src/app/settings/combobox-input.tsx b/apps/desktop/src/app/settings/combobox-input.tsx
+index 63dd42606..2b057e2d1 100644
+--- a/apps/desktop/src/app/settings/combobox-input.tsx
++++ b/apps/desktop/src/app/settings/combobox-input.tsx
+@@ -4,6 +4,7 @@ import { Codicon } from '@/components/ui/codicon'
+ import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/command'
+ import { Input } from '@/components/ui/input'
+ import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover'
++import { useI18n } from '@/i18n'
+ import { cn } from '@/lib/utils'
+ 
+ /**
+@@ -34,6 +35,7 @@ export function ComboboxInput({
+   placeholder?: string
+   className?: string
+ }) {
++  const { t } = useI18n()
+   const [open, setOpen] = useState(false)
+   const inputRef = useRef<HTMLInputElement>(null)
+ 
+@@ -66,7 +68,7 @@ export function ComboboxInput({
+             value={value}
+           />
+           <button
+-            aria-label="Show options"
++            aria-label={t.common.showOptions}
+             className="absolute inset-y-0 right-1.5 flex items-center text-muted-foreground"
+             onClick={() => {
+               setOpen(current => !current)
+diff --git a/apps/desktop/src/app/settings/computer-use-panel.tsx b/apps/desktop/src/app/settings/computer-use-panel.tsx
+index 2423df8ae..e563d55e4 100644
+--- a/apps/desktop/src/app/settings/computer-use-panel.tsx
++++ b/apps/desktop/src/app/settings/computer-use-panel.tsx
+@@ -1,6 +1,7 @@
+ import { useCallback, useEffect, useRef, useState } from 'react'
+ 
+ import { Button } from '@/components/ui/button'
++import { useI18n } from '@/i18n'
+ import { getActionStatus, getComputerUseStatus, grantComputerUsePermissions } from '@/hermes'
+ import { AlertTriangle, Check, ExternalLink, Loader2, RefreshCw, X } from '@/lib/icons'
+ import { upsertDesktopActionTask } from '@/store/activity'
+@@ -15,13 +16,6 @@ interface ComputerUsePanelProps {
+   onConfiguredChange?: () => void
+ }
+ 
+-// Per-OS one-liner shown when there's no TCC grant flow (Windows/Linux). macOS
+-// drives the permission rows instead, so it has no entry here.
+-const PLATFORM_NOTE: Record<string, string> = {
+-  linux: 'Drives your desktop via the X11/XWayland accessibility stack — no permission prompt.',
+-  win32: 'First run may trigger a Windows SmartScreen prompt for the cua-driver UIAccess worker — allow it.'
+-}
+-
+ function tone(granted: boolean | null) {
+   return granted === true ? 'primary' : 'muted'
+ }
+@@ -33,6 +27,7 @@ function GrantIcon({ granted }: { granted: boolean | null }) {
+ }
+ 
+ function PermissionRow({ granted, label, hint }: { granted: boolean | null; label: string; hint: string }) {
++  const { t } = useI18n()
+   return (
+     <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-background/55 p-2.5">
+       <div className="min-w-0">
+@@ -41,7 +36,7 @@ function PermissionRow({ granted, label, hint }: { granted: boolean | null; labe
+       </div>
+       <Pill tone={tone(granted)}>
+         <GrantIcon granted={granted} />
+-        {granted === true ? 'Granted' : granted === false ? 'Not granted' : 'Unknown'}
++        {granted === true ? t.settings.computerUse.granted : granted === false ? t.settings.computerUse.notGranted : t.settings.computerUse.unknown}
+       </Pill>
+     </div>
+   )
+@@ -61,6 +56,7 @@ function PermissionRow({ granted, label, hint }: { granted: boolean | null; labe
+  * below this card (the generic ToolsetConfigPanel).
+  */
+ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps) {
++  const { t } = useI18n()
+   const [status, setStatus] = useState<ComputerUseStatus | null>(null)
+   const [loading, setLoading] = useState(true)
+   const [granting, setGranting] = useState(false)
+@@ -70,7 +66,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+     try {
+       setStatus(await getComputerUseStatus())
+     } catch (err) {
+-      notifyError(err, 'Could not read Computer Use status')
++      notifyError(err, t.settings.computerUse.errorRead)
+     } finally {
+       setLoading(false)
+     }
+@@ -91,15 +87,15 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+       const started = await grantComputerUsePermissions()
+ 
+       if (!started.ok) {
+-        notifyError(new Error('spawn failed'), 'Could not request permissions')
++        notifyError(new Error('spawn failed'), t.settings.computerUse.errorRequest)
+ 
+         return
+       }
+ 
+       notify({
+         kind: 'info',
+-        title: 'Approve in System Settings',
+-        message: 'macOS will show a permission dialog attributed to CuaDriver. Approve it, then return here.'
++        title: t.settings.computerUse.approveTitle,
++        message: t.settings.computerUse.approveMessage
+       })
+ 
+       // The driver waits for the user to flip the switch — poll until it exits.
+@@ -124,7 +120,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+       }
+     } catch (err) {
+       if (activeRef.current) {
+-        notifyError(err, 'Could not request permissions')
++        notifyError(err, t.settings.computerUse.errorRequest)
+       }
+     } finally {
+       if (activeRef.current) {
+@@ -137,7 +133,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+     return (
+       <div className="flex items-center gap-2 px-1 text-xs text-muted-foreground">
+         <Loader2 className="size-3.5 animate-spin" />
+-        Checking Computer Use status…
++        {t.settings.computerUse.checking}
+       </div>
+     )
+   }
+@@ -149,7 +145,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+   if (!status.platform_supported) {
+     return (
+       <p className="px-1 text-xs text-muted-foreground">
+-        Computer Use isn&apos;t supported on this platform ({status.platform}).
++        {t.settings.computerUse.notSupported(status.platform)}
+       </p>
+     )
+   }
+@@ -157,8 +153,8 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+   if (!status.installed) {
+     return (
+       <p className="px-1 text-xs text-muted-foreground">
+-        Install the cua-driver backend below to drive this machine.
+-        {status.can_grant && ' Then grant Accessibility and Screen Recording here.'}
++        {t.settings.computerUse.notInstalled}
++        {status.can_grant && t.settings.computerUse.notInstalledGrant}
+       </p>
+     )
+   }
+@@ -171,17 +167,16 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+         <div className="min-w-0">
+           {status.can_grant ? (
+             <p className="text-[0.72rem] text-muted-foreground">
+-              Grants attach to CuaDriver&apos;s own identity (com.trycua.driver), not Hermes — so the dialog is
+-              attributed to the process that drives your Mac.
++              {t.settings.computerUse.grantsNote}
+             </p>
+           ) : (
+-            <p className="text-[0.72rem] text-muted-foreground">{PLATFORM_NOTE[status.platform] ?? ''}</p>
++            <p className="text-[0.72rem] text-muted-foreground">{status.platform === 'linux' ? t.settings.computerUse.platformNoteLinux : t.settings.computerUse.platformNoteWin}</p>
+           )}
+           {status.version && <p className="text-[0.68rem] text-muted-foreground/80">{status.version}</p>}
+         </div>
+         <Button onClick={() => void refresh()} size="sm" variant="text">
+           <RefreshCw className="size-3.5" />
+-          Recheck
++          {t.settings.computerUse.recheck}
+         </Button>
+       </div>
+ 
+@@ -189,21 +184,21 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+         <>
+           <PermissionRow
+             granted={status.accessibility}
+-            hint="Lets cua-driver post clicks, keystrokes, and read the accessibility tree."
+-            label="Accessibility"
++            hint={t.settings.computerUse.accessibilityHint}
++            label={t.settings.computerUse.accessibility}
+           />
+           <PermissionRow
+             granted={status.screen_recording}
+-            hint="Lets cua-driver capture screenshots of app windows."
+-            label="Screen Recording"
++            hint={t.settings.computerUse.screenRecordingHint}
++            label={t.settings.computerUse.screenRecording}
+           />
+         </>
+       ) : (
+         <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-background/55 p-2.5">
+-          <span className="text-sm font-medium">Driver health</span>
++          <span className="text-sm font-medium">{t.settings.computerUse.driverHealth}</span>
+           <Pill tone={tone(status.ready)}>
+             <GrantIcon granted={status.ready} />
+-            {status.ready === true ? 'Ready' : status.ready === false ? 'Not ready' : 'Unknown'}
++            {status.ready === true ? t.settings.computerUse.ready : status.ready === false ? t.settings.computerUse.notReady : t.settings.computerUse.unknown}
+           </Pill>
+         </div>
+       )}
+@@ -225,13 +220,13 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+       {status.ready ? (
+         <div className="flex items-center gap-1.5 px-1 text-xs text-muted-foreground">
+           <Check className="size-3.5" />
+-          Computer Use is ready. Ask the agent to capture an app and click around.
++          {t.settings.computerUse.readyMessage}
+         </div>
+       ) : (
+         status.can_grant && (
+           <Button disabled={granting} onClick={() => void grant()} size="sm">
+             {granting ? <Loader2 className="size-3.5 animate-spin" /> : <ExternalLink className="size-3.5" />}
+-            {granting ? 'Waiting for approval…' : 'Grant permissions'}
++            {granting ? t.settings.computerUse.waitingApproval : t.settings.computerUse.grantPermissions}
+           </Button>
+         )
+       )}
+diff --git a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
+index b74b30a29..aebd50edb 100644
+--- a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
++++ b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
+@@ -75,6 +75,7 @@ function toPayload(form: EndpointForm, models?: string[]): CustomEndpointUpdate
+ }
+ 
+ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: CustomEndpointsSettingsProps) {
++  const { t } = useI18n()
+   const [loading, setLoading] = useState(true)
+   const [saving, setSaving] = useState(false)
+   const [testing, setTesting] = useState(false)
+@@ -268,7 +269,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+                       variant="outline"
+                     >
+                       {activating === endpoint.id ? <Loader2 className="animate-spin" /> : <Zap />}
+-                      Use
++                      {t.common.use}
+                     </Button>
+                     {endpoint.source !== 'direct-config' && (
+                       <Button
+diff --git a/apps/desktop/src/app/settings/plugins-settings.tsx b/apps/desktop/src/app/settings/plugins-settings.tsx
+index 9224c0af9..7a23a7fdb 100644
+--- a/apps/desktop/src/app/settings/plugins-settings.tsx
++++ b/apps/desktop/src/app/settings/plugins-settings.tsx
+@@ -273,7 +273,7 @@ function PluginRow({ record }: { record: PluginRecord }) {
+         record.status === 'error' ? (
+           <span className="text-(--ui-danger,#f87171)">{record.error}</span>
+         ) : (
+-          (record.description ?? record.file ?? record.id)
++          (t.settings.plugins.descriptions[record.id] ?? record.description ?? record.file ?? record.id)
+         )
+       }
+       title={
+diff --git a/apps/desktop/src/app/settings/uninstall-section.tsx b/apps/desktop/src/app/settings/uninstall-section.tsx
+index 5ac21ac80..0763d276c 100644
+--- a/apps/desktop/src/app/settings/uninstall-section.tsx
++++ b/apps/desktop/src/app/settings/uninstall-section.tsx
+@@ -1,6 +1,7 @@
+ import { useEffect, useState } from 'react'
+ 
+ import { Button } from '@/components/ui/button'
++import { useI18n } from '@/i18n'
+ import type { DesktopUninstallMode, DesktopUninstallSummary } from '@/global'
+ import { AlertTriangle, Loader2, Trash2 } from '@/lib/icons'
+ import { cn } from '@/lib/utils'
+@@ -17,41 +18,42 @@ interface ModeOption {
+   needsAgent: boolean
+ }
+ 
+-const OPTIONS: ModeOption[] = [
+-  {
+-    mode: 'gui',
+-    title: 'Uninstall Chat GUI only',
+-    description: 'Remove this desktop app. The Hermes agent, your config, and chats all stay.',
+-    consequence: 'the desktop Chat GUI (this app and its data)',
+-    needsAgent: false
+-  },
+-  {
+-    mode: 'lite',
+-    title: 'Uninstall GUI + agent, keep my data',
+-    description: 'Remove the app and the Hermes agent, but keep config, chats, and secrets for a future reinstall.',
+-    consequence: 'the Chat GUI and the Hermes agent (config, chats, and secrets are kept)',
+-    needsAgent: true
+-  },
+-  {
+-    mode: 'full',
+-    title: 'Uninstall everything',
+-    description: 'Remove the app, the agent, and all user data — config, chats, scheduled jobs, secrets, logs.',
+-    consequence: 'EVERYTHING — the Chat GUI, the Hermes agent, and all of your config, chats, secrets, and logs',
+-    // full removes the agent (and user data), so it's an agent-removing option:
+-    // hide it on a lite client with no local agent, same as lite. A lite client
+-    // connecting to a remote backend has no local agent OR local user data the
+-    // GUI installed, so gui-only is the correct (and only) option there.
+-    needsAgent: true
+-  }
+-]
+-
+ export function UninstallSection() {
++  const { t } = useI18n()
+   const [summary, setSummary] = useState<DesktopUninstallSummary | null>(null)
+   const [loading, setLoading] = useState(true)
+   const [pending, setPending] = useState<DesktopUninstallMode | null>(null)
+   const [running, setRunning] = useState(false)
+   const [error, setError] = useState<string | null>(null)
+ 
++  const OPTIONS: ModeOption[] = [
++    {
++      mode: 'gui',
++      title: t.settings.uninstall.optionGui,
++      description: t.settings.uninstall.optionGuiDesc,
++      consequence: t.settings.uninstall.optionGuiConsequence,
++      needsAgent: false
++    },
++    {
++      mode: 'lite',
++      title: t.settings.uninstall.optionLite,
++      description: t.settings.uninstall.optionLiteDesc,
++      consequence: t.settings.uninstall.optionLiteConsequence,
++      needsAgent: true
++    },
++    {
++      mode: 'full',
++      title: t.settings.uninstall.optionFull,
++      description: t.settings.uninstall.optionFullDesc,
++      consequence: t.settings.uninstall.optionFullConsequence,
++      // full removes the agent (and user data), so it's an agent-removing option:
++      // hide it on a lite client with no local agent, same as lite. A lite client
++      // connecting to a remote backend has no local agent OR local user data the
++      // GUI installed, so gui-only is the correct (and only) option there.
++      needsAgent: true
++    }
++  ]
++
+   useEffect(() => {
+     let alive = true
+     const bridge = window.hermesDesktop?.uninstall
+@@ -106,7 +108,7 @@ export function UninstallSection() {
+       const result = await bridge.run(pending)
+ 
+       if (!result.ok) {
+-        setError(result.message || result.error || 'Uninstall could not start.')
++        setError(result.message || result.error || t.settings.uninstall.couldNotStart)
+         setRunning(false)
+         setPending(null)
+       }
+@@ -122,39 +124,39 @@ export function UninstallSection() {
+ 
+   return (
+     <div className="mx-auto mt-8 w-full max-w-2xl">
+-      <SectionHeading icon={AlertTriangle} title="Danger zone" />
++      <SectionHeading icon={AlertTriangle} title={t.settings.uninstall.heading} />
+ 
+       <div className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3">
+         {loading ? (
+           <div className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+             <Loader2 className="size-3.5 animate-spin" />
+-            Checking what&apos;s installed…
++            {t.settings.uninstall.checkingInstalled}
+           </div>
+         ) : pendingOption ? (
+           <div>
+-            <p className="text-sm font-medium text-destructive">Confirm uninstall</p>
++            <p className="text-sm font-medium text-destructive">{t.settings.uninstall.confirmTitle}</p>
+             <p className="mt-1 text-xs text-muted-foreground">
+-              This removes {pendingOption.consequence}. This can&apos;t be undone.
++              {t.settings.uninstall.confirmDesc(pendingOption.consequence)}
+             </p>
+             {summary?.running_app_path && (
+-              <p className="mt-1 font-mono text-[0.68rem] text-muted-foreground/60">App: {summary.running_app_path}</p>
++              <p className="mt-1 font-mono text-[0.68rem] text-muted-foreground/60">{t.settings.uninstall.appPath(summary.running_app_path)}</p>
+             )}
+             {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
+             <div className="mt-3 flex flex-wrap items-center gap-3">
+               <Button disabled={running} onClick={() => void handleConfirm()} size="sm" variant="destructive">
+                 {running && <Loader2 className="size-3 animate-spin" />}
+-                {running ? 'Uninstalling…' : 'Yes, uninstall'}
++                {running ? t.settings.uninstall.uninstalling : t.settings.uninstall.yes}
+               </Button>
+               <Button disabled={running} onClick={() => setPending(null)} size="sm" variant="text">
+-                Cancel
++                {t.common.cancel}
+               </Button>
+             </div>
+           </div>
+         ) : (
+           <div className="flex flex-col gap-2">
+-            <p className="text-sm font-medium">Uninstall Hermes</p>
++            <p className="text-sm font-medium">{t.settings.uninstall.title}</p>
+             <p className="text-xs text-muted-foreground">
+-              Choose how much to remove. The app closes to finish the job; reopen the installer any time to come back.
++              {t.settings.uninstall.intro}
+             </p>
+             <div className="mt-1 flex flex-col gap-2">
+               {visibleOptions.map(opt => (
+diff --git a/apps/desktop/src/components/assistant-ui/embeds/spotify-embed.tsx b/apps/desktop/src/components/assistant-ui/embeds/spotify-embed.tsx
+index 3c722f1b3..663bdec6e 100644
+--- a/apps/desktop/src/components/assistant-ui/embeds/spotify-embed.tsx
++++ b/apps/desktop/src/components/assistant-ui/embeds/spotify-embed.tsx
+@@ -4,6 +4,7 @@ import { type CSSProperties, useMemo } from 'react'
+ 
+ import type { FrameEmbed } from './providers/types'
+ import { useIsDark } from './use-is-dark'
++import { useI18n } from '@/i18n'
+ 
+ const ALLOW = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+ 
+@@ -22,6 +23,7 @@ function spotifySrc(embedUrl: string, isDark: boolean): string {
+ }
+ 
+ export default function SpotifyEmbedRenderer({ descriptor }: { descriptor: FrameEmbed }) {
++  const { t } = useI18n()
+   const isDark = useIsDark()
+   const src = useMemo(() => spotifySrc(descriptor.embedUrl, isDark), [descriptor.embedUrl, isDark])
+ 
+@@ -39,7 +41,7 @@ export default function SpotifyEmbedRenderer({ descriptor }: { descriptor: Frame
+       loading="lazy"
+       src={src}
+       style={style}
+-      title="Spotify embed"
++      title={t.embeds.spotify}
+     />
+   )
+ }
+diff --git a/apps/desktop/src/components/assistant-ui/embeds/youtube-embed.tsx b/apps/desktop/src/components/assistant-ui/embeds/youtube-embed.tsx
+index 72eef2e10..2d82fedd4 100644
+--- a/apps/desktop/src/components/assistant-ui/embeds/youtube-embed.tsx
++++ b/apps/desktop/src/components/assistant-ui/embeds/youtube-embed.tsx
+@@ -4,6 +4,7 @@ import { useMemo } from 'react'
+ 
+ import type { FrameEmbed } from './providers/types'
+ import { useIsDark } from './use-is-dark'
++import { useI18n } from '@/i18n'
+ 
+ const YOUTUBE_ALLOW =
+   'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen'
+@@ -27,6 +28,7 @@ function youtubeSrc(embedUrl: string): string {
+ 
+ // Keep this as a plain iframe and let YouTube render its native player/error UI.
+ export default function YouTubeEmbedRenderer({ descriptor }: { descriptor: FrameEmbed }) {
++  const { t } = useI18n()
+   const isDark = useIsDark()
+   const src = useMemo(() => youtubeSrc(descriptor.embedUrl), [descriptor.embedUrl])
+ 
+@@ -41,7 +43,7 @@ export default function YouTubeEmbedRenderer({ descriptor }: { descriptor: Frame
+       scrolling="no"
+       src={src}
+       style={{ colorScheme: isDark ? 'dark' : 'light' }}
+-      title="YouTube embed"
++      title={t.embeds.youtube}
+     />
+   )
+ }
+diff --git a/apps/desktop/src/components/assistant-ui/thread/message-reactions.tsx b/apps/desktop/src/components/assistant-ui/thread/message-reactions.tsx
+index 05d07a5b1..61afd5d93 100644
+--- a/apps/desktop/src/components/assistant-ui/thread/message-reactions.tsx
++++ b/apps/desktop/src/components/assistant-ui/thread/message-reactions.tsx
+@@ -3,6 +3,7 @@ import { type FC, useState } from 'react'
+ 
+ import { Button } from '@/components/ui/button'
+ import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover'
++import { useI18n } from '@/i18n'
+ import { triggerHaptic } from '@/lib/haptics'
+ import { Plus } from '@/lib/icons'
+ import { cn } from '@/lib/utils'
+@@ -31,7 +32,9 @@ const CELL_TINTS = [
+ const cellTint = (emoji: string) => CELL_TINTS[(emoji.codePointAt(0) ?? 0) % CELL_TINTS.length]
+ 
+ /** The full emoji picker, revealed behind the quick row's "+". Headless — styled here. */
+-const FullEmojiPicker: FC<{ onSelect: (emoji: string) => void }> = ({ onSelect }) => (
++const FullEmojiPicker: FC<{ onSelect: (emoji: string) => void }> = ({ onSelect }) => {
++  const { t } = useI18n()
++  return (
+   <EmojiPicker.Root
+     className="flex h-72 w-76 flex-col"
+     emojibaseUrl={EMOJIBASE_URL}
+@@ -43,14 +46,14 @@ const FullEmojiPicker: FC<{ onSelect: (emoji: string) => void }> = ({ onSelect }
+     <EmojiPicker.Search
+       autoFocus
+       className="mx-1 border-b border-(--ui-stroke-tertiary) bg-transparent px-1 pb-1 text-sm outline-hidden focus:border-(--ui-stroke-secondary)"
+-      placeholder="Search…"
++      placeholder={t.assistant.thread.searchReactions}
+     />
+     <EmojiPicker.Viewport className="relative flex-1 outline-hidden">
+       <EmojiPicker.Loading className="absolute inset-0 grid place-items-center text-xs text-(--ui-text-tertiary)">
+-        Loading emoji…
++        {t.assistant.thread.loadingEmoji}
+       </EmojiPicker.Loading>
+       <EmojiPicker.Empty className="absolute inset-0 grid place-items-center text-xs text-(--ui-text-tertiary)">
+-        No emoji found.
++        {t.assistant.thread.noEmoji}
+       </EmojiPicker.Empty>
+       <EmojiPicker.List
+         className="select-none pb-1"
+@@ -80,7 +83,8 @@ const FullEmojiPicker: FC<{ onSelect: (emoji: string) => void }> = ({ onSelect }
+       />
+     </EmojiPicker.Viewport>
+   </EmojiPicker.Root>
+-)
++  )
++}
+ 
+ /**
+  * The reaction picker — six quick emoji, then "+" for the full set.
+@@ -97,6 +101,7 @@ export const ReactionPicker: FC<{
+   open: boolean
+   selected?: string
+ }> = ({ align = 'end', children, onOpenChange, onSelect, open, selected }) => {
++  const { t } = useI18n()
+   const [expanded, setExpanded] = useState(false)
+ 
+   return (
+@@ -141,7 +146,7 @@ export const ReactionPicker: FC<{
+                 {emoji}
+               </Button>
+             ))}
+-            <Button aria-label="More emoji" onClick={() => setExpanded(true)} size="icon-sm" variant="ghost">
++            <Button aria-label={t.assistant.thread.moreEmoji} onClick={() => setExpanded(true)} size="icon-sm" variant="ghost">
+               <Plus />
+             </Button>
+           </>
+@@ -164,6 +169,7 @@ export const ReactionBadge: FC<{
+   onRetract?: () => void
+   reactions: MessageReaction[]
+ }> = ({ className, onRetract, reactions }) => {
++  const { t } = useI18n()
+   if (!reactions.length) {
+     return null
+   }
+@@ -197,7 +203,7 @@ export const ReactionBadge: FC<{
+           <span
+             className="reaction-pop leading-none"
+             key={`${reaction.author}-${reaction.emoji}`}
+-            title="Reacted by Hermes"
++            title={t.assistant.thread.reactedByHermes}
+           >
+             {reaction.emoji}
+           </span>
+diff --git a/apps/desktop/src/components/assistant-ui/thread/timeline.tsx b/apps/desktop/src/components/assistant-ui/thread/timeline.tsx
+index 9dc2c94b3..2642ffaba 100644
+--- a/apps/desktop/src/components/assistant-ui/thread/timeline.tsx
++++ b/apps/desktop/src/components/assistant-ui/thread/timeline.tsx
+@@ -3,6 +3,7 @@ import { type FC, useCallback, useEffect, useMemo, useRef, useState } from 'reac
+ 
+ import { usePaneVisible } from '@/components/pane-shell/pane-visibility'
+ import { triggerHaptic } from '@/lib/haptics'
++import { useI18n } from '@/i18n'
+ import { cn } from '@/lib/utils'
+ 
+ import {
+@@ -151,6 +152,7 @@ export const ThreadTimeline: FC = () => {
+ /** Derived prompt rail for a VISIBLE surface. Split out so the hook body — and
+  *  the transcript subscription it opens — never runs for a background tab. */
+ const ActiveThreadTimeline: FC = () => {
++  const { t } = useI18n()
+   // Cheap in the selector, expensive only when it changes: the ids alone tell
+   // us whether the RAIL changed. Prompt text is immutable once sent, and an
+   // edit rewinds the transcript (dropping every id after it) and re-appends a
+@@ -321,7 +323,7 @@ const ActiveThreadTimeline: FC = () => {
+ 
+   return (
+     <div
+-      aria-label="Conversation timeline"
++      aria-label={t.assistant.thread.conversationTimeline}
+       className="group/timeline pointer-events-auto absolute right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col items-end"
+       data-slot="thread-timeline"
+       data-suppress-pane-reveal=""
+diff --git a/apps/desktop/src/components/pet/pet-egg-hatch.tsx b/apps/desktop/src/components/pet/pet-egg-hatch.tsx
+index 4f3806d9d..a78a09099 100644
+--- a/apps/desktop/src/components/pet/pet-egg-hatch.tsx
++++ b/apps/desktop/src/components/pet/pet-egg-hatch.tsx
+@@ -10,6 +10,7 @@
+ import { PixelEggSprite } from '@/components/pet/pixel-egg-sprite'
+ import { Button } from '@/components/ui/button'
+ import { Progress } from '@/components/ui/progress'
++import { useI18n } from '@/i18n'
+ 
+ interface PetEggHatchProps {
+   subtitle?: string
+@@ -23,12 +24,13 @@ interface PetEggHatchProps {
+  * return together, so a count would just snap 0→100).
+  */
+ export function PetProgress({ done, total }: { done?: number; total?: number }) {
++  const { t } = useI18n()
+   const determinate = typeof done === 'number' && typeof total === 'number' && total > 0
+ 
+   return (
+     <Progress
+       animated
+-      aria-label="Hatching progress"
++      aria-label={t.pet.hatchingProgress}
+       className="bg-[color-mix(in_srgb,var(--ui-accent)_15%,transparent)]"
+       fillClassName="bg-(--ui-accent)"
+       indeterminate={!determinate}
+diff --git a/apps/desktop/src/components/ui/split-button.tsx b/apps/desktop/src/components/ui/split-button.tsx
+index 904796dd4..7ead5c22f 100644
+--- a/apps/desktop/src/components/ui/split-button.tsx
++++ b/apps/desktop/src/components/ui/split-button.tsx
+@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
+ 
+ import type { buttonVariants } from './button'
+ import { Button } from './button'
++import { useI18n } from '@/i18n'
+ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu'
+ 
+ export interface SplitButtonAction {
+@@ -47,6 +48,7 @@ export function SplitButton({
+   variant = 'secondary',
+   size = 'sm'
+ }: SplitButtonProps) {
++  const { t } = useI18n()
+   const active = actions.find(action => action.id === value) ?? actions[0]
+ 
+   if (!active) {
+@@ -68,7 +70,7 @@ export function SplitButton({
+       <DropdownMenu>
+         <DropdownMenuTrigger asChild>
+           <Button
+-            aria-label="More actions"
++            aria-label={t.common.moreActions}
+             className="rounded-l-none border-l border-current/25 px-2"
+             disabled={disabled}
+             size={size}
+diff --git a/apps/desktop/src/i18n/catalog.ts b/apps/desktop/src/i18n/catalog.ts
+index f35c95707..220a88b7f 100644
+--- a/apps/desktop/src/i18n/catalog.ts
++++ b/apps/desktop/src/i18n/catalog.ts
+@@ -1,6 +1,7 @@
+ import { ar } from './ar'
+ import { en } from './en'
+ import { ja } from './ja'
++import { ru } from './ru'
+ import type { Locale, Translations } from './types'
+ import { zh } from './zh'
+ import { zhHant } from './zh-hant'
+@@ -10,5 +11,6 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
+   zh,
+   'zh-hant': zhHant,
+   ja,
+-  ar
++  ar,
++  ru
+ }
+diff --git a/apps/desktop/src/i18n/en.ts b/apps/desktop/src/i18n/en.ts
+index 3c5ce7672..0224f0bc0 100644
+--- a/apps/desktop/src/i18n/en.ts
++++ b/apps/desktop/src/i18n/en.ts
+@@ -42,7 +42,17 @@ export const en: Translations = {
+     update: 'Update',
+     tryHint: term => `Try “${term}”`,
+     on: 'On',
+-    off: 'Off'
++    off: 'Off',
++    active: 'Active',
++    generatedImage: 'Generated image',
++    moreActions: 'More actions',
++    newSession: 'New session',
++    search: 'Search',
++    searchResults: 'Search results',
++    showOptions: 'Show options',
++    dismiss: 'Dismiss',
++    toggleLogs: 'Toggle logs',
++    use: 'Use',
+   },
+ 
+   fileMenu: {
+@@ -205,7 +215,8 @@ export const en: Translations = {
+     enterHud: 'HUD mode',
+     exitHud: 'Exit HUD mode',
+     layoutEditor: 'Layout editor',
+-    layoutEditorTitle: 'Layout editor — ⌘-click resets the layout'
++    layoutEditorTitle: 'Layout editor — ⌘-click resets the layout',
++    openKeybinds: 'Keyboard shortcuts',
+   },
+ 
+   keybinds: {
+@@ -377,6 +388,9 @@ export const en: Translations = {
+         noMatches: 'No plugins match your search.',
+         toggleFailed: (name: string) => `Could not toggle ${name}`,
+         sources: { bundled: 'bundled', user: 'user', git: 'git', project: 'project', entrypoint: 'pip' }
++      },
++      descriptions: {
++        kanban: 'Multi-agent task board — board page, sidebar entry, and a live in-flight count in the status bar.'
+       }
+     },
+     notifications: {
+@@ -531,7 +545,8 @@ export const en: Translations = {
+         noneAvailable: 'No pets available to turn on right now.',
+         turnOnFailed: 'Could not turn the pet on.',
+         turnOffFailed: 'Could not turn the pet off.'
+-      }
++      },
++      searchThemes: 'Search your themes or the VS Code Marketplace…',
+     },
+     fieldLabels: FIELD_LABELS,
+     fieldDescriptions: FIELD_DESCRIPTIONS,
+@@ -595,7 +610,12 @@ export const en: Translations = {
+       shortcutDesc: 'Needs at least one modifier, e.g. CommandOrControl+Shift+Space.',
+       active: 'Shortcut is active.',
+       takenBy: 'Another app already uses this shortcut — pick a different one.',
+-      invalidShortcut: 'Not a valid shortcut. Include at least one modifier key.'
++      invalidShortcut: 'Not a valid shortcut. Include at least one modifier key.',
++      currentTarget: 'Current chat',
++      newTarget: 'New session',
++      sendTo: 'Send to',
++      targetSessionAria: 'Target session',
++      windowAriaLabel: 'Quick Entry',
+     },
+     credentials: {
+       pasteKey: 'Paste key',
+@@ -826,7 +846,9 @@ export const en: Translations = {
+       unsavedConnect: 'Unsaved — save mcp.json to connect.',
+       enableTool: tool => `Enable ${tool}`,
+       disableTool: tool => `Disable ${tool}`,
+-      noOutput: 'No output yet.'
++      noOutput: 'No output yet.',
++      apiKey: 'API key',
++      oauth: 'OAuth',
+     },
+     model: {
+       loading: 'Loading model configuration...',
+@@ -857,7 +879,15 @@ export const en: Translations = {
+         mcp: { label: 'MCP', hint: 'MCP tool routing' },
+         title_generation: { label: 'Title gen', hint: 'Session titles' },
+         curator: { label: 'Curator', hint: 'Skill-usage review' }
+-      }
++      },
++      moaAddPreset: 'Add preset',
++      moaAggregator: 'Aggregator',
++      moaDesc:
++        'Configure named presets that appear as models under the Mixture of Agents provider. The aggregator is the acting model.',
++      moaEnabled: 'Enabled',
++      moaNewPreset: 'new preset',
++      moaPreset: 'Preset',
++      moaTitle: 'Mixture of Agents',
+     },
+     providers: {
+       connectAccount: 'Connect an account',
+@@ -997,7 +1027,117 @@ export const en: Translations = {
+         failedSelect: backend => `Failed to select ${backend}`,
+         needsSetupHint: 'You can select this backend now — commands will fail until setup is complete.'
+       }
+-    }
++    },
++    billingPage: {
++      alreadyOnPlan: (name: string) => `You are already on ${name} — nothing to change.`,
++      autoRefillReloadTo: 'Reload to',
++      autoRefillReloadToAria: 'Auto-refill reload-to amount',
++      autoRefillThreshold: 'Threshold',
++      autoRefillThresholdAria: 'Auto-refill threshold',
++      autoRefillTurnedOff: 'Auto-refill turned off.',
++      autoRefillUpdated: 'Auto-refill updated.',
++      backToBilling: 'Back to billing',
++      cannotChange: 'That change cannot be made here.',
++      cannotSchedule: 'This change cannot be scheduled here.',
++      changeTakesEffect: (name: string, date: string, creditsDelta: string) =>
++        `Change to ${name} — takes effect ${date}. No charge now; you keep your current plan until then.${
++          creditsDelta ? ` Monthly credits change: ${creditsDelta}.` : ''
++        }`,
++      checkingChange: 'Checking this change…',
++      confirmDowngrade: 'Confirm downgrade',
++      currentPlan: 'Current plan',
++      customCreditAmountAria: 'Custom credit amount',
++      devFixture: 'Billing preview fixture (dev only)',
++      disable: 'Disable',
++      dismiss: 'Dismiss',
++      downgrade: 'Downgrade',
++      invoices: 'Invoices',
++      openPortal: 'Open portal',
++      openVerificationPage: 'Open verification page',
++      paymentCredits: 'Payment & credits',
++      plan: 'Plan',
++      plans: 'Plans',
++      scheduled: 'Scheduled',
++      scheduling: 'Scheduling…',
++      tryAgain: 'Try again',
++      turnOff: 'Turn off',
++      turnOffAutoRefill: 'Turn off auto-refill?',
++      undo: 'Undo',
++      undoing: 'Undoing…',
++      usage: 'Usage',
++      verifyToContinue: 'Verify to continue',
++      waitingForVerification: 'Waiting for verification link…',
++      manage: 'Manage',
++      noPlansAvailable: 'No plans are available to change to right now.',
++      plans: 'Plans',
++      undo: 'Undo',
++    },
++    computerUse: {
++      accessibility: 'Accessibility',
++      accessibilityHint: 'Lets cua-driver post clicks, keystrokes, and read the accessibility tree.',
++      approveMessage:
++        'macOS will show a permission dialog attributed to CuaDriver. Approve it, then return here.',
++      approveTitle: 'Approve in System Settings',
++      checking: 'Checking Computer Use status…',
++      driverHealth: 'Driver health',
++      errorRead: 'Could not read Computer Use status',
++      errorRequest: 'Could not request permissions',
++      grantPermissions: 'Grant permissions',
++      granted: 'Granted',
++      grantsNote:
++        "Grants attach to CuaDriver's own identity (com.trycua.driver), not Hermes — so the dialog is attributed to the process that drives your Mac.",
++      notGranted: 'Not granted',
++      notInstalled: 'Install the cua-driver backend below to drive this machine.',
++      notInstalledGrant: ' Then grant Accessibility and Screen Recording here.',
++      notReady: 'Not ready',
++      notSupported: platform => `Computer Use isn't supported on this platform (${platform}).`,
++      platformNoteLinux: 'Drives your desktop via the X11/XWayland accessibility stack — no permission prompt.',
++      platformNoteWin:
++        'First run may trigger a Windows SmartScreen prompt for the cua-driver UIAccess worker — allow it.',
++      ready: 'Ready',
++      readyMessage: 'Computer Use is ready. Ask the agent to capture an app and click around.',
++      recheck: 'Recheck',
++      screenRecording: 'Screen Recording',
++      screenRecordingHint: 'Lets cua-driver capture screenshots of app windows.',
++      unknown: 'Unknown',
++      waitingApproval: 'Waiting for approval…',
++    },
++    endpoints: {
++      active: 'Active',
++      add: 'Add Endpoint',
++      apiKeySet: 'API key set',
++      auto: 'Auto',
++      deleteAria: 'Delete endpoint',
++      edit: 'Edit Endpoint',
++      emptyDesc: 'Add an OpenAI-compatible endpoint below.',
++      emptyTitle: 'No custom endpoints',
++    },
++    uninstall: {
++      appPath: path => `App: ${path}`,
++      checking: "Checking what's installed…",
++      confirmDesc: consequence => `This removes ${consequence}. This can't be undone.`,
++      confirmTitle: 'Confirm uninstall',
++      couldNotStart: 'Uninstall could not start.',
++      heading: 'Danger zone',
++      intro:
++        'Choose how much to remove. The app closes to finish the job; reopen the installer any time to come back.',
++      optionFull: 'Uninstall everything',
++      optionFullConsequence:
++        'EVERYTHING — the Chat GUI, the Hermes agent, and all of your config, chats, secrets, and logs',
++      optionFullDesc:
++        'Remove the app, the agent, and all user data — config, chats, scheduled jobs, secrets, logs.',
++      optionGui: 'Uninstall Chat GUI only',
++      optionGuiConsequence: 'the desktop Chat GUI (this app and its data)',
++      optionGuiDesc: 'Remove this desktop app. The Hermes agent, your config, and chats all stay.',
++      optionLite: 'Uninstall GUI + agent, keep my data',
++      optionLiteConsequence: 'the Chat GUI and the Hermes agent (config, chats, and secrets are kept)',
++      optionLiteDesc:
++        'Remove the app and the Hermes agent, but keep config, chats, and secrets for a future reinstall.',
++      title: 'Uninstall Hermes',
++      uninstalling: 'Uninstalling…',
++      yes: 'Yes, uninstall',
++      checkingInstalled: 'Checking what’s installed…',
++    },
+   },
+ 
+   skills: {
+@@ -1132,7 +1272,10 @@ export const en: Translations = {
+     importEmpty: 'Paste a map code to load it.',
+     importSuccess: nodes => `Loaded a map with ${nodes} ${nodes === 1 ? 'node' : 'nodes'}.`,
+     importedBadge: 'imported map',
+-    resetToMine: 'Back to my map'
++    resetToMine: 'Back to my map',
++    legend: 'core = oldest · outer = newer',
++    skill: 'skill',
++    timelineScrubber: 'Timeline scrubber',
+   },
+   agents: {
+     close: 'Close agents',
+@@ -1227,7 +1370,10 @@ export const en: Translations = {
+       referenceImageTooLarge: 'Reference image is too large. Use one under 16 MB.',
+       referenceImageInvalid: 'Could not read that reference image. Try a PNG, JPG, WebP, or GIF.',
+       adopt: 'Adopt',
+-      startOver: 'Start over'
++      startOver: 'Start over',
++      grabKeyFrom: 'Grab a key from',
++      removeReference: 'Remove reference',
++      setupImageGeneration: 'Set up image generation',
+     },
+     installTheme: {
+       title: 'Install theme…',
+@@ -2553,7 +2699,8 @@ export const en: Translations = {
+       modelPinned: 'pinned by you; new chats use this instead of the Settings default',
+       modelTitle: (provider, model) => `Model · ${provider}: ${model}`,
+       providerModelTitle: (provider, model) => `${provider} · ${model}`
+-    }
++    },
++    moaPresets: 'MoA presets',
+   },
+ 
+   rightSidebar: {
+@@ -2680,7 +2827,11 @@ export const en: Translations = {
+       unreachableDescription: 'The preview page could not be reached.',
+       openTarget: url => `Open ${url}`,
+       fallbackTitle: 'Preview'
+-    }
++    },
++    closeAll: 'Close all',
++    closeOthers: 'Close others',
++    closeTab: label => `Close ${label}`,
++    closeToRight: 'Close to the right',
+   },
+ 
+   zones: {
+@@ -2767,7 +2918,14 @@ export const en: Translations = {
+       restoreNext: 'Restore next checkpoint',
+       goForward: 'Go forward',
+       sendEdited: 'Send edited message',
+-      attachingFile: 'Attaching…'
++      attachingFile: 'Attaching…',
++      conversationTimeline: 'Conversation timeline',
++      couldntOpenSession: "Couldn't open this session",
++      loadingEmoji: 'Loading emoji…',
++      moreEmoji: 'More emoji',
++      noEmoji: 'No emoji found.',
++      reactedByHermes: 'Reacted by Hermes',
++      searchReactions: 'Search…',
+     },
+     approval: {
+       gatewayDisconnected: 'Hermes gateway is not connected',
+@@ -2994,5 +3152,16 @@ export const en: Translations = {
+       description: 'Displays the mobile sidebar.',
+       toggle: open => `${open ? 'Show' : 'Hide'} sidebar`
+     }
++  },
++  embeds: {
++    spotify: 'Spotify embed',
++    youtube: 'YouTube embed'
++  },
++  pet: {
++    hatchingProgress: 'Hatching progress',
++    openInHermes: 'Open in Hermes'
++  },
++  workspace: {
++    clickFileHint: 'click a file in the files pane'
+   }
+ }
+diff --git a/apps/desktop/src/i18n/languages.ts b/apps/desktop/src/i18n/languages.ts
+index e4a1fb1e0..3bf57e39b 100644
+--- a/apps/desktop/src/i18n/languages.ts
++++ b/apps/desktop/src/i18n/languages.ts
+@@ -34,6 +34,12 @@ export const LOCALE_OPTIONS = [
+     name: 'العربية',
+     englishName: 'Arabic',
+     configValue: 'ar'
++  },
++  {
++    id: 'ru',
++    name: 'Русский',
++    englishName: 'Russian',
++    configValue: 'ru'
+   }
+ ] as const satisfies readonly { configValue: string; englishName: string; id: Locale; name: string }[]
+ 
+@@ -79,7 +85,12 @@ const LOCALE_ALIASES: Record<string, Locale> = {
+   'ar-eg': 'ar',
+   ar_eg: 'ar',
+   arabic: 'ar',
+-  العربية: 'ar'
++  العربية: 'ar',
++  ru: 'ru',
++  'ru-ru': 'ru',
++  ru_ru: 'ru',
++  russian: 'ru',
++  русский: 'ru'
+ }
+ 
+ export function isLocale(value: unknown): value is Locale {
+diff --git a/apps/desktop/src/i18n/types.ts b/apps/desktop/src/i18n/types.ts
+index c68958353..ecf479b99 100644
+--- a/apps/desktop/src/i18n/types.ts
++++ b/apps/desktop/src/i18n/types.ts
+@@ -5,7 +5,7 @@
+ // partial locales should use `defineLocale()` so missing desktop-only strings
+ // fall back to English while new keys remain type-checked.
+ 
+-export type Locale = 'en' | 'zh' | 'zh-hant' | 'ja' | 'ar'
++export type Locale = 'en' | 'zh' | 'zh-hant' | 'ja' | 'ar' | 'ru'
+ 
+ export type ToolTitleKey =
+   | 'browser_click'
+@@ -89,6 +89,16 @@ export interface Translations {
+     tryHint: (term: string) => string
+     on: string
+     off: string
++    active: string
++    generatedImage: string
++    moreActions: string
++    newSession: string
++    search: string
++    searchResults: string
++    showOptions: string
++    dismiss: string
++    toggleLogs: string
++    use: string
+   }
+ 
+   fileMenu: {
+@@ -248,6 +258,7 @@ export interface Translations {
+     exitHud: string
+     layoutEditor: string
+     layoutEditorTitle: string
++    openKeybinds: string
+   }
+ 
+   keybinds: {
+@@ -328,6 +339,7 @@ export interface Translations {
+         toggleFailed: (name: string) => string
+         sources: Record<string, string>
+       }
++      descriptions: Record<string, string>
+     }
+     notifications: {
+       title: string
+@@ -430,6 +442,7 @@ export interface Translations {
+         turnOnFailed: string
+         turnOffFailed: string
+       }
++      searchThemes: string
+     }
+     fieldLabels: Record<string, string>
+     fieldDescriptions: Record<string, string>
+@@ -491,6 +504,11 @@ export interface Translations {
+       active: string
+       takenBy: string
+       invalidShortcut: string
++      currentTarget: string
++      newTarget: string
++      sendTo: string
++      targetSessionAria: string
++      windowAriaLabel: string
+     }
+     credentials: {
+       pasteKey: string
+@@ -708,6 +726,8 @@ export interface Translations {
+       enableTool: (tool: string) => string
+       disableTool: (tool: string) => string
+       noOutput: string
++      apiKey: string
++      oauth: string
+     }
+     model: {
+       loading: string
+@@ -730,6 +750,13 @@ export interface Translations {
+       fallbackEmpty: string
+       notInCatalog: string
+       tasks: Record<string, AuxTaskCopy>
++      moaAddPreset: string
++      moaAggregator: string
++      moaDesc: (...args: unknown[]) => string
++      moaEnabled: string
++      moaNewPreset: string
++      moaPreset: string
++      moaTitle: string
+     }
+     providers: {
+       connectAccount: string
+@@ -864,6 +891,106 @@ export interface Translations {
+         needsSetupHint: string
+       }
+     }
++    billingPage: {
++      alreadyOnPlan: (...args: unknown[]) => string
++      autoRefillReloadTo: string
++      autoRefillReloadToAria: string
++      autoRefillThreshold: string
++      autoRefillThresholdAria: string
++      autoRefillTurnedOff: string
++      autoRefillUpdated: string
++      backToBilling: string
++      cannotChange: string
++      cannotSchedule: string
++      changeTakesEffect: (...args: unknown[]) => string
++      checkingChange: string
++      confirmDowngrade: string
++      currentPlan: string
++      customCreditAmountAria: string
++      devFixture: string
++      disable: string
++      dismiss: string
++      downgrade: string
++      invoices: string
++      openPortal: string
++      openVerificationPage: string
++      paymentCredits: string
++      plan: string
++      plans: string
++      scheduled: string
++      scheduling: string
++      tryAgain: string
++      turnOff: string
++      turnOffAutoRefill: string
++      undo: string
++      undoing: string
++      usage: string
++      verifyToContinue: string
++      waitingForVerification: string
++      manage: string
++      noPlansAvailable: string
++      plans: string
++      undo: string
++    }
++    computerUse: {
++      accessibility: string
++      accessibilityHint: string
++      approveMessage: (...args: unknown[]) => string
++      approveTitle: string
++      checking: string
++      driverHealth: string
++      errorRead: string
++      errorRequest: string
++      grantPermissions: string
++      granted: string
++      grantsNote: (...args: unknown[]) => string
++      notGranted: string
++      notInstalled: string
++      notInstalledGrant: string
++      notReady: string
++      notSupported: (...args: unknown[]) => string
++      platformNoteLinux: string
++      platformNoteWin: (...args: unknown[]) => string
++      ready: string
++      readyMessage: string
++      recheck: string
++      screenRecording: string
++      screenRecordingHint: string
++      unknown: string
++      waitingApproval: string
++    }
++    endpoints: {
++      active: string
++      add: string
++      apiKeySet: string
++      auto: string
++      deleteAria: string
++      edit: string
++      emptyDesc: string
++      emptyTitle: string
++    }
++    uninstall: {
++      appPath: (...args: unknown[]) => string
++      checking: string
++      confirmDesc: (...args: unknown[]) => string
++      confirmTitle: string
++      couldNotStart: string
++      heading: string
++      intro: (...args: unknown[]) => string
++      optionFull: string
++      optionFullConsequence: (...args: unknown[]) => string
++      optionFullDesc: (...args: unknown[]) => string
++      optionGui: string
++      optionGuiConsequence: string
++      optionGuiDesc: string
++      optionLite: string
++      optionLiteConsequence: string
++      optionLiteDesc: (...args: unknown[]) => string
++      title: string
++      uninstalling: string
++      yes: string
++      checkingInstalled: string
++    }
+   }
+ 
+   skills: {
+@@ -988,6 +1115,9 @@ export interface Translations {
+     importSuccess: (nodes: number) => string
+     importedBadge: string
+     resetToMine: string
++    legend: string
++    skill: string
++    timelineScrubber: string
+   }
+   agents: {
+     close: string
+@@ -1082,6 +1212,9 @@ export interface Translations {
+       referenceImageInvalid: string
+       adopt: string
+       startOver: string
++      grabKeyFrom: string
++      removeReference: string
++      setupImageGeneration: string
+     }
+     installTheme: {
+       title: string
+@@ -2151,6 +2284,7 @@ export interface Translations {
+       modelTitle: (provider: string, model: string) => string
+       providerModelTitle: (provider: string, model: string) => string
+     }
++    moaPresets: string
+   }
+ 
+   rightSidebar: {
+@@ -2275,6 +2409,10 @@ export interface Translations {
+       openTarget: (url: string) => string
+       fallbackTitle: string
+     }
++    closeAll: string
++    closeOthers: string
++    closeTab: (...args: unknown[]) => string
++    closeToRight: string
+   }
+ 
+   zones: {
+@@ -2357,6 +2495,13 @@ export interface Translations {
+       goForward: string
+       sendEdited: string
+       attachingFile: string
++      conversationTimeline: string
++      couldntOpenSession: string
++      loadingEmoji: string
++      moreEmoji: string
++      noEmoji: string
++      reactedByHermes: string
++      searchReactions: string
+     }
+     approval: {
+       gatewayDisconnected: string
+@@ -2546,4 +2691,15 @@ export interface Translations {
+       toggle: (open: boolean) => string
+     }
+   }
++  embeds: {
++    spotify: string
++    youtube: string
++  }
++  pet: {
++    hatchingProgress: string
++    openInHermes: string
++  }
++  workspace: {
++    clickFileHint: string
++  }
+ }
+diff --git a/apps/desktop/src/plugins/kanban/plugin.tsx b/apps/desktop/src/plugins/kanban/plugin.tsx
+index 605f58ad3..236ba0960 100644
+--- a/apps/desktop/src/plugins/kanban/plugin.tsx
++++ b/apps/desktop/src/plugins/kanban/plugin.tsx
+@@ -33,6 +33,7 @@ import {
+ import { $boardSlug, bindApi, boardKey, fetchBoard } from './api'
+ import { KanbanBoardPage } from './board'
+ import { KANBAN_LOCALES } from './i18n'
++import './ru-locales'
+ import { $newTaskLane, useKanban } from './ui'
+ 
+ // Live "N running / ready" pill — one glance at fleet activity from anywhere,

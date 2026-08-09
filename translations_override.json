@@ -156,5 +156,12 @@
  "workspace.clickFileHint",
  "workspace.logs",
  "workspace.preview",
- "workspace.toggleLogs"
+ "workspace.toggleLogs",
+ "settings.billingPage.manage",
+ "settings.billingPage.noPlansAvailable",
+ "common.dismiss",
+ "common.toggleLogs",
+ "common.use",
+ "settings.uninstall.checkingInstalled",
+ "commandCenter.generatePet.setupImageGeneration"
 ]
