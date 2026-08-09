@@ -1,0 +1,135 @@
+  settings: {
+    endpoints: {
+      edit: string
+      emptyTitle: string
+      add: string
+      apiKeySet: string
+      emptyDesc: string
+      deleteAria: string
+    }
+    quickEntry: {
+      newTarget: string
+      windowAriaLabel: string
+      targetSessionAria: string
+      currentTarget: string
+    }
+    uninstall: {
+      optionLite: string
+      confirmTitle: string
+      optionFull: string
+      optionGuiDesc: string
+      optionGuiConsequence: string
+      optionLiteConsequence: string
+      couldNotStart: string
+      uninstalling: string
+      title: string
+      optionGui: string
+      yes: string
+      heading: string
+    }
+    billingPage: {
+      scheduled: string
+      tryAgain: string
+      cannotChange: string
+      autoRefillReloadToAria: string
+      paymentCredits: string
+      turnOffAutoRefill: string
+      checkingChange: string
+      autoRefillThreshold: string
+      waitingForVerification: string
+      backToBilling: string
+      autoRefillReloadTo: string
+      openVerificationPage: string
+      autoRefillUpdated: string
+      cannotSchedule: string
+      verifyToContinue: string
+      downgrade: string
+      invoices: string
+      autoRefillTurnedOff: string
+      autoRefillThresholdAria: string
+      confirmDowngrade: string
+      scheduling: string
+      customCreditAmountAria: string
+      devFixture: string
+      openPortal: string
+      turnOff: string
+      currentPlan: string
+      undoing: string
+    }
+    computerUse: {
+      accessibility: string
+      grantPermissions: string
+      waitingApproval: string
+      approveTitle: string
+      errorRead: string
+      accessibilityHint: string
+      platformNoteLinux: string
+      driverHealth: string
+      screenRecording: string
+      checking: string
+      readyMessage: string
+      errorRequest: string
+      notInstalled: string
+      notInstalledGrant: string
+      notGranted: string
+      screenRecordingHint: string
+      notReady: string
+    }
+    appearance: {
+      searchThemes: string
+    }
+    model: {
+      moaAggregator: string
+      moaNewPreset: string
+      moaAddPreset: string
+      moaTitle: string
+    }
+  }
+  assistant: {
+    thread: {
+      conversationTimeline: string
+      noEmoji: string
+      loadingEmoji: string
+      moreEmoji: string
+      reactedByHermes: string
+    }
+  }
+  common: {
+    showOptions: string
+    moreActions: string
+    newSession: string
+    generatedImage: string
+    searchResults: string
+  }
+  titlebar: {
+    openKeybinds: string
+  }
+  preview: {
+    closeToRight: string
+    closeOthers: string
+    closeAll: string
+  }
+  embeds: {
+    spotify: string
+    youtube: string
+  }
+  commandCenter: {
+    generatePet: {
+      removeReference: string
+      grabKeyFrom: string
+    }
+  }
+  workspace: {
+    toggleLogs: string
+  }
+  shell: {
+    moaPresets: string
+  }
+  starmap: {
+    legend: string
+    timelineScrubber: string
+  }
+  pet: {
+    openInHermes: string
+    hatchingProgress: string
+  }

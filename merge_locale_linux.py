@@ -96,6 +96,10 @@ def emit_block(b, en_blocks, ru_map, en_map, T, out, en_children):
             cont = ' ' * (b['indent'] + 8)
             for p in parts[1:]:
                 out.append(f"{cont}{p}\n")
+            # multi-line: запятая к последней строке, если её нет
+            last = out[-1].rstrip()
+            if last and not last.endswith(',') and not last.endswith('{'):
+                out[-1] = last + ',\n'
         else:
             out.append(f"{indent_str}{key}: {val},\n")
         return
