@@ -1,0 +1,677 @@
+{
+ "assistant.thread.conversationTimeline": {
+  "en": "'Conversation timeline'",
+  "ru": "'Шкала времени разговора'",
+  "translated": true
+ },
+ "assistant.thread.couldntOpenSession": {
+  "en": "\"Couldn't open this session\"",
+  "ru": "'Не удалось открыть эту сессию'",
+  "translated": true
+ },
+ "assistant.thread.loadingEmoji": {
+  "en": "'Loading emoji…'",
+  "ru": "'Загрузка эмодзи…'",
+  "translated": true
+ },
+ "assistant.thread.moreEmoji": {
+  "en": "'More emoji'",
+  "ru": "'Ещё эмодзи'",
+  "translated": true
+ },
+ "assistant.thread.noEmoji": {
+  "en": "'No emoji found.'",
+  "ru": "'Эмодзи не найдены.'",
+  "translated": true
+ },
+ "assistant.thread.reactedByHermes": {
+  "en": "'Reacted by Hermes'",
+  "ru": "'Реакция Hermes'",
+  "translated": true
+ },
+ "assistant.thread.searchReactions": {
+  "en": "'Search…'",
+  "ru": "'Поиск…'",
+  "translated": true
+ },
+ "commandCenter.generatePet.grabKeyFrom": {
+  "en": "'Grab a key from'",
+  "ru": "'Получите ключ на'",
+  "translated": true
+ },
+ "commandCenter.generatePet.removeReference": {
+  "en": "'Remove reference'",
+  "ru": "'Убрать референс'",
+  "translated": true
+ },
+ "common.active": {
+  "en": "'Active'",
+  "ru": "'Активен'",
+  "translated": true
+ },
+ "common.generatedImage": {
+  "en": "'Generated image'",
+  "ru": "'Сгенерированное изображение'",
+  "translated": true
+ },
+ "common.moreActions": {
+  "en": "'More actions'",
+  "ru": "'Ещё действия'",
+  "translated": true
+ },
+ "common.newSession": {
+  "en": "'New session'",
+  "ru": "'Новая сессия'",
+  "translated": true
+ },
+ "common.search": {
+  "en": "'Search'",
+  "ru": "'Поиск'",
+  "translated": true
+ },
+ "common.searchResults": {
+  "en": "'Search results'",
+  "ru": "'Результаты поиска'",
+  "translated": true
+ },
+ "common.showOptions": {
+  "en": "'Show options'",
+  "ru": "'Показать варианты'",
+  "translated": true
+ },
+ "embeds.spotify": {
+  "en": "'Spotify embed'",
+  "ru": "'Встроенный Spotify'",
+  "translated": true
+ },
+ "embeds.youtube": {
+  "en": "'YouTube embed'",
+  "ru": "'Встроенное YouTube'",
+  "translated": true
+ },
+ "pet.hatchingProgress": {
+  "en": "'Hatching progress'",
+  "ru": "'Ход появления'",
+  "translated": true
+ },
+ "pet.openInHermes": {
+  "en": "'Open in Hermes'",
+  "ru": "'Открыть в Hermes'",
+  "translated": true
+ },
+ "preview.closeAll": {
+  "en": "'Close all'",
+  "ru": "'Закрыть все'",
+  "translated": true
+ },
+ "preview.closeOthers": {
+  "en": "'Close others'",
+  "ru": "'Закрыть остальные'",
+  "translated": true
+ },
+ "preview.closeTab": {
+  "en": "label => `Close ${label}`",
+  "ru": "(label: string) => `Закрыть ${label}`",
+  "translated": true
+ },
+ "preview.closeToRight": {
+  "en": "'Close to the right'",
+  "ru": "'Закрыть справа'",
+  "translated": true
+ },
+ "settings.appearance.searchThemes": {
+  "en": "'Search your themes or the VS Code Marketplace…'",
+  "ru": "'Поиск тем или VS Code Marketplace…'",
+  "translated": true
+ },
+ "settings.billingPage.alreadyOnPlan": {
+  "en": "(name: string) => `You are already on ${name} — nothing to change.`",
+  "ru": "(name: string) => `Вы уже на тарифе ${name} — менять нечего.`",
+  "translated": true
+ },
+ "settings.billingPage.autoRefillReloadTo": {
+  "en": "'Reload to'",
+  "ru": "'Пополнить до'",
+  "translated": true
+ },
+ "settings.billingPage.autoRefillReloadToAria": {
+  "en": "'Auto-refill reload-to amount'",
+  "ru": "'Сумма пополнения'",
+  "translated": true
+ },
+ "settings.billingPage.autoRefillThreshold": {
+  "en": "'Threshold'",
+  "ru": "'Порог'",
+  "translated": true
+ },
+ "settings.billingPage.autoRefillThresholdAria": {
+  "en": "'Auto-refill threshold'",
+  "ru": "'Порог автопополнения'",
+  "translated": true
+ },
+ "settings.billingPage.autoRefillTurnedOff": {
+  "en": "'Auto-refill turned off.'",
+  "ru": "'Автопополнение отключено.'",
+  "translated": true
+ },
+ "settings.billingPage.autoRefillUpdated": {
+  "en": "'Auto-refill updated.'",
+  "ru": "'Автопополнение обновлено.'",
+  "translated": true
+ },
+ "settings.billingPage.backToBilling": {
+  "en": "'Back to billing'",
+  "ru": "'Назад к оплате'",
+  "translated": true
+ },
+ "settings.billingPage.cannotChange": {
+  "en": "'That change cannot be made here.'",
+  "ru": "'Это изменение нельзя выполнить здесь.'",
+  "translated": true
+ },
+ "settings.billingPage.cannotSchedule": {
+  "en": "'This change cannot be scheduled here.'",
+  "ru": "'Это изменение нельзя запланировать здесь.'",
+  "translated": true
+ },
+ "settings.billingPage.changeTakesEffect": {
+  "en": "(name: string, date: string, creditsDelta: string) =>",
+  "ru": "(name: string, date: string, creditsDelta: string) =>",
+  "translated": true
+ },
+ "settings.billingPage.checkingChange": {
+  "en": "'Checking this change…'",
+  "ru": "'Проверка изменения…'",
+  "translated": true
+ },
+ "settings.billingPage.confirmDowngrade": {
+  "en": "'Confirm downgrade'",
+  "ru": "'Подтвердить переход на тариф ниже'",
+  "translated": true
+ },
+ "settings.billingPage.currentPlan": {
+  "en": "'Current plan'",
+  "ru": "'Текущий тариф'",
+  "translated": true
+ },
+ "settings.billingPage.customCreditAmountAria": {
+  "en": "'Custom credit amount'",
+  "ru": "'Своя сумма кредитов'",
+  "translated": true
+ },
+ "settings.billingPage.devFixture": {
+  "en": "'Billing preview fixture (dev only)'",
+  "ru": "'Фикстура предпросмотра биллинга (только для разработки)'",
+  "translated": true
+ },
+ "settings.billingPage.disable": {
+  "en": "'Disable'",
+  "ru": "'Отключено'",
+  "translated": true
+ },
+ "settings.billingPage.dismiss": {
+  "en": "'Dismiss'",
+  "ru": "'Закрыть'",
+  "translated": true
+ },
+ "settings.billingPage.downgrade": {
+  "en": "'Downgrade'",
+  "ru": "'Перейти на тариф ниже'",
+  "translated": true
+ },
+ "settings.billingPage.invoices": {
+  "en": "'Invoices'",
+  "ru": "'Счета'",
+  "translated": true
+ },
+ "settings.billingPage.openPortal": {
+  "en": "'Open portal'",
+  "ru": "'Открыть портал'",
+  "translated": true
+ },
+ "settings.billingPage.openVerificationPage": {
+  "en": "'Open verification page'",
+  "ru": "'Открыть страницу подтверждения'",
+  "translated": true
+ },
+ "settings.billingPage.paymentCredits": {
+  "en": "'Payment & credits'",
+  "ru": "'Оплата и кредиты'",
+  "translated": true
+ },
+ "settings.billingPage.plan": {
+  "en": "'Plan'",
+  "ru": "'Тариф'",
+  "translated": true
+ },
+ "settings.billingPage.plans": {
+  "en": "'Plans'",
+  "ru": "'Тарифы'",
+  "translated": true
+ },
+ "settings.billingPage.scheduled": {
+  "en": "'Scheduled'",
+  "ru": "'Запланировано'",
+  "translated": true
+ },
+ "settings.billingPage.scheduling": {
+  "en": "'Scheduling…'",
+  "ru": "'Планирование…'",
+  "translated": true
+ },
+ "settings.billingPage.tryAgain": {
+  "en": "'Try again'",
+  "ru": "'Повторить'",
+  "translated": true
+ },
+ "settings.billingPage.turnOff": {
+  "en": "'Turn off'",
+  "ru": "'Отключить'",
+  "translated": true
+ },
+ "settings.billingPage.turnOffAutoRefill": {
+  "en": "'Turn off auto-refill?'",
+  "ru": "'Отключить автопополнение?'",
+  "translated": true
+ },
+ "settings.billingPage.undo": {
+  "en": "'Undo'",
+  "ru": "'Отменить'",
+  "translated": true
+ },
+ "settings.billingPage.undoing": {
+  "en": "'Undoing…'",
+  "ru": "'Отмена…'",
+  "translated": true
+ },
+ "settings.billingPage.usage": {
+  "en": "'Usage'",
+  "ru": "'Использование'",
+  "translated": true
+ },
+ "settings.billingPage.verifyToContinue": {
+  "en": "'Verify to continue'",
+  "ru": "'Подтвердить и продолжить'",
+  "translated": true
+ },
+ "settings.billingPage.waitingForVerification": {
+  "en": "'Waiting for verification link…'",
+  "ru": "'Ожидание ссылки для подтверждения…'",
+  "translated": true
+ },
+ "settings.computerUse.accessibility": {
+  "en": "'Accessibility'",
+  "ru": "'Специальные возможности'",
+  "translated": true
+ },
+ "settings.computerUse.accessibilityHint": {
+  "en": "'Lets cua-driver post clicks, keystrokes, and read the accessibility tree.'",
+  "ru": "'Позволяет cua-driver отправлять клики и нажатия клавиш и читать дерево доступности.'",
+  "translated": true
+ },
+ "settings.computerUse.approveMessage": {
+  "en": "",
+  "ru": "",
+  "translated": true
+ },
+ "settings.computerUse.approveTitle": {
+  "en": "'Approve in System Settings'",
+  "ru": "'Разрешить в системных настройках'",
+  "translated": true
+ },
+ "settings.computerUse.checking": {
+  "en": "'Checking Computer Use status…'",
+  "ru": "'Проверка статуса Computer Use…'",
+  "translated": true
+ },
+ "settings.computerUse.driverHealth": {
+  "en": "'Driver health'",
+  "ru": "'Состояние драйвера'",
+  "translated": true
+ },
+ "settings.computerUse.errorRead": {
+  "en": "'Could not read Computer Use status'",
+  "ru": "'Не удалось прочитать статус Computer Use'",
+  "translated": true
+ },
+ "settings.computerUse.errorRequest": {
+  "en": "'Could not request permissions'",
+  "ru": "'Не удалось запросить разрешения'",
+  "translated": true
+ },
+ "settings.computerUse.grantPermissions": {
+  "en": "'Grant permissions'",
+  "ru": "'Предоставить разрешения'",
+  "translated": true
+ },
+ "settings.computerUse.granted": {
+  "en": "'Granted'",
+  "ru": "'Предоставлено'",
+  "translated": true
+ },
+ "settings.computerUse.grantsNote": {
+  "en": "",
+  "ru": "",
+  "translated": true
+ },
+ "settings.computerUse.notGranted": {
+  "en": "'Not granted'",
+  "ru": "'Не предоставлено'",
+  "translated": true
+ },
+ "settings.computerUse.notInstalled": {
+  "en": "'Install the cua-driver backend below to drive this machine.'",
+  "ru": "'Установите бэкенд cua-driver ниже, чтобы управлять этим компьютером.'",
+  "translated": true
+ },
+ "settings.computerUse.notInstalledGrant": {
+  "en": "' Then grant Accessibility and Screen Recording here.'",
+  "ru": "' Затем предоставьте доступ к записи экрана и специальным возможностям.'",
+  "translated": true
+ },
+ "settings.computerUse.notReady": {
+  "en": "'Not ready'",
+  "ru": "'Не готов'",
+  "translated": true
+ },
+ "settings.computerUse.notSupported": {
+  "en": "platform => `Computer Use isn't supported on this platform (${platform}).`",
+  "ru": "platform => `Computer Use не поддерживается на этой платформе (${platform}).`",
+  "translated": true
+ },
+ "settings.computerUse.platformNoteLinux": {
+  "en": "'Drives your desktop via the X11/XWayland accessibility stack — no permission prompt.'",
+  "ru": "'Управляет рабочим столом через стек специальных возможностей X11/XWayland — запросов на разрешения нет.'",
+  "translated": true
+ },
+ "settings.computerUse.platformNoteWin": {
+  "en": "",
+  "ru": "",
+  "translated": true
+ },
+ "settings.computerUse.ready": {
+  "en": "'Ready'",
+  "ru": "'Готов'",
+  "translated": true
+ },
+ "settings.computerUse.readyMessage": {
+  "en": "'Computer Use is ready. Ask the agent to capture an app and click around.'",
+  "ru": "'Computer Use готов. Попросите агента открыть приложение и работать в нём.'",
+  "translated": true
+ },
+ "settings.computerUse.recheck": {
+  "en": "'Recheck'",
+  "ru": "'Проверить снова'",
+  "translated": true
+ },
+ "settings.computerUse.screenRecording": {
+  "en": "'Screen Recording'",
+  "ru": "'Запись экрана'",
+  "translated": true
+ },
+ "settings.computerUse.screenRecordingHint": {
+  "en": "'Lets cua-driver capture screenshots of app windows.'",
+  "ru": "'Позволяет cua-driver делать снимки окон приложений.'",
+  "translated": true
+ },
+ "settings.computerUse.unknown": {
+  "en": "'Unknown'",
+  "ru": "'Неизвестно'",
+  "translated": true
+ },
+ "settings.computerUse.waitingApproval": {
+  "en": "'Waiting for approval…'",
+  "ru": "'Ожидание подтверждения…'",
+  "translated": true
+ },
+ "settings.endpoints.active": {
+  "en": "'Active'",
+  "ru": "'Активен'",
+  "translated": true
+ },
+ "settings.endpoints.add": {
+  "en": "'Add Endpoint'",
+  "ru": "'Добавить endpoint'",
+  "translated": true
+ },
+ "settings.endpoints.apiKeySet": {
+  "en": "'API key set'",
+  "ru": "'API-ключ задан'",
+  "translated": true
+ },
+ "settings.endpoints.auto": {
+  "en": "'Auto'",
+  "ru": "'Авто'",
+  "translated": true
+ },
+ "settings.endpoints.deleteAria": {
+  "en": "'Delete endpoint'",
+  "ru": "'Удалить endpoint'",
+  "translated": true
+ },
+ "settings.endpoints.edit": {
+  "en": "'Edit Endpoint'",
+  "ru": "'Изменить endpoint'",
+  "translated": true
+ },
+ "settings.endpoints.emptyDesc": {
+  "en": "'Add an OpenAI-compatible endpoint below.'",
+  "ru": "'Добавьте OpenAI-совместимый endpoint ниже.'",
+  "translated": true
+ },
+ "settings.endpoints.emptyTitle": {
+  "en": "'No custom endpoints'",
+  "ru": "'Нет своих endpoints'",
+  "translated": true
+ },
+ "settings.mcp.apiKey": {
+  "en": "'API key'",
+  "ru": "'API-ключ'",
+  "translated": true
+ },
+ "settings.mcp.oauth": {
+  "en": "'OAuth'",
+  "ru": "'OAuth'",
+  "translated": true
+ },
+ "settings.model.moaAddPreset": {
+  "en": "'Add preset'",
+  "ru": "'Добавить пресет'",
+  "translated": true
+ },
+ "settings.model.moaAggregator": {
+  "en": "'Aggregator'",
+  "ru": "'Агрегатор'",
+  "translated": true
+ },
+ "settings.model.moaDesc": {
+  "en": "",
+  "ru": "",
+  "translated": true
+ },
+ "settings.model.moaEnabled": {
+  "en": "'Enabled'",
+  "ru": "'Включён'",
+  "translated": true
+ },
+ "settings.model.moaNewPreset": {
+  "en": "'new preset'",
+  "ru": "'новый пресет'",
+  "translated": true
+ },
+ "settings.model.moaPreset": {
+  "en": "'Preset'",
+  "ru": "'Пресет'",
+  "translated": true
+ },
+ "settings.model.moaTitle": {
+  "en": "'Mixture of Agents'",
+  "ru": "'Mixture of Agents'",
+  "translated": true
+ },
+ "settings.quickEntry.currentTarget": {
+  "en": "'Current chat'",
+  "ru": "'Текущий чат'",
+  "translated": true
+ },
+ "settings.quickEntry.newTarget": {
+  "en": "'New session'",
+  "ru": "'Новая сессия'",
+  "translated": true
+ },
+ "settings.quickEntry.sendTo": {
+  "en": "'Send to'",
+  "ru": "'Отправить в'",
+  "translated": true
+ },
+ "settings.quickEntry.targetSessionAria": {
+  "en": "'Target session'",
+  "ru": "'Целевая сессия'",
+  "translated": true
+ },
+ "settings.quickEntry.windowAriaLabel": {
+  "en": "'Quick Entry'",
+  "ru": "'Быстрый доступ'",
+  "translated": true
+ },
+ "settings.uninstall.appPath": {
+  "en": "path => `App: ${path}`",
+  "ru": "path => `Приложение: ${path}`",
+  "translated": true
+ },
+ "settings.uninstall.checking": {
+  "en": "\"Checking what's installed…\"",
+  "ru": "'Проверка установленного…'",
+  "translated": true
+ },
+ "settings.uninstall.confirmDesc": {
+  "en": "consequence => `This removes ${consequence}. This can't be undone.`",
+  "ru": "consequence => `Будет удалено: ${consequence}. Это действие необратимо.`",
+  "translated": true
+ },
+ "settings.uninstall.confirmTitle": {
+  "en": "'Confirm uninstall'",
+  "ru": "'Подтвердить удаление'",
+  "translated": true
+ },
+ "settings.uninstall.couldNotStart": {
+  "en": "'Uninstall could not start.'",
+  "ru": "'Не удалось запустить удаление.'",
+  "translated": true
+ },
+ "settings.uninstall.heading": {
+  "en": "'Danger zone'",
+  "ru": "'Опасная зона'",
+  "translated": true
+ },
+ "settings.uninstall.intro": {
+  "en": "",
+  "ru": "",
+  "translated": true
+ },
+ "settings.uninstall.optionFull": {
+  "en": "'Uninstall everything'",
+  "ru": "'Удалить всё'",
+  "translated": true
+ },
+ "settings.uninstall.optionFullConsequence": {
+  "en": "",
+  "ru": "",
+  "translated": true
+ },
+ "settings.uninstall.optionFullDesc": {
+  "en": "",
+  "ru": "'Удаляет приложение, агента и все пользовательские данные — конфиг, чаты, задачи, секреты, логи.'",
+  "translated": true
+ },
+ "settings.uninstall.optionGui": {
+  "en": "'Uninstall Chat GUI only'",
+  "ru": "'Только приложение Hermes'",
+  "translated": true
+ },
+ "settings.uninstall.optionGuiConsequence": {
+  "en": "'the desktop Chat GUI (this app and its data)'",
+  "ru": "'десктопное приложение (само приложение и его данные)'",
+  "translated": true
+ },
+ "settings.uninstall.optionGuiDesc": {
+  "en": "'Remove this desktop app. The Hermes agent, your config, and chats all stay.'",
+  "ru": "'Удаляет десктоп-приложение. Агент Hermes, конфиг и чаты сохраняются.'",
+  "translated": true
+ },
+ "settings.uninstall.optionLite": {
+  "en": "'Uninstall GUI + agent, keep my data'",
+  "ru": "'Приложение и агент, данные сохранить'",
+  "translated": true
+ },
+ "settings.uninstall.optionLiteConsequence": {
+  "en": "'the Chat GUI and the Hermes agent (config, chats, and secrets are kept)'",
+  "ru": "'приложение и агент Hermes (конфиг, чаты и секреты сохраняются)'",
+  "translated": true
+ },
+ "settings.uninstall.optionLiteDesc": {
+  "en": "",
+  "ru": "",
+  "translated": true
+ },
+ "settings.uninstall.title": {
+  "en": "'Uninstall Hermes'",
+  "ru": "'Удалить Hermes'",
+  "translated": true
+ },
+ "settings.uninstall.uninstalling": {
+  "en": "'Uninstalling…'",
+  "ru": "'Удаление…'",
+  "translated": true
+ },
+ "settings.uninstall.yes": {
+  "en": "'Yes, uninstall'",
+  "ru": "'Да, удалить'",
+  "translated": true
+ },
+ "shell.moaPresets": {
+  "en": "'MoA presets'",
+  "ru": "'Пресеты MoA'",
+  "translated": true
+ },
+ "starmap.legend": {
+  "en": "'core = oldest · outer = newer'",
+  "ru": "'ядро = старейшее · внешний край = новее'",
+  "translated": true
+ },
+ "starmap.skill": {
+  "en": "'skill'",
+  "ru": "'навык'",
+  "translated": true
+ },
+ "starmap.timelineScrubber": {
+  "en": "'Timeline scrubber'",
+  "ru": "'Перемотка шкалы времени'",
+  "translated": true
+ },
+ "titlebar.openKeybinds": {
+  "en": "'Keyboard shortcuts'",
+  "ru": "'Горячие клавиши'",
+  "translated": true
+ },
+ "workspace.clickFileHint": {
+  "en": "'click a file in the files pane'",
+  "ru": "'нажмите на файл в панели файлов'",
+  "translated": true
+ },
+ "workspace.logs": {
+  "en": "'LOGS'",
+  "ru": "'ЛОГИ'",
+  "translated": true
+ },
+ "workspace.preview": {
+  "en": "'PREVIEW'",
+  "ru": "'ПРЕДПРОСМОТР'",
+  "translated": true
+ },
+ "workspace.toggleLogs": {
+  "en": "'Toggle logs'",
+  "ru": "'Переключить логи'",
+  "translated": true
+ }
+}
