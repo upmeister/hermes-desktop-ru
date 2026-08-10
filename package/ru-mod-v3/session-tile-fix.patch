@@ -1,0 +1,22 @@
+diff --git a/apps/desktop/src/app/chat/session-tile.tsx b/apps/desktop/src/app/chat/session-tile.tsx
+index 9c30a632f..8fb9125cd 100644
+--- a/apps/desktop/src/app/chat/session-tile.tsx
++++ b/apps/desktop/src/app/chat/session-tile.tsx
+@@ -31,7 +31,7 @@ import { $layoutTree, closeTreePane, moveTreePane, setTreeGroupHeaderHidden } fr
+ import { Button } from '@/components/ui/button'
+ import { ConfirmDialog } from '@/components/ui/confirm-dialog'
+ import { transcribeAudio } from '@/hermes'
+-import { useI18n } from '@/i18n'
++import { translateNow, useI18n } from '@/i18n'
+ import type { ChatMessage } from '@/lib/chat-messages'
+ import { sessionTitle } from '@/lib/chat-runtime'
+ import { createComposerAttachmentScope } from '@/store/composer'
+@@ -379,7 +379,7 @@ function tileTitle(storedSessionId: string): string {
+ 
+   // A tab-strip "+" tab is unlisted until its first turn persists, so it isn't
+   // in $sessions yet — label it "New session" rather than a bare "Session".
+-  return stored ? sessionTitle(stored) : 'New session'
++  return stored ? sessionTitle(stored) : translateNow('common.newSession')
+ }
+ 
+ /** The `@session` link payload for a tile tab drag — id + owning profile + title. */
