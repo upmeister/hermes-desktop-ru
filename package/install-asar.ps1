@@ -45,11 +45,15 @@ foreach ($p in @("ru-mod-v3.patch", "desktop-timestamps-mod.patch")) {
   }
 }
 Pop-Location
-# untracked locale files (always overwrite - they are part of the mod)
+# untracked locale/component files (always overwrite - they are part of the mod).
+# NOTE: message-timestamp.tsx is a NEW file - git diff patches do NOT include
+# untracked files, so the timestamps patch alone leaves the import dangling
+# (build fails with UNLOADABLE_DEPENDENCY). It must live here in files/.
 $files = @(
   @("files\ru.ts", "apps\desktop\src\i18n\ru.ts"),
   @("files\ru-constants.ts", "apps\desktop\src\app\settings\ru-constants.ts"),
-  @("files\ru-locales.ts", "apps\desktop\src\plugins\kanban\ru-locales.ts")
+  @("files\ru-locales.ts", "apps\desktop\src\plugins\kanban\ru-locales.ts"),
+  @("files\message-timestamp.tsx", "apps\desktop\src\components\assistant-ui\thread\message-timestamp.tsx")
 )
 foreach ($f in $files) {
   $src = Join-Path $PSScriptRoot $f[0]
