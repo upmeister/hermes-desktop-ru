@@ -30,9 +30,11 @@ Push-Location $root
 foreach ($p in @("ru-mod-v3.patch", "desktop-timestamps-mod.patch")) {
   $patch = Join-Path $PSScriptRoot "patches\$p"
   if (Test-Path $patch) {
-    git apply --check --3way $patch 2>$null
+    # git writes progress ("Applied patch...") to STDERR; PS 5.1 + ErrorActionPreference=Stop
+    # turns ANY stderr from a native command into NativeCommandError. Pipe both streams away.
+    git apply --check --3way $patch 2>&1 | Out-Null
     if ($LASTEXITCODE -eq 0) {
-      git apply --3way $patch
+      git apply --3way $patch 2>&1 | Out-Null
       Write-Host "patch applied: $p"
     } else {
       Write-Host "patch skip (already applied or conflict): $p"
