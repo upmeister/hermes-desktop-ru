@@ -1,0 +1,2010 @@
+diff --git a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
+index aebd50edb..458792e62 100644
+--- a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
++++ b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
+@@ -11,6 +11,7 @@ import {
+   validateCustomEndpoint
+ } from '@/hermes'
+ import { triggerHaptic } from '@/lib/haptics'
++import { useI18n } from '@/i18n'
+ import { Check, Globe, Loader2, Plus, Save, Trash2, Zap } from '@/lib/icons'
+ import { cn } from '@/lib/utils'
+ import { notify, notifyError } from '@/store/notifications'
+diff --git a/apps/desktop/src/i18n/en.ts b/apps/desktop/src/i18n/en.ts
+index da7386f18..c157ac517 100644
+--- a/apps/desktop/src/i18n/en.ts
++++ b/apps/desktop/src/i18n/en.ts
+@@ -42,7 +42,11 @@ export const en: Translations = {
+     update: 'Update',
+     tryHint: term => `Try “${term}”`,
+     on: 'On',
+-    off: 'Off'
++    off: 'Off',
++    use: 'Use',
++    dismiss: 'Dismiss',
++    showOptions: 'Show options',
++    moreActions: 'More actions',
+   },
+ 
+   fileMenu: {
+@@ -366,6 +370,7 @@ export const en: Translations = {
+       disable: 'Disable',
+       failed: 'failed',
+       empty: 'No desktop plugins installed yet.',
++      kanban: 'Multi-agent task board — board page, sidebar entry, and a live in-flight count in the status bar.',
+       kinds: { bundled: 'bundled', disk: 'on disk', runtime: 'runtime' },
+       agent: {
+         title: 'Agent plugins',
+@@ -379,6 +384,9 @@ export const en: Translations = {
+         toggleFailed: (name: string) => `Could not toggle ${name}`,
+         updateBackendToManage: 'Update the Hermes backend to manage this plugin from Desktop.',
+         sources: { bundled: 'bundled', user: 'user', git: 'git', project: 'project', entrypoint: 'pip' }
++      },
++      descriptions: {
++      kanban: 'Multi-agent task board — board page, sidebar entry, and a live in-flight count in the status bar.'
+       }
+     },
+     notifications: {
+@@ -533,7 +541,8 @@ export const en: Translations = {
+         noneAvailable: 'No pets available to turn on right now.',
+         turnOnFailed: 'Could not turn the pet on.',
+         turnOffFailed: 'Could not turn the pet off.'
+-      }
++      },
++      searchThemes: 'Search your themes or the VS Code Marketplace…',
+     },
+     fieldLabels: FIELD_LABELS,
+     fieldDescriptions: FIELD_DESCRIPTIONS,
+@@ -597,7 +606,10 @@ export const en: Translations = {
+       shortcutDesc: 'Needs at least one modifier, e.g. CommandOrControl+Shift+Space.',
+       active: 'Shortcut is active.',
+       takenBy: 'Another app already uses this shortcut — pick a different one.',
+-      invalidShortcut: 'Not a valid shortcut. Include at least one modifier key.'
++      invalidShortcut: 'Not a valid shortcut. Include at least one modifier key.',
++      windowAriaLabel: 'Quick Entry',
++      newTarget: 'New session',
++      currentTarget: 'Current chat',
+     },
+     credentials: {
+       pasteKey: 'Paste key',
+@@ -999,7 +1011,105 @@ export const en: Translations = {
+         failedSelect: backend => `Failed to select ${backend}`,
+         needsSetupHint: 'You can select this backend now — commands will fail until setup is complete.'
+       }
+-    }
++    },
++    computerUse: {
++      accessibility: 'Accessibility',
++      accessibilityHint: 'Lets cua-driver post clicks, keystrokes, and read the accessibility tree.',
++      approveMessage:
++        'macOS will show a permission dialog attributed to CuaDriver. Approve it, then return here.',
++      approveTitle: 'Approve in System Settings',
++      checking: 'Checking Computer Use status…',
++      driverHealth: 'Driver health',
++      errorRead: 'Could not read Computer Use status',
++      errorRequest: 'Could not request permissions',
++      grantPermissions: 'Grant permissions',
++      granted: 'Granted',
++      grantsNote:
++        "Grants attach to CuaDriver's own identity (com.trycua.driver), not Hermes — so the dialog is attributed to the process that drives your Mac.",
++      notGranted: 'Not granted',
++      notInstalled: 'Install the cua-driver backend below to drive this machine.',
++      notInstalledGrant: ' Then grant Accessibility and Screen Recording here.',
++      notReady: 'Not ready',
++      notSupported: platform => `Computer Use isn't supported on this platform (${platform}).`,
++      platformNoteLinux: 'Drives your desktop via the X11/XWayland accessibility stack — no permission prompt.',
++      platformNoteWin:
++        'First run may trigger a Windows SmartScreen prompt for the cua-driver UIAccess worker — allow it.',
++      ready: 'Ready',
++      readyMessage: 'Computer Use is ready. Ask the agent to capture an app and click around.',
++      recheck: 'Recheck',
++      screenRecording: 'Screen Recording',
++      screenRecordingHint: 'Lets cua-driver capture screenshots of app windows.',
++      unknown: 'Unknown',
++      waitingApproval: 'Waiting for approval…',
++    },
++    billingPage: {
++      alreadyOnPlan: (name: string) => `You are already on ${name} — nothing to change.`,
++      autoRefillReloadTo: 'Reload to',
++      autoRefillReloadToAria: 'Auto-refill reload-to amount',
++      autoRefillThreshold: 'Threshold',
++      autoRefillThresholdAria: 'Auto-refill threshold',
++      autoRefillTurnedOff: 'Auto-refill turned off.',
++      autoRefillUpdated: 'Auto-refill updated.',
++      backToBilling: 'Back to billing',
++      cannotChange: 'That change cannot be made here.',
++      cannotSchedule: 'This change cannot be scheduled here.',
++      changeTakesEffect: (name: string, date: string, creditsDelta: string) =>
++        `Change to ${name} — takes effect ${date}. No charge now; you keep your current plan until then.${
++          creditsDelta ? ` Monthly credits change: ${creditsDelta}.` : ''
++        }`,
++      checkingChange: 'Checking this change…',
++      confirmDowngrade: 'Confirm downgrade',
++      currentPlan: 'Current plan',
++      customCreditAmountAria: 'Custom credit amount',
++      devFixture: 'Billing preview fixture (dev only)',
++      disable: 'Disable',
++      dismiss: 'Dismiss',
++      downgrade: 'Downgrade',
++      invoices: 'Invoices',
++      openPortal: 'Open portal',
++      openVerificationPage: 'Open verification page',
++      paymentCredits: 'Payment & credits',
++      plan: 'Plan',
++      plans: 'Plans',
++      scheduled: 'Scheduled',
++      scheduling: 'Scheduling…',
++      tryAgain: 'Try again',
++      turnOff: 'Turn off',
++      turnOffAutoRefill: 'Turn off auto-refill?',
++      undo: 'Undo',
++      undoing: 'Undoing…',
++      usage: 'Usage',
++      verifyToContinue: 'Verify to continue',
++      waitingForVerification: 'Waiting for verification link…',
++      manage: 'Manage',
++      noPlansAvailable: 'No plans are available to change to right now.',
++    },
++    uninstall: {
++      appPath: path => `App: ${path}`,
++      checking: "Checking what's installed…",
++      confirmDesc: consequence => `This removes ${consequence}. This can't be undone.`,
++      confirmTitle: 'Confirm uninstall',
++      couldNotStart: 'Uninstall could not start.',
++      heading: 'Danger zone',
++      intro:
++        'Choose how much to remove. The app closes to finish the job; reopen the installer any time to come back.',
++      optionFull: 'Uninstall everything',
++      optionFullConsequence:
++        'EVERYTHING — the Chat GUI, the Hermes agent, and all of your config, chats, secrets, and logs',
++      optionFullDesc:
++        'Remove the app, the agent, and all user data — config, chats, scheduled jobs, secrets, logs.',
++      optionGui: 'Uninstall Chat GUI only',
++      optionGuiConsequence: 'the desktop Chat GUI (this app and its data)',
++      optionGuiDesc: 'Remove this desktop app. The Hermes agent, your config, and chats all stay.',
++      optionLite: 'Uninstall GUI + agent, keep my data',
++      optionLiteConsequence: 'the Chat GUI and the Hermes agent (config, chats, and secrets are kept)',
++      optionLiteDesc:
++        'Remove the app and the Hermes agent, but keep config, chats, and secrets for a future reinstall.',
++      title: 'Uninstall Hermes',
++      uninstalling: 'Uninstalling…',
++      yes: 'Yes, uninstall',
++      checkingInstalled: 'Checking what’s installed…',
++    },
+   },
+ 
+   skills: {
+@@ -1229,7 +1339,10 @@ export const en: Translations = {
+       referenceImageTooLarge: 'Reference image is too large. Use one under 16 MB.',
+       referenceImageInvalid: 'Could not read that reference image. Try a PNG, JPG, WebP, or GIF.',
+       adopt: 'Adopt',
+-      startOver: 'Start over'
++      startOver: 'Start over',
++      setupImageGeneration: 'Set up image generation',
++      removeReference: 'Remove reference',
++      grabKeyFrom: 'Grab a key from',
+     },
+     installTheme: {
+       title: 'Install theme…',
+@@ -2775,7 +2888,13 @@ export const en: Translations = {
+       restoreNext: 'Restore next checkpoint',
+       goForward: 'Go forward',
+       sendEdited: 'Send edited message',
+-      attachingFile: 'Attaching…'
++      attachingFile: 'Attaching…',
++      searchReactions: 'Search…',
++      reactedByHermes: 'Reacted by Hermes',
++      noEmoji: 'No emoji found.',
++      moreEmoji: 'More emoji',
++      loadingEmoji: 'Loading emoji…',
++      conversationTimeline: 'Conversation timeline',
+     },
+     approval: {
+       gatewayDisconnected: 'Hermes gateway is not connected',
+@@ -3002,5 +3121,13 @@ export const en: Translations = {
+       description: 'Displays the mobile sidebar.',
+       toggle: open => `${open ? 'Show' : 'Hide'} sidebar`
+     }
+-  }
++  },
++  embeds: {
++    spotify: 'Spotify embed',
++    youtube: 'YouTube embed'
++  },
++  pet: {
++    hatchingProgress: 'Hatching progress',
++    openInHermes: 'Open in Hermes'
++  },
+ }
+diff --git a/apps/desktop/src/i18n/types.ts b/apps/desktop/src/i18n/types.ts
+index d61108614..0e9e4462b 100644
+--- a/apps/desktop/src/i18n/types.ts
++++ b/apps/desktop/src/i18n/types.ts
+@@ -5,7 +5,7 @@
+ // partial locales should use `defineLocale()` so missing desktop-only strings
+ // fall back to English while new keys remain type-checked.
+ 
+-export type Locale = 'en' | 'zh' | 'zh-hant' | 'ja' | 'ar'
++export type Locale = 'en' | 'zh' | 'zh-hant' | 'ja' | 'ar' | 'ru'
+ 
+ export type ToolTitleKey =
+   | 'browser_click'
+@@ -89,6 +89,10 @@ export interface Translations {
+     tryHint: (term: string) => string
+     on: string
+     off: string
++    use: string,
++    showOptions: string,
++    moreActions: string,
++    dismiss: string,
+   }
+ 
+   fileMenu: {
+@@ -316,6 +320,7 @@ export interface Translations {
+       disable: string
+       failed: string
+       empty: string
++      kanban: string
+       kinds: { bundled: string; disk: string; runtime: string }
+       agent: {
+         title: string
+@@ -329,6 +334,7 @@ export interface Translations {
+         updateBackendToManage: string
+         sources: Record<string, string>
+       }
++      descriptions: Record<string, string>,
+     }
+     notifications: {
+       title: string
+@@ -431,6 +437,7 @@ export interface Translations {
+         turnOnFailed: string
+         turnOffFailed: string
+       }
++      searchThemes: string,
+     }
+     fieldLabels: Record<string, string>
+     fieldDescriptions: Record<string, string>
+@@ -492,6 +499,9 @@ export interface Translations {
+       active: string
+       takenBy: string
+       invalidShortcut: string
++      windowAriaLabel: string,
++      newTarget: string,
++      currentTarget: string,
+     }
+     credentials: {
+       pasteKey: string
+@@ -865,6 +875,94 @@ export interface Translations {
+         needsSetupHint: string
+       }
+     }
++    billingPage: {
++      alreadyOnPlan: (name: string) => string,
++      autoRefillReloadTo: string,
++      autoRefillReloadToAria: string,
++      autoRefillThreshold: string,
++      autoRefillThresholdAria: string,
++      autoRefillTurnedOff: string,
++      autoRefillUpdated: string,
++      backToBilling: string,
++      cannotChange: string,
++      cannotSchedule: string,
++      changeTakesEffect: (name: string, date: string, creditsDelta: string) => string,
++      checkingChange: string,
++      confirmDowngrade: string,
++      currentPlan: string,
++      customCreditAmountAria: string,
++      devFixture: string,
++      disable: string,
++      dismiss: string,
++      downgrade: string,
++      invoices: string,
++      manage: string,
++      noPlansAvailable: string,
++      openPortal: string,
++      openVerificationPage: string,
++      paymentCredits: string,
++      plan: string,
++      plans: string,
++      scheduled: string,
++      scheduling: string,
++      tryAgain: string,
++      turnOff: string,
++      turnOffAutoRefill: string,
++      undo: string,
++      undoing: string,
++      usage: string,
++      verifyToContinue: string,
++      waitingForVerification: string,
++    },
++    computerUse: {
++      accessibility: string,
++      accessibilityHint: string,
++      approveMessage: string,
++      approveTitle: string,
++      checking: string,
++      driverHealth: string,
++      errorRead: string,
++      errorRequest: string,
++      grantPermissions: string,
++      granted: string,
++      grantsNote: string,
++      notGranted: string,
++      notInstalled: string,
++      notInstalledGrant: string,
++      notReady: string,
++      notSupported: (...args: unknown[]) => string,
++      platformNoteLinux: string,
++      platformNoteWin: string,
++      ready: string,
++      readyMessage: string,
++      recheck: string,
++      screenRecording: string,
++      screenRecordingHint: string,
++      unknown: string,
++      waitingApproval: string,
++    },
++    uninstall: {
++      appPath: (...args: unknown[]) => string,
++      checking: string,
++      checkingInstalled: string,
++      confirmDesc: (...args: unknown[]) => string,
++      confirmTitle: string,
++      couldNotStart: string,
++      heading: string,
++      intro: string,
++      optionFull: string,
++      optionFullConsequence: string,
++      optionFullDesc: string,
++      optionGui: string,
++      optionGuiConsequence: string,
++      optionGuiDesc: string,
++      optionLite: string,
++      optionLiteConsequence: string,
++      optionLiteDesc: string,
++      title: string,
++      uninstalling: string,
++      yes: string,
++    },
+   }
+ 
+   skills: {
+@@ -1083,6 +1181,9 @@ export interface Translations {
+       referenceImageInvalid: string
+       adopt: string
+       startOver: string
++      setupImageGeneration: string,
++      removeReference: string,
++      grabKeyFrom: string,
+     }
+     installTheme: {
+       title: string
+@@ -2364,6 +2465,12 @@ export interface Translations {
+       goForward: string
+       sendEdited: string
+       attachingFile: string
++      searchReactions: string,
++      reactedByHermes: string,
++      noEmoji: string,
++      moreEmoji: string,
++      loadingEmoji: string,
++      conversationTimeline: string,
+     }
+     approval: {
+       gatewayDisconnected: string
+@@ -2553,4 +2660,12 @@ export interface Translations {
+       toggle: (open: boolean) => string
+     }
+   }
++  embeds: {
++    spotify: string,
++    youtube: string,
++  },
++  pet: {
++    hatchingProgress: string,
++    openInHermes: string,
++  },
+ }
+diff --git a/apps/desktop/src/i18n/zh.ts b/apps/desktop/src/i18n/zh.ts
+index 71eb545f7..540c6cbb3 100644
+--- a/apps/desktop/src/i18n/zh.ts
++++ b/apps/desktop/src/i18n/zh.ts
+@@ -1,4 +1,5 @@
+ import { defineFieldCopy } from '@/app/settings/field-copy'
++import { FIELD_DESCRIPTIONS, FIELD_LABELS } from '@/app/settings/constants'
+ 
+ import type { Translations } from './types'
+ 
+@@ -42,9 +43,12 @@ export const zh: Translations = {
+     update: '更新',
+     tryHint: term => `试试“${term}”`,
+     on: '开',
+-    off: '关'
++    off: '关',
++    use: 'Use',
++    dismiss: 'Dismiss',
++    showOptions: 'Show options',
++    moreActions: 'More actions',
+   },
+-
+   fileMenu: {
+     revealFinder: '在访达中显示',
+     revealExplorer: '在文件资源管理器中显示',
+@@ -58,9 +62,8 @@ export const zh: Translations = {
+     renameLabel: '新名称',
+     deleteTitle: name => `删除 ${name}？`,
+     deleteBody: '将移至废纸篓，你可以从那里恢复。',
+-    pathCopied: '已复制路径'
++    pathCopied: '已复制路径',
+   },
+-
+   boot: {
+     ready: 'Hermes 桌面版已就绪',
+     desktopBootFailedWithMessage: message => `桌面启动失败：${message}`,
+@@ -69,7 +72,7 @@ export const zh: Translations = {
+       loadingSettings: '正在加载 Hermes 设置',
+       loadingSessions: '正在加载最近会话',
+       startingDesktopConnection: '正在启动桌面连接',
+-      startingHermesDesktop: '正在启动 Hermes 桌面版…'
++      startingHermesDesktop: '正在启动 Hermes 桌面版…',
+     },
+     errors: {
+       backgroundExited: 'Hermes 后台进程已退出。',
+@@ -78,7 +81,7 @@ export const zh: Translations = {
+       desktopBootFailed: '桌面启动失败',
+       gatewayConnectionLost: '与网关的连接已断开',
+       gatewaySignInRequired: '需要登录网关',
+-      ipcBridgeUnavailable: '桌面 IPC 桥不可用。'
++      ipcBridgeUnavailable: '桌面 IPC 桥不可用。',
+     },
+     failure: {
+       title: 'Hermes 无法启动',
+@@ -105,10 +108,9 @@ export const zh: Translations = {
+       signInFailed: '登录失败',
+       signInToRemoteGateway: '登录远程网关',
+       signInWithProvider: provider => `使用 ${provider} 登录`,
+-      identityProvider: '你的身份提供方'
+-    }
++      identityProvider: '你的身份提供方',
++    },
+   },
+-
+   notifications: {
+     region: '通知',
+     hide: '隐藏',
+@@ -135,7 +137,7 @@ export const zh: Translations = {
+       microphonePermission: '麦克风权限已被拒绝。',
+       openaiRejectedApiKey: 'OpenAI 拒绝了该 API key。',
+       openaiRejectedApiKeyWithStatus: status => `OpenAI 拒绝了该 API key (${status} invalid_api_key)。`,
+-      openaiTtsNeedsKey: 'OpenAI TTS 需要 VOICE_TOOLS_OPENAI_KEY 或 OPENAI_API_KEY。'
++      openaiTtsNeedsKey: 'OpenAI TTS 需要 VOICE_TOOLS_OPENAI_KEY 或 OPENAI_API_KEY。',
+     },
+     voice: {
+       configureSpeechToText: '配置语音转文字后即可使用语音模式。',
+@@ -155,7 +157,7 @@ export const zh: Translations = {
+       transcriptionFailed: '语音转写失败',
+       transcriptionUnavailable: '语音转写暂不可用。',
+       tryRecordingAgain: '请再录一次。',
+-      unavailable: '语音不可用'
++      unavailable: '语音不可用',
+     },
+     native: {
+       approvalTitle: '需要批准',
+@@ -168,23 +170,20 @@ export const zh: Translations = {
+       turnErrorTitle: '本轮失败',
+       backgroundDoneTitle: '后台任务已完成',
+       backgroundFailedTitle: '后台任务失败',
+-      creditsTitle: '额度'
+-    }
++      creditsTitle: '额度',
++    },
+   },
+-
+   remoteDisplayBanner: {
+-    message: reason => `软件渲染已启用 — 检测到远程显示（${reason}）。为防止画面闪烁，已禁用 GPU 加速。`
++    message: reason => `软件渲染已启用 — 检测到远程显示（${reason}）。为防止画面闪烁，已禁用 GPU 加速。`,
+   },
+-
+   billingBlock: {
+     titleNous: 'Nous 额度已用尽',
+     titleProvider: provider => `额度已用尽 — ${provider}`,
+     fallbackMessage: '您的账户额度已用尽。请充值以继续使用。',
+     openBilling: '打开账单',
+     addCredits: '添加额度',
+-    dismiss: '忽略'
++    dismiss: '忽略',
+   },
+-
+   titlebar: {
+     hideSidebar: '隐藏侧边栏',
+     showSidebar: '显示侧边栏',
+@@ -200,9 +199,8 @@ export const zh: Translations = {
+     enterHud: 'HUD 模式',
+     exitHud: '退出 HUD 模式',
+     layoutEditor: '布局编辑器',
+-    layoutEditorTitle: '布局编辑器 — ⌘ 点击重置布局'
++    layoutEditorTitle: '布局编辑器 — ⌘ 点击重置布局',
+   },
+-
+   keybinds: {
+     title: '键盘快捷键',
+     subtitle: open => `点击快捷键即可重新绑定 · ${open} 可重新打开此面板。`,
+@@ -218,7 +216,7 @@ export const zh: Translations = {
+       profiles: '配置',
+       session: '会话',
+       navigation: '导航',
+-      view: '视图'
++      view: '视图',
+     },
+     actions: {
+       'keybinds.openPanel': '打开键盘快捷键',
+@@ -257,7 +255,13 @@ export const zh: Translations = {
+       'view.toggleReview': '切换审查面板',
+       'view.toggleStatusbar': '切换状态栏',
+       'view.showFiles': '显示文件浏览器',
++      'view.toggleHud': 'Toggle HUD mode',
++      'hud.snapToPointer': 'Move HUD to pointer (global, while HUD is open)',
+       'view.showTerminal': '显示终端',
++      'view.newTerminal': 'New terminal',
++      'view.nextTerminal': 'Next terminal',
++      'view.prevTerminal': 'Previous terminal',
++      'view.closeTerminal': 'Close terminal',
+       'view.terminalSelection': '将终端选区发送到输入框',
+       'view.terminalCopy': '复制终端选区',
+       'view.terminalPaste': '粘贴到终端',
+@@ -300,15 +304,13 @@ export const zh: Translations = {
+       'composer.slash': '斜杠命令面板',
+       'composer.help': '快速帮助',
+       'composer.history': '切换弹窗/历史',
+-      'composer.cancel': '关闭弹窗·取消运行'
+-    }
++      'composer.cancel': '关闭弹窗·取消运行',
++    },
+   },
+-
+   findInPage: {
+     next: '下一个匹配',
+-    previous: '上一个匹配'
++    previous: '上一个匹配',
+   },
+-
+   language: {
+     label: '语言',
+     description: '选择桌面界面的语言。',
+@@ -316,9 +318,8 @@ export const zh: Translations = {
+     saveError: '语言更新失败',
+     switchTo: '切换语言',
+     searchPlaceholder: '搜索语言…',
+-    noResults: '未找到语言'
++    noResults: '未找到语言',
+   },
+-
+   settings: {
+     closeSettings: '关闭设置',
+     exportConfig: '导出配置',
+@@ -342,7 +343,7 @@ export const zh: Translations = {
+       about: '关于',
+       billing: '账单',
+       notifications: '通知',
+-      plugins: '插件'
++      plugins: '插件',
+     },
+     plugins: {
+       title: '桌面插件',
+@@ -368,8 +369,11 @@ export const zh: Translations = {
+         noMatches: '没有匹配的插件。',
+         toggleFailed: (name: string) => `无法切换 ${name}`,
+         updateBackendToManage: '请更新 Hermes 后端以便在桌面端管理此插件。',
+-        sources: { bundled: '内置', user: '用户', git: 'git', project: '项目', entrypoint: 'pip' }
+-      }
++        sources: { bundled: '内置', user: '用户', git: 'git', project: '项目', entrypoint: 'pip' },
++      },
++      descriptions: {
++      },
++      kanban: 'Multi-agent task board — board page, sidebar entry, and a live in-flight count in the status bar.',
+     },
+     notifications: {
+       title: '通知',
+@@ -380,32 +384,32 @@ export const zh: Translations = {
+       kinds: {
+         approval: {
+           label: '需要批准',
+-          description: '有命令正在等待你批准或拒绝。'
++          description: '有命令正在等待你批准或拒绝。',
+         },
+         input: {
+           label: '需要输入',
+-          description: 'Hermes 提出了问题，或需要密码或密钥。'
++          description: 'Hermes 提出了问题，或需要密码或密钥。',
+         },
+         turnDone: {
+           label: '回复就绪',
+-          description: 'Hermes 在后台时完成了一轮对话。'
++          description: 'Hermes 在后台时完成了一轮对话。',
+         },
+         turnError: {
+           label: '本轮失败',
+-          description: '后台回合错误。'
++          description: '后台回合错误。',
+         },
+         backgroundDone: {
+           label: '后台任务完成',
+-          description: '后台终端命令已完成。'
++          description: '后台终端命令已完成。',
+         },
+         credits: {
+           label: '额度提醒',
+-          description: '额度访问被暂停或恢复。'
++          description: '额度访问被暂停或恢复。',
+         },
+         plugin: {
+           label: '插件通知',
+-          description: 'Hermes 在后台时，桌面插件发送了通知。'
+-        }
++          description: 'Hermes 在后台时，桌面插件发送了通知。',
++        },
+       },
+       test: '发送测试通知',
+       testTitle: 'Hermes',
+@@ -414,7 +418,7 @@ export const zh: Translations = {
+       testUnsupported: '此系统不支持原生通知。',
+       completionSoundTitle: '完成提示音',
+       completionSoundDesc: '智能体回合结束时播放。可在此选择预设并预览。',
+-      completionSoundPreview: '预览'
++      completionSoundPreview: '预览',
+     },
+     sections: {
+       model: '模型',
+@@ -424,7 +428,7 @@ export const zh: Translations = {
+       safety: '安全',
+       memory: '记忆与上下文',
+       voice: '语音',
+-      advanced: '高级'
++      advanced: '高级',
+     },
+     searchPlaceholder: {
+       about: '关于 Hermes Desktop',
+@@ -432,12 +436,12 @@ export const zh: Translations = {
+       gateway: '网关连接…',
+       keys: '搜索 API 密钥…',
+       mcp: '搜索 MCP 服务器…',
+-      sessions: '搜索已归档会话…'
++      sessions: '搜索已归档会话…',
+     },
+     modeOptions: {
+       light: { label: '明亮', description: '明亮的桌面界面' },
+       dark: { label: '暗色', description: '低眩光工作区' },
+-      system: { label: '跟随系统', description: '跟随系统外观' }
++      system: { label: '跟随系统', description: '跟随系统外观' },
+     },
+     appearance: {
+       title: '外观',
+@@ -489,12 +493,12 @@ export const zh: Translations = {
+         intro:
+           '领养一只悬浮在应用上的 petdex 动画宠物，它会根据 Hermes 的状态做出反应——工具执行时奔跑、成功时欢呼、出错时沮丧。',
+         restartHint: '宠物功能需要重启——当前运行的应用在此功能加入前启动。请退出并重新打开 Hermes，然后回到此处。',
++        on: '开启',
++        off: '关闭',
+         scaleTitle: '大小',
+         scaleDesc: '调整悬浮宠物的大小，所有界面即时生效。',
+         roamTitle: '漫游',
+         roamDesc: '空闲时让宠物自己在窗口内四处走动。',
+-        on: '开启',
+-        off: '关闭',
+         chooseTitle: '选择宠物',
+         chooseDesc: '选择后会自动安装（如需）并设为当前宠物。',
+         searchPlaceholder: '搜索宠物…',
+@@ -520,232 +524,12 @@ export const zh: Translations = {
+         exportFailed: slug => `无法导出 ${slug}`,
+         noneAvailable: '当前没有可开启的宠物。',
+         turnOnFailed: '无法开启宠物。',
+-        turnOffFailed: '无法关闭宠物。'
+-      }
+-    },
+-    fieldLabels: defineFieldCopy({
+-      model: '默认模型',
+-      modelContextLength: '上下文窗口',
+-      fallbackProviders: '备用模型',
+-      toolsets: '启用的工具集',
+-      timezone: '时区',
+-      display: {
+-        personality: '人格',
+-        showReasoning: '推理过程块'
+-      },
+-      desktop: {
+-        repoScanEnabled: '自动发现代码仓库',
+-        repoScanRoots: '代码仓库扫描根目录',
+-        repoScanExcludePaths: '排除的代码仓库路径'
+-      },
+-      agent: {
+-        maxTurns: '最大智能体步数',
+-        imageInputMode: '图片附件',
+-        apiMaxRetries: 'API 重试次数',
+-        serviceTier: '服务等级',
+-        toolUseEnforcement: '工具调用强制'
+-      },
+-      terminal: {
+-        cwd: '工作目录',
+-        backend: '执行后端',
+-        timeout: '命令超时',
+-        persistentShell: '持久化 Shell',
+-        envPassthrough: '环境变量透传',
+-        dockerImage: 'Docker 镜像',
+-        singularityImage: 'Singularity 镜像',
+-        modalImage: 'Modal 镜像',
+-        daytonaImage: 'Daytona 镜像'
+-      },
+-      fileReadMaxChars: '文件读取上限',
+-      toolOutput: {
+-        maxBytes: '终端输出上限',
+-        maxLines: '文件分页上限',
+-        maxLineLength: '行长度上限'
+-      },
+-      codeExecution: {
+-        mode: '代码执行模式'
+-      },
+-      approvals: {
+-        mode: '审批模式',
+-        timeout: '审批超时',
+-        mcpReloadConfirm: '确认 MCP 重载'
+-      },
+-      commandAllowlist: '命令白名单',
+-      security: {
+-        redactSecrets: '隐去密钥',
+-        allowPrivateUrls: '允许私有 URL'
+-      },
+-      browser: {
+-        allowPrivateUrls: '浏览器私有 URL',
+-        autoLocalForPrivateUrls: '私有 URL 使用本地浏览器'
+-      },
+-      checkpoints: {
+-        enabled: '文件检查点',
+-        maxSnapshots: '检查点上限'
+-      },
+-      voice: {
+-        recordKey: '语音快捷键',
+-        maxRecordingSeconds: '最长录音时长',
+-        autoTts: '朗读回复'
+-      },
+-      stt: {
+-        enabled: '语音转文字',
+-        provider: '语音转文字提供方',
+-        local: {
+-          model: '本地转写模型',
+-          language: '转写语言'
+-        },
+-        openai: {
+-          model: 'OpenAI STT 模型'
+-        },
+-        groq: {
+-          model: 'Groq STT 模型'
+-        },
+-        mistral: {
+-          model: 'Mistral STT 模型'
+-        },
+-        elevenlabs: {
+-          modelId: 'ElevenLabs STT 模型',
+-          languageCode: 'ElevenLabs 语言',
+-          tagAudioEvents: '标记音频事件',
+-          diarize: '说话人区分'
+-        }
+-      },
+-      tts: {
+-        provider: '文字转语音提供方',
+-        edge: {
+-          voice: 'Edge 语音'
+-        },
+-        openai: {
+-          model: 'OpenAI TTS 模型',
+-          voice: 'OpenAI 语音'
+-        },
+-        elevenlabs: {
+-          voiceId: 'ElevenLabs 语音',
+-          modelId: 'ElevenLabs 模型'
+-        },
+-        xai: {
+-          voiceId: 'xAI (Grok) 语音',
+-          language: 'xAI 语言',
+-          speed: '播放速度',
+-          autoSpeechTags: '自动语音标签',
+-          optimizeStreamingLatency: '流式延迟优化',
+-          sampleRate: '采样率',
+-          bitRate: '比特率'
+-        },
+-        minimax: {
+-          model: 'MiniMax TTS 模型',
+-          voiceId: 'MiniMax 语音'
+-        },
+-        mistral: {
+-          model: 'Mistral TTS 模型',
+-          voiceId: 'Mistral 语音'
+-        },
+-        gemini: {
+-          model: 'Gemini TTS 模型',
+-          voice: 'Gemini 语音'
+-        },
+-        neutts: {
+-          model: 'NeuTTS 模型',
+-          device: 'NeuTTS 设备'
+-        },
+-        kittentts: {
+-          model: 'KittenTTS 模型',
+-          voice: 'KittenTTS 语音'
+-        },
+-        piper: {
+-          voice: 'Piper 语音'
+-        }
+-      },
+-      memory: {
+-        memoryEnabled: '持久记忆',
+-        userProfileEnabled: '用户画像',
+-        memoryCharLimit: '记忆预算',
+-        userCharLimit: '画像预算',
+-        provider: '记忆提供方'
+-      },
+-      context: {
+-        engine: '上下文引擎'
+-      },
+-      compression: {
+-        enabled: '自动压缩',
+-        threshold: '压缩阈值',
+-        targetRatio: '压缩目标',
+-        protectLastN: '保护最近消息'
++        turnOffFailed: '无法关闭宠物。',
+       },
+-      delegation: {
+-        model: '子智能体模型',
+-        provider: '子智能体提供方',
+-        maxIterations: '子智能体轮次上限',
+-        maxConcurrentChildren: '并行子智能体',
+-        childTimeoutSeconds: '子智能体超时',
+-        reasoningEffort: '子智能体推理强度'
+-      },
+-      updates: {
+-        nonInteractiveLocalChanges: '应用内更新本地更改'
+-      }
+-    }),
+-    fieldDescriptions: defineFieldCopy({
+-      model: '用于新对话，除非你在输入框中选择其他模型。',
+-      modelContextLength: '保持为 0 则使用所选模型检测到的上下文窗口。',
+-      fallbackProviders: '默认模型失败时尝试的备用 provider:model 条目。',
+-      display: {
+-        personality: '新会话的默认助手风格。',
+-        showReasoning: '当后端提供推理内容时予以显示。'
+-      },
+-      desktop: {
+-        repoScanEnabled: '扫描本地文件夹，并在“项目”中显示 Git 代码仓库。',
+-        repoScanRoots: '要扫描的文件夹。留空时扫描主目录。',
+-        repoScanExcludePaths: '发现代码仓库时跳过这些文件夹及其子目录。'
+-      },
+-      timezone: '当 Hermes 需要本地时间上下文时使用。留空则使用系统时区。',
+-      agent: {
+-        imageInputMode: '控制图片附件如何发送给模型。',
+-        maxTurns: 'Hermes 停止一次运行前工具调用轮次的上限。'
+-      },
+-      terminal: {
+-        cwd: '工具与终端操作的默认项目目录。',
+-        persistentShell: '当后端支持时，在命令之间保留 Shell 状态。',
+-        envPassthrough: '传入工具执行的环境变量。'
+-      },
+-      codeExecution: {
+-        mode: '代码执行被限定到当前项目的严格程度。'
+-      },
+-      fileReadMaxChars: 'Hermes 单次文件读取可读取的最大字符数。',
+-      approvals: {
+-        mode: 'Hermes 如何处理需要显式审批的命令。',
+-        timeout: '审批提示在超时前等待的时长。'
+-      },
+-      security: {
+-        redactSecrets: '尽可能从模型可见内容中隐藏检测到的密钥。'
+-      },
+-      checkpoints: {
+-        enabled: '在文件编辑前创建可回滚的快照。'
+-      },
+-      memory: {
+-        memoryEnabled: '保存有助于未来会话的持久记忆。',
+-        userProfileEnabled: '维护一份精简的用户偏好画像。'
+-      },
+-      context: {
+-        engine: '在接近上下文上限时管理长对话的策略。'
+-      },
+-      compression: {
+-        enabled: '当对话变大时对较早的上下文进行摘要。'
+-      },
+-      voice: {
+-        autoTts: '自动朗读助手回复。'
+-      },
+-      stt: {
+-        enabled: '启用本地或提供方支持的语音转写。',
+-        elevenlabs: {
+-          languageCode: '可选的 ISO-639-3 语言代码。留空让 ElevenLabs 自动检测。'
+-        }
+-      },
+-      updates: {
+-        nonInteractiveLocalChanges:
+-          'Hermes 从应用内更新时（无终端提示），保留本地源码修改（暂存）或丢弃（放弃）。通过终端更新时始终会询问。'
+-      }
+-    }),
++      searchThemes: 'Search your themes or the VS Code Marketplace…',
++    },
++    fieldLabels: FIELD_LABELS,
++    fieldDescriptions: FIELD_DESCRIPTIONS,
+     about: {
+       heading: 'Hermes Desktop',
+       version: value => `版本 ${value}`,
+@@ -771,7 +555,7 @@ export const zh: Translations = {
+       justNow: '刚刚',
+       minAgo: count => `${count} 分钟前`,
+       hoursAgo: count => `${count} 小时前`,
+-      daysAgo: count => `${count} 天前`
++      daysAgo: count => `${count} 天前`,
+     },
+     config: {
+       none: '无',
+@@ -795,7 +579,7 @@ export const zh: Translations = {
+       attachmentSizeDesc:
+         '桌面端为预览和图片附件加载本地文件的大小上限（MB）。默认为 16。远程非图片附件使用单独的 256 MB 上限。设置过大会将整个文件读入内存，可能导致应用卡死或崩溃。',
+       attachmentSizeUnit: 'MB',
+-      attachmentSizeLabel: '预览 / 图片加载大小上限（MB）'
++      attachmentSizeLabel: '预览 / 图片加载大小上限（MB）',
+     },
+     quickEntry: {
+       enabledTitle: '快速输入',
+@@ -804,7 +588,10 @@ export const zh: Translations = {
+       shortcutDesc: '至少需要一个修饰键，例如 CommandOrControl+Shift+Space。',
+       active: '快捷键已生效。',
+       takenBy: '此快捷键已被其他应用占用，请换一个。',
+-      invalidShortcut: '不是有效的快捷键。请至少包含一个修饰键。'
++      invalidShortcut: '不是有效的快捷键。请至少包含一个修饰键。',
++      windowAriaLabel: 'Quick Entry',
++      newTarget: 'New session',
++      currentTarget: 'Current chat',
+     },
+     credentials: {
+       pasteKey: '粘贴密钥',
+@@ -814,7 +601,7 @@ export const zh: Translations = {
+       couldNotSave: '无法保存凭据。',
+       remove: '移除',
+       getKey: '获取密钥',
+-      saving: '保存中'
++      saving: '保存中',
+     },
+     envActions: {
+       actions: '操作',
+@@ -824,7 +611,7 @@ export const zh: Translations = {
+       revealValue: '显示值',
+       replace: '替换',
+       set: '设置',
+-      clear: '清除'
++      clear: '清除',
+     },
+     gateway: {
+       loading: '正在加载网关设置...',
+@@ -864,7 +651,7 @@ export const zh: Translations = {
+       cloudNoAgents: {
+         before: '此账户下未找到智能体。请在',
+         linkText: 'Nous 门户',
+-        after: '中创建一个，然后刷新。'
++        after: '中创建一个，然后刷新。',
+       },
+       cloudRefresh: '刷新',
+       cloudConnect: '连接',
+@@ -959,12 +746,12 @@ export const zh: Translations = {
+       sshErrPlatform: '不支持的远程平台。Hermes Desktop 的 SSH 模式支持 Linux、macOS 和 Windows 远程主机。',
+       sshErrTimeout: 'SSH 连接超时。主机可能无法访问或处于休眠状态。',
+       sshErrUpdateRequired: '使用 Desktop SSH 连接前，请更新远程主机上的 Hermes。',
+-      sshErrUnknown: 'SSH 连接失败。'
++      sshErrUnknown: 'SSH 连接失败。',
+     },
+     keys: {
+       loading: '正在加载 API 密钥和凭据...',
+       failedLoad: 'API 密钥加载失败',
+-      empty: '此类别暂时没有配置项。'
++      empty: '此类别暂时没有配置项。',
+     },
+     mcp: {
+       loading: '正在加载 MCP 服务器...',
+@@ -1030,7 +817,7 @@ export const zh: Translations = {
+       unsavedConnect: '未保存 — 保存 mcp.json 以连接。',
+       enableTool: tool => `启用 ${tool}`,
+       disableTool: tool => `禁用 ${tool}`,
+-      noOutput: '暂无输出。'
++      noOutput: '暂无输出。',
+     },
+     model: {
+       loading: '正在加载模型配置...',
+@@ -1060,8 +847,8 @@ export const zh: Translations = {
+         approval: { label: '审批', hint: '智能自动批准' },
+         mcp: { label: 'MCP', hint: 'MCP 工具路由' },
+         title_generation: { label: '标题生成', hint: '会话标题' },
+-        curator: { label: '维护器', hint: '技能使用审查' }
+-      }
++        curator: { label: '维护器', hint: '技能使用审查' },
++      },
+     },
+     providers: {
+       connectAccount: '连接账号',
+@@ -1086,9 +873,9 @@ export const zh: Translations = {
+       noKeysMatch: '没有匹配的提供方。',
+       localEndpoint: {
+         title: '本地 / 自定义端点',
+-        description: '将 Hermes 指向任意 OpenAI 兼容端点（Zyphra、vLLM、llama.cpp、Ollama 等）。'
++        description: '将 Hermes 指向任意 OpenAI 兼容端点（Zyphra、vLLM、llama.cpp、Ollama 等）。',
+       },
+-      loading: '正在加载提供方...'
++      loading: '正在加载提供方...',
+     },
+     sessions: {
+       loading: '正在加载已归档会话…',
+@@ -1119,7 +906,7 @@ export const zh: Translations = {
+       unarchiveFailed: '取消归档失败',
+       deleteFailed: '删除失败',
+       updateDirFailed: '无法更新默认目录',
+-      clearDirFailed: '无法清除默认目录'
++      clearDirFailed: '无法清除默认目录',
+     },
+     toolsets: {
+       loadingConfig: '正在加载配置',
+@@ -1195,11 +982,108 @@ export const zh: Translations = {
+         selectedTitle: '已选择后端',
+         selectedMessage: backend => `终端命令现在通过 ${backend} 运行。将应用于新会话。`,
+         failedSelect: backend => `选择 ${backend} 失败`,
+-        needsSetupHint: '现在即可选择此后端——但在完成设置前命令将会失败。'
+-      }
+-    }
++        needsSetupHint: '现在即可选择此后端——但在完成设置前命令将会失败。',
++      },
++    },
++    computerUse: {
++      accessibility: 'Accessibility',
++      accessibilityHint: 'Lets cua-driver post clicks, keystrokes, and read the accessibility tree.',
++      approveMessage:
++        'macOS will show a permission dialog attributed to CuaDriver. Approve it, then return here.',
++      approveTitle: 'Approve in System Settings',
++      checking: 'Checking Computer Use status…',
++      driverHealth: 'Driver health',
++      errorRead: 'Could not read Computer Use status',
++      errorRequest: 'Could not request permissions',
++      grantPermissions: 'Grant permissions',
++      granted: 'Granted',
++      grantsNote:
++        "Grants attach to CuaDriver's own identity (com.trycua.driver), not Hermes — so the dialog is attributed to the process that drives your Mac.",
++      notGranted: 'Not granted',
++      notInstalled: 'Install the cua-driver backend below to drive this machine.',
++      notInstalledGrant: ' Then grant Accessibility and Screen Recording here.',
++      notReady: 'Not ready',
++      notSupported: platform => `Computer Use isn't supported on this platform (${platform}).`,
++      platformNoteLinux: 'Drives your desktop via the X11/XWayland accessibility stack — no permission prompt.',
++      platformNoteWin:
++        'First run may trigger a Windows SmartScreen prompt for the cua-driver UIAccess worker — allow it.',
++      ready: 'Ready',
++      readyMessage: 'Computer Use is ready. Ask the agent to capture an app and click around.',
++      recheck: 'Recheck',
++      screenRecording: 'Screen Recording',
++      screenRecordingHint: 'Lets cua-driver capture screenshots of app windows.',
++      unknown: 'Unknown',
++      waitingApproval: 'Waiting for approval…',
++    },
++    billingPage: {
++      alreadyOnPlan: (name: string) => `You are already on ${name} — nothing to change.`,
++      autoRefillReloadTo: 'Reload to',
++      autoRefillReloadToAria: 'Auto-refill reload-to amount',
++      autoRefillThreshold: 'Threshold',
++      autoRefillThresholdAria: 'Auto-refill threshold',
++      autoRefillTurnedOff: 'Auto-refill turned off.',
++      autoRefillUpdated: 'Auto-refill updated.',
++      backToBilling: 'Back to billing',
++      cannotChange: 'That change cannot be made here.',
++      cannotSchedule: 'This change cannot be scheduled here.',
++      changeTakesEffect: (name: string, date: string, creditsDelta: string) =>
++        `Change to ${name} — takes effect ${date}. No charge now; you keep your current plan until then.${
++          creditsDelta ? ` Monthly credits change: ${creditsDelta}.` : ''
++        }`,
++      checkingChange: 'Checking this change…',
++      confirmDowngrade: 'Confirm downgrade',
++      currentPlan: 'Current plan',
++      customCreditAmountAria: 'Custom credit amount',
++      devFixture: 'Billing preview fixture (dev only)',
++      disable: 'Disable',
++      dismiss: 'Dismiss',
++      downgrade: 'Downgrade',
++      invoices: 'Invoices',
++      openPortal: 'Open portal',
++      openVerificationPage: 'Open verification page',
++      paymentCredits: 'Payment & credits',
++      plan: 'Plan',
++      plans: 'Plans',
++      scheduled: 'Scheduled',
++      scheduling: 'Scheduling…',
++      tryAgain: 'Try again',
++      turnOff: 'Turn off',
++      turnOffAutoRefill: 'Turn off auto-refill?',
++      undo: 'Undo',
++      undoing: 'Undoing…',
++      usage: 'Usage',
++      verifyToContinue: 'Verify to continue',
++      waitingForVerification: 'Waiting for verification link…',
++      manage: 'Manage',
++      noPlansAvailable: 'No plans are available to change to right now.',
++    },
++    uninstall: {
++      appPath: path => `App: ${path}`,
++      checking: "Checking what's installed…",
++      confirmDesc: consequence => `This removes ${consequence}. This can't be undone.`,
++      confirmTitle: 'Confirm uninstall',
++      couldNotStart: 'Uninstall could not start.',
++      heading: 'Danger zone',
++      intro:
++        'Choose how much to remove. The app closes to finish the job; reopen the installer any time to come back.',
++      optionFull: 'Uninstall everything',
++      optionFullConsequence:
++        'EVERYTHING — the Chat GUI, the Hermes agent, and all of your config, chats, secrets, and logs',
++      optionFullDesc:
++        'Remove the app, the agent, and all user data — config, chats, scheduled jobs, secrets, logs.',
++      optionGui: 'Uninstall Chat GUI only',
++      optionGuiConsequence: 'the desktop Chat GUI (this app and its data)',
++      optionGuiDesc: 'Remove this desktop app. The Hermes agent, your config, and chats all stay.',
++      optionLite: 'Uninstall GUI + agent, keep my data',
++      optionLiteConsequence: 'the Chat GUI and the Hermes agent (config, chats, and secrets are kept)',
++      optionLiteDesc:
++        'Remove the app and the Hermes agent, but keep config, chats, and secrets for a future reinstall.',
++      title: 'Uninstall Hermes',
++      uninstalling: 'Uninstalling…',
++      yes: 'Yes, uninstall',
++      checkingInstalled: 'Checking what’s installed…',
++    },
+   },
+-
+   skills: {
+     tabSkills: '技能',
+     tabToolsets: '工具集',
+@@ -1244,7 +1128,7 @@ export const zh: Translations = {
+     provenance: {
+       agent: '习得',
+       bundled: '内置',
+-      hub: '技能中心'
++      hub: '技能中心',
+     },
+     emptyNoneFound: noun => `未找到${noun}`,
+     emptyNothingMatches: query => `没有匹配“${query}”的内容。`,
+@@ -1282,7 +1166,7 @@ export const zh: Translations = {
+       trust: {
+         builtin: '内置',
+         trusted: '可信',
+-        community: '社区'
++        community: '社区',
+       },
+       verdictSafe: '安全',
+       verdictCaution: '注意',
+@@ -1300,10 +1184,9 @@ export const zh: Translations = {
+       loadFailed: '技能中心加载失败',
+       previewFailed: '技能预览失败',
+       scanFailed: '安全扫描失败',
+-      searchFailed: '技能中心搜索失败'
+-    }
++      searchFailed: '技能中心搜索失败',
++    },
+   },
+-
+   starmap: {
+     title: '记忆图谱',
+     subtitle: (nodes, clusters) => `${clusters} 个类别中的 ${nodes} 个技能`,
+@@ -1329,7 +1212,7 @@ export const zh: Translations = {
+     importEmpty: '粘贴图谱代码以加载。',
+     importSuccess: nodes => `已加载包含 ${nodes} 个节点的图谱。`,
+     importedBadge: '导入的图谱',
+-    resetToMine: '返回我的图谱'
++    resetToMine: '返回我的图谱',
+   },
+   agents: {
+     close: '关闭代理',
+@@ -1359,9 +1242,8 @@ export const zh: Translations = {
+     ageDays: days => `${days} 天前`,
+     durationSeconds: seconds => `${seconds} 秒`,
+     durationMinutes: (minutes, seconds) => `${minutes} 分 ${seconds} 秒`,
+-    tokens: value => `${value} 词元`
++    tokens: value => `${value} 词元`,
+   },
+-
+   commandCenter: {
+     close: '关闭命令中心',
+     paletteTitle: '命令面板',
+@@ -1394,7 +1276,7 @@ export const zh: Translations = {
+       generatedTag: '生成',
+       adoptFailed: '无法领养该宠物。',
+       toggleFailed: enabled => `无法${enabled ? '开启' : '关闭'}宠物显示。`,
+-      noneAvailable: '暂无可用宠物——请在下方选择一个安装。'
++      noneAvailable: '暂无可用宠物——请在下方选择一个安装。',
+     },
+     generatePet: {
+       title: '生成宠物',
+@@ -1423,7 +1305,10 @@ export const zh: Translations = {
+       referenceImageTooLarge: '参考图过大。请使用小于 16 MB 的图片。',
+       referenceImageInvalid: '无法读取该参考图。请尝试 PNG、JPG、WebP 或 GIF。',
+       adopt: '领养',
+-      startOver: '重新开始'
++      startOver: '重新开始',
++      setupImageGeneration: 'Set up image generation',
++      removeReference: 'Remove reference',
++      grabKeyFrom: 'Grab a key from',
+     },
+     installTheme: {
+       title: '安装主题…',
+@@ -1435,7 +1320,7 @@ export const zh: Translations = {
+       install: '安装',
+       installing: '安装中...',
+       installed: '已安装',
+-      installs: count => `${count} 次安装`
++      installs: count => `${count} 次安装`,
+     },
+     settingsFields: '设置字段',
+     mcpServers: 'MCP 服务器',
+@@ -1445,19 +1330,19 @@ export const zh: Translations = {
+       maintenance: '诊断、备份、维护器与记忆数据',
+       sessions: '搜索与管理会话',
+       system: '状态、日志与系统操作',
+-      usage: '一段时间内的词元、成本与技能活动'
++      usage: '一段时间内的词元、成本与技能活动',
+     },
+     nav: {
+       newChat: { title: '新建会话', detail: '开始一个新会话' },
+       settings: { title: '设置', detail: '配置 Hermes 桌面端' },
+       skills: { title: '技能与工具', detail: '启用技能、工具集与提供方' },
+       messaging: { title: '消息平台', detail: '配置 Telegram、Slack、Discord 等' },
+-      artifacts: { title: '产物', detail: '浏览生成的输出' }
++      artifacts: { title: '产物', detail: '浏览生成的输出' },
+     },
+     sectionEntries: {
+       sessions: { title: '会话面板', detail: '搜索、置顶与管理会话' },
+       system: { title: '系统面板', detail: '网关状态、日志、重启/更新' },
+-      usage: { title: '用量面板', detail: '词元、成本与技能活动' }
++      usage: { title: '用量面板', detail: '词元、成本与技能活动' },
+     },
+     providerNavigate: '导航',
+     providerSessions: '会话',
+@@ -1545,10 +1430,9 @@ export const zh: Translations = {
+       actionStarted: name => `${name} 已启动 — 正在跟踪日志…`,
+       actionFailed: name => `${name} 启动失败`,
+       running: '运行中…',
+-      viewLog: '操作日志'
+-    }
++      viewLog: '操作日志',
++    },
+   },
+-
+   messaging: {
+     search: '搜索消息平台…',
+     loading: '正在加载消息平台…',
+@@ -1562,7 +1446,7 @@ export const zh: Translations = {
+       not_configured: '需要设置',
+       pending_restart: '需要重启',
+       retrying: '重试中',
+-      startup_failed: '启动失败'
++      startup_failed: '启动失败',
+     },
+     unknown: '未知',
+     hintPendingRestart: '在状态栏重启网关以应用此更改。',
+@@ -1618,23 +1502,38 @@ export const zh: Translations = {
+       TELEGRAM_BOT_TOKEN: {
+         label: 'Bot 令牌',
+         help: '用 @BotFather 创建一个机器人，然后粘贴它给你的令牌。',
+-        placeholder: '粘贴 Telegram bot 令牌'
++        placeholder: '粘贴 Telegram bot 令牌',
+       },
+       TELEGRAM_ALLOWED_USERS: {
+         label: '允许的 Telegram 用户 ID',
+-        help: '推荐。来自 @userinfobot 的逗号分隔数字 ID。不设置则任何人都能私信你的机器人。'
++        help: '推荐。来自 @userinfobot 的逗号分隔数字 ID。不设置则任何人都能私信你的机器人。',
+       },
+       TELEGRAM_PROXY: { label: '代理 URL', help: '仅在 Telegram 被屏蔽的网络中需要。' },
+-      DISCORD_BOT_TOKEN: { label: 'Bot 令牌', help: '在 Discord 开发者门户创建应用，添加机器人，然后粘贴其令牌。' },
+-      DISCORD_ALLOWED_USERS: { label: '允许的 Discord 用户 ID', help: '推荐。逗号分隔的 Discord 用户 ID。' },
++      DISCORD_BOT_TOKEN: {
++        label: 'Bot token',
++        help: 'Create an application in the Discord Developer Portal, add a bot, then paste its token.',
++      },
++      DISCORD_ALLOWED_USERS: {
++        label: 'Allowed Discord user IDs',
++        help: 'Recommended. Comma-separated Discord user IDs.',
++      },
+       DISCORD_REPLY_TO_MODE: { label: '回复方式', help: 'first、all 或 off。' },
+       DISCORD_ALLOW_ALL_USERS: {
+         label: '允许所有 Discord 用户',
+-        help: '仅用于开发。为 true 时，任何人都可以私信 bot，不需要允许列表。'
++        help: '仅用于开发。为 true 时，任何人都可以私信 bot，不需要允许列表。',
++      },
++      DISCORD_HOME_CHANNEL: {
++        label: 'Home channel ID',
++        help: 'Channel where the bot sends proactive messages (cron output, reminders).',
++      },
++      DISCORD_HOME_CHANNEL_NAME: {
++        label: 'Home channel name',
++        help: 'Display name for the home channel in logs and status output.',
++      },
++      BLUEBUBBLES_ALLOW_ALL_USERS: {
++        label: 'Allow all iMessage users',
++        help: 'When true, skip the BlueBubbles allowlist.',
+       },
+-      DISCORD_HOME_CHANNEL: { label: '主页频道 ID', help: 'bot 主动发送消息的频道（cron 输出、提醒等）。' },
+-      DISCORD_HOME_CHANNEL_NAME: { label: '主页频道名称', help: '日志和状态输出中显示的主页频道名称。' },
+-      BLUEBUBBLES_ALLOW_ALL_USERS: { label: '允许所有 iMessage 用户', help: '为 true 时跳过 BlueBubbles 允许列表。' },
+       MATTERMOST_ALLOW_ALL_USERS: { label: '允许所有 Mattermost 用户' },
+       MATTERMOST_HOME_CHANNEL: { label: '主页频道' },
+       QQ_ALLOW_ALL_USERS: { label: '允许所有 QQ 用户' },
+@@ -1643,60 +1542,46 @@ export const zh: Translations = {
+       SLACK_BOT_TOKEN: {
+         label: 'Slack bot 令牌',
+         help: '安装 Slack 应用后，在 OAuth & Permissions 中找到 bot 令牌。',
+-        placeholder: '粘贴 Slack bot 令牌'
++        placeholder: '粘贴 Slack bot 令牌',
+       },
+       SLACK_APP_TOKEN: {
+         label: 'Slack app 令牌',
+         help: 'Socket Mode 需要 app 级令牌。',
+-        placeholder: '粘贴 Slack app 令牌'
++        placeholder: '粘贴 Slack app 令牌',
+       },
+       SLACK_ALLOWED_USERS: { label: '允许的 Slack 用户 ID', help: '推荐。逗号分隔的 Slack 用户 ID。' },
+       MATTERMOST_URL: { label: '服务器 URL', placeholder: 'https://mattermost.example.com' },
+       MATTERMOST_TOKEN: { label: 'Bot 令牌' },
+-      MATTERMOST_ALLOWED_USERS: { label: '允许的用户 ID', help: '推荐。逗号分隔的 Mattermost 用户 ID。' },
++      MATTERMOST_ALLOWED_USERS: {
++        label: 'Allowed user IDs',
++        help: 'Recommended. Comma-separated Mattermost user IDs.',
++      },
+       MATRIX_HOMESERVER: { label: 'Homeserver URL', placeholder: 'https://matrix.org' },
+       MATRIX_ACCESS_TOKEN: { label: '访问令牌' },
+       MATRIX_USER_ID: { label: 'Bot 用户 ID', placeholder: '@hermes:example.org' },
+-      MATRIX_ALLOWED_USERS: { label: '允许的 Matrix 用户 ID', help: '推荐。@user:server 格式的逗号分隔用户 ID。' },
++      MATRIX_ALLOWED_USERS: {
++        label: 'Allowed Matrix user IDs',
++        help: 'Recommended. Comma-separated user IDs in @user:server format.',
++      },
+       SIGNAL_HTTP_URL: {
+         label: 'Signal 桥接 URL',
+         placeholder: 'http://127.0.0.1:8080',
+-        help: '运行中的 signal-cli REST 桥接的 URL。'
++        help: '运行中的 signal-cli REST 桥接的 URL。',
+       },
+       SIGNAL_ACCOUNT: { label: '电话号码', help: '在 signal-cli 桥接中注册的号码。' },
+       SIGNAL_ALLOWED_USERS: { label: '允许的 Signal 用户', help: '推荐。逗号分隔的 Signal 标识符。' },
+-      WHATSAPP_ENABLED: { label: '启用 WhatsApp 桥接', help: '由下方开关自动设置。除非确知需要，否则请勿改动。' },
++      WHATSAPP_ENABLED: {
++        label: 'Enable WhatsApp bridge',
++        help: 'Set automatically by the toggle below. Leave alone unless you know you need it.',
++      },
+       WHATSAPP_MODE: { label: '桥接模式' },
+-      WHATSAPP_ALLOWED_USERS: { label: '允许的 WhatsApp 用户', help: '推荐。逗号分隔的电话号码或 WhatsApp ID。' }
+-    },
+-    platformIntro: {
+-      telegram:
+-        '在 Telegram 中，与 @BotFather 对话，运行 /newbot，复制它给你的令牌。然后从 @userinfobot 获取你的数字用户 ID。',
+-      discord:
+-        '打开 Discord 开发者门户，创建应用，添加 Bot，然后复制其令牌。用正确的权限范围把机器人邀请到你的服务器。',
+-      slack: '创建 Slack 应用，启用 Socket Mode，安装到你的工作区，然后复制 bot 令牌和 app 级令牌。',
+-      mattermost: '在你的 Mattermost 服务器上，创建机器人账户或个人访问令牌，然后在此粘贴服务器 URL 和令牌。',
+-      matrix: '用机器人账户登录你的 homeserver，然后复制访问令牌、用户 ID 和 homeserver URL。',
+-      signal: '在可访问的位置运行 signal-cli REST 桥接，然后把 Hermes 指向该 URL 和已注册的电话号码。',
+-      whatsapp: '启动 Hermes 自带的 WhatsApp 桥接，首次运行时扫描二维码，然后启用该平台。',
+-      bluebubbles:
+-        '在装有 iMessage 的 Mac 上运行 BlueBubbles Server，暴露其 API，然后用服务器密码把 Hermes 指向该 URL。',
+-      homeassistant: '在 Home Assistant 中打开你的个人资料并创建长期访问令牌。把它连同你的 HA URL 一起粘贴到这里。',
+-      email: '使用专用邮箱。对于 Gmail/Workspace,创建应用专用密码并使用 imap.gmail.com / smtp.gmail.com。',
+-      sms: '从 Twilio 控制台获取你的 Account SID 和 Auth Token，以及一个可发送短信的电话号码。',
+-      dingtalk: '在开发者控制台创建钉钉应用，然后在此复制 Client ID(App key) 和 Client Secret。',
+-      feishu: '创建飞书 / Lark 应用，配置机器人能力，复制 App ID、App secret 和事件加密密钥。',
+-      wecom: '在企业微信中添加群机器人，复制其 webhook key 作为 WECOM_BOT_ID。仅可发送——双向请用企业微信 (应用) 选项。',
+-      wecom_callback: '设置一个企业微信自建应用，暴露其回调 URL，并提供 corp ID、secret、agent ID 和 AES key。',
+-      weixin:
+-        '运行 `hermes gateway setup`，选择 Weixin，然后使用个人微信账号扫描并确认二维码。Hermes 会通过腾讯 iLink Bot API 连接并保存凭据。',
+-      qqbot: '在 QQ 开放平台 (q.qq.com) 注册一个应用，复制 App ID 和 Client Secret。',
+-      api_server:
+-        '把 Hermes 暴露为兼容 OpenAI 的 API。设置一个鉴权密钥，然后把 Open WebUI / LobeChat 等指向 host:port。',
+-      webhook: '运行一个 HTTP 服务器，供其他工具 (GitHub、GitLab、自定义应用)POST。用 secret 验证签名。'
+-    }
++      WHATSAPP_ALLOWED_USERS: {
++        label: 'Allowed WhatsApp users',
++        help: 'Recommended. Comma-separated phone numbers or WhatsApp IDs.',
++      },
++    },
++    platformIntro: {},
+   },
+-
+   webhooks: {
+     search: '搜索 Webhook…',
+     loading: '正在加载 Webhook…',
+@@ -1759,10 +1644,9 @@ export const zh: Translations = {
+       discord: 'Discord',
+       slack: 'Slack',
+       email: '电子邮件',
+-      github_comment: 'GitHub 评论'
+-    }
++      github_comment: 'GitHub 评论',
++    },
+   },
+-
+   profiles: {
+     close: '关闭配置档案',
+     nameHint: '小写字母、数字、连字符和下划线。必须以字母或数字开头。',
+@@ -1844,9 +1728,8 @@ export const zh: Translations = {
+     failedLoadSoul: '加载 SOUL.md 失败',
+     failedSaveSoul: '保存 SOUL.md 失败',
+     failedCreate: '创建配置档案失败',
+-    failedRename: '重命名配置档案失败'
++    failedRename: '重命名配置档案失败',
+   },
+-
+   cron: {
+     close: '关闭定时任务',
+     title: '定时任务',
+@@ -1860,14 +1743,14 @@ export const zh: Translations = {
+       paused: '已暂停',
+       disabled: '已禁用',
+       error: '错误',
+-      completed: '已完成'
++      completed: '已完成',
+     },
+     deliveryLabels: {
+       local: '此桌面',
+       telegram: 'Telegram',
+       discord: 'Discord',
+       slack: 'Slack',
+-      email: '电子邮件'
++      email: '电子邮件',
+     },
+     scheduleLabels: {
+       daily: '每天',
+@@ -1876,7 +1759,7 @@ export const zh: Translations = {
+       monthly: '每月',
+       hourly: '每小时',
+       'every-15-minutes': '每 15 分钟',
+-      custom: '自定义'
++      custom: '自定义',
+     },
+     scheduleHints: {
+       daily: '每天上午 9:00',
+@@ -1885,7 +1768,7 @@ export const zh: Translations = {
+       monthly: '每月第一天上午 9:00',
+       hourly: '每个整点',
+       'every-15-minutes': '每 15 分钟',
+-      custom: 'Cron 语法或自然语言'
++      custom: 'Cron 语法或自然语言',
+     },
+     days: {
+       '0': '周日',
+@@ -1895,7 +1778,7 @@ export const zh: Translations = {
+       '4': '周四',
+       '5': '周五',
+       '6': '周六',
+-      '7': '周日'
++      '7': '周日',
+     },
+     dayFallback: value => `第 ${value} 天`,
+     everyDayAt: time => `每天 ${time}`,
+@@ -1964,7 +1847,7 @@ export const zh: Translations = {
+     createAction: '创建定时任务',
+     tabs: {
+       jobs: '任务',
+-      blueprints: '蓝图'
++      blueprints: '蓝图',
+     },
+     blueprints: {
+       tab: '蓝图',
+@@ -1978,10 +1861,9 @@ export const zh: Translations = {
+       loading: '正在加载蓝图...',
+       failedLoad: '加载蓝图失败',
+       emptyTitle: '没有可用的蓝图',
+-      emptyDesc: '此后端上没有可用的自动化蓝图。'
+-    }
++      emptyDesc: '此后端上没有可用的自动化蓝图。',
++    },
+   },
+-
+   artifacts: {
+     search: '搜索产物…',
+     refresh: '刷新产物',
+@@ -2014,16 +1896,14 @@ export const zh: Translations = {
+     kindLink: '链接',
+     chat: '对话',
+     copyUrl: '复制 URL',
+-    copyPath: '复制路径'
++    copyPath: '复制路径',
+   },
+-
+   artifactCard: {
+     kind: { code: '代码', html: '交互页面', svg: '图形' },
+     generating: lines => `生成中… ${lines} 行`,
+     versionBadge: count => `${count} 个版本`,
+-    open: '打开'
++    open: '打开',
+   },
+-
+   artifactPreview: {
+     versionOf: (current, total) => `第 ${current}/${total} 版`,
+     olderVersion: '较旧版本',
+@@ -2034,15 +1914,14 @@ export const zh: Translations = {
+     openInBrowser: '在浏览器中打开',
+     openInBrowserFailed: '无法在浏览器中打开',
+     missingTitle: '产物不可用',
+-    missingBody: '此产物已不在本地注册表中。'
++    missingBody: '此产物已不在本地注册表中。',
+   },
+-
+   sidebar: {
+     nav: {
+       'new-session': '新建会话',
+       skills: '技能与工具',
+       messaging: '消息平台',
+-      artifacts: '产物'
++      artifacts: '产物',
+     },
+     searchAria: '搜索会话',
+     searchPlaceholder: '搜索会话…',
+@@ -2133,7 +2012,7 @@ export const zh: Translations = {
+       enter: label => `打开 ${label}`,
+       reorder: label => `重新排序 ${label}`,
+       toggle: (label, open) => `${open ? '展开' : '收起'} ${label} 会话`,
+-      back: '全部项目'
++      back: '全部项目',
+     },
+     newSessionIn: label => `在 ${label} 中新建会话`,
+     showMoreIn: (count, label) => `在 ${label} 中再显示 ${count} 个`,
+@@ -2172,21 +2051,20 @@ export const zh: Translations = {
+       ageNow: '刚刚',
+       ageDay: '天',
+       ageHour: '时',
+-      ageMin: '分'
++      ageMin: '分',
+     },
+     dateDivider: {
+       today: '今天早些时候',
+       yesterday: '昨天',
+       thisWeek: '本周',
+       lastWeek: '上周',
+-      thisMonth: '本月'
++      thisMonth: '本月',
+     },
+     statusDivider: {
+       working: '进行中',
+-      done: '已完成'
+-    }
++      done: '已完成',
++    },
+   },
+-
+   composer: {
+     message: '消息',
+     wakingProfile: profile => `正在唤醒 ${profile}…`,
+@@ -2249,7 +2127,7 @@ export const zh: Translations = {
+       '/resume': '恢复之前的会话',
+       '/details': '控制对话记录的详细程度',
+       '/copy': '复制所选内容或最后一条助手消息',
+-      '/quit': '退出 hermes'
++      '/quit': '退出 hermes',
+     },
+     hotkeyDescs: {
+       'composer.mention': '引用文件、文件夹、URL、git',
+@@ -2259,7 +2137,7 @@ export const zh: Translations = {
+       'composer.sendQueued': '发送下一条排队的回合',
+       'keybinds.openPanel': '所有键盘快捷键',
+       'composer.cancel': '关闭弹窗 · 取消运行',
+-      'composer.history': '循环弹窗 / 历史'
++      'composer.history': '循环弹窗 / 历史',
+     },
+     attachUrlTitle: '附加 URL',
+     attachUrlDesc: 'Hermes 将抓取该页面并作为本回合的上下文。',
+@@ -2310,21 +2188,20 @@ export const zh: Translations = {
+       codeReview: {
+         label: '代码审查',
+         description: '审查当前更改是否存在回归、遗漏的边界情况和缺失的测试。',
+-        text: '请审查这部分是否存在缺陷、回归和缺失的测试。'
++        text: '请审查这部分是否存在缺陷、回归和缺失的测试。',
+       },
+       implementationPlan: {
+         label: '实现计划',
+         description: '在动代码之前先勾勒方案，让 diff 保持聚焦。',
+-        text: '请在修改代码前制定一个简洁的实现计划。'
++        text: '请在修改代码前制定一个简洁的实现计划。',
+       },
+       explainThis: {
+         label: '解释这段',
+         description: '讲解所选代码的工作方式，并链接到关键文件。',
+-        text: '请解释这是如何工作的，并指给我关键文件。'
+-      }
+-    }
++        text: '请解释这是如何工作的，并指给我关键文件。',
++      },
++    },
+   },
+-
+   statusStack: {
+     agents: '代理',
+     background: count => `${count} 个后台任务`,
+@@ -2380,10 +2257,9 @@ export const zh: Translations = {
+       branchOffFrom: base => `从 ${base} 新建分支`,
+       switchTo: branch => `切换到 ${branch}`,
+       switchFailed: branch => `无法切换到 ${branch}`,
+-      worktrees: '工作树'
+-    }
++      worktrees: '工作树',
++    },
+   },
+-
+   updates: {
+     stages: {
+       idle: '准备中…',
+@@ -2397,7 +2273,7 @@ export const zh: Translations = {
+       done: '更新完成',
+       manual: '从终端更新',
+       guiSkew: '请更新桌面应用',
+-      error: '更新已暂停'
++      error: '更新已暂停',
+     },
+     checking: '正在检查更新…',
+     checkFailedTitle: '无法检查更新',
+@@ -2438,17 +2314,16 @@ export const zh: Translations = {
+       restarting: '后端正在重启以加载更新…',
+       notAvailable: '此后端无法更新。',
+       failed: '后端更新失败。',
+-      noReturn: '后端未恢复在线。更新可能未完成——请检查后端主机。'
+-    }
++      noReturn: '后端未恢复在线。更新可能未完成——请检查后端主机。',
++    },
+   },
+-
+   install: {
+     stageStates: {
+       pending: '等待中',
+       running: '安装中',
+       succeeded: '完成',
+       skipped: '已跳过',
+-      failed: '失败'
++      failed: '失败',
+     },
+     oneTimeTitle: 'Hermes 需要一次性安装',
+     unsupportedDesc: platform =>
+@@ -2510,9 +2385,8 @@ export const zh: Translations = {
+     transcriptSaved: '完整记录已保存到',
+     copiedOutput: '已复制！',
+     copyOutput: '复制输出',
+-    reloadRetry: '重新加载并重试'
++    reloadRetry: '重新加载并重试',
+   },
+-
+   onboarding: {
+     headerTitle: '开始设置 Hermes Agent',
+     headerDesc: '连接模型提供方即可开始对话。大多数选项只需一次点击。',
+@@ -2529,15 +2403,21 @@ export const zh: Translations = {
+     fireworksPitch: '直接模型 API — Fireworks 托管的前沿模型',
+     openRouterPitch: '一个密钥，数百个模型 — 稳妥的默认选择',
+     apiKeyOptions: {
+-      fireworks: { short: '直接模型 API', description: '直接访问 Fireworks AI 托管的模型。' },
+-      openrouter: { short: '一个密钥，多个模型', description: '用一个密钥访问数百个模型。适合新安装的默认选择。' },
++      fireworks: {
++        short: 'direct model API',
++        description: 'Direct access to models hosted by Fireworks AI.',
++      },
++      openrouter: {
++        short: 'one key, many models',
++        description: 'Hosts hundreds of models behind a single key. Good default for new installs.',
++      },
+       openai: { short: 'GPT 级模型', description: '直接访问 OpenAI 模型。' },
+       gemini: { short: 'Gemini 模型', description: '直接访问 Google Gemini 模型。' },
+       xai: { short: 'Grok 模型', description: '直接访问 xAI Grok 模型。' },
+       local: {
+         short: '自托管',
+-        description: '将 Hermes 指向本地或自托管的 OpenAI 兼容端点 (vLLM、llama.cpp、Ollama 等)。'
+-      }
++        description: '将 Hermes 指向本地或自托管的 OpenAI 兼容端点 (vLLM、llama.cpp、Ollama 等)。',
++      },
+     },
+     backToSignIn: '返回登录',
+     getKey: '获取密钥',
+@@ -2550,7 +2430,7 @@ export const zh: Translations = {
+     flowSubtitles: {
+       pkce: '打开浏览器登录，然后回到这里继续',
+       device_code: '在浏览器中打开验证页面 — Hermes 会自动连接',
+-      external: '先在终端登录一次，然后回来继续对话'
++      external: '先在终端登录一次，然后回来继续对话',
+     },
+     startingSignIn: provider => `正在为 ${provider} 启动登录...`,
+     verifyingCode: provider => `正在通过 ${provider} 验证你的代码...`,
+@@ -2579,9 +2459,8 @@ export const zh: Translations = {
+     price: (input, output) => `${input} 输入 / ${output} 输出每 Mtok`,
+     change: '更改',
+     startChatting: '开始',
+-    docs: provider => `${provider} 文档`
++    docs: provider => `${provider} 文档`,
+   },
+-
+   modelPicker: {
+     title: '切换模型',
+     current: '当前：',
+@@ -2596,16 +2475,14 @@ export const zh: Translations = {
+     free: '免费',
+     freeTier: '免费层',
+     priceTitle: '每百万 token 的输入/输出价格',
+-    wasPrice: '原价'
++    wasPrice: '原价',
+   },
+-
+   modelVisibility: {
+     title: '模型',
+     search: '搜索模型',
+     noAuthenticatedProviders: '没有已认证的提供方。',
+-    addProvider: '添加提供方…'
++    addProvider: '添加提供方…',
+   },
+-
+   shell: {
+     windowControls: '窗口控件',
+     paneControls: '面板控件',
+@@ -2615,7 +2492,7 @@ export const zh: Translations = {
+       noModels: '未找到模型',
+       editModels: '编辑模型…',
+       refreshModels: '刷新模型',
+-      fast: '快速'
++      fast: '快速',
+     },
+     modelOptions: {
+       noOptions: '此模型没有可用选项',
+@@ -2631,7 +2508,7 @@ export const zh: Translations = {
+       max: '最高',
+       ultra: '超高',
+       updateFailed: '模型选项更新失败',
+-      fastFailed: '快速模式更新失败'
++      fastFailed: '快速模式更新失败',
+     },
+     gatewayMenu: {
+       gateway: '网关',
+@@ -2646,7 +2523,7 @@ export const zh: Translations = {
+       connection: label => `连接：${label}`,
+       recentActivity: '最近活动',
+       viewAllLogs: '查看全部日志 →',
+-      messagingPlatforms: '消息平台'
++      messagingPlatforms: '消息平台',
+     },
+     approvalMode: {
+       title: '审批模式',
+@@ -2656,7 +2533,7 @@ export const zh: Translations = {
+       smart: '智能',
+       smartDescription: '自动评估操作，并在需要时询问',
+       off: '关闭',
+-      offDescription: '不显示审批提示，直接运行'
++      offDescription: '不显示审批提示，直接运行',
+     },
+     statusbar: {
+       unknown: '未知',
+@@ -2722,13 +2599,13 @@ export const zh: Translations = {
+           skills: '技能',
+           subagent_definitions: '子代理定义',
+           system_prompt: '系统提示词',
+-          tool_definitions: '工具定义'
++          tool_definitions: '工具定义',
+         },
+         empty: '暂无上下文数据',
+         loading: '正在加载明细…',
+         percentFull: percent => `已用 ${percent}%`,
+         title: '上下文用量',
+-        tokenSummary: (used, max) => `${used} / ${max} Tokens`
++        tokenSummary: (used, max) => `${used} / ${max} Tokens`,
+       },
+       session: '会话',
+       yoloOn: 'YOLO 已开启 — 自动批准危险命令。Shift+点击可全局切换。',
+@@ -2739,10 +2616,9 @@ export const zh: Translations = {
+       openModelPicker: '打开模型选择器',
+       modelPinned: '已由你固定；新对话将使用此模型而非“设置”中的默认模型',
+       modelTitle: (provider, model) => `模型 · ${provider}: ${model}`,
+-      providerModelTitle: (provider, model) => `${provider} · ${model}`
+-    }
++      providerModelTitle: (provider, model) => `${provider} · ${model}`,
++    },
+   },
+-
+   rightSidebar: {
+     aria: '右侧边栏',
+     panelsAria: '右侧边栏面板',
+@@ -2777,9 +2653,8 @@ export const zh: Translations = {
+     terminalNew: '新建终端',
+     terminalCloseOthers: '关闭其他',
+     terminalCloseAll: '关闭全部',
+-    addToChat: '添加到对话'
++    addToChat: '添加到对话',
+   },
+-
+   preview: {
+     tab: '预览',
+     closePane: '关闭预览面板',
+@@ -2829,7 +2704,7 @@ export const zh: Translations = {
+       empty: '暂无控制台消息。',
+       promptHeader: '预览控制台：',
+       sentTitle: '已发送到对话',
+-      sentMessage: count => `已将 ${count} 条日志添加到输入框`
++      sentMessage: count => `已将 ${count} 条日志添加到输入框`,
+     },
+     web: {
+       appFailedToBoot: '预览应用启动失败',
+@@ -2864,10 +2739,9 @@ export const zh: Translations = {
+       loadFailedConsole: (code, message) => `加载失败${code ? ` (${code})` : ''}: ${message}`,
+       unreachableDescription: '无法访问预览页面。',
+       openTarget: url => `打开 ${url}`,
+-      fallbackTitle: '预览'
+-    }
++      fallbackTitle: '预览',
++    },
+   },
+-
+   zones: {
+     showHeader: '显示标题栏',
+     hideHeader: '隐藏标题栏',
+@@ -2907,9 +2781,8 @@ export const zh: Translations = {
+     saveApply: '保存并应用',
+     notExpressible: '此排列互相咬合（风车形）——暂无法表示为嵌套拆分',
+     zoneCount: count => `${count} 个区域`,
+-    tabCount: count => `${count} 个标签页`
++    tabCount: count => `${count} 个标签页`,
+   },
+-
+   assistant: {
+     thread: {
+       loadingSession: '正在加载会话',
+@@ -2948,7 +2821,13 @@ export const zh: Translations = {
+       restoreNext: '恢复下一个检查点',
+       goForward: '前进',
+       sendEdited: '发送编辑后的消息',
+-      attachingFile: '正在附加…'
++      attachingFile: '正在附加…',
++      searchReactions: 'Search…',
++      reactedByHermes: 'Reacted by Hermes',
++      noEmoji: 'No emoji found.',
++      moreEmoji: 'More emoji',
++      loadingEmoji: 'Loading emoji…',
++      conversationTimeline: 'Conversation timeline',
+     },
+     approval: {
+       gatewayDisconnected: 'Hermes 网关未连接',
+@@ -2963,7 +2842,7 @@ export const zh: Translations = {
+       alwaysTitle: '始终允许此命令？',
+       alwaysDescription: pattern =>
+         `这会将“${pattern}”模式加入永久允许列表 (~/.hermes/config.yaml)。Hermes 对类似命令将不再询问，包括当前会话和未来会话。`,
+-      alwaysAllow: '始终允许'
++      alwaysAllow: '始终允许',
+     },
+     clarify: {
+       notReady: '澄清请求尚未就绪',
+@@ -2977,7 +2856,7 @@ export const zh: Translations = {
+       continueLabel: '继续',
+       lateAnswer: (question, choice) => `关于"${question}" — 我的回答: ${choice}`,
+       lateAnswerTip: '将此回答起草为后续消息',
+-      lateAnswerHint: '此问题已不再等待回答。选择一个选项会将其起草为后续消息。'
++      lateAnswerHint: '此问题已不再等待回答。选择一个选项会将其起草为后续消息。',
+     },
+     tool: {
+       copyCode: '复制代码',
+@@ -3013,11 +2892,11 @@ export const zh: Translations = {
+         ran: '已运行',
+         running: '正在运行',
+         ranCode: '已运行代码',
+-        runningCode: '正在编写脚本'
++        runningCode: '正在编写脚本',
+       },
+       prefixes: {
+         browser: '浏览器',
+-        web: '网页'
++        web: '网页',
+       },
+       titleTemplates: {
+         actionCommand: (action, command) => `${action} ${command}`,
+@@ -3025,14 +2904,22 @@ export const zh: Translations = {
+         actionTarget: (action, target) => `${action} ${target}`,
+         prefixedDone: (prefix, action) => `${prefix}${action}`,
+         runningPrefixedTool: (prefix, action) => `正在运行${prefix}${action}`,
+-        runningTool: action => `正在运行 ${action}`
++        runningTool: action => `正在运行 ${action}`,
+       },
+       titles: {
+         browser_click: { done: '已点击页面元素', pending: '正在点击页面元素', pendingAction: '正在点击' },
+         browser_fill: { done: '已填写表单字段', pending: '正在填写表单字段', pendingAction: '正在填写' },
+         browser_navigate: { done: '已打开页面', pending: '正在打开页面', pendingAction: '正在打开' },
+-        browser_snapshot: { done: '已捕获页面快照', pending: '正在捕获页面快照', pendingAction: '正在捕获' },
+-        browser_take_screenshot: { done: '已捕获截图', pending: '正在捕获截图', pendingAction: '正在捕获' },
++        browser_snapshot: {
++          done: 'Captured page snapshot',
++          pending: 'Capturing page snapshot',
++          pendingAction: 'Capturing',
++        },
++        browser_take_screenshot: {
++          done: 'Captured screenshot',
++          pending: 'Capturing screenshot',
++          pendingAction: 'Capturing',
++        },
+         browser_type: { done: '已在页面输入', pending: '正在页面输入', pendingAction: '正在输入' },
+         clarify: { done: '已提问', pending: '正在提问', pendingAction: '正在提问' },
+         cronjob: { done: 'Cron 任务', pending: '正在安排 Cron 任务', pendingAction: '正在安排' },
+@@ -3044,17 +2931,20 @@ export const zh: Translations = {
+         patch: { done: '已修补文件', pending: '正在修补文件', pendingAction: '正在修补' },
+         read_file: { done: '已读取文件', pending: '正在读取文件', pendingAction: '正在读取' },
+         search_files: { done: '已搜索文件', pending: '正在搜索文件', pendingAction: '正在搜索' },
+-        session_search_recall: { done: '已搜索会话历史', pending: '正在搜索会话历史', pendingAction: '正在搜索' },
++        session_search_recall: {
++          done: 'Searched session history',
++          pending: 'Searching session history',
++          pendingAction: 'Searching',
++        },
+         terminal: { done: '已运行命令', pending: '正在运行命令', pendingAction: '正在运行' },
+         todo: { done: '已更新待办', pending: '正在更新待办', pendingAction: '正在更新' },
+         vision_analyze: { done: '已分析图片', pending: '正在分析图片', pendingAction: '正在分析' },
+         web_extract: { done: '已读取网页', pending: '正在读取网页', pendingAction: '正在读取' },
+         web_search: { done: '已搜索网页', pending: '正在搜索网页', pendingAction: '正在搜索' },
+-        write_file: { done: '已编辑文件', pending: '正在编辑文件', pendingAction: '正在编辑' }
+-      }
+-    }
++        write_file: { done: '已编辑文件', pending: '正在编辑文件', pendingAction: '正在编辑' },
++      },
++    },
+   },
+-
+   prompts: {
+     gatewayDisconnected: 'Hermes 网关未连接',
+     sudoSendFailed: '无法发送 sudo 密码',
+@@ -3064,9 +2954,8 @@ export const zh: Translations = {
+     sudoPlaceholder: 'sudo 密码',
+     secretTitle: '需要密钥',
+     secretDesc: 'Hermes 需要一个凭据才能继续。',
+-    secretPlaceholder: '密钥值'
++    secretPlaceholder: '密钥值',
+   },
+-
+   desktop: {
+     audioReadFailed: '无法读取录制的音频',
+     sessionUnavailable: '会话不可用',
+@@ -3133,33 +3022,39 @@ export const zh: Translations = {
+       success: platform => `已移交到 ${platform}。随时可在此处恢复。`,
+       systemNote: platform => `↻ 已移交到 ${platform} — 随时可在此处恢复。`,
+       failed: error => `移交失败：${error}`,
+-      timedOut: '等待网关超时。`hermes gateway` 是否正在运行？'
+-    }
++      timedOut: '等待网关超时。`hermes gateway` 是否正在运行？',
++    },
+   },
+-
+   errors: {
+     genericFailure: '发生错误',
+     boundaryTitle: '界面出错了',
+     boundaryDesc: '此视图遇到意外错误。你的对话和设置是安全的。',
+     reloadWindow: '重新加载窗口',
+-    openLogs: '打开日志'
++    openLogs: '打开日志',
+   },
+-
+   ui: {
+     search: {
+-      clear: '清除搜索'
++      clear: '清除搜索',
+     },
+     pagination: {
+       label: '分页',
+       previous: '上一页',
+       previousAria: '前往上一页',
+       next: '下一页',
+-      nextAria: '前往下一页'
++      nextAria: '前往下一页',
+     },
+     sidebar: {
+       title: '侧边栏',
+       description: '显示移动端侧边栏。',
+-      toggle: open => `${open ? '显示' : '隐藏'}侧边栏`
+-    }
+-  }
++      toggle: open => `${open ? '显示' : '隐藏'}侧边栏`,
++    },
++  },
++  embeds: {
++    spotify: 'Spotify embed',
++    youtube: 'YouTube embed',
++  },
++  pet: {
++    hatchingProgress: 'Hatching progress',
++    openInHermes: 'Open in Hermes',
++  },
+ }

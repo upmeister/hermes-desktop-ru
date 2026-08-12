@@ -59,6 +59,30 @@ bash ~/.hermes/desktop-ru-mod/rebuild.sh
 
 Базовый перевод взят из [warment/hermes-desktop-ru](https://github.com/warment/hermes-desktop-ru) (1782 строки), сконвертирован в формат `defineLocale()` для автоматического fallback на английский.
 
+## Установка (правило v2, 13.08.2026)
+
+**НЕ ставить пакетный dist** — он затирает другие моды клона (урок 13.08: v1 затёр ru-мод).
+База установки — ВСЕГДА свежий `npm run build` из клона Windows (включает ВСЕ патчи клона:
+ru + timestamps + будущие):
+
+1. Клон на месте: `C:\Users\covhnw\AppData\Local\hermes\hermes-agent`
+2. Запустить `package\install.bat` (или `install-asar.ps1` напрямую):
+   - шаг 1: `npm run build` в `apps\desktop` (vite + bundle-electron-main + stage-native-deps)
+   - шаг 2: пересборка `app.asar` (extract со stubs → replace `dist/` → `pack --unpack "**"`)
+   - бэкап: `app.asar.stock.bak` рядом
+3. Перезапустить Hermes Desktop.
+
+Пакетный `dist/` в этом репо — только fallback при упавшей сборке (не основной путь).
+
+## Состав (актуальный, 12.08.2026)
+
+- `i18n/` — финальные локали из прода: en.ts, types.ts, ru.ts, zh.ts, ru-constants.ts,
+  custom-endpoints-settings.tsx, ru-locales-kanban.ts (перевод канбан-плагина)
+- `patches/` — ru-mod-v3.patch (i18n-пересборка под апстрим 76d832d38: 4 файла),
+  desktop-timestamps-mod.patch (3 файла рендерера)
+- `package/` — install.bat + install-asar.ps1 (v2, правило выше)
+- Корень — инструменты перевода (merge/dedup/fix-скрипты), история работы
+
 ## Лицензия
 
 MIT
