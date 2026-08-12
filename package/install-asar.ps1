@@ -1,10 +1,14 @@
 $ErrorActionPreference = 'Stop'
-# install-asar.ps1 v2 - install ALL clone mods into packaged Hermes Desktop.
-# NOTE: pure ASCII (PS 5.1 reads .ps1 without BOM as ANSI; UTF-8 bytes -> quotes -> ParserError).
-# RULE (13.08.2026): NEVER ship a package dist as the install base - it wipes other
-# clone mods (ru-mod got wiped by v1). The install base is ALWAYS the freshly built
-# clone dist: step 1 = npm run build in apps\desktop (includes ALL patches living in
-# the clone), step 2 = asar rebuild with that dist. Package dist/ is fallback only.
+# install-asar.ps1 v3 - install ALL Hermes Desktop mods (ru-mod + timestamps).
+# NOTE: pure ASCII (PS 5.1 reads .ps1 without BOM as ANSI; UTF-8 bytes -> ParserError).
+# RULE v2 (13.08.2026): NEVER ship a package dist as the install base - it wipes
+# other mods. Install base = fresh `npm run build` from the clone. Package dist is
+# fallback only.
+# v3 (13.08): (1) restores the mod into the clone BEFORE building - patches
+# (ru-mod-v3 + timestamps) are git-applied if not present, untracked locale files
+# are copied from files/ (updates wipe them too, not only tracked patches!);
+# (2) RU marker probe moved to probe-ru.mjs (inline node -e breaks on backslash
+# paths: \U -> SyntaxError).
 $root = "C:\Users\covhnw\AppData\Local\hermes\hermes-agent"
 $desktop = "$root\apps\desktop"
 $res = "$desktop\release\win-unpacked\resources"
@@ -15,11 +19,43 @@ $tmp = Join-Path $env:TEMP ("asar-mod-" + [guid]::NewGuid().ToString('N').Substr
 $app = "$tmp\app"
 $unpacked = "$res\app.asar.unpacked"
 
-Write-Host "== Hermes Desktop mod install (v2: clone build + asar rebuild) =="
+Write-Host "== Hermes Desktop mod install (v3: restore + clone build + asar rebuild) =="
 if (-not (Test-Path $asarJs)) { Write-Host "FAIL: asar.js not found (clone missing?)"; exit 1 }
 
 Get-Process -Name Hermes -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 1
+
+# 0. RESTORE the mod into the clone (updates wipe tracked patches AND untracked files)
+Push-Location $root
+foreach ($p in @("ru-mod-v3.patch", "desktop-timestamps-mod.patch")) {
+  $patch = Join-Path $PSScriptRoot "patches\$p"
+  if (Test-Path $patch) {
+    git apply --check --3way $patch 2>$null
+    if ($LASTEXITCODE -eq 0) {
+      git apply --3way $patch
+      Write-Host "patch applied: $p"
+    } else {
+      Write-Host "patch skip (already applied or conflict): $p"
+    }
+  }
+}
+Pop-Location
+# untracked locale files (always overwrite - they are part of the mod)
+$files = @(
+  @("files\ru.ts", "apps\desktop\src\i18n\ru.ts"),
+  @("files\ru-constants.ts", "apps\desktop\src\app\settings\ru-constants.ts"),
+  @("files\ru-locales.ts", "apps\desktop\src\plugins\kanban\ru-locales.ts")
+)
+foreach ($f in $files) {
+  $src = Join-Path $PSScriptRoot $f[0]
+  $dst = Join-Path $root $f[1]
+  if (Test-Path $src) {
+    $dir = Split-Path $dst -Parent
+    if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+    Copy-Item $src $dst -Force
+    Write-Host ("file restored: " + $f[1])
+  }
+}
 
 # 1. backups (first run only)
 # NOTE: parens around Test-Path REQUIRED before -and (PS parses -and as a parameter)
@@ -81,13 +117,13 @@ $physIndex = Test-Path "$unpacked\dist\index.html"
 $physMain = Test-Path "$unpacked\dist\electron-main.mjs"
 $physPkg = Test-Path "$unpacked\package.json"
 $ruMarker = "no"
-$chunkName = "none"
 if (Test-Path "$unpacked\dist\assets") {
-  $ru = node -e "const fs=require('fs');for(const f of fs.readdirSync('$unpacked\dist\assets').filter(f=>f.endsWith('.js'))){const s=fs.readFileSync('$unpacked\dist\assets\'+f,'utf8');if(s.includes('\u041f\u0440\u0438\u043c\u0435\u043d\u0438\u0442\u044c')){console.log(f);break}}"
-  if ($ru) { $ruMarker = "FOUND ($ru)"; $chunkName = $ru }
+  $ru = node "$PSScriptRoot\probe-ru.mjs" "$unpacked\dist\assets"
+  if ($ru -and $ru -ne "NONE") { $ruMarker = "FOUND ($ru)" }
 }
 Write-Host ("checks: index=" + $physIndex + " main=" + $physMain + " pkg=" + $physPkg + " ru=" + $ruMarker)
 if (-not ($physIndex -and $physMain -and $physPkg)) { Write-Host "WARN: checks failed - restore from .stock.bak"; exit 1 }
+if ($ruMarker -eq "no") { Write-Host "WARN: RU marker not found - ru-mod may be missing from this build" }
 
 Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue
-Write-Host "INSTALL OK - restart Hermes Desktop (ru marker proves clone build)"
+Write-Host "INSTALL OK - restart Hermes Desktop to see the mods"
