@@ -30,11 +30,14 @@ Push-Location $root
 foreach ($p in @("ru-mod-v3.patch", "desktop-timestamps-mod.patch")) {
   $patch = Join-Path $PSScriptRoot "patches\$p"
   if (Test-Path $patch) {
-    # git writes progress ("Applied patch...") to STDERR; PS 5.1 + ErrorActionPreference=Stop
-    # turns ANY stderr from a native command into NativeCommandError. Pipe both streams away.
-    git apply --check --3way $patch 2>&1 | Out-Null
+    # PS 5.1: git writes progress to STDERR. With ErrorActionPreference=Stop, BOTH
+    # `2>$null` and `2>&1 | Out-Null` AND `cmd /c "git ..."` still throw
+    # NativeCommandError (stderr leaks through cmd). Verified fix (13.08): redirect
+    # stderr INSIDE the cmd string (`2>nul`) - PS then sees no stderr at all.
+    # $LASTEXITCODE still comes from git via cmd.
+    cmd /c "git apply --check --3way $patch 2>nul" | Out-Null
     if ($LASTEXITCODE -eq 0) {
-      git apply --3way $patch 2>&1 | Out-Null
+      cmd /c "git apply --3way $patch 2>nul" | Out-Null
       Write-Host "patch applied: $p"
     } else {
       Write-Host "patch skip (already applied or conflict): $p"
