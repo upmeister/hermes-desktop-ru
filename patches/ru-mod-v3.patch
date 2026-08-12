@@ -2008,3 +2008,58 @@ index 71eb545f7..540c6cbb3 100644
 +    openInHermes: 'Open in Hermes',
 +  },
  }
+diff --git a/apps/desktop/src/i18n/catalog.ts b/apps/desktop/src/i18n/catalog.ts
+index f35c95707..c6f5be828 100644
+--- a/apps/desktop/src/i18n/catalog.ts
++++ b/apps/desktop/src/i18n/catalog.ts
+@@ -1,6 +1,8 @@
+ import { ar } from './ar'
+ import { en } from './en'
+ import { ja } from './ja'
++// MOD: hermes-desktop-ru — Russian locale
++import { ru } from './ru'
+ import type { Locale, Translations } from './types'
+ import { zh } from './zh'
+ import { zhHant } from './zh-hant'
+@@ -10,5 +12,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
+   zh,
+   'zh-hant': zhHant,
+   ja,
+-  ar
++  ar,
++  // MOD: hermes-desktop-ru
++  ru
+ }
+diff --git a/apps/desktop/src/i18n/languages.ts b/apps/desktop/src/i18n/languages.ts
+index e4a1fb1e0..a1f085bd9 100644
+--- a/apps/desktop/src/i18n/languages.ts
++++ b/apps/desktop/src/i18n/languages.ts
+@@ -34,6 +34,13 @@ export const LOCALE_OPTIONS = [
+     name: 'العربية',
+     englishName: 'Arabic',
+     configValue: 'ar'
++  },
++  // MOD: hermes-desktop-ru — Russian locale
++  {
++    id: 'ru',
++    name: 'Русский',
++    englishName: 'Russian',
++    configValue: 'ru'
+   }
+ ] as const satisfies readonly { configValue: string; englishName: string; id: Locale; name: string }[]
+ 
+@@ -79,7 +86,13 @@ const LOCALE_ALIASES: Record<string, Locale> = {
+   'ar-eg': 'ar',
+   ar_eg: 'ar',
+   arabic: 'ar',
+-  العربية: 'ar'
++  العربية: 'ar',
++  // MOD: hermes-desktop-ru
++  ru: 'ru',
++  'ru-ru': 'ru',
++  ru_ru: 'ru',
++  russian: 'ru',
++  русский: 'ru'
+ }
+ 
+ export function isLocale(value: unknown): value is Locale {
