@@ -1,29 +1,218 @@
-﻿diff --git a/apps/desktop/src/app/chat/sidebar/filter-menu.tsx b/apps/desktop/src/app/chat/sidebar/filter-menu.tsx
-index f7019c3a8f..08e790afbb 100644
---- a/apps/desktop/src/app/chat/sidebar/filter-menu.tsx
-+++ b/apps/desktop/src/app/chat/sidebar/filter-menu.tsx
-@@ -365,7 +365,7 @@ export function SidebarFilterMenu({ className }: { className?: string }) {
-           <OptionCheckbox
-             checked={showArchived}
-             onCheck={() => setSidebarShowArchived(!showArchived)}
--            option={{ id: 'archived', label: 'Archived' }}
-+            option={{ id: 'archived', label: '╨Т ╨░╤А╤Е╨╕╨▓╨╡' }}
-           />
- 
-           {/* One way back rather than two near-identical ones: this drops the
+diff --cc apps/desktop/src/i18n/zh.ts
+index d33f5e1b59,540c6cbb3d..0000000000
+--- a/apps/desktop/src/i18n/zh.ts
++++ b/apps/desktop/src/i18n/zh.ts
+@@@ -2057,7 -1922,6 +1936,7 @@@ export const zh: Translations = 
+        skills: '技能与工具',
+        messaging: '消息平台',
+        artifacts: '产物',
+-       cron: '定时任务'
+++
+      },
+      searchAria: '搜索会话',
+      searchPlaceholder: '搜索会话…',
+@@@ -3027,30 -2856,8 +2906,30 @@@
+        continueLabel: '继续',
+        lateAnswer: (question, choice) => `关于"${question}" — 我的回答: ${choice}`,
+        lateAnswerTip: '将此回答起草为后续消息',
+-       lateAnswerHint: '此问题已不再等待回答。选择一个选项会将其起草为后续消息。'
++       lateAnswerHint: '此问题已不再等待回答。选择一个选项会将其起草为后续消息。',
+      },
+ +    mcpSetup: {
+ +      installTitle: server => `添加 ${server} MCP 服务器？`,
+ +      enableTitle: server => `启用 ${server} MCP 服务器？`,
+ +      authorizeTitle: server => `授权 ${server} MCP 服务器？`,
+ +      installAction: '安装',
+ +      enableAction: '启用',
+ +      authorizeAction: '授权',
+ +      decline: '暂不',
+ +      declined: '已拒绝',
+ +      installed: server => `已安装 ${server}`,
+ +      enabled: server => `已启用 ${server}`,
+ +      authorized: server => `已授权 ${server}`,
+ +      failed: server => `${server} 设置失败`,
+ +      unanswered: '未响应',
+ +      toolCount: count => `${count} 个工具`,
+ +      notInCatalog: server => `“${server}”不在 MCP 目录中`,
+ +      catalogSource: '来自 Nous 认证目录',
+ +      envRequired: '请先填写所需凭据',
+ +      sendFailed: '无法发送 MCP 设置响应',
+ +      reloadFailed: '服务器已保存，但重新加载 MCP 工具失败 — 将在下个会话加载',
+ +      gatewayDisconnected: 'Hermes 网关未连接'
+ +    },
+      tool: {
+        copyCode: '复制代码',
+        renderingImage: '正在渲染图片',
+diff --git a/apps/desktop/src/app/chat/index.tsx b/apps/desktop/src/app/chat/index.tsx
+index 16f622bee9..0cf152255a 100644
+--- a/apps/desktop/src/app/chat/index.tsx
++++ b/apps/desktop/src/app/chat/index.tsx
+@@ -78,7 +78,6 @@ interface ChatViewProps extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
+   maxVoiceRecordingSeconds?: number
+   onAttachImageBlob: (blob: Blob) => Promise<boolean | void> | boolean | void
+   onAttachDroppedItems: (candidates: DroppedFile[]) => Promise<boolean | void> | boolean | void
+-  onAttachPrCommentUrl?: (url: string) => boolean
+   onPasteClipboardImage: (opts?: { silent?: boolean }) => Promise<boolean> | void
+   onPickFiles: () => void
+   onPickFolders: () => void
+@@ -290,7 +289,6 @@ export const ChatView = memo(function ChatView({
+   onAddUrl,
+   onAttachImageBlob,
+   onAttachDroppedItems,
+-  onAttachPrCommentUrl,
+   onBranchInNewChat,
+   maxVoiceRecordingSeconds,
+   onPasteClipboardImage,
+@@ -459,7 +457,7 @@ export const ChatView = memo(function ChatView({
+       },
+       tools: {
+         enabled: true,
+-        label: 'Add context',
++        label: 'Добавить контекст',
+         suggestions: contextSuggestions
+       },
+       voice: {
+@@ -618,7 +616,6 @@ export const ChatView = memo(function ChatView({
+               onAddUrl={onAddUrl}
+               onAttachDroppedItems={onAttachDroppedItems}
+               onAttachImageBlob={onAttachImageBlob}
+-              onAttachPrCommentUrl={onAttachPrCommentUrl}
+               onCancel={onCancel}
+               onPasteClipboardImage={onPasteClipboardImage}
+               onPickFiles={onPickFiles}
 diff --git a/apps/desktop/src/app/contrib/controller.tsx b/apps/desktop/src/app/contrib/controller.tsx
-index 0210188e23..7761cd62b6 100644
+index a70efb6f65..7761cd62b6 100644
 --- a/apps/desktop/src/app/contrib/controller.tsx
 +++ b/apps/desktop/src/app/contrib/controller.tsx
-@@ -386,7 +386,7 @@ const QUAD_TREE = split(
+@@ -74,7 +74,6 @@ import {
+ import { HudShell } from '../hud/hud-shell'
+ import { $terminalTakeover, setTerminalTakeover } from '../right-sidebar/store'
+ import { $workspaceIsPage } from '../routes'
+-import { ShellContextMenu } from '../shell/shell-context-menu'
+ 
+ import { FilesPane, LogsPane, ReviewPaneContent } from './panes'
+ import { ContribWiring, WiredPane } from './wiring'
+@@ -387,7 +386,7 @@ const QUAD_TREE = split(
  registry.registerMany([
    { id: 'default', area: 'layouts', title: 'Default', order: 0, data: DEFAULT_TREE },
    { id: 'focus', area: 'layouts', title: 'Focus', order: 10, data: FOCUS_TREE },
 -  { id: 'terminal-deck', area: 'layouts', title: 'Terminal deck', order: 20, data: TERMINAL_TREE },
-+  { id: 'terminal-deck', area: 'layouts', title: '╨в╨╡╤А╨╝╨╕╨╜╨░╨╗', order: 20, data: TERMINAL_TREE },
++  { id: 'terminal-deck', area: 'layouts', title: 'Терминал', order: 20, data: TERMINAL_TREE },
    { id: 'quad', area: 'layouts', title: 'Quad', order: 30, data: QUAD_TREE }
  ])
  
+@@ -719,12 +718,11 @@ export function ContribController() {
+       style={{ '--sidebar-width': '100%' } as CSSProperties}
+     >
+       <ContribWiring>
+-        <ShellContextMenu>
+-          <div
+-            className="flex h-screen min-h-0 w-screen flex-col bg-(--ui-bg-chrome) text-(--ui-text-primary)"
+-            style={{ '--titlebar-height': '0px' } as CSSProperties}
+-          >
+-            {/* Title bar: fixed chrome outside the grid, composable via slots.
++        <div
++          className="flex h-screen min-h-0 w-screen flex-col bg-(--ui-bg-chrome) text-(--ui-text-primary)"
++          style={{ '--titlebar-height': '0px' } as CSSProperties}
++        >
++          {/* Title bar: fixed chrome outside the grid, composable via slots.
+               Layout contract (no contribution can break it):
+                 - a full-bar DRAG BASE underneath (pointer-events-none, like
+                   AppShell's drag strips) — everywhere without content drags
+@@ -735,54 +733,53 @@ export function ContribController() {
+                   tree-published --workspace-left/right vars (pure CSS, no rect
+                   threading), clamped to clear the REAL TitlebarControls
+                   clusters (fixed, z-70); center is truly window-centered. */}
+-            <div className="relative flex h-[34px] shrink-0 items-center bg-(--ui-sidebar-surface-background) text-xs">
+-              {/* Drag strips, AppShell-style: cut to AVOID the fixed control
++          <div className="relative flex h-[34px] shrink-0 items-center bg-(--ui-sidebar-surface-background) text-xs">
++            {/* Drag strips, AppShell-style: cut to AVOID the fixed control
+                 clusters instead of overlapping them — Electron's no-drag
+                 carve-out of fixed/transformed elements is unreliable, so a
+                 full-bar drag base kills their clicks. In-flow slot content
+                 still carves via its own no-drag wrapper (the same pattern as
+                 the app's session-title button). */}
+-              <div
+-                aria-hidden="true"
+-                className="pointer-events-none absolute inset-y-0 left-0 w-(--titlebar-controls-left,14px) [-webkit-app-region:drag]"
+-              />
+-              <div
+-                aria-hidden="true"
+-                className="pointer-events-none absolute inset-y-0 left-[calc(var(--titlebar-controls-left,14px)+(var(--titlebar-control-size,24px)*2)+0.75rem)] right-[calc(var(--titlebar-tools-right,0.75rem)+var(--titlebar-tools-width,5.5rem)+0.75rem)] [-webkit-app-region:drag]"
+-              />
+-              <TitlebarSlot
+-                area="titleBar.left"
+-                className="pointer-events-auto absolute z-10 flex w-max items-center gap-2 [-webkit-app-region:no-drag]"
+-                style={{
+-                  left: 'max(calc(var(--workspace-left, 0px) + 0.5rem), calc(var(--titlebar-controls-left, 14px) + 2 * var(--titlebar-control-size, 24px) + 1rem))'
+-                }}
+-              />
+-              <TitlebarSlot
+-                area="titleBar.center"
+-                className="pointer-events-auto absolute left-1/2 top-1/2 z-10 flex w-max -translate-x-1/2 -translate-y-1/2 items-center gap-2 [-webkit-app-region:no-drag]"
+-              />
+-              <TitlebarSlot
+-                area="titleBar.right"
+-                className="pointer-events-auto absolute z-10 flex w-max items-center gap-2 [-webkit-app-region:no-drag]"
+-                style={{
+-                  right:
+-                    'max(calc(var(--workspace-right, 0px) + 0.5rem), calc(var(--titlebar-tools-right, 0.75rem) + 4 * var(--titlebar-control-size, 24px) + 0.5rem))'
+-                }}
+-              />
+-            </div>
+-
+-            <LayoutTreeRoot />
+-
+-            {/* "Close running tab?" — the busy/input-blocked tile close gate. */}
+-            <SessionTileCloseConfirm />
+-
+-            {/* The REAL statusbar (model pill, command center, agents, …) with
++            <div
++              aria-hidden="true"
++              className="pointer-events-none absolute inset-y-0 left-0 w-(--titlebar-controls-left,14px) [-webkit-app-region:drag]"
++            />
++            <div
++              aria-hidden="true"
++              className="pointer-events-none absolute inset-y-0 left-[calc(var(--titlebar-controls-left,14px)+(var(--titlebar-control-size,24px)*2)+0.75rem)] right-[calc(var(--titlebar-tools-right,0.75rem)+var(--titlebar-tools-width,5.5rem)+0.75rem)] [-webkit-app-region:drag]"
++            />
++            <TitlebarSlot
++              area="titleBar.left"
++              className="pointer-events-auto absolute z-10 flex w-max items-center gap-2 [-webkit-app-region:no-drag]"
++              style={{
++                left: 'max(calc(var(--workspace-left, 0px) + 0.5rem), calc(var(--titlebar-controls-left, 14px) + 2 * var(--titlebar-control-size, 24px) + 1rem))'
++              }}
++            />
++            <TitlebarSlot
++              area="titleBar.center"
++              className="pointer-events-auto absolute left-1/2 top-1/2 z-10 flex w-max -translate-x-1/2 -translate-y-1/2 items-center gap-2 [-webkit-app-region:no-drag]"
++            />
++            <TitlebarSlot
++              area="titleBar.right"
++              className="pointer-events-auto absolute z-10 flex w-max items-center gap-2 [-webkit-app-region:no-drag]"
++              style={{
++                right:
++                  'max(calc(var(--workspace-right, 0px) + 0.5rem), calc(var(--titlebar-tools-right, 0.75rem) + 4 * var(--titlebar-control-size, 24px) + 0.5rem))'
++              }}
++            />
++          </div>
++
++          <LayoutTreeRoot />
++
++          {/* "Close running tab?" — the busy/input-blocked tile close gate. */}
++          <SessionTileCloseConfirm />
++
++          {/* The REAL statusbar (model pill, command center, agents, …) with
+               statusBar.left/right contributions merged in. Unmounted — not
+               just hidden — while toggled off, so its 15s status poll and the
+               per-turn readouts stop with it. */}
+-            {statusbarVisible && <WiredPane part="statusbar" />}
+-          </div>
+-        </ShellContextMenu>
++          {statusbarVisible && <WiredPane part="statusbar" />}
++        </div>
+       </ContribWiring>
+     </SidebarProvider>
+   )
 diff --git a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx b/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
 index 3f5d54835d..57b9c198f7 100644
 --- a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
@@ -34,61 +223,53 @@ index 3f5d54835d..57b9c198f7 100644
            >
 -            <option value={QUICK_TARGET_CURRENT}>Current chat</option>
 -            <option value={QUICK_TARGET_NEW}>New session</option>
-+            <option value={QUICK_TARGET_CURRENT}>╨в╨╡╨║╤Г╤Й╨╕╨╣ ╤З╨░╤В</option>
-+            <option value={QUICK_TARGET_NEW}>╨Э╨╛╨▓╨░╤П ╤Б╨╡╤Б╤Б╨╕╤П</option>
++            <option value={QUICK_TARGET_CURRENT}>Текущий чат</option>
++            <option value={QUICK_TARGET_NEW}>Новая сессия</option>
              {state.sessions.map(session => (
                <option key={session.id} value={session.id}>
                  {session.title}
 diff --git a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
-index b74b30a290..3d1667ac12 100644
+index d111a46380..3d1667ac12 100644
 --- a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
 +++ b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
-@@ -11,6 +11,7 @@ import {
-   validateCustomEndpoint
- } from '@/hermes'
- import { triggerHaptic } from '@/lib/haptics'
-+import { useI18n } from '@/i18n'
- import { Check, Globe, Loader2, Plus, Save, Trash2, Zap } from '@/lib/icons'
- import { cn } from '@/lib/utils'
- import { notify, notifyError } from '@/store/notifications'
-@@ -141,9 +142,9 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -142,9 +142,9 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
  
        triggerHaptic('success')
        onConfigSaved?.()
 -      notify({ kind: 'success', message: 'Custom endpoint saved.' })
-+      notify({ kind: 'success', message: '╨н╨╜╨┤╨┐╨╛╨╕╨╜╤В ╤Б╨╛╤Е╤А╨░╨╜╤С╨╜.' })
++      notify({ kind: 'success', message: 'Эндпоинт сохранён.' })
      } catch (err) {
 -      notifyError(err, 'Save failed')
-+      notifyError(err, '╨Э╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╤Б╨╛╤Е╤А╨░╨╜╨╕╤В╤М')
++      notifyError(err, 'Не удалось сохранить')
      } finally {
        setSaving(false)
      }
-@@ -163,8 +164,8 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -164,8 +164,8 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
          notify({
            kind: 'success',
            message: response.models.length
 -            ? `Endpoint is reachable. Found ${response.models.length} models.`
 -            : 'Endpoint is reachable.'
-+            ? `╨н╨╜╨┤╨┐╨╛╨╕╨╜╤В ╨┤╨╛╤Б╤В╤Г╨┐╨╡╨╜. ╨Э╨░╨╣╨┤╨╡╨╜╨╛ ╨╝╨╛╨┤╨╡╨╗╨╡╨╣: ${response.models.length}.`
-+            : '╨н╨╜╨┤╨┐╨╛╨╕╨╜╤В ╨┤╨╛╤Б╤В╤Г╨┐╨╡╨╜.'
++            ? `Эндпоинт доступен. Найдено моделей: ${response.models.length}.`
++            : 'Эндпоинт доступен.'
          })
        } else {
          notify({
-@@ -173,7 +174,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -174,7 +174,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
          })
        }
      } catch (err) {
 -      notifyError(err, 'Validation failed')
-+      notifyError(err, '╨Ю╤И╨╕╨▒╨║╨░ ╨┐╤А╨╛╨▓╨╡╤А╨║╨╕')
++      notifyError(err, 'Ошибка проверки')
      } finally {
        setTesting(false)
      }
-@@ -188,14 +189,14 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -189,14 +189,14 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
        onMainModelChanged?.(response.provider, response.model)
        triggerHaptic('success')
      } catch (err) {
 -      notifyError(err, 'Activation failed')
-+      notifyError(err, '╨Ю╤И╨╕╨▒╨║╨░ ╨░╨║╤В╨╕╨▓╨░╤Ж╨╕╨╕')
++      notifyError(err, 'Ошибка активации')
      } finally {
        setActivating(null)
      }
@@ -96,83 +277,103 @@ index b74b30a290..3d1667ac12 100644
  
    async function handleDelete(endpoint: CustomEndpoint) {
 -    if (!window.confirm(`Delete ${endpoint.name}?`)) {
-+    if (!window.confirm(`╨г╨┤╨░╨╗╨╕╤В╤М ${endpoint.name}?`)) {
++    if (!window.confirm(`Удалить ${endpoint.name}?`)) {
        return
      }
  
-@@ -212,7 +213,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -213,7 +213,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
        onConfigSaved?.()
        triggerHaptic('success')
      } catch (err) {
 -      notifyError(err, 'Delete failed')
-+      notifyError(err, '╨Э╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╤Г╨┤╨░╨╗╨╕╤В╤М')
++      notifyError(err, 'Не удалось удалить')
      } finally {
        setDeleting(null)
      }
-@@ -229,7 +230,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -230,7 +230,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
      <SettingsContent>
        <div className="space-y-6">
          <section>
 -          <SectionHeading icon={Globe} meta={`${endpoints.length}`} title="Custom Endpoints" />
-+          <SectionHeading icon={Globe} meta={`${endpoints.length}`} title="╨Я╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤М╤Б╨║╨╕╨╡ ╤Н╨╜╨┤╨┐╨╛╨╕╨╜╤В╤Л" />
++          <SectionHeading icon={Globe} meta={`${endpoints.length}`} title="Пользовательские эндпоинты" />
            <div className="divide-y divide-border/40 rounded-md border border-border/50">
              {endpoints.length ? (
                endpoints.map(endpoint => (
-@@ -257,7 +258,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -258,7 +258,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
                      </div>
                      <div className="mt-1 flex flex-wrap gap-2 text-xs text-muted-foreground">
                        <span>{endpoint.model}</span>
 -                      {endpoint.has_api_key && <span>{endpoint.api_key_preview ?? 'API key set'}</span>}
-+                      {endpoint.has_api_key && <span>{endpoint.api_key_preview ?? 'API-╨║╨╗╤О╤З ╨╖╨░╨┤╨░╨╜'}</span>}
++                      {endpoint.has_api_key && <span>{endpoint.api_key_preview ?? 'API-ключ задан'}</span>}
                      </div>
                    </button>
                    <div className="flex items-center gap-2 sm:justify-end">
-@@ -276,7 +277,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -277,7 +277,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
                          disabled={deleting === endpoint.id}
                          onClick={() => void handleDelete(endpoint)}
                          size="icon-sm"
 -                        title="Delete endpoint"
-+                        title="╨г╨┤╨░╨╗╨╕╤В╤М ╤Н╨╜╨┤╨┐╨╛╨╕╨╜╤В"
++                        title="Удалить эндпоинт"
                          variant="ghost"
                        >
                          {deleting === endpoint.id ? <Loader2 className="animate-spin" /> : <Trash2 />}
-@@ -286,13 +287,13 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -287,13 +287,13 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
                  </div>
                ))
              ) : (
 -              <EmptyState description="Add an OpenAI-compatible endpoint below." title="No custom endpoints" />
-+              <EmptyState description="╨Ф╨╛╨▒╨░╨▓╤М╤В╨╡ OpenAI-╤Б╨╛╨▓╨╝╨╡╤Б╤В╨╕╨╝╤Л╨╣ ╤Н╨╜╨┤╨┐╨╛╨╕╨╜╤В ╨╜╨╕╨╢╨╡." title="╨Э╨╡╤В ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤М╤Б╨║╨╕╤Е ╤Н╨╜╨┤╨┐╨╛╨╕╨╜╤В╨╛╨▓" />
++              <EmptyState description="Добавьте OpenAI-совместимый эндпоинт ниже." title="Нет пользовательских эндпоинтов" />
              )}
            </div>
          </section>
  
          <section>
 -          <SectionHeading icon={Plus} title={form.id ? 'Edit Endpoint' : 'Add Endpoint'} />
-+          <SectionHeading icon={Plus} title={form.id ? '╨Ш╨╖╨╝╨╡╨╜╨╕╤В╤М ╤Н╨╜╨┤╨┐╨╛╨╕╨╜╤В' : '╨Ф╨╛╨▒╨░╨▓╨╕╤В╤М ╤Н╨╜╨┤╨┐╨╛╨╕╨╜╤В'} />
++          <SectionHeading icon={Plus} title={form.id ? 'Изменить эндпоинт' : 'Добавить эндпоинт'} />
            <div className="grid gap-3 rounded-md border border-border/50 p-3">
              <div className="grid gap-3 sm:grid-cols-2">
                <label className="grid gap-1.5 text-xs text-muted-foreground">
 diff --git a/apps/desktop/src/app/settings/model-settings.tsx b/apps/desktop/src/app/settings/model-settings.tsx
-index fd19d165c4..132f093719 100644
+index b91a04f103..132f093719 100644
 --- a/apps/desktop/src/app/settings/model-settings.tsx
 +++ b/apps/desktop/src/app/settings/model-settings.tsx
-@@ -167,11 +167,13 @@ function StaleAuxWarning({ applying, onReset, slots, taskLabel }: StaleAuxWarnin
+@@ -27,7 +27,6 @@ import { useI18n } from '@/i18n'
+ import { AlertTriangle, Cpu, Loader2 } from '@/lib/icons'
+ import { DEFAULT_REASONING_EFFORT, REASONING_EFFORT_VALUES } from '@/lib/reasoning-effort'
+ import { cn } from '@/lib/utils'
+-import { setMainModelAssignment } from '@/store/cron-model-impact'
+ import { notifyError } from '@/store/notifications'
+ import { startManualLocalEndpoint, startManualOnboarding, startManualProviderOAuth } from '@/store/onboarding'
+ 
+@@ -168,11 +167,13 @@ function StaleAuxWarning({ applying, onReset, slots, taskLabel }: StaleAuxWarnin
      <div className="flex flex-wrap items-center gap-2 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-200">
        <AlertTriangle className="size-3.5 shrink-0" />
        <span className="grow">
 -        {slots.length} auxiliary task{slots.length === 1 ? '' : 's'} ({names}) still run on{' '}
 -        <span className="font-mono">{allSameProvider ? provider : 'other providers'}</span>, not your main model.
 +        {slots.length === 1
-+          ? `╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╨╖╨░╨┤╨░╤З╨░ (${names}) ╨▓╤Б╤С ╨╡╤Й╤С ╤А╨░╨▒╨╛╤В╨░╨╡╤В ╨╜╨░ `
-+          : `╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╤Л╨╡ ╨╖╨░╨┤╨░╤З╨╕ (${names}) ╨▓╤Б╤С ╨╡╤Й╤С ╤А╨░╨▒╨╛╤В╨░╤О╤В ╨╜╨░ `}
-+        <span className="font-mono">{allSameProvider ? provider : '╨┤╤А╤Г╨│╨╕╤Е ╨┐╤А╨╛╨▓╨░╨╣╨┤╨╡╤А╨░╤Е'}</span>, ╨╜╨╡ ╨╜╨░ ╨╛╤Б╨╜╨╛╨▓╨╜╨╛╨╣ ╨╝╨╛╨┤╨╡╨╗╨╕.
++          ? `Вспомогательная задача (${names}) всё ещё работает на `
++          : `Вспомогательные задачи (${names}) всё ещё работают на `}
++        <span className="font-mono">{allSameProvider ? provider : 'других провайдерах'}</span>, не на основной модели.
        </span>
        <Button disabled={applying} onClick={onReset} size="sm" variant="textStrong">
 -        Reset all to main
-+        ╨б╨▒╤А╨╛╤Б╨╕╤В╤М ╨╜╨░ ╨╛╤Б╨╜╨╛╨▓╨╜╤Г╤О
++        Сбросить на основную
        </Button>
      </div>
    )
+@@ -620,9 +621,10 @@ export function ModelSettings({ onMainModelChanged }: ModelSettingsProps) {
+     setError('')
+ 
+     try {
+-      const result = await setMainModelAssignment({
++      const result = await setModelAssignment({
+         model: selectedModel,
+         provider: selectedProvider,
++        scope: 'main',
+         ...(selectedProviderRow?.api_url ? { base_url: selectedProviderRow.api_url } : {})
+       })
+ 
 diff --git a/apps/desktop/src/app/settings/plugins-settings.tsx b/apps/desktop/src/app/settings/plugins-settings.tsx
 index ca31ff3838..b31dbfebe1 100644
 --- a/apps/desktop/src/app/settings/plugins-settings.tsx
@@ -182,7 +383,7 @@ index ca31ff3838..b31dbfebe1 100644
  
      if (!dir) {
 -      notifyError('Desktop plugins are unavailable', 'Could not resolve the plugins folder')
-+      notifyError('╨Я╨╗╨░╨│╨╕╨╜╤Л ╤А╨░╨▒╨╛╤З╨╡╨│╨╛ ╤Б╤В╨╛╨╗╨░ ╨╜╨╡╨┤╨╛╤Б╤В╤Г╨┐╨╜╤Л', '╨Э╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╕╤В╤М ╨┐╨░╨┐╨║╤Г ╨┐╨╗╨░╨│╨╕╨╜╨╛╨▓')
++      notifyError('Плагины рабочего стола недоступны', 'Не удалось определить папку плагинов')
  
        return
      }
@@ -191,11 +392,11 @@ index ca31ff3838..b31dbfebe1 100644
  
      if (result && !result.ok) {
 -      notifyError(result.error ?? 'unknown error', 'Could not open the plugins folder')
-+      notifyError(result.error ?? '╨╜╨╡╨╕╨╖╨▓╨╡╤Б╤В╨╜╨░╤П ╨╛╤И╨╕╨▒╨║╨░', '╨Э╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╨╛╤В╨║╤А╤Л╤В╤М ╨┐╨░╨┐╨║╤Г ╨┐╨╗╨░╨│╨╕╨╜╨╛╨▓')
++      notifyError(result.error ?? 'неизвестная ошибка', 'Не удалось открыть папку плагинов')
      }
    } catch (err) {
 -    notifyError(err, 'Could not resolve the plugins folder')
-+    notifyError(err, '╨Э╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╕╤В╤М ╨┐╨░╨┐╨║╤Г ╨┐╨╗╨░╨│╨╕╨╜╨╛╨▓')
++    notifyError(err, 'Не удалось определить папку плагинов')
    }
  }
  
@@ -204,7 +405,7 @@ index ca31ff3838..b31dbfebe1 100644
  
      if (!home) {
 -      notifyError('The backend did not report its home directory', 'Could not open the plugins folder')
-+      notifyError('╨С╤Н╨║╨╡╨╜╨┤ ╨╜╨╡ ╤Б╨╛╨╛╨▒╤Й╨╕╨╗ ╨┤╨╛╨╝╨░╤И╨╜╨╕╨╣ ╨║╨░╤В╨░╨╗╨╛╨│', '╨Э╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╨╛╤В╨║╤А╤Л╤В╤М ╨┐╨░╨┐╨║╤Г ╨┐╨╗╨░╨│╨╕╨╜╨╛╨▓')
++      notifyError('Бэкенд не сообщил домашний каталог', 'Не удалось открыть папку плагинов')
  
        return
      }
@@ -213,29 +414,114 @@ index ca31ff3838..b31dbfebe1 100644
  
      if (opened && !opened.ok) {
 -      notifyError(opened.error ?? 'unknown error', 'Could not open the plugins folder')
-+      notifyError(opened.error ?? '╨╜╨╡╨╕╨╖╨▓╨╡╤Б╤В╨╜╨░╤П ╨╛╤И╨╕╨▒╨║╨░', '╨Э╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╨╛╤В╨║╤А╤Л╤В╤М ╨┐╨░╨┐╨║╤Г ╨┐╨╗╨░╨│╨╕╨╜╨╛╨▓')
++      notifyError(opened.error ?? 'неизвестная ошибка', 'Не удалось открыть папку плагинов')
      }
    } catch (err) {
 -    notifyError(err, 'Could not open the plugins folder')
-+    notifyError(err, '╨Э╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╨╛╤В╨║╤А╤Л╤В╤М ╨┐╨░╨┐╨║╤Г ╨┐╨╗╨░╨│╨╕╨╜╨╛╨▓')
++    notifyError(err, 'Не удалось открыть папку плагинов')
    }
  }
  
+diff --git a/apps/desktop/src/app/settings/uninstall-section.tsx b/apps/desktop/src/app/settings/uninstall-section.tsx
+index 5ac21ac80e..236a5931e9 100644
+--- a/apps/desktop/src/app/settings/uninstall-section.tsx
++++ b/apps/desktop/src/app/settings/uninstall-section.tsx
+@@ -122,7 +122,7 @@ export function UninstallSection() {
+ 
+   return (
+     <div className="mx-auto mt-8 w-full max-w-2xl">
+-      <SectionHeading icon={AlertTriangle} title="Danger zone" />
++      <SectionHeading icon={AlertTriangle} title="Опасная зона" />
+ 
+       <div className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3">
+         {loading ? (
 diff --git a/apps/desktop/src/components/assistant-ui/markdown-text.tsx b/apps/desktop/src/components/assistant-ui/markdown-text.tsx
-index e6245d8584..b5b9784e31 100644
+index 2158e54662..b5b9784e31 100644
 --- a/apps/desktop/src/components/assistant-ui/markdown-text.tsx
 +++ b/apps/desktop/src/components/assistant-ui/markdown-text.tsx
-@@ -230,7 +230,7 @@ function MediaAttachment({ path }: { path: string }) {
+@@ -14,7 +14,6 @@ import { ExpandableBlock } from '@/components/chat/expandable-block'
+ import { PreviewAttachment } from '@/components/chat/preview-attachment'
+ import { chunkByLines, SyntaxHighlighter } from '@/components/chat/shiki-highlighter'
+ import { ZoomableImage } from '@/components/chat/zoomable-image'
+-import { ErrorBoundary } from '@/components/error-boundary'
+ import { detectArtifact } from '@/lib/artifact-detect'
+ import { normalizeExternalUrl, openExternalLink, PrettyLink } from '@/lib/external-link'
+ import { createMemoizedMathPlugin } from '@/lib/katex-memo'
+@@ -231,7 +230,7 @@ function MediaAttachment({ path }: { path: string }) {
            open()
          }}
        >
 -        {failed ? `Open ${name}` : `Loading ${name}...`}
-+        {failed ? `Open ${name}` : `╨Ч╨░╨│╤А╤Г╨╖╨║╨░ ${name}...`}
++        {failed ? `Open ${name}` : `Загрузка ${name}...`}
        </a>
        {openFailed && <OpenMediaFailedNote name={name} />}
      </span>
+@@ -603,46 +602,23 @@ function MarkdownTextSurface({
+   }
+ 
+   return (
+-    // Last line of defence for the whole markdown surface — assistant answers,
+-    // reasoning, tool output and user bubbles all render through here.
+-    //
+-    // The pipeline is recursive in several places we don't own (parse5 →
+-    // `hast-util-from-parse5` on raw HTML, `mdast-util-to-hast` on nested
+-    // block structure), so pathological content can still throw
+-    // `RangeError: Maximum call stack size exceeded` from inside Streamdown's
+-    // render. `clampHtmlNestingDepth` removes the reachable cause we found;
+-    // this catches whatever we haven't. Without it the throw unwinds past
+-    // MessageRenderBoundary — which deliberately re-throws anything that isn't
+-    // the transient assistant-ui lookup race — and blanks the entire workspace
+-    // behind "workspace failed to render", on every reload, because the
+-    // offending message is replayed from the session each time.
+-    //
+-    // Degrading to HugeTextFallback keeps the text readable and the rest of
+-    // the transcript alive. The error stays latched for this surface: content
+-    // that overflowed the stack will overflow again, and remounting per token
+-    // during streaming would cost far more than the plain rendering saves.
+-    <ErrorBoundary
+-      fallback={() => <HugeTextFallback containerClassName={containerClassName} text={text} />}
+-      label="markdown-render"
+-    >
+-      <StreamdownTextPrimitive
+-        components={components}
+-        containerClassName={cn(MARKDOWN_CONTAINER_CLASS_NAME, containerClassName)}
+-        containerProps={containerProps}
+-        defer={defer}
+-        lineNumbers={false}
+-        mode="streaming"
+-        // Incomplete-markdown repair runs in preprocessWithTailRepair on the
+-        // full accumulated text; the built-in tail-bounded remend is disabled
+-        // because a custom parseMarkdownIntoBlocksFn is supplied, and
+-        // parseIncompleteMarkdown stays false to avoid a second full-text
+-        // remend pass.
+-        parseIncompleteMarkdown={false}
+-        parseMarkdownIntoBlocksFn={parseMarkdownIntoBlocksCached}
+-        plugins={plugins}
+-        preprocess={preprocessWithTailRepair}
+-      />
+-    </ErrorBoundary>
++    <StreamdownTextPrimitive
++      components={components}
++      containerClassName={cn(MARKDOWN_CONTAINER_CLASS_NAME, containerClassName)}
++      containerProps={containerProps}
++      defer={defer}
++      lineNumbers={false}
++      mode="streaming"
++      // Incomplete-markdown repair runs in preprocessWithTailRepair on the
++      // full accumulated text; the built-in tail-bounded remend is disabled
++      // because a custom parseMarkdownIntoBlocksFn is supplied, and
++      // parseIncompleteMarkdown stays false to avoid a second full-text
++      // remend pass.
++      parseIncompleteMarkdown={false}
++      parseMarkdownIntoBlocksFn={parseMarkdownIntoBlocksCached}
++      plugins={plugins}
++      preprocess={preprocessWithTailRepair}
++    />
+   )
+ }
+ 
 diff --git a/apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx b/apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx
-index 043a60401c..75b5392e68 100644
+index d0293b22ad..dd0c6ea686 100644
 --- a/apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx
 +++ b/apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx
 @@ -18,7 +18,7 @@ import {
@@ -245,9 +531,9 @@ index 043a60401c..75b5392e68 100644
 -import { formatMessageTimestamp } from '@/components/assistant-ui/thread/timestamp'
 +import { MessageTimestamp } from '@/components/assistant-ui/thread/message-timestamp'
  import { useMessageReactions, useTapbackDoubleClick } from '@/components/assistant-ui/thread/use-message-reactions'
+ import { AGENT_MESSAGE_RE } from '@/components/assistant-ui/thread/user-message'
  import { TooltipIconButton } from '@/components/assistant-ui/tooltip-icon-button'
- import { PreviewAttachment } from '@/components/chat/preview-attachment'
-@@ -28,7 +28,6 @@ import { useI18n } from '@/i18n'
+@@ -29,7 +29,6 @@ import { useI18n } from '@/i18n'
  import { triggerHaptic } from '@/lib/haptics'
  import { AudioLines, GitForkIcon, Loader2Icon, RefreshCwIcon, SmilePlusIcon, VolumeXIcon, XIcon } from '@/lib/icons'
  import { extractPreviewTargets } from '@/lib/preview-targets'
@@ -255,7 +541,7 @@ index 043a60401c..75b5392e68 100644
  import { useEnterAnimation } from '@/lib/use-enter-animation'
  import { cn } from '@/lib/utils'
  import { playSpeechText, stopVoicePlayback } from '@/lib/voice-playback'
-@@ -198,7 +197,6 @@ const AssistantActionBar: FC<MessageActionProps> = ({ messageId, getMessageText,
+@@ -262,7 +261,6 @@ const AssistantActionBar: FC<MessageActionProps> = ({ messageId, getMessageText,
          }
          data-slot="aui_msg-actions"
        >
@@ -263,7 +549,7 @@ index 043a60401c..75b5392e68 100644
          {onBranchInNewChat && (
            <TooltipIconButton
              onClick={() => {
-@@ -300,28 +298,11 @@ const ReadAloudButton: FC<{ getText: () => string; messageId: string }> = ({ get
+@@ -364,28 +362,11 @@ const ReadAloudButton: FC<{ getText: () => string; messageId: string }> = ({ get
    )
  }
  
@@ -289,17 +575,17 @@ index 043a60401c..75b5392e68 100644
 -
  const AssistantFooter: FC<MessageActionProps> = props => (
    <div className="flex min-h-6 flex-col items-end gap-1 pr-(--message-text-indent) pl-(--message-text-indent)">
-+    {/* Mod: hermes-desktop-timestamps тАФ always-visible timestamp; stock
++    {/* Mod: hermes-desktop-timestamps — always-visible timestamp; stock
 +        shows the age only inside the hover-revealed action bar. */}
 +    <MessageTimestamp />
      <BranchPickerPrimitive.Root
        className="inline-flex h-6 items-center gap-1 text-xs text-muted-foreground"
        hideWhenSingleBranch
 diff --git a/apps/desktop/src/components/assistant-ui/thread/user-message.tsx b/apps/desktop/src/components/assistant-ui/thread/user-message.tsx
-index e71d189428..14079e8dd6 100644
+index 22e918389a..536ab162c5 100644
 --- a/apps/desktop/src/components/assistant-ui/thread/user-message.tsx
 +++ b/apps/desktop/src/components/assistant-ui/thread/user-message.tsx
-@@ -3,6 +3,7 @@ import { type FC, type ReactNode, useCallback, useRef, useState } from 'react'
+@@ -3,6 +3,7 @@ import { type FC, type ReactNode, useCallback, useEffect, useRef, useState } fro
  
  import { DirectiveContent } from '@/components/assistant-ui/directive-text'
  import { messageAttachmentRefs, messageContentText } from '@/components/assistant-ui/thread/content'
@@ -307,11 +593,11 @@ index e71d189428..14079e8dd6 100644
  import { ReactionBadge, ReactionPicker } from '@/components/assistant-ui/thread/message-reactions'
  import { type RestoreMessageTarget } from '@/components/assistant-ui/thread/types'
  import { useMessageReactions } from '@/components/assistant-ui/thread/use-message-reactions'
-@@ -405,6 +406,9 @@ export const UserMessage: FC<{
+@@ -571,6 +572,9 @@ export const UserMessage: FC<{
                onRetract={() => react(null)}
                reactions={shownReactions}
              />
-+            {/* Mod: hermes-desktop-timestamps тАФ stock shows no time at all
++            {/* Mod: hermes-desktop-timestamps — stock shows no time at all
 +                for user messages; the timestamp lives below the bubble. */}
 +            <MessageTimestamp className="self-end py-1.5 pr-1.5" />
              <BranchPickerPrimitive.Root
@@ -326,7 +612,7 @@ index 6e56d0918c..3a92f9c9cf 100644
                {view.searchQuery && (
                  <p className="mb-1 flex min-w-0 gap-1.5 wrap-anywhere">
 -                  <span className="shrink-0 font-medium text-(--ui-text-tertiary)">Search</span>
-+                  <span className="shrink-0 font-medium text-(--ui-text-tertiary)">╨Я╨╛╨╕╤Б╨║</span>
++                  <span className="shrink-0 font-medium text-(--ui-text-tertiary)">Поиск</span>
                    <span>{view.searchQuery}</span>
                  </p>
                )}
@@ -340,487 +626,294 @@ index 6dc365e644..6839eee8b3 100644
    {
 -    headline: 'What are we moving today?',
 -    body: "Send a bug, branch, plan, or rough idea. I'll inspect the repo and turn it into the next concrete step."
-+    headline: '╨з╤В╨╛ ╤Б╨╡╨│╨╛╨┤╨╜╤П ╨┤╨▓╨╕╨│╨░╨╡╨╝?',
-+    body: '╨Я╤А╨╕╤И╨╗╨╕╤В╨╡ ╨▒╨░╨│, ╨▓╨╡╤В╨║╤Г, ╨┐╨╗╨░╨╜ ╨╕╨╗╨╕ ╤Б╤Л╤А╤Г╤О ╨╕╨┤╨╡╤О. ╨п ╨╕╨╖╤Г╤З╤Г ╤А╨╡╨┐╨╛╨╖╨╕╤В╨╛╤А╨╕╨╣ ╨╕ ╨┐╤А╨╡╨▓╤А╨░╤Й╤Г ╤Н╤В╨╛ ╨▓ ╨║╨╛╨╜╨║╤А╨╡╤В╨╜╤Л╨╣ ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╕╨╣ ╤И╨░╨│.'
++    headline: 'Что сегодня двигаем?',
++    body: 'Пришлите баг, ветку, план или сырую идею. Я изучу репозиторий и превращу это в конкретный следующий шаг.'
    },
    {
 -    headline: "What's on your mind?",
 -    body: "Bring the code, question, or stuck part. I'll read the room before making changes."
-+    headline: '╨з╤В╨╛ ╤Г ╤В╨╡╨▒╤П ╨╜╨░ ╤Г╨╝╨╡?',
-+    body: '╨Я╤А╨╕╨╜╨╡╤Б╨╕╤В╨╡ ╨║╨╛╨┤, ╨▓╨╛╨┐╤А╨╛╤Б ╨╕╨╗╨╕ ╨╖╨░╤Б╤В╤А╤П╨▓╤И╨╡╨╡ ╨╝╨╡╤Б╤В╨╛. ╨п ╤Б╨╜╨░╤З╨░╨╗╨░ ╤А╨░╨╖╨▒╨╡╤А╤Г╤Б╤М, ╨┐╤А╨╡╨╢╨┤╨╡ ╤З╨╡╨╝ ╤З╤В╨╛-╤В╨╛ ╨╝╨╡╨╜╤П╤В╤М.'
++    headline: 'Что у тебя на уме?',
++    body: 'Принесите код, вопрос или застрявшее место. Я сначала разберусь, прежде чем что-то менять.'
    },
    {
 -    headline: 'What should Hermes look at?',
 -    body: "Send the task, failing path, or half-formed plan. I'll help turn it into action."
-+    headline: '╨Э╨░ ╤З╤В╨╛ Hermes ╨┤╨╛╨╗╨╢╨╡╨╜ ╨┐╨╛╤Б╨╝╨╛╤В╤А╨╡╤В╤М?',
-+    body: '╨Я╤А╨╕╤И╨╗╨╕╤В╨╡ ╨╖╨░╨┤╨░╤З╤Г, ╨┐╨░╨┤╨░╤О╤Й╨╕╨╣ ╨┐╤Г╤В╤М ╨╕╨╗╨╕ ╨┐╨╛╨╗╤Г╨╛╤Д╨╛╤А╨╝╨╗╨╡╨╜╨╜╤Л╨╣ ╨┐╨╗╨░╨╜. ╨Я╨╛╨╝╨╛╨│╤Г ╨┐╤А╨╡╨▓╤А╨░╤В╨╕╤В╤М ╤Н╤В╨╛ ╨▓ ╨┤╨╡╨╣╤Б╤В╨▓╨╕╨╡.'
++    headline: 'На что Hermes должен посмотреть?',
++    body: 'Пришлите задачу, падающий путь или полуоформленный план. Помогу превратить это в действие.'
    },
    {
 -    headline: 'Where should we start?',
 -    body: "Bring the problem, goal, or file. I'll inspect first and keep the next step concrete."
-+    headline: '╨б ╤З╨╡╨│╨╛ ╨╜╨░╤З╨╜╤С╨╝?',
-+    body: '╨Я╤А╨╕╨╜╨╡╤Б╨╕╤В╨╡ ╨┐╤А╨╛╨▒╨╗╨╡╨╝╤Г, ╤Ж╨╡╨╗╤М ╨╕╨╗╨╕ ╤Д╨░╨╣╨╗. ╨п ╤Б╨╜╨░╤З╨░╨╗╨░ ╨╛╤Б╨╝╨╛╤В╤А╤О╤Б╤М ╨╕ ╤Б╨┤╨╡╨╗╨░╤О ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╕╨╣ ╤И╨░╨│ ╨║╨╛╨╜╨║╤А╨╡╤В╨╜╤Л╨╝.'
++    headline: 'С чего начнём?',
++    body: 'Принесите проблему, цель или файл. Я сначала осмотрюсь и сделаю следующий шаг конкретным.'
    },
    {
 -    headline: 'What needs attention?',
 -    body: "Send the context you have. I'll help sort it into a plan or a fix."
-+    headline: '╨з╤В╨╛ ╤В╤А╨╡╨▒╤Г╨╡╤В ╨▓╨╜╨╕╨╝╨░╨╜╨╕╤П?',
-+    body: '╨Я╤А╨╕╤И╨╗╨╕╤В╨╡ ╨╕╨╝╨╡╤О╤Й╨╕╨╣╤Б╤П ╨║╨╛╨╜╤В╨╡╨║╤Б╤В. ╨Я╨╛╨╝╨╛╨│╤Г ╤А╨░╨╖╨╗╨╛╨╢╨╕╤В╤М ╨╡╨│╨╛ ╨▓ ╨┐╨╗╨░╨╜ ╨╕╨╗╨╕ ╨╕╤Б╨┐╤А╨░╨▓╨╗╨╡╨╜╨╕╨╡.'
++    headline: 'Что требует внимания?',
++    body: 'Пришлите имеющийся контекст. Помогу разложить его в план или исправление.'
    }
  ]
  
-diff --git a/apps/desktop/src/i18n/catalog.ts b/apps/desktop/src/i18n/catalog.ts
-index f35c957076..c6f5be8285 100644
---- a/apps/desktop/src/i18n/catalog.ts
-+++ b/apps/desktop/src/i18n/catalog.ts
-@@ -1,6 +1,8 @@
- import { ar } from './ar'
- import { en } from './en'
- import { ja } from './ja'
-+// MOD: hermes-desktop-ru тАФ Russian locale
-+import { ru } from './ru'
- import type { Locale, Translations } from './types'
- import { zh } from './zh'
- import { zhHant } from './zh-hant'
-@@ -10,5 +12,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
-   zh,
-   'zh-hant': zhHant,
-   ja,
--  ar
-+  ar,
-+  // MOD: hermes-desktop-ru
-+  ru
- }
 diff --git a/apps/desktop/src/i18n/en.ts b/apps/desktop/src/i18n/en.ts
-index da7386f185..c157ac5176 100644
+index ff1c65733a..c157ac5176 100644
 --- a/apps/desktop/src/i18n/en.ts
 +++ b/apps/desktop/src/i18n/en.ts
-@@ -42,7 +42,11 @@ export const en: Translations = {
-     update: 'Update',
-     tryHint: term => `Try тАЬ${term}тАЭ`,
-     on: 'On',
--    off: 'Off'
-+    off: 'Off',
-+    use: 'Use',
-+    dismiss: 'Dismiss',
-+    showOptions: 'Show options',
-+    moreActions: 'More actions',
-   },
- 
-   fileMenu: {
-@@ -366,6 +370,7 @@ export const en: Translations = {
-       disable: 'Disable',
-       failed: 'failed',
-       empty: 'No desktop plugins installed yet.',
-+      kanban: 'Multi-agent task board тАФ board page, sidebar entry, and a live in-flight count in the status bar.',
-       kinds: { bundled: 'bundled', disk: 'on disk', runtime: 'runtime' },
-       agent: {
-         title: 'Agent plugins',
-@@ -379,6 +384,9 @@ export const en: Translations = {
-         toggleFailed: (name: string) => `Could not toggle ${name}`,
-         updateBackendToManage: 'Update the Hermes backend to manage this plugin from Desktop.',
-         sources: { bundled: 'bundled', user: 'user', git: 'git', project: 'project', entrypoint: 'pip' }
-+      },
-+      descriptions: {
-+      kanban: 'Multi-agent task board тАФ board page, sidebar entry, and a live in-flight count in the status bar.'
-       }
+@@ -705,13 +705,6 @@ export const en: Translations = {
+       existingToken: value => `Existing token ${value}`,
+       savedToken: 'saved',
+       pasteSessionToken: 'Paste session token',
+-      plainTextConfirmTitle: 'Store the gateway token in plain text?',
+-      plainTextConfirmDesc:
+-        'No OS keyring service was found on this machine, so the token would be saved unencrypted in the app’s connection settings file, readable by any process running as this user. Install or enable GNOME Keyring or KWallet for encrypted storage.',
+-      plainTextConfirmAction: 'Save as plain text',
+-      plainTextStoredTitle: 'Token stored in plain text',
+-      plainTextStoredDesc:
+-        'Secure storage is unavailable, so the saved token is stored unencrypted in the app’s connection settings file on this machine. Install or enable GNOME Keyring or KWallet to encrypt it.',
+       testRemote: 'Test remote',
+       saveForRestart: 'Save for next restart',
+       saveAndReconnect: 'Save and reconnect',
+@@ -1779,14 +1772,6 @@ export const en: Translations = {
+     close: 'Close cron',
+     title: 'Scheduled jobs',
+     count: count => `${count} ${count === 1 ? 'job' : 'jobs'}`,
+-    modelImpact: {
+-      title: 'Scheduled jobs need review',
+-      message: count =>
+-        `${count} scheduled ${count === 1 ? 'job' : 'jobs'} will be skipped until you review their model settings.`,
+-      detailMore: (names, remaining) => `${names} and ${remaining} more`,
+-      review: 'Review scheduled jobs',
+-      saveFailed: 'Hermes did not save that model change.'
+-    },
+     search: 'Search cron jobs...',
+     loading: 'Loading cron jobs...',
+     states: {
+@@ -1978,8 +1963,7 @@ export const en: Translations = {
+       'new-session': 'New session',
+       skills: 'Capabilities',
+       messaging: 'Messaging',
+-      artifacts: 'Artifacts',
+-      cron: 'Scheduled jobs'
++      artifacts: 'Artifacts'
      },
-     notifications: {
-@@ -533,7 +541,8 @@ export const en: Translations = {
-         noneAvailable: 'No pets available to turn on right now.',
-         turnOnFailed: 'Could not turn the pet on.',
-         turnOffFailed: 'Could not turn the pet off.'
--      }
-+      },
-+      searchThemes: 'Search your themes or the VS Code MarketplaceтАж',
+     searchAria: 'Search sessions',
+     searchPlaceholder: 'Search sessions…',
+@@ -2107,8 +2091,6 @@ export const en: Translations = {
+       renameDesc: 'Leave empty to clear.',
+       untitledPlaceholder: 'Untitled session',
+       untitledChat: id => `Chat ${id}`,
+-      messageCount: count => `${count} ${count === 1 ? 'message' : 'messages'}`,
+-      todoProgress: 'Tasks completed',
+       ageNow: 'now',
+       ageDay: 'd',
+       ageHour: 'h',
+@@ -2215,7 +2197,6 @@ export const en: Translations = {
+     editingQueuedInComposer: 'Editing queued turn in composer',
+     queueEdit: 'Edit',
+     queueSendNext: 'Next',
+-    queueSteer: 'Steer — redirect the live turn now',
+     queueSend: 'Send',
+     queueDelete: 'Delete',
+     queueResume: 'Resume',
+@@ -2247,37 +2228,6 @@ export const en: Translations = {
+     snippetsDesc: 'Pick a starter prompt to drop into the composer.',
+     dropFiles: 'Drop files to attach',
+     dropSession: 'Drop to link this chat',
+-    mcpSuggestions: {
+-      label: server => `Add ${server}`,
+-      tip: keyword => `Suggested because you mentioned “${keyword}” — click to connect`,
+-      connecting: server => `Connecting ${server}…`,
+-      cancelTip: 'Click to cancel',
+-      added: server => `Added ${server}`,
+-      addedTip: 'Connected — its tools are ready in this chat',
+-      connectFailed: server => `Could not connect ${server}`
+-    },
+-    skillSuggestions: {
+-      label: skill => `Use skill: ${skill}`,
+-      tip: skill => `You mentioned “${skill}” — click to lead with that skill`,
+-      done: skill => `Added /${skill}`,
+-      doneTip: 'The skill loads when you send'
+-    },
+-    repairSuggestions: {
+-      label: server => `Reconnect ${server}`,
+-      tip: server => `A ${server} call just failed with a connection error`,
+-      working: server => `Reconnecting ${server}…`,
+-      workingTip: 'Click to cancel',
+-      done: server => `Reconnected ${server}`,
+-      doneTip: 'Fresh credentials are live in this chat',
+-      failed: server => `Could not reconnect ${server}`
+-    },
+-    cronSuggestions: {
+-      label: 'Schedule this',
+-      tip: phrase => `“${phrase}” sounds recurring — run it on a schedule instead`,
+-      prefix: 'Set this up as a scheduled job:',
+-      done: 'Marked for scheduling',
+-      doneTip: 'Send it and the agent creates the job'
+-    },
+     snippets: {
+       codeReview: {
+         label: 'Code review',
+@@ -2674,7 +2624,6 @@ export const en: Translations = {
+       gatewayTitle: 'Gateway',
+       customizeTitle: 'Show in status bar',
+       hideStatusbar: 'Hide status bar',
+-      resetStatusbar: 'Reset to defaults',
+       toggleApprovalMode: 'Approvals',
+       toggleBackendVersion: 'Backend version',
+       toggleCommandCenter: 'Command Center',
+@@ -2976,28 +2925,6 @@ export const en: Translations = {
+       lateAnswerTip: 'Draft this answer as a follow-up message',
+       lateAnswerHint: 'This prompt is no longer waiting. Pick an option to draft it as a follow-up message.'
      },
-     fieldLabels: FIELD_LABELS,
-     fieldDescriptions: FIELD_DESCRIPTIONS,
-@@ -597,7 +606,10 @@ export const en: Translations = {
-       shortcutDesc: 'Needs at least one modifier, e.g. CommandOrControl+Shift+Space.',
-       active: 'Shortcut is active.',
-       takenBy: 'Another app already uses this shortcut тАФ pick a different one.',
--      invalidShortcut: 'Not a valid shortcut. Include at least one modifier key.'
-+      invalidShortcut: 'Not a valid shortcut. Include at least one modifier key.',
-+      windowAriaLabel: 'Quick Entry',
-+      newTarget: 'New session',
-+      currentTarget: 'Current chat',
-     },
-     credentials: {
-       pasteKey: 'Paste key',
-@@ -999,7 +1011,105 @@ export const en: Translations = {
-         failedSelect: backend => `Failed to select ${backend}`,
-         needsSetupHint: 'You can select this backend now тАФ commands will fail until setup is complete.'
-       }
--    }
-+    },
-+    computerUse: {
-+      accessibility: 'Accessibility',
-+      accessibilityHint: 'Lets cua-driver post clicks, keystrokes, and read the accessibility tree.',
-+      approveMessage:
-+        'macOS will show a permission dialog attributed to CuaDriver. Approve it, then return here.',
-+      approveTitle: 'Approve in System Settings',
-+      checking: 'Checking Computer Use statusтАж',
-+      driverHealth: 'Driver health',
-+      errorRead: 'Could not read Computer Use status',
-+      errorRequest: 'Could not request permissions',
-+      grantPermissions: 'Grant permissions',
-+      granted: 'Granted',
-+      grantsNote:
-+        "Grants attach to CuaDriver's own identity (com.trycua.driver), not Hermes тАФ so the dialog is attributed to the process that drives your Mac.",
-+      notGranted: 'Not granted',
-+      notInstalled: 'Install the cua-driver backend below to drive this machine.',
-+      notInstalledGrant: ' Then grant Accessibility and Screen Recording here.',
-+      notReady: 'Not ready',
-+      notSupported: platform => `Computer Use isn't supported on this platform (${platform}).`,
-+      platformNoteLinux: 'Drives your desktop via the X11/XWayland accessibility stack тАФ no permission prompt.',
-+      platformNoteWin:
-+        'First run may trigger a Windows SmartScreen prompt for the cua-driver UIAccess worker тАФ allow it.',
-+      ready: 'Ready',
-+      readyMessage: 'Computer Use is ready. Ask the agent to capture an app and click around.',
-+      recheck: 'Recheck',
-+      screenRecording: 'Screen Recording',
-+      screenRecordingHint: 'Lets cua-driver capture screenshots of app windows.',
-+      unknown: 'Unknown',
-+      waitingApproval: 'Waiting for approvalтАж',
-+    },
-+    billingPage: {
-+      alreadyOnPlan: (name: string) => `You are already on ${name} тАФ nothing to change.`,
-+      autoRefillReloadTo: 'Reload to',
-+      autoRefillReloadToAria: 'Auto-refill reload-to amount',
-+      autoRefillThreshold: 'Threshold',
-+      autoRefillThresholdAria: 'Auto-refill threshold',
-+      autoRefillTurnedOff: 'Auto-refill turned off.',
-+      autoRefillUpdated: 'Auto-refill updated.',
-+      backToBilling: 'Back to billing',
-+      cannotChange: 'That change cannot be made here.',
-+      cannotSchedule: 'This change cannot be scheduled here.',
-+      changeTakesEffect: (name: string, date: string, creditsDelta: string) =>
-+        `Change to ${name} тАФ takes effect ${date}. No charge now; you keep your current plan until then.${
-+          creditsDelta ? ` Monthly credits change: ${creditsDelta}.` : ''
-+        }`,
-+      checkingChange: 'Checking this changeтАж',
-+      confirmDowngrade: 'Confirm downgrade',
-+      currentPlan: 'Current plan',
-+      customCreditAmountAria: 'Custom credit amount',
-+      devFixture: 'Billing preview fixture (dev only)',
-+      disable: 'Disable',
-+      dismiss: 'Dismiss',
-+      downgrade: 'Downgrade',
-+      invoices: 'Invoices',
-+      openPortal: 'Open portal',
-+      openVerificationPage: 'Open verification page',
-+      paymentCredits: 'Payment & credits',
-+      plan: 'Plan',
-+      plans: 'Plans',
-+      scheduled: 'Scheduled',
-+      scheduling: 'SchedulingтАж',
-+      tryAgain: 'Try again',
-+      turnOff: 'Turn off',
-+      turnOffAutoRefill: 'Turn off auto-refill?',
-+      undo: 'Undo',
-+      undoing: 'UndoingтАж',
-+      usage: 'Usage',
-+      verifyToContinue: 'Verify to continue',
-+      waitingForVerification: 'Waiting for verification linkтАж',
-+      manage: 'Manage',
-+      noPlansAvailable: 'No plans are available to change to right now.',
-+    },
-+    uninstall: {
-+      appPath: path => `App: ${path}`,
-+      checking: "Checking what's installedтАж",
-+      confirmDesc: consequence => `This removes ${consequence}. This can't be undone.`,
-+      confirmTitle: 'Confirm uninstall',
-+      couldNotStart: 'Uninstall could not start.',
-+      heading: 'Danger zone',
-+      intro:
-+        'Choose how much to remove. The app closes to finish the job; reopen the installer any time to come back.',
-+      optionFull: 'Uninstall everything',
-+      optionFullConsequence:
-+        'EVERYTHING тАФ the Chat GUI, the Hermes agent, and all of your config, chats, secrets, and logs',
-+      optionFullDesc:
-+        'Remove the app, the agent, and all user data тАФ config, chats, scheduled jobs, secrets, logs.',
-+      optionGui: 'Uninstall Chat GUI only',
-+      optionGuiConsequence: 'the desktop Chat GUI (this app and its data)',
-+      optionGuiDesc: 'Remove this desktop app. The Hermes agent, your config, and chats all stay.',
-+      optionLite: 'Uninstall GUI + agent, keep my data',
-+      optionLiteConsequence: 'the Chat GUI and the Hermes agent (config, chats, and secrets are kept)',
-+      optionLiteDesc:
-+        'Remove the app and the Hermes agent, but keep config, chats, and secrets for a future reinstall.',
-+      title: 'Uninstall Hermes',
-+      uninstalling: 'UninstallingтАж',
-+      yes: 'Yes, uninstall',
-+      checkingInstalled: 'Checking whatтАЩs installedтАж',
-+    },
-   },
- 
-   skills: {
-@@ -1229,7 +1339,10 @@ export const en: Translations = {
-       referenceImageTooLarge: 'Reference image is too large. Use one under 16 MB.',
-       referenceImageInvalid: 'Could not read that reference image. Try a PNG, JPG, WebP, or GIF.',
-       adopt: 'Adopt',
--      startOver: 'Start over'
-+      startOver: 'Start over',
-+      setupImageGeneration: 'Set up image generation',
-+      removeReference: 'Remove reference',
-+      grabKeyFrom: 'Grab a key from',
-     },
-     installTheme: {
-       title: 'Install themeтАж',
-@@ -2775,7 +2888,13 @@ export const en: Translations = {
-       restoreNext: 'Restore next checkpoint',
-       goForward: 'Go forward',
-       sendEdited: 'Send edited message',
--      attachingFile: 'AttachingтАж'
-+      attachingFile: 'AttachingтАж',
-+      searchReactions: 'SearchтАж',
-+      reactedByHermes: 'Reacted by Hermes',
-+      noEmoji: 'No emoji found.',
-+      moreEmoji: 'More emoji',
-+      loadingEmoji: 'Loading emojiтАж',
-+      conversationTimeline: 'Conversation timeline',
-     },
-     approval: {
-       gatewayDisconnected: 'Hermes gateway is not connected',
-@@ -3002,5 +3121,13 @@ export const en: Translations = {
-       description: 'Displays the mobile sidebar.',
-       toggle: open => `${open ? 'Show' : 'Hide'} sidebar`
-     }
--  }
-+  },
-+  embeds: {
-+    spotify: 'Spotify embed',
-+    youtube: 'YouTube embed'
-+  },
-+  pet: {
-+    hatchingProgress: 'Hatching progress',
-+    openInHermes: 'Open in Hermes'
-+  },
- }
-diff --git a/apps/desktop/src/i18n/languages.ts b/apps/desktop/src/i18n/languages.ts
-index e4a1fb1e02..a1f085bd92 100644
---- a/apps/desktop/src/i18n/languages.ts
-+++ b/apps/desktop/src/i18n/languages.ts
-@@ -34,6 +34,13 @@ export const LOCALE_OPTIONS = [
-     name: '╪з┘Д╪╣╪▒╪и┘К╪й',
-     englishName: 'Arabic',
-     configValue: 'ar'
-+  },
-+  // MOD: hermes-desktop-ru тАФ Russian locale
-+  {
-+    id: 'ru',
-+    name: '╨а╤Г╤Б╤Б╨║╨╕╨╣',
-+    englishName: 'Russian',
-+    configValue: 'ru'
-   }
- ] as const satisfies readonly { configValue: string; englishName: string; id: Locale; name: string }[]
- 
-@@ -79,7 +86,13 @@ const LOCALE_ALIASES: Record<string, Locale> = {
-   'ar-eg': 'ar',
-   ar_eg: 'ar',
-   arabic: 'ar',
--  ╪з┘Д╪╣╪▒╪и┘К╪й: 'ar'
-+  ╪з┘Д╪╣╪▒╪и┘К╪й: 'ar',
-+  // MOD: hermes-desktop-ru
-+  ru: 'ru',
-+  'ru-ru': 'ru',
-+  ru_ru: 'ru',
-+  russian: 'ru',
-+  ╤А╤Г╤Б╤Б╨║╨╕╨╣: 'ru'
- }
- 
- export function isLocale(value: unknown): value is Locale {
+-    mcpSetup: {
+-      installTitle: server => `Add the ${server} MCP server?`,
+-      enableTitle: server => `Enable the ${server} MCP server?`,
+-      authorizeTitle: server => `Authorize the ${server} MCP server?`,
+-      installAction: 'Install',
+-      enableAction: 'Enable',
+-      authorizeAction: 'Authorize',
+-      decline: 'Not now',
+-      declined: 'Declined',
+-      installed: server => `Installed ${server}`,
+-      enabled: server => `Enabled ${server}`,
+-      authorized: server => `Authorized ${server}`,
+-      failed: server => `Setup failed for ${server}`,
+-      unanswered: 'No response',
+-      toolCount: count => (count === 1 ? '1 tool' : `${count} tools`),
+-      notInCatalog: server => `“${server}” is not in the MCP catalog`,
+-      catalogSource: 'From the Nous-approved catalog',
+-      envRequired: 'Fill in the required credentials first',
+-      sendFailed: 'Could not send MCP setup response',
+-      reloadFailed: 'Server saved, but reloading MCP tools failed — they load next session',
+-      gatewayDisconnected: 'Hermes gateway is not connected'
+-    },
+     tool: {
+       copyCode: 'Copy code',
+       renderingImage: 'Rendering image',
 diff --git a/apps/desktop/src/i18n/types.ts b/apps/desktop/src/i18n/types.ts
-index d611086143..0e9e4462b6 100644
+index ff5606f2e6..0e9e4462b6 100644
 --- a/apps/desktop/src/i18n/types.ts
 +++ b/apps/desktop/src/i18n/types.ts
-@@ -5,7 +5,7 @@
- // partial locales should use `defineLocale()` so missing desktop-only strings
- // fall back to English while new keys remain type-checked.
- 
--export type Locale = 'en' | 'zh' | 'zh-hant' | 'ja' | 'ar'
-+export type Locale = 'en' | 'zh' | 'zh-hant' | 'ja' | 'ar' | 'ru'
- 
- export type ToolTitleKey =
-   | 'browser_click'
-@@ -89,6 +89,10 @@ export interface Translations {
-     tryHint: (term: string) => string
-     on: string
-     off: string
-+    use: string,
-+    showOptions: string,
-+    moreActions: string,
-+    dismiss: string,
+@@ -589,11 +589,6 @@ export interface Translations {
+       existingToken: (value: string) => string
+       savedToken: string
+       pasteSessionToken: string
+-      plainTextConfirmTitle: string
+-      plainTextConfirmDesc: string
+-      plainTextConfirmAction: string
+-      plainTextStoredTitle: string
+-      plainTextStoredDesc: string
+       testRemote: string
+       saveForRestart: string
+       saveAndReconnect: string
+@@ -1504,13 +1499,6 @@ export interface Translations {
+     close: string
+     title: string
+     count: (count: number) => string
+-    modelImpact: {
+-      title: string
+-      message: (count: number) => string
+-      detailMore: (names: string, remaining: number) => string
+-      review: string
+-      saveFailed: string
+-    }
+     search: string
+     loading: string
+     states: Record<string, string>
+@@ -1782,8 +1770,6 @@ export interface Translations {
+       renameDesc: string
+       untitledPlaceholder: string
+       untitledChat: (id: string) => string
+-      messageCount: (count: number) => string
+-      todoProgress: string
+       ageNow: string
+       ageDay: string
+       ageHour: string
+@@ -1859,7 +1845,6 @@ export interface Translations {
+     queueEdit: string
+     queueSendNext: string
+     queueSend: string
+-    queueSteer: string
+     queueDelete: string
+     queueResume: string
+     queueResumeTip: string
+@@ -1891,37 +1876,6 @@ export interface Translations {
+     snippets: Record<string, { label: string; description: string; text: string }>
+     dropFiles: string
+     dropSession: string
+-    mcpSuggestions: {
+-      label: (server: string) => string
+-      tip: (keyword: string) => string
+-      connecting: (server: string) => string
+-      cancelTip: string
+-      added: (server: string) => string
+-      addedTip: string
+-      connectFailed: (server: string) => string
+-    }
+-    skillSuggestions: {
+-      label: (skill: string) => string
+-      tip: (skill: string) => string
+-      done: (skill: string) => string
+-      doneTip: string
+-    }
+-    repairSuggestions: {
+-      label: (server: string) => string
+-      tip: (server: string) => string
+-      working: (server: string) => string
+-      workingTip: string
+-      done: (server: string) => string
+-      doneTip: string
+-      failed: (server: string) => string
+-    }
+-    cronSuggestions: {
+-      label: string
+-      tip: (phrase: string) => string
+-      prefix: string
+-      done: string
+-      doneTip: string
+-    }
    }
  
-   fileMenu: {
-@@ -316,6 +320,7 @@ export interface Translations {
-       disable: string
-       failed: string
-       empty: string
-+      kanban: string
-       kinds: { bundled: string; disk: string; runtime: string }
-       agent: {
-         title: string
-@@ -329,6 +334,7 @@ export interface Translations {
-         updateBackendToManage: string
-         sources: Record<string, string>
-       }
-+      descriptions: Record<string, string>,
+   statusStack: {
+@@ -2254,7 +2208,6 @@ export interface Translations {
+       gatewayTitle: string
+       customizeTitle: string
+       hideStatusbar: string
+-      resetStatusbar: string
+       toggleApprovalMode: string
+       toggleBackendVersion: string
+       toggleCommandCenter: string
+@@ -2547,28 +2500,6 @@ export interface Translations {
+       lateAnswerTip: string
+       lateAnswerHint: string
      }
-     notifications: {
-       title: string
-@@ -431,6 +437,7 @@ export interface Translations {
-         turnOnFailed: string
-         turnOffFailed: string
-       }
-+      searchThemes: string,
-     }
-     fieldLabels: Record<string, string>
-     fieldDescriptions: Record<string, string>
-@@ -492,6 +499,9 @@ export interface Translations {
-       active: string
-       takenBy: string
-       invalidShortcut: string
-+      windowAriaLabel: string,
-+      newTarget: string,
-+      currentTarget: string,
-     }
-     credentials: {
-       pasteKey: string
-@@ -865,6 +875,94 @@ export interface Translations {
-         needsSetupHint: string
-       }
-     }
-+    billingPage: {
-+      alreadyOnPlan: (name: string) => string,
-+      autoRefillReloadTo: string,
-+      autoRefillReloadToAria: string,
-+      autoRefillThreshold: string,
-+      autoRefillThresholdAria: string,
-+      autoRefillTurnedOff: string,
-+      autoRefillUpdated: string,
-+      backToBilling: string,
-+      cannotChange: string,
-+      cannotSchedule: string,
-+      changeTakesEffect: (name: string, date: string, creditsDelta: string) => string,
-+      checkingChange: string,
-+      confirmDowngrade: string,
-+      currentPlan: string,
-+      customCreditAmountAria: string,
-+      devFixture: string,
-+      disable: string,
-+      dismiss: string,
-+      downgrade: string,
-+      invoices: string,
-+      manage: string,
-+      noPlansAvailable: string,
-+      openPortal: string,
-+      openVerificationPage: string,
-+      paymentCredits: string,
-+      plan: string,
-+      plans: string,
-+      scheduled: string,
-+      scheduling: string,
-+      tryAgain: string,
-+      turnOff: string,
-+      turnOffAutoRefill: string,
-+      undo: string,
-+      undoing: string,
-+      usage: string,
-+      verifyToContinue: string,
-+      waitingForVerification: string,
-+    },
-+    computerUse: {
-+      accessibility: string,
-+      accessibilityHint: string,
-+      approveMessage: string,
-+      approveTitle: string,
-+      checking: string,
-+      driverHealth: string,
-+      errorRead: string,
-+      errorRequest: string,
-+      grantPermissions: string,
-+      granted: string,
-+      grantsNote: string,
-+      notGranted: string,
-+      notInstalled: string,
-+      notInstalledGrant: string,
-+      notReady: string,
-+      notSupported: (...args: unknown[]) => string,
-+      platformNoteLinux: string,
-+      platformNoteWin: string,
-+      ready: string,
-+      readyMessage: string,
-+      recheck: string,
-+      screenRecording: string,
-+      screenRecordingHint: string,
-+      unknown: string,
-+      waitingApproval: string,
-+    },
-+    uninstall: {
-+      appPath: (...args: unknown[]) => string,
-+      checking: string,
-+      checkingInstalled: string,
-+      confirmDesc: (...args: unknown[]) => string,
-+      confirmTitle: string,
-+      couldNotStart: string,
-+      heading: string,
-+      intro: string,
-+      optionFull: string,
-+      optionFullConsequence: string,
-+      optionFullDesc: string,
-+      optionGui: string,
-+      optionGuiConsequence: string,
-+      optionGuiDesc: string,
-+      optionLite: string,
-+      optionLiteConsequence: string,
-+      optionLiteDesc: string,
-+      title: string,
-+      uninstalling: string,
-+      yes: string,
-+    },
-   }
- 
-   skills: {
-@@ -1083,6 +1181,9 @@ export interface Translations {
-       referenceImageInvalid: string
-       adopt: string
-       startOver: string
-+      setupImageGeneration: string,
-+      removeReference: string,
-+      grabKeyFrom: string,
-     }
-     installTheme: {
-       title: string
-@@ -2364,6 +2465,12 @@ export interface Translations {
-       goForward: string
-       sendEdited: string
-       attachingFile: string
-+      searchReactions: string,
-+      reactedByHermes: string,
-+      noEmoji: string,
-+      moreEmoji: string,
-+      loadingEmoji: string,
-+      conversationTimeline: string,
-     }
-     approval: {
-       gatewayDisconnected: string
-@@ -2553,4 +2660,12 @@ export interface Translations {
-       toggle: (open: boolean) => string
-     }
-   }
-+  embeds: {
-+    spotify: string,
-+    youtube: string,
-+  },
-+  pet: {
-+    hatchingProgress: string,
-+    openInHermes: string,
-+  },
- }
+-    mcpSetup: {
+-      installTitle: (server: string) => string
+-      enableTitle: (server: string) => string
+-      authorizeTitle: (server: string) => string
+-      installAction: string
+-      enableAction: string
+-      authorizeAction: string
+-      decline: string
+-      declined: string
+-      installed: (server: string) => string
+-      enabled: (server: string) => string
+-      authorized: (server: string) => string
+-      failed: (server: string) => string
+-      unanswered: string
+-      toolCount: (count: number) => string
+-      notInCatalog: (server: string) => string
+-      catalogSource: string
+-      envRequired: string
+-      sendFailed: string
+-      reloadFailed: string
+-      gatewayDisconnected: string
+-    }
+     tool: {
+       copyCode: string
+       renderingImage: string
 diff --git a/apps/desktop/src/lib/chat-runtime.ts b/apps/desktop/src/lib/chat-runtime.ts
-index 4f48a141a9..9e3406b801 100644
+index 191ed5dcc3..f9177bb518 100644
 --- a/apps/desktop/src/lib/chat-runtime.ts
 +++ b/apps/desktop/src/lib/chat-runtime.ts
 @@ -48,12 +48,12 @@ export function createClientSessionState(
@@ -828,48 +921,37 @@ index 4f48a141a9..9e3406b801 100644
  
  export function sessionTitle(session: SessionInfo): string {
 -  return session.title?.trim() || session.preview?.trim() || 'Untitled session'
-+  return session.title?.trim() || session.preview?.trim() || '╨С╨╡╨╖ ╨╜╨░╨╖╨▓╨░╨╜╨╕╤П'
++  return session.title?.trim() || session.preview?.trim() || 'Без названия'
  }
  
- /** What a session is called before it has been sent тАФ and before its composer
+ /** What a session is called before it has been sent — and before its composer
   *  has been typed into, which is the only thing that can name it earlier. */
 -export const NEW_SESSION_TITLE = 'New session'
-+export const NEW_SESSION_TITLE = '╨Э╨╛╨▓╨░╤П ╤Б╨╡╤Б╤Б╨╕╤П'
++export const NEW_SESSION_TITLE = 'Новая сессия'
  
  export function coerceGatewayText(value: unknown): string {
    if (typeof value === 'string') {
 diff --git a/apps/desktop/src/plugins/kanban/plugin.tsx b/apps/desktop/src/plugins/kanban/plugin.tsx
-index 605f58ad3c..f76dc35761 100644
+index 605f58ad3c..08aa69addd 100644
 --- a/apps/desktop/src/plugins/kanban/plugin.tsx
 +++ b/apps/desktop/src/plugins/kanban/plugin.tsx
-@@ -33,6 +33,8 @@ import {
+@@ -33,6 +33,10 @@ import {
  import { $boardSlug, bindApi, boardKey, fetchBoard } from './api'
  import { KanbanBoardPage } from './board'
  import { KANBAN_LOCALES } from './i18n'
-+// MOD: hermes-desktop-ru тАФ Russian kanban locale (registered on import)
++// MOD: hermes-desktop-ru — Russian kanban locale (registered on import)
++import './ru-locales'
++// MOD: hermes-desktop-ru — Russian kanban locale (registered on import)
 +import './ru-locales'
  import { $newTaskLane, useKanban } from './ui'
  
- // Live "N running / ready" pill тАФ one glance at fleet activity from anywhere,
-@@ -80,7 +82,7 @@ function KanbanCount() {
+ // Live "N running / ready" pill — one glance at fleet activity from anywhere,
+@@ -80,7 +84,7 @@ function KanbanCount() {
  const plugin: HermesPlugin = {
    id: 'kanban',
    name: 'Kanban',
--  description: 'Multi-agent task board тАФ board page, sidebar entry, and a live in-flight count in the status bar.',
-+  description: '╨Ь╨╜╨╛╨│╨╛╨╖╨░╨┤╨░╤З╨╜╨░╤П ╨┤╨╛╤Б╨║╨░ ╨░╨│╨╡╨╜╤В╨╛╨▓ тАФ ╤Б╤В╤А╨░╨╜╨╕╤Ж╨░ ╨┤╨╛╤Б╨║╨╕, ╨╖╨░╨┐╨╕╤Б╤М ╨▓ ╤Б╨░╨╣╨┤╨▒╨░╤А╨╡ ╨╕ ╨╢╨╕╨▓╨╛╨╣ ╤Б╤З╤С╤В╤З╨╕╨║ ╨▓ ╤Б╤В╨░╤В╤Г╤Б-╨▒╨░╤А╨╡.',
+-  description: 'Multi-agent task board — board page, sidebar entry, and a live in-flight count in the status bar.',
++  description: 'Многозадачная доска агентов — страница доски, запись в сайдбаре и живой счётчик в статус-баре.',
    defaultEnabled: false,
    register(ctx) {
      ctx.i18n.register(KANBAN_LOCALES)
-diff --git a/apps/desktop/src/app/settings/uninstall-section.tsx b/apps/desktop/src/app/settings/uninstall-section.tsx
-index 5ac21ac80e..236a5931e9 100644
---- a/apps/desktop/src/app/settings/uninstall-section.tsx
-+++ b/apps/desktop/src/app/settings/uninstall-section.tsx
-@@ -122,7 +122,7 @@ export function UninstallSection() {
- 
-   return (
-     <div className="mx-auto mt-8 w-full max-w-2xl">
--      <SectionHeading icon={AlertTriangle} title="Danger zone" />
-+      <SectionHeading icon={AlertTriangle} title="╨Ю╨┐╨░╤Б╨╜╨░╤П ╨╖╨╛╨╜╨░" />
- 
-       <div className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3">
-         {loading ? (
