@@ -860,3 +860,16 @@ index 605f58ad3c..f76dc35761 100644
    defaultEnabled: false,
    register(ctx) {
      ctx.i18n.register(KANBAN_LOCALES)
+diff --git a/apps/desktop/src/app/settings/uninstall-section.tsx b/apps/desktop/src/app/settings/uninstall-section.tsx
+index 5ac21ac80e..236a5931e9 100644
+--- a/apps/desktop/src/app/settings/uninstall-section.tsx
++++ b/apps/desktop/src/app/settings/uninstall-section.tsx
+@@ -122,7 +122,7 @@ export function UninstallSection() {
+ 
+   return (
+     <div className="mx-auto mt-8 w-full max-w-2xl">
+-      <SectionHeading icon={AlertTriangle} title="Danger zone" />
++      <SectionHeading icon={AlertTriangle} title="╨Ю╨┐╨░╤Б╨╜╨░╤П ╨╖╨╛╨╜╨░" />
+ 
+       <div className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3">
+         {loading ? (
