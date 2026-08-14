@@ -322,7 +322,7 @@ export const ru = defineLocale({
   },
   language: {
     label: 'Язык',
-    description: 'Фоновый шлюз не запустился. Попробуйте один из вариантов восстановления ниже. Ваши чаты и настройки не удаляются.',
+    description: 'Выберите язык интерфейса рабочего стола.',
     saving: 'Сохранение…',
     saveError: 'Не удалось изменить язык',
     switchTo: 'Сменить язык',
@@ -451,7 +451,7 @@ export const ru = defineLocale({
       system: { label: 'Системная', description: 'Следовать оформлению ОС' },
     },
     appearance: {
-      title: 'Hermes не удалось запустить',
+      title: 'Внешний вид',
       intro: 'Это настройки отображения только для рабочего стола. Режим управляет яркостью; тема — палитрой акцентов и оформлением чата.',
       colorMode: 'Цветовой режим',
       colorModeDesc: 'Выберите фиксированный режим или позвольте Hermes следовать системной настройке.',
@@ -620,7 +620,7 @@ export const ru = defineLocale({
       loading: 'Загрузка возможностей...',
       unavailableTitle: 'Настройки шлюза недоступны',
       unavailableDesc: 'IPC-мост десктопа не предоставляет настройки шлюза.',
-      title: 'Hermes не удалось запустить',
+      title: 'Подключение к шлюзу',
       envOverride: 'переменные окружения',
       intro: 'Hermes Desktop по умолчанию запускает собственный локальный шлюз. Используйте удалённый шлюз, когда хотите, чтобы это приложение управляло уже запущенным бэкендом Hermes на другой машине или за доверенным прокси. Выберите профиль ниже, чтобы задать ему собственный удалённый хост.',
       appliesTo: 'Применяется к',
@@ -1215,7 +1215,7 @@ export const ru = defineLocale({
   },
   agents: {
     close: 'Закрыть',
-    title: 'Hermes не удалось запустить',
+      title: 'Дерево запусков',
     subtitle: 'Активность подагентов для текущего хода.',
     emptyTitle: 'Нет активных подагентов',
     emptyDesc: 'Когда ход делегирует работу, дочерние агенты транслируют прогресс сюда.',
@@ -1648,7 +1648,7 @@ export const ru = defineLocale({
   profiles: {
     close: 'Закрыть',
     nameHint: 'Строчные буквы, цифры, дефисы и подчёркивания. Должно начинаться с буквы или цифры.',
-    title: 'Hermes не удалось запустить',
+      title: 'Профили',
     count: count => `${count} ${count === 1 ? 'profile' : 'profiles'}`,
     search: 'Поиск профилей…',
     loading: 'Загрузка возможностей...',
@@ -2182,7 +2182,7 @@ export const ru = defineLocale({
     snippets: {
       codeReview: {
         label: 'Язык',
-        description: 'Фоновый шлюз не запустился. Попробуйте один из вариантов восстановления ниже. Ваши чаты и настройки не удаляются.',
+      description: 'Проверить текущее изменение на регрессии, упущенные крайние случаи и недостающие тесты.',
         text: 'Пожалуйста, проверьте этот код на ошибки, регрессии и отсутствующие тесты.',
       },
       implementationPlan: {
@@ -2400,14 +2400,14 @@ export const ru = defineLocale({
       },
       openrouter: {
         short: 'один ключ, много моделей',
-        description: 'Фоновый шлюз не запустился. Попробуйте один из вариантов восстановления ниже. Ваши чаты и настройки не удаляются.',
+      description: 'Сотни моделей за одним ключом. Хороший выбор по умолчанию для новых установок.',
       },
       openai: { short: 'Модели класса GPT', description: 'Прямой доступ к моделям OpenAI.' },
       gemini: { short: 'Gemini models', description: 'Direct access to Google Gemini models.' },
       xai: { short: 'Grok models', description: 'Direct access to xAI Grok models.' },
       local: {
         short: 'собственный хостинг',
-        description: 'Фоновый шлюз не запустился. Попробуйте один из вариантов восстановления ниже. Ваши чаты и настройки не удаляются.',
+      description: 'Направьте Hermes на локальный или собственный OpenAI-совместимый эндпоинт (vLLM, llama.cpp, Ollama и т.д.).',
       },
     },
     backToSignIn: 'Назад ко входу',
@@ -2453,7 +2453,7 @@ export const ru = defineLocale({
     docs: provider => `${provider} docs`,
   },
   modelPicker: {
-    title: 'Hermes не удалось запустить',
+      title: 'Сменить модель',
     current: 'текущая:',
     unknown: 'Неизвестно',
     search: 'Поиск',
@@ -2469,7 +2469,7 @@ export const ru = defineLocale({
     wasPrice: 'было',
   },
   modelVisibility: {
-    title: 'Hermes не удалось запустить',
+      title: 'Модели',
     search: 'Поиск',
     noAuthenticatedProviders: 'Нет авторизованных провайдеров.',
     addProvider: 'Добавить провайдера…',
@@ -2685,7 +2685,7 @@ export const ru = defineLocale({
       sendEntry: 'Отправить эту запись в чат',
       messages: count => `${count} console messages`,
       resize: 'Изменить размер консоли предпросмотра',
-      title: 'Hermes не удалось запустить',
+      title: 'Консоль предпросмотра',
       selected: count => `${count} selected`,
       sendToChat: 'Отправить в чат',
       copySelected: 'Копировать выбранное в буфер',
@@ -3032,8 +3032,8 @@ export const ru = defineLocale({
       nextAria: 'Перейти на следующую страницу',
     },
     sidebar: {
-      title: 'Hermes не удалось запустить',
-      description: 'Фоновый шлюз не запустился. Попробуйте один из вариантов восстановления ниже. Ваши чаты и настройки не удаляются.',
+      title: 'Боковая панель',
+      description: 'Отображает мобильную боковую панель.',
       toggle: open => `${open ? 'Показать' : 'Скрыть'} боковую панель`,
     },
   },
