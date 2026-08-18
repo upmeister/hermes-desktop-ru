@@ -71,6 +71,20 @@ if ((Test-Path $asar) -and -not (Test-Path "$asar.stock.bak")) { Copy-Item $asar
 if ((Test-Path "$unpacked\dist") -and -not (Test-Path "$unpacked\dist.stock.bak")) { Copy-Item "$unpacked\dist" "$unpacked\dist.stock.bak" -Recurse }
 Write-Host "backups ok"
 
+# 1b. structural i18n patcher (v5): registers 'ru' in types/catalog/languages by
+# STRUCTURAL ANCHORS (survives upstream rewrites - e.g. 0.20.4 rewrote catalog.ts).
+# This replaces the old patch-hunks for these 3 files, so those hunks were removed
+# from ru-mod-v3.patch. Node must be reachable (it already is for the build below).
+$i18nDir = "$root\apps\desktop\src\i18n"
+if (Test-Path "$PSScriptRoot\structural-i18n.mjs") {
+  node "$PSScriptRoot\structural-i18n.mjs" "$i18nDir"
+  if ($LASTEXITCODE -ne 0) { Write-Host "FAIL: structural-i18n patcher"; exit 1 }
+  Write-Host "structural-i18n done"
+} else {
+  Write-Host "WARN: structural-i18n.mjs missing - falling back to patch hunks (may already be applied)"
+}
+
+
 # 2. BUILD dist from the clone (includes ALL clone patches: timestamps + ru + ...)
 Write-Host "building dist from clone (npm run build)..."
 Push-Location $desktop

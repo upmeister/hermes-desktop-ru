@@ -1,87 +1,104 @@
 # Hermes Desktop — Russian Language Mod (Русский мод)
 
-Добавляет русский язык интерфейса в десктопное приложение Hermes Agent.
+Русская локализация десктопного приложения [Hermes Agent](https://github.com/NousResearch/hermes-agent).
+Работает на **0.20.4** (проверено; механизм структурных якорей рассчитан на будущие версии).
+Покрытие: **97% ключей i18n** (2912 из 2855 EN + свои), плюс перевод канбан-плагина, настроек,
+плагинов и хардкодов (терминал, «Опасная зона», таймстампы — см. ниже).
 
 ## Как это работает
 
-Мод использует встроенную систему i18n Hermes Desktop: функцию `defineLocale()` из `apps/desktop/src/i18n/define-locale.ts`. Она создаёт **частичный** перевод — все ключи, которых нет в `ru.ts`, автоматически берутся из английского оригинала (`en.ts`). Это значит:
+Мод использует встроенную i18n системы Hermes Desktop — `defineLocale(overrides)` из
+`apps/desktop/src/i18n/define-locale.ts`. Это **глубокий merge поверх EN**:
+- ключей, которых нет в `ru.ts`, — fallback на английский → интерфейс не ломается при апдейтах;
+- но **функциональные ключи EN (плейсхолдеры, плюрализация) нельзя заменять строками** — иначе
+  `r.titlebar.layoutEditorTitle is not a function` (краш рендерера, инцидент 16.08). См. «Как переводить».
 
-- Интерфейс не ломается при обновлении Hermes (новые ключи просто будут на английском)
-- Не нужно переводить 100% строк — только те, что реально используются
-- `defineLocale()` глубоко сливает русские переводы поверх английской базы
+Регистрация русской локали (`ru` в `types.ts`, `catalog.ts`, `languages.ts`) выполняется
+**структурным патчером по якорям**, а не хунками патча — поэтому переживает рефакторинг апстрима
+(0.20.4 переписал `catalog.ts`, и старые хунки потеряли `ru` → ru=no → весь UI на английском).
 
-## Состав мода
+## Состав мода (v5, 16.08.2026)
 
 ```
-desktop-ru-mod/
+hermes-desktop-ru/
 ├── i18n/
-│   ├── ru.ts              # Перевод (defineLocale, частичный)
-│   ├── ru-constants.ts    # Перевод fieldLabels/fieldDescriptions
-│   ├── types.ts           # Добавлен 'ru' в тип Locale
-│   ├── languages.ts       # Добавлен русский в список языков
-│   └── catalog.ts         # Добавлен импорт ru в TRANSLATIONS
-├── scripts/
-│   ├── patch-components.py # Патч компонентов настроек
-│   └── patch-skills.py    # Патч описаний навыков
-├── rebuild.sh             # Скрипт пересборки после обновления
-├── launch-hermes-ru.bat   # Лаунчер (Windows) с env-переменными
-└── .gitignore
+│   ├── ru.ts               # Перевод (defineLocale, ~97% покрытия)
+│   ├── ru-constants.ts     # Перевод fieldLabels/fieldDescriptions (настройки)
+│   └── ru-locales.ts       # Перевод канбан-плагина (167+8 notify-ключей)
+├── patches/
+│   └── ru-mod-v3.patch     # Хардкоды компонентов (12 файлов, БЕЗ i18n/ — их шьёт патчер)
+├── package/
+│   ├── install-asar.ps1    # Установщик (restore → structural-i18n → build → asar)
+│   ├── structural-i18n.mjs # Патчер i18n-регистрации по структурным якорям (идемпотентный)
+│   ├── files/ru.ts, ru-constants.ts, ru-locales.ts   # untracked-файлы мода (переживают апдейты)
+│   └── install.bat         # Обёртка для установщика
+└── README.md
 ```
 
-## Установка
+## Установка (Windows)
 
-```bash
-# Клонировать мод в ~/.hermes/desktop-ru-mod/
-git clone https://github.com/upmeister/hermes-desktop-ru.git ~/.hermes/desktop-ru-mod
-
-# Запустить сборку
-bash ~/.hermes/desktop-ru-mod/rebuild.sh
-
-# Перезапустить Hermes Desktop
-```
-
-## После обновления Hermes
-
-```bash
-bash ~/.hermes/desktop-ru-mod/rebuild.sh
-```
-
-Скрипт скопирует файлы мода в исходники, пересоберёт фронтенд и обновит dist.
-
-## Как переводить новые ключи
-
-1. Сравни `ru.ts` с `en.ts` (в `apps/desktop/src/i18n/`)
-2. Добавь недостающие ключи в `ru.ts` в том же формате
-3. `npm run build` в `apps/desktop/`
-4. Проверь: `grep "твой-перевод" dist/assets/index-*.js`
-
-## Основа перевода
-
-Базовый перевод взят из [warment/hermes-desktop-ru](https://github.com/warment/hermes-desktop-ru) (1782 строки), сконвертирован в формат `defineLocale()` для автоматического fallback на английский.
-
-## Установка (правило v2, 13.08.2026)
-
-**НЕ ставить пакетный dist** — он затирает другие моды клона (урок 13.08: v1 затёр ru-мод).
-База установки — ВСЕГДА свежий `npm run build` из клона Windows (включает ВСЕ патчи клона:
-ru + timestamps + будущие):
+> База — ВСЕГДА свежий `npm run build` из клона Windows (включает ВСЕ патчи клона).
+> **Никогда** не ставить пакетный dist — он затирает другие моды клона.
 
 1. Клон на месте: `C:\Users\covhnw\AppData\Local\hermes\hermes-agent`
 2. Запустить `package\install.bat` (или `install-asar.ps1` напрямую):
-   - шаг 1: `npm run build` в `apps\desktop` (vite + bundle-electron-main + stage-native-deps)
-   - шаг 2: пересборка `app.asar` (extract со stubs → replace `dist/` → `pack --unpack "**"`)
-   - бэкап: `app.asar.stock.bak` рядом
+   - `git apply` патча `patches\ru-mod-v3.patch` (хардкоды, если ещё не применён);
+   - восстановить untracked-файлы из `files\` (ru.ts, ru-constants, ru-locales);
+   - **`node structural-i18n.mjs`** → добавляет `ru` в `types/catalog/languages` по якорям
+     (идемпотентно, безопасно на стоковом апстриме);
+   - `npm run build` в `apps\desktop`;
+   - пересборка `app.asar` (extract со stubs → replace `dist/` → `pack --unpack "**"`)
+     + бэкап `app.asar.stock.bak`.
 3. Перезапустить Hermes Desktop.
 
-Пакетный `dist/` в этом репо — только fallback при упавшей сборке (не основной путь).
+## После обновления Hermes
 
-## Состав (актуальный, 12.08.2026)
+Просто повторить шаг 2 — установщик сам смоет старый мод в клоне и пересоберёт.
+Untracked-файлы (`files/`) переживают апдейты (проверено на 0.20.1); tracked-хунки патча
+установщик восстанавливает повторным `git apply`; а каталожную регистрацию `ru` всегда
+делает структурный патчер — даже если апстрим её перепишет.
 
-- `i18n/` — финальные локали из прода: en.ts, types.ts, ru.ts, zh.ts, ru-constants.ts,
-  custom-endpoints-settings.tsx, ru-locales-kanban.ts (перевод канбан-плагина)
-- `patches/` — ru-mod-v3.patch (i18n-пересборка под апстрим 76d832d38: 4 файла),
-  desktop-timestamps-mod.patch (3 файла рендерера)
-- `package/` — install.bat + install-asar.ps1 (v2, правило выше)
-- Корень — инструменты перевода (merge/dedup/fix-скрипты), история работы
+Проверка после установки: бандл должен содержать маркеры — `findstr "Применить" <путь>\dist\assets\*.js`
+(или открыть Настройки → верхняя строка должна быть на русском).
+
+## Как переводить новые ключи
+
+1. Сверь `ru.ts` с `en.ts` (`apps/desktop/src/i18n/`). Проверь **все** ключи по типам:
+   - `EN` — значение-функция (например `mod => \`...${mod}...\``)? → в `ru.ts` тоже функция
+     с теми же параметрами, **не строка** (иначе краш «is not a function»).
+   - `EN` — строка? → переводи как строку.
+2. Допиши в `ru.ts` в том же формате; для плюрализации используют `ruPlural(n, 'одна', 'неск', 'много')`.
+3. Прогони синтаксис: `npx -p typescript@5.9.2 tsc --noEmit --noResolve --skipLibCheck --target es2022
+   --module esnext --moduleResolution bundler --jsx react-jsx i18n/ru.ts` (только твои ошибки;
+   нерезолвные импорты `@/...` — норма в изоляции).
+4. Регистрацию новых категорий (если секции нет в EN) не трогать — fallback на EN.
+5. `npm run build` в `apps\desktop`, проверь сборку и маркер в `dist/assets/`.
+
+Совет: при добавлении новых ключей пользуйся аудитом типов — сравнение en/ru в рантайме
+(конвертация в .mjs + walk) ловит все «EN=функция, RU=строка» разом. Утилиты — `~/projects/hermes-desktop-ru/tools/` (исторически в `/tmp/ts2mjs`).
+
+## Таймстампы
+
+Апстрим 0.20.4 ввёл **нативные таймстампы** (компонент `MessageTimelineTimestamp`, гейт
+`display.timestamps` в `~/.hermes/config.yaml`, выключены по умолчанию). Включаются:
+`hermes config set display.timestamps true`. Свой таймстамп-мод удалён (был несовместим с 0.20.4).
+Дизайн нативных задаётся Tailwind-классами (`data-slot="timeline-timestamp"`,
+`text-[0.625rem] … text-muted-foreground/55`) — при желании можно перекрыть CSS-оверрайдом в своём
+стиле (без пересборки, точечно).
+
+## История ключевых версий
+
+- **v3.12.1 (16.08)** — фикс краша: 3 функциональных ключа EN (layoutEditorTitle/mcpSuggestions.tip/
+  commitPlaceholder) вернули к функции. **v3.12** — перевод 108 новых ключей 0.20.4 (Connections,
+  MCP deep-links, update-blocker, appearance, kanban-notify), ре-регистрация `ru` (0.20.4 переписал catalog.ts).
+- **v5 установщика (16.08)** — структурный патчер i18n по якорям (+ doctor-проверка состояния).
+
+## Основа перевода
+
+Базовый перевод — из [warment/hermes-desktop-ru](https://github.com/warment/hermes-desktop-ru)
+(конвертирован в `defineLocale`), diff-словарь DrMaks22 (PR #72250), плюс собственные волны перевода
+(4 + 4.1 + 4.2 x 10 опросников, 5.1 = 108 новых ключей). Сверка спорных технических терминов —
+с реальными переводами в интернете и каталогом терминов.
 
 ## Лицензия
 
