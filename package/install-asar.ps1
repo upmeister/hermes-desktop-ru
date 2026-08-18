@@ -5,10 +5,13 @@ $ErrorActionPreference = 'Stop'
 # other mods. Install base = fresh `npm run build` from the clone. Package dist is
 # fallback only.
 # v3 (13.08): (1) restores the mod into the clone BEFORE building - patches
-# (ru-mod-v3 + timestamps) are git-applied if not present, untracked locale files
-# are copied from files/ (updates wipe them too, not only tracked patches!);
+# (ru-mod-v3) are git-applied if not present, untracked locale files are copied
+# from files/ (updates wipe them too, not only tracked patches!);
 # (2) RU marker probe moved to probe-ru.mjs (inline node -e breaks on backslash
 # paths: \U -> SyntaxError).
+# v4 (15.08, 0.20.4): desktop-timestamps-mod.patch REMOVED — upstream 0.20.4
+# ships native timestamps gated by display.timestamps (config.yaml #41531);
+# our mod timestamps were obsolete AND broke the build.
 $root = "C:\Users\covhnw\AppData\Local\hermes\hermes-agent"
 $desktop = "$root\apps\desktop"
 $res = "$desktop\release\win-unpacked\resources"
@@ -27,7 +30,7 @@ Start-Sleep -Seconds 1
 
 # 0. RESTORE the mod into the clone (updates wipe tracked patches AND untracked files)
 Push-Location $root
-foreach ($p in @("ru-mod-v3.patch", "desktop-timestamps-mod.patch")) {
+foreach ($p in @("ru-mod-v3.patch")) {
   $patch = Join-Path $PSScriptRoot "patches\$p"
   if (Test-Path $patch) {
     # PS 5.1: git writes progress to STDERR. With ErrorActionPreference=Stop, BOTH
@@ -46,14 +49,10 @@ foreach ($p in @("ru-mod-v3.patch", "desktop-timestamps-mod.patch")) {
 }
 Pop-Location
 # untracked locale/component files (always overwrite - they are part of the mod).
-# NOTE: message-timestamp.tsx is a NEW file - git diff patches do NOT include
-# untracked files, so the timestamps patch alone leaves the import dangling
-# (build fails with UNLOADABLE_DEPENDENCY). It must live here in files/.
 $files = @(
   @("files\ru.ts", "apps\desktop\src\i18n\ru.ts"),
   @("files\ru-constants.ts", "apps\desktop\src\app\settings\ru-constants.ts"),
-  @("files\ru-locales.ts", "apps\desktop\src\plugins\kanban\ru-locales.ts"),
-  @("files\message-timestamp.tsx", "apps\desktop\src\components\assistant-ui\thread\message-timestamp.tsx")
+  @("files\ru-locales.ts", "apps\desktop\src\plugins\kanban\ru-locales.ts")
 )
 foreach ($f in $files) {
   $src = Join-Path $PSScriptRoot $f[0]

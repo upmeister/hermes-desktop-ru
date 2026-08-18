@@ -194,7 +194,17 @@ const ru = {
   profileDescriptionsHint:
     'Описания направляют маршрутизацию декомпозера. Можно сгенерировать автоматически вспомогательной моделью или написать свои.',
   profileGoodAt: 'В чём хорош этот профиль?',
-  auto: 'Авто'
+  auto: 'Авто',
+  notify: {
+    completedTitle: 'Задача выполнена',
+    blockedTitle: 'Задача заблокирована — нужен ваш ввод',
+    blockLoopTitle: 'Задача вернулась в триаж — нужно решение',
+    gaveUpTitle: 'Задача сдалась',
+    crashedTitle: 'Исполнитель упал — будет повтор',
+    timedOutTitle: 'Задача не уложилась в срок — будет повтор',
+    openKanban: 'Открыть Канбан',
+    artifacts: (n: number) => `${n} ${n === 1 ? 'артефакт' : 'артефактов'}`
+  },
 }
 
 registerPluginLocales('kanban', { ru })

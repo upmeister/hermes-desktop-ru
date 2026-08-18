@@ -1,53 +1,8 @@
-diff --cc apps/desktop/src/i18n/zh.ts
-index d33f5e1b59,540c6cbb3d..0000000000
---- a/apps/desktop/src/i18n/zh.ts
-+++ b/apps/desktop/src/i18n/zh.ts
-@@@ -2057,7 -1922,6 +1936,7 @@@ export const zh: Translations = 
-        skills: '技能与工具',
-        messaging: '消息平台',
-        artifacts: '产物',
--       cron: '定时任务'
-++
-      },
-      searchAria: '搜索会话',
-      searchPlaceholder: '搜索会话…',
-@@@ -3027,30 -2856,8 +2906,30 @@@
-        continueLabel: '继续',
-        lateAnswer: (question, choice) => `关于"${question}" — 我的回答: ${choice}`,
-        lateAnswerTip: '将此回答起草为后续消息',
--       lateAnswerHint: '此问题已不再等待回答。选择一个选项会将其起草为后续消息。'
-+       lateAnswerHint: '此问题已不再等待回答。选择一个选项会将其起草为后续消息。',
-      },
- +    mcpSetup: {
- +      installTitle: server => `添加 ${server} MCP 服务器？`,
- +      enableTitle: server => `启用 ${server} MCP 服务器？`,
- +      authorizeTitle: server => `授权 ${server} MCP 服务器？`,
- +      installAction: '安装',
- +      enableAction: '启用',
- +      authorizeAction: '授权',
- +      decline: '暂不',
- +      declined: '已拒绝',
- +      installed: server => `已安装 ${server}`,
- +      enabled: server => `已启用 ${server}`,
- +      authorized: server => `已授权 ${server}`,
- +      failed: server => `${server} 设置失败`,
- +      unanswered: '未响应',
- +      toolCount: count => `${count} 个工具`,
- +      notInCatalog: server => `“${server}”不在 MCP 目录中`,
- +      catalogSource: '来自 Nous 认证目录',
- +      envRequired: '请先填写所需凭据',
- +      sendFailed: '无法发送 MCP 设置响应',
- +      reloadFailed: '服务器已保存，但重新加载 MCP 工具失败 — 将在下个会话加载',
- +      gatewayDisconnected: 'Hermes 网关未连接'
- +    },
-      tool: {
-        copyCode: '复制代码',
-        renderingImage: '正在渲染图片',
 diff --git a/apps/desktop/src/app/chat/index.tsx b/apps/desktop/src/app/chat/index.tsx
-index 16f622bee9..0cf152255a 100644
+index 13ed225186..cf2b3348e9 100644
 --- a/apps/desktop/src/app/chat/index.tsx
 +++ b/apps/desktop/src/app/chat/index.tsx
-@@ -78,7 +78,6 @@ interface ChatViewProps extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
+@@ -86,7 +86,6 @@ interface ChatViewProps extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
    maxVoiceRecordingSeconds?: number
    onAttachImageBlob: (blob: Blob) => Promise<boolean | void> | boolean | void
    onAttachDroppedItems: (candidates: DroppedFile[]) => Promise<boolean | void> | boolean | void
@@ -55,7 +10,7 @@ index 16f622bee9..0cf152255a 100644
    onPasteClipboardImage: (opts?: { silent?: boolean }) => Promise<boolean> | void
    onPickFiles: () => void
    onPickFolders: () => void
-@@ -290,7 +289,6 @@ export const ChatView = memo(function ChatView({
+@@ -331,7 +330,6 @@ export const ChatView = memo(function ChatView({
    onAddUrl,
    onAttachImageBlob,
    onAttachDroppedItems,
@@ -63,7 +18,7 @@ index 16f622bee9..0cf152255a 100644
    onBranchInNewChat,
    maxVoiceRecordingSeconds,
    onPasteClipboardImage,
-@@ -459,7 +457,7 @@ export const ChatView = memo(function ChatView({
+@@ -500,7 +498,7 @@ export const ChatView = memo(function ChatView({
        },
        tools: {
          enabled: true,
@@ -72,7 +27,7 @@ index 16f622bee9..0cf152255a 100644
          suggestions: contextSuggestions
        },
        voice: {
-@@ -618,7 +616,6 @@ export const ChatView = memo(function ChatView({
+@@ -659,7 +657,6 @@ export const ChatView = memo(function ChatView({
                onAddUrl={onAddUrl}
                onAttachDroppedItems={onAttachDroppedItems}
                onAttachImageBlob={onAttachImageBlob}
@@ -81,18 +36,153 @@ index 16f622bee9..0cf152255a 100644
                onPasteClipboardImage={onPasteClipboardImage}
                onPickFiles={onPickFiles}
 diff --git a/apps/desktop/src/app/contrib/controller.tsx b/apps/desktop/src/app/contrib/controller.tsx
-index a70efb6f65..7761cd62b6 100644
+index f14f957c33..4ebbd3e8e8 100644
 --- a/apps/desktop/src/app/contrib/controller.tsx
 +++ b/apps/desktop/src/app/contrib/controller.tsx
-@@ -74,7 +74,6 @@ import {
- import { HudShell } from '../hud/hud-shell'
- import { $terminalTakeover, setTerminalTakeover } from '../right-sidebar/store'
- import { $workspaceIsPage } from '../routes'
--import { ShellContextMenu } from '../shell/shell-context-menu'
+@@ -94,25 +94,25 @@ import { ContribWiring, WiredPane } from './wiring'
+ // ---------------------------------------------------------------------------
+ // Pane contributions. `data.placement` = semantic role for grid presets;
+ // `data.minWidth/maxWidth/minHeight/maxHeight` = the SAME clamps the app's
+-// `Pane` props declare — the layout tree sizes zones by weight (percentage)
++// `Pane` props declare тАФ the layout tree sizes zones by weight (percentage)
+ // but a zone never shrinks/grows past its active pane's clamp.
+ // Headers are contextual (tree-side): a pane alone in a zone shows no
+ // header/tab by default; stacked panes show chips. Double-click a zone
+ // toggles its header either way.
+ // ---------------------------------------------------------------------------
  
- import { FilesPane, LogsPane, ReviewPaneContent } from './panes'
- import { ContribWiring, WiredPane } from './wiring'
-@@ -387,7 +386,7 @@ const QUAD_TREE = split(
+-// ONE render identity for the workspace pane — syncWorkspaceTitle re-registers
++// ONE render identity for the workspace pane тАФ syncWorkspaceTitle re-registers
+ // the contribution (new title) and a fresh closure would remount the chat.
+ const renderWorkspacePane = () => <WiredPane part="chatRoutes" />
+ 
+-// Boot-hidden panes mount behind display:none (instant-toggle contract) — defer
++// Boot-hidden panes mount behind display:none (instant-toggle contract) тАФ defer
+ // them to idle so they're off the first-paint path, warm before reveal.
+ const idle = (node: ReactElement) => <IdleMount>{node}</IdleMount>
+ // The main tab carries the same session context menu as tile tabs (targets
+ // the loaded primary session; no menu on a fresh draft).
+ const wrapWorkspaceTab = (tab: ReactElement) => <WorkspaceTabMenu>{tab}</WorkspaceTabMenu>
+ 
+-/** The `@session` payload for the workspace tab — the loaded primary session,
++/** The `@session` payload for the workspace tab тАФ the loaded primary session,
+  *  or null on a fresh draft / full-page view (nothing to link). */
+ const workspaceDragPayload = (): SessionDragPayload | null => {
+   const selected = $selectedStoredSessionId.get()
+@@ -126,7 +126,7 @@ const workspaceDragPayload = (): SessionDragPayload | null => {
+   return { id: selected, profile: stored?.profile ?? '', title: stored ? storedSessionTitle(stored) : '' }
+ }
+ 
+-// The main tab drags like a session tile — drop it on a composer to link the
++// The main tab drags like a session tile тАФ drop it on a composer to link the
+ // chat, on a zone/edge to stack/split. Defers (`false`) to the generic pane
+ // move when there's no loaded session to carry.
+ const workspaceTabDrag = (event: ReactPointerEvent<HTMLElement>, onTap: () => void, double?: DoubleTapContext) => {
+@@ -147,7 +147,7 @@ registry.registerMany([
+     area: 'panes',
+     title: 'sessions',
+     // Collapsible: leaves the grid on narrow viewports (edge overlay instead).
+-    // dock: where a RE-ADOPTED pane lands (healed from a stale dismissal) —
++    // dock: where a RE-ADOPTED pane lands (healed from a stale dismissal) тАФ
+     // its default-ish spot beside main, not a random same-placement stack.
+     data: {
+       placement: 'left',
+@@ -180,8 +180,8 @@ registry.registerMany([
+     title: 'terminal',
+     // revealOnPreset: choosing a layout that places the terminal (e.g.
+     // "Terminal deck") turns takeover on so the zone actually shows, instead of
+-    // staying collapsed behind the ⌃` toggle. height sizes the fixed track (a
+-    // single-pane zone declaring a height is a fixed track — the preset weight
++    // staying collapsed behind the тМГ` toggle. height sizes the fixed track (a
++    // single-pane zone declaring a height is a fixed track тАФ the preset weight
+     // is moot): a short deck, not a third of the window.
+     //
+     // NO minHeight: a tool panel drags all the way down to its collapsed
+@@ -216,7 +216,7 @@ registry.registerMany([
+     id: 'review',
+     area: 'panes',
+     title: 'review',
+-    // The second right sidebar: hidden until ⌘G ($reviewOpen) — bound below
++    // The second right sidebar: hidden until тМШG ($reviewOpen) тАФ bound below
+     // like the other chrome toggles; its zone collapses while hidden.
+     data: {
+       placement: 'right',
+@@ -234,7 +234,7 @@ registry.registerMany([
+ // Chrome contributions. The title bar and status bar are fixed chrome outside
+ // the grid, composable through these areas. Everything real lives in the real
+ // components (TitlebarControls / useStatusbarItems). Sample PLUGIN
+-// contributions don't live here — they're their own files under `src/plugins/`,
++// contributions don't live here тАФ they're their own files under `src/plugins/`,
+ // auto-discovered by discoverBundledPlugins() below.
+ // ---------------------------------------------------------------------------
+ 
+@@ -243,7 +243,7 @@ registry.registerMany([
+   // sidebar; place/cwd lives in the sidebar project tree. Center is drag
+   // chrome (plugins can still contribute to titleBar.center if needed).
+   // Layout edit mode registers through the SAME declarative surfaces plugins
+-  // use: a rebindable keybind (collision-checked in the panel) + a ⌘K row
++  // use: a rebindable keybind (collision-checked in the panel) + a тМШK row
+   // whose hotkey hint tracks the live binding.
+   {
+     id: 'layout.editMode',
+@@ -276,7 +276,7 @@ registry.registerMany([
+       run: () => void discoverRuntimePlugins()
+     } satisfies PaletteContribution
+   },
+-  // The core `::preview{file="…"}` transcript directive — the model (or a
++  // The core `::preview{file="тАж"}` transcript directive тАФ the model (or a
+   // skill) renders a workspace HTML file LIVE inside its own message
+   // (sandboxed srcdoc iframe; falls back to the classic preview card for
+   // non-HTML targets and remote gateways). Also the reference consumer for
+@@ -301,7 +301,7 @@ registry.registerMany([
+     } satisfies PaletteContribution
+   },
+   // Hiding the bar removes the surface that would otherwise offer it back, so
+-  // ⌘K is the guaranteed door in (alongside the rebindable ⌘⇧S).
++  // тМШK is the guaranteed door in (alongside the rebindable тМШтЗзS).
+   paletteToggle({
+     id: 'view.toggleStatusbar',
+     label: 'Toggle status bar',
+@@ -330,7 +330,7 @@ registry.registerMany([
+     area: PALETTE_AREA,
+     data: {
+       id: 'profile.export',
+-      label: 'Export profile…',
++      label: 'Export profileтАж',
+       icon: Upload,
+       keywords: ['profile', 'export', 'share', 'bundle', 'theme', 'settings', 'backup'],
+       run: () => void runExportProfileFlow()
+@@ -341,7 +341,7 @@ registry.registerMany([
+     area: PALETTE_AREA,
+     data: {
+       id: 'profile.import',
+-      label: 'Import profile…',
++      label: 'Import profileтАж',
+       icon: Download,
+       keywords: ['profile', 'import', 'share', 'bundle', 'archive', 'restore'],
+       run: () => void runImportProfileFlow()
+@@ -350,16 +350,16 @@ registry.registerMany([
+ ])
+ 
+ // ---------------------------------------------------------------------------
+-// Layout presets — CHAT (main) always dominates.
++// Layout presets тАФ CHAT (main) always dominates.
+ // ---------------------------------------------------------------------------
+ 
+ // The REAL default: sessions left, chat main, and the right sidebars in column
+-// order main | … | review | file-browser (files outermost). Each is its OWN
+-// zone. Review collapses to nothing while its pane is hidden (⌘G off).
++// order main | тАж | review | file-browser (files outermost). Each is its OWN
++// zone. Review collapses to nothing while its pane is hidden (тМШG off).
+ //
+ // Preview tiles are DYNAMIC panes (like session tiles), so no preset names one:
+ // they're registered by watchPreviewTiles as tabs open, and dockPaneBeside lands
+-// each one directly beside the file tree wherever that currently lives — so a
++// each one directly beside the file tree wherever that currently lives тАФ so a
+ // file double-click still slides a preview open as its own pane next to the
+ // tree, never as a tab stacked into the files sidebar.
+ const DEFAULT_TREE = split(
+@@ -409,7 +409,7 @@ const QUAD_TREE = split(
  registry.registerMany([
    { id: 'default', area: 'layouts', title: 'Default', order: 0, data: DEFAULT_TREE },
    { id: 'focus', area: 'layouts', title: 'Focus', order: 10, data: FOCUS_TREE },
@@ -101,118 +191,277 @@ index a70efb6f65..7761cd62b6 100644
    { id: 'quad', area: 'layouts', title: 'Quad', order: 30, data: QUAD_TREE }
  ])
  
-@@ -719,12 +718,11 @@ export function ContribController() {
-       style={{ '--sidebar-width': '100%' } as CSSProperties}
-     >
-       <ContribWiring>
--        <ShellContextMenu>
--          <div
--            className="flex h-screen min-h-0 w-screen flex-col bg-(--ui-bg-chrome) text-(--ui-text-primary)"
--            style={{ '--titlebar-height': '0px' } as CSSProperties}
--          >
--            {/* Title bar: fixed chrome outside the grid, composable via slots.
-+        <div
-+          className="flex h-screen min-h-0 w-screen flex-col bg-(--ui-bg-chrome) text-(--ui-text-primary)"
-+          style={{ '--titlebar-height': '0px' } as CSSProperties}
-+        >
-+          {/* Title bar: fixed chrome outside the grid, composable via slots.
+@@ -421,7 +421,7 @@ declareDefaultTree(DEFAULT_TREE)
+ discoverBundledPlugins()
+ 
+ // Plugin panes join the tree by their `placement` hint the moment they
+-// register — incl. runtime plugins arriving seconds after boot.
++// register тАФ incl. runtime plugins arriving seconds after boot.
+ watchContributedPanes()
+ 
+ // Session + route (page) tiles: persisted splits register panes docked beside
+@@ -431,7 +431,7 @@ watchRouteTiles()
+ watchPreviewTiles()
+ 
+ // Composer pop-out state is keyed by layout zone, so drop entries for zones the
+-// user has since closed or merged away — otherwise a long-lived install keeps a
++// user has since closed or merged away тАФ otherwise a long-lived install keeps a
+ // row for every split it has ever had.
+ $layoutTree.subscribe(tree => {
+   if (tree) {
+@@ -447,7 +447,7 @@ watchSessionPins()
+ watchUnreadWriteGuard()
+ 
+ // The main tab reads as its SESSION (the loaded title, "New session" on a
+-// fresh draft) — a stack of main + tiles is then just a row of session names.
++// fresh draft) тАФ a stack of main + tiles is then just a row of session names.
+ // register() replaces same-id in place; the render fn is the shared constant
+ // above, so the pane content never remounts.
+ const syncWorkspaceTitle = () => {
+@@ -457,17 +457,17 @@ const syncWorkspaceTitle = () => {
+   registry.register({
+     id: 'workspace',
+     area: 'panes',
+-    // The placeholder, not the draft's live name — `tabTitle` below renders
++    // The placeholder, not the draft's live name тАФ `tabTitle` below renders
+     // that. Keeping it here would re-register the pane on every keystroke.
+     title: stored ? storedSessionTitle(stored) : NEW_SESSION_TITLE,
+     data: {
+-      // The tab's status dot — the SAME primitive the sidebar row and session
++      // The tab's status dot тАФ the SAME primitive the sidebar row and session
+       // tiles render, so the main tab never disagrees with its sidebar row. A
+       // fresh draft has no session to key by, which IS its status: the dot
+       // resolves to `draft` and marks the tab rather than leaving a hole.
+       tabLead: () => <SessionStatusDot session={stored} storedSessionId={selected} />,
+       // A draft's name lives in its composer, not in any session row, so the
+-      // label subscribes to it directly — typing renames the tab without
++      // label subscribes to it directly тАФ typing renames the tab without
+       // re-registering the pane.
+       tabTitle: stored ? undefined : () => <SessionDraftTitle scope={selected} />,
+       // Pages aren't tab-able: the main zone's bar stands down while one shows.
+@@ -487,29 +487,29 @@ $sessions.listen(syncWorkspaceTitle)
+ $workspaceIsPage.listen(syncWorkspaceTitle)
+ 
+ // Layout reset collapses every session tile into main as a tab (after the
+-// workspace) instead of re-scattering them — pre-placed before adoption.
++// workspace) instead of re-scattering them тАФ pre-placed before adoption.
+ registerLayoutResetHandler(stackSessionTilesIntoMain)
+ 
+ // ---------------------------------------------------------------------------
+ // Titlebar chrome toggles -> tree. The TitlebarControls buttons keep their
+ // store semantics ($sidebarOpen / $fileBrowserOpen / $panesFlipped); the tree
+-// reacts — a hidden pane's zone collapses (content stays mounted), the flip
++// reacts тАФ a hidden pane's zone collapses (content stays mounted), the flip
+ // toggle mirrors the root row.
+ // ---------------------------------------------------------------------------
+ 
+ // HIDE-STYLE PANES (files, review, preview): the binding lives in the tree
+-// store — bindPaneVisibility — alongside bindToolPaneCollapse, so both are
++// store тАФ bindPaneVisibility тАФ alongside bindToolPaneCollapse, so both are
+ // testable against the real function instead of a copy.
+ 
+-// TOOL PANELS (terminal, logs): the binding lives in the tree store —
+-// bindToolPaneCollapse — so the boot rule it encodes is testable against the
++// TOOL PANELS (terminal, logs): the binding lives in the tree store тАФ
++// bindToolPaneCollapse тАФ so the boot rule it encodes is testable against the
+ // real function instead of a copy. See its docblock for the semantics.
+ 
+ // SIDES have one source of truth: the TREE. The legacy $panesFlipped flag is
+ // DERIVED from where the sessions zone actually sits (TitlebarControls maps
+-// its left/right buttons through it), so dragging sessions across — or
+-// applying a mirrored preset — remaps the buttons automatically. The flip
+-// action (⌘\ / titlebar) mirrors the tree only when they disagree.
++// its left/right buttons through it), so dragging sessions across тАФ or
++// applying a mirrored preset тАФ remaps the buttons automatically. The flip
++// action (тМШ\ / titlebar) mirrors the tree only when they disagree.
+ const sessionsOnRight = () => {
+   const tree = $layoutTree.get()
+ 
+@@ -540,28 +540,28 @@ $panesFlipped.listen(flipped => {
+   }
+ })
+ 
+-// POSITIONAL side toggles (titlebar buttons, ⌘B / ⌘J): $sidebarOpen ≙ the
+-// LEFT side of the main zone, $fileBrowserOpen ≙ the RIGHT — everything on
++// POSITIONAL side toggles (titlebar buttons, тМШB / тМШJ): $sidebarOpen тЙЩ the
++// LEFT side of the main zone, $fileBrowserOpen тЙЩ the RIGHT тАФ everything on
+ // that side hides together, whatever panes have been rearranged there.
+ bindTreeSideVisibility('left', $sidebarOpen, setSidebarOpen)
+ bindTreeSideVisibility('right', $fileBrowserOpen, setFileBrowserOpen)
+ 
+ // Workspace-scoped surfaces: the file tree and git diff only mean something
+-// inside a project. A detached chat (no cwd) hides them — their zones
++// inside a project. A detached chat (no cwd) hides them тАФ their zones
+ // collapse and the chat absorbs the width; picking a project brings them
+ // back. The terminal is NOT workspace-gated: unlike the old shell (where it
+ // rode the rail's row and vanished with it), its zone stands on its own.
+ const $hasWorkspace = computed($currentCwd, cwd => Boolean(cwd.trim()))
+ 
+-// The tree pane's own presence tracks ⌘J directly, not just the column's
+-// collapse — otherwise a pane revealed into that shared column would drag the
++// The tree pane's own presence tracks тМШJ directly, not just the column's
++// collapse тАФ otherwise a pane revealed into that shared column would drag the
+ // tree along with it.
+ //
+-// Both get a CLOSER and an OPENER. The closer keeps ⌘J/⌘G truthful when the
++// Both get a CLOSER and an OPENER. The closer keeps тМШJ/тМШG truthful when the
+ // pane is closed from the tab menu; the opener is its mirror, so bringing the
+ // pane back through the tree (the toggle's reveal path, the rail, a preset)
+ // writes the store too. Without the opener the boolean went stale the moment
+-// anything but the toggle showed the pane — the divergence this whole change
++// anything but the toggle showed the pane тАФ the divergence this whole change
+ // is about.
+ bindPaneVisibility(
+   'files',
+@@ -569,14 +569,14 @@ bindPaneVisibility(
+   () => setFileBrowserOpen(false),
+   () => setFileBrowserOpen(true)
+ )
+-// ⌘G — the review sidebar appears/disappears (and comes to the front).
++// тМШG тАФ the review sidebar appears/disappears (and comes to the front).
+ bindPaneVisibility(
+   'review',
+   computed([$reviewOpen, $hasWorkspace], (open, workspace) => open && workspace),
+   closeReview,
+   openReview
+ )
+-// ⌃` / statusbar toggle — the terminal COLLAPSES to a rail (tab stays), not
++// тМГ` / statusbar toggle тАФ the terminal COLLAPSES to a rail (tab stays), not
+ // hides; PTYs stay alive while collapsed (see PersistentTerminal).
+ bindToolPaneCollapse(
+   'terminal',
+@@ -584,7 +584,7 @@ bindToolPaneCollapse(
+   () => setTerminalTakeover(false),
+   () => setTerminalTakeover(true)
+ )
+-// ⌘K door onto the same pane the keybind and statusbar pill flip — was a
++// тМШK door onto the same pane the keybind and statusbar pill flip тАФ was a
+ // one-way "open" row under Go to, so it never showed on/off and couldn't hide.
+ // Reads the TREE like every other pane toggle: `$terminalTakeover` stays true
+ // behind a stacked sibling tab or a minimized zone, which would light the row
+@@ -601,12 +601,12 @@ registry.register(
+   })
+ )
+ 
+-// Logs are ⌘K-ONLY chrome: the pane contribution EXISTS only while $logsOpen
++// Logs are тМШK-ONLY chrome: the pane contribution EXISTS only while $logsOpen
+ // is on. Off (the default) keeps logs out of the registry and the tree
+-// entirely — no secondary tab riding the terminal strip, no preset or
++// entirely тАФ no secondary tab riding the terminal strip, no preset or
+ // adoption path that resurrects it. Session-only on purpose (not persisted):
+ // a fresh boot never re-opens logs automatically. The palette toggle is the
+-// single door in; tab ✕ / ⌘W / the toggle itself remove it again.
++// single door in; tab тЬХ / тМШW / the toggle itself remove it again.
+ const $logsOpen = atom(false)
+ 
+ let unregisterLogsPane: (() => void) | null = null
+@@ -617,9 +617,9 @@ const syncLogsPane = (open: boolean) => {
+       id: 'logs',
+       area: 'panes',
+       title: 'logs',
+-      // Same tool-panel sizing rule as the terminal above — no minHeight, so
++      // Same tool-panel sizing rule as the terminal above тАФ no minHeight, so
+       // the sash floors it at COLLAPSED_ZONE_PX and folds the zone to its rail
+-      // rather than leaving a sliver. dock: its OWN zone beside the terminal —
++      // rather than leaving a sliver. dock: its OWN zone beside the terminal тАФ
+       // never a tab in the terminal's strip.
+       data: {
+         placement: 'bottom',
+@@ -629,14 +629,14 @@ const syncLogsPane = (open: boolean) => {
+       },
+       render: () => idle(<LogsPane />)
+     })
+-    // Summoning logs is explicit intent — front it (un-dismisses if a ✕ close
++    // Summoning logs is explicit intent тАФ front it (un-dismisses if a тЬХ close
+     // left a dismissal record behind).
+     revealTreePane('logs')
+   } else {
+     unregisterLogsPane?.()
+     unregisterLogsPane = null
+ 
+-    // No dismissal record — the next toggle-on must re-adopt cleanly. Also
++    // No dismissal record тАФ the next toggle-on must re-adopt cleanly. Also
+     // sweeps 'logs' out of persisted trees from before it was summon-only.
+     // Guarded: removePane rebuilds the tree even for an absent pane, and a
+     // no-op boot sweep would commit (and persist) a fresh identical tree.
+@@ -648,7 +648,7 @@ const syncLogsPane = (open: boolean) => {
+   }
+ }
+ 
+-// Tool-panel tab semantics (✕ / ⌘W route through the store) so the palette
++// Tool-panel tab semantics (тЬХ / тМШW route through the store) so the palette
+ // toggle stays truthful either way.
+ markCollapsePane('logs')
+ registerPaneCloser('logs', () => $logsOpen.set(false))
+@@ -664,7 +664,7 @@ registry.register(
+     keywords: ['logs', 'agent log', 'tail', 'debug'],
+     // On-screen, not the store's boolean. Summon-only keeps the two in step
+     // while logs sits in its own zone, but the user can still drag it into the
+-    // terminal's strip or minimize its zone — and then `$logsOpen` reads true
++    // terminal's strip or minimize its zone тАФ and then `$logsOpen` reads true
+     // with nothing visible, so the row would show "on" and its press would
+     // spend itself re-asserting a value it already held.
+     get: () => isPaneVisible('logs'),
+@@ -673,7 +673,7 @@ registry.register(
+ )
+ 
+ // YOLO (dangerous-command approval bypass) is a status-bar zap and a /yolo
+-// command; ⌘K is the third door onto the SAME store function, so a user who
++// command; тМШK is the third door onto the SAME store function, so a user who
+ // lives in the palette never has to hunt for the pill.
+ registry.register(
+   paletteToggle({
+@@ -686,11 +686,11 @@ registry.register(
+   })
+ )
+ 
+-// Sessions/files Close = collapse their SIDE (⌘B/⌘J truthful, titlebar button
+-// flips back) — but only while the pane actually lives in that root side
++// Sessions/files Close = collapse their SIDE (тМШB/тМШJ truthful, titlebar button
++// flips back) тАФ but only while the pane actually lives in that root side
+ // column. Dragged next to main, a side collapse can't hide it (the collapse
+-// skips main-bearing children), so Close falls back to dismissal there —
+-// otherwise ⌘W/Close silently no-op.
++// skips main-bearing children), so Close falls back to dismissal there тАФ
++// otherwise тМШW/Close silently no-op.
+ registerPaneCloser('sessions', () =>
+   paneRootSide('sessions') === 'left' ? setSidebarOpen(false) : dismissTreePane('sessions')
+ )
+@@ -758,7 +758,7 @@ export function ContribController() {
+             {/* Title bar: fixed chrome outside the grid, composable via slots.
                Layout contract (no contribution can break it):
                  - a full-bar DRAG BASE underneath (pointer-events-none, like
-                   AppShell's drag strips) — everywhere without content drags
-@@ -735,54 +733,53 @@ export function ContribController() {
-                   tree-published --workspace-left/right vars (pure CSS, no rect
-                   threading), clamped to clear the REAL TitlebarControls
+-                  AppShell's drag strips) — everywhere without content drags
++                  AppShell's drag strips) тАФ everywhere without content drags
+                   the window;
+                 - each slot region is width-fit, no-drag, pointer-events-auto,
+                   so every contribution is clickable by construction;
+@@ -768,7 +768,7 @@ export function ContribController() {
                    clusters (fixed, z-70); center is truly window-centered. */}
--            <div className="relative flex h-[34px] shrink-0 items-center bg-(--ui-sidebar-surface-background) text-xs">
--              {/* Drag strips, AppShell-style: cut to AVOID the fixed control
-+          <div className="relative flex h-[34px] shrink-0 items-center bg-(--ui-sidebar-surface-background) text-xs">
-+            {/* Drag strips, AppShell-style: cut to AVOID the fixed control
-                 clusters instead of overlapping them — Electron's no-drag
+             <div className="relative flex h-[34px] shrink-0 items-center bg-(--ui-sidebar-surface-background) text-xs">
+               {/* Drag strips, AppShell-style: cut to AVOID the fixed control
+-                clusters instead of overlapping them — Electron's no-drag
++                clusters instead of overlapping them тАФ Electron's no-drag
                  carve-out of fixed/transformed elements is unreliable, so a
                  full-bar drag base kills their clicks. In-flow slot content
                  still carves via its own no-drag wrapper (the same pattern as
-                 the app's session-title button). */}
--              <div
--                aria-hidden="true"
--                className="pointer-events-none absolute inset-y-0 left-0 w-(--titlebar-controls-left,14px) [-webkit-app-region:drag]"
--              />
--              <div
--                aria-hidden="true"
--                className="pointer-events-none absolute inset-y-0 left-[calc(var(--titlebar-controls-left,14px)+(var(--titlebar-control-size,24px)*2)+0.75rem)] right-[calc(var(--titlebar-tools-right,0.75rem)+var(--titlebar-tools-width,5.5rem)+0.75rem)] [-webkit-app-region:drag]"
--              />
--              <TitlebarSlot
--                area="titleBar.left"
--                className="pointer-events-auto absolute z-10 flex w-max items-center gap-2 [-webkit-app-region:no-drag]"
--                style={{
--                  left: 'max(calc(var(--workspace-left, 0px) + 0.5rem), calc(var(--titlebar-controls-left, 14px) + 2 * var(--titlebar-control-size, 24px) + 1rem))'
--                }}
--              />
--              <TitlebarSlot
--                area="titleBar.center"
--                className="pointer-events-auto absolute left-1/2 top-1/2 z-10 flex w-max -translate-x-1/2 -translate-y-1/2 items-center gap-2 [-webkit-app-region:no-drag]"
--              />
--              <TitlebarSlot
--                area="titleBar.right"
--                className="pointer-events-auto absolute z-10 flex w-max items-center gap-2 [-webkit-app-region:no-drag]"
--                style={{
--                  right:
--                    'max(calc(var(--workspace-right, 0px) + 0.5rem), calc(var(--titlebar-tools-right, 0.75rem) + 4 * var(--titlebar-control-size, 24px) + 0.5rem))'
--                }}
--              />
--            </div>
--
--            <LayoutTreeRoot />
--
+@@ -807,12 +807,12 @@ export function ContribController() {
+ 
+             <LayoutTreeRoot />
+ 
 -            {/* "Close running tab?" — the busy/input-blocked tile close gate. */}
--            <SessionTileCloseConfirm />
--
++            {/* "Close running tab?" тАФ the busy/input-blocked tile close gate. */}
+             <SessionTileCloseConfirm />
+ 
 -            {/* The REAL statusbar (model pill, command center, agents, …) with
-+            <div
-+              aria-hidden="true"
-+              className="pointer-events-none absolute inset-y-0 left-0 w-(--titlebar-controls-left,14px) [-webkit-app-region:drag]"
-+            />
-+            <div
-+              aria-hidden="true"
-+              className="pointer-events-none absolute inset-y-0 left-[calc(var(--titlebar-controls-left,14px)+(var(--titlebar-control-size,24px)*2)+0.75rem)] right-[calc(var(--titlebar-tools-right,0.75rem)+var(--titlebar-tools-width,5.5rem)+0.75rem)] [-webkit-app-region:drag]"
-+            />
-+            <TitlebarSlot
-+              area="titleBar.left"
-+              className="pointer-events-auto absolute z-10 flex w-max items-center gap-2 [-webkit-app-region:no-drag]"
-+              style={{
-+                left: 'max(calc(var(--workspace-left, 0px) + 0.5rem), calc(var(--titlebar-controls-left, 14px) + 2 * var(--titlebar-control-size, 24px) + 1rem))'
-+              }}
-+            />
-+            <TitlebarSlot
-+              area="titleBar.center"
-+              className="pointer-events-auto absolute left-1/2 top-1/2 z-10 flex w-max -translate-x-1/2 -translate-y-1/2 items-center gap-2 [-webkit-app-region:no-drag]"
-+            />
-+            <TitlebarSlot
-+              area="titleBar.right"
-+              className="pointer-events-auto absolute z-10 flex w-max items-center gap-2 [-webkit-app-region:no-drag]"
-+              style={{
-+                right:
-+                  'max(calc(var(--workspace-right, 0px) + 0.5rem), calc(var(--titlebar-tools-right, 0.75rem) + 4 * var(--titlebar-control-size, 24px) + 0.5rem))'
-+              }}
-+            />
-+          </div>
-+
-+          <LayoutTreeRoot />
-+
-+          {/* "Close running tab?" — the busy/input-blocked tile close gate. */}
-+          <SessionTileCloseConfirm />
-+
-+          {/* The REAL statusbar (model pill, command center, agents, …) with
-               statusBar.left/right contributions merged in. Unmounted — not
-               just hidden — while toggled off, so its 15s status poll and the
+-              statusBar.left/right contributions merged in. Unmounted — not
+-              just hidden — while toggled off, so its 15s status poll and the
++            {/* The REAL statusbar (model pill, command center, agents, тАж) with
++              statusBar.left/right contributions merged in. Unmounted тАФ not
++              just hidden тАФ while toggled off, so its 15s status poll and the
                per-turn readouts stop with it. */}
--            {statusbarVisible && <WiredPane part="statusbar" />}
--          </div>
--        </ShellContextMenu>
-+          {statusbarVisible && <WiredPane part="statusbar" />}
-+        </div>
-       </ContribWiring>
-     </SidebarProvider>
-   )
+             {statusbarVisible && <WiredPane part="statusbar" />}
+           </div>
 diff --git a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx b/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
 index 3f5d54835d..57b9c198f7 100644
 --- a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
@@ -229,10 +478,10 @@ index 3f5d54835d..57b9c198f7 100644
                <option key={session.id} value={session.id}>
                  {session.title}
 diff --git a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
-index d111a46380..3d1667ac12 100644
+index b74b30a290..47676e7af7 100644
 --- a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
 +++ b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
-@@ -142,9 +142,9 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -141,9 +141,9 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
  
        triggerHaptic('success')
        onConfigSaved?.()
@@ -244,7 +493,7 @@ index d111a46380..3d1667ac12 100644
      } finally {
        setSaving(false)
      }
-@@ -164,8 +164,8 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -163,8 +163,8 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
          notify({
            kind: 'success',
            message: response.models.length
@@ -255,7 +504,7 @@ index d111a46380..3d1667ac12 100644
          })
        } else {
          notify({
-@@ -174,7 +174,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -173,7 +173,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
          })
        }
      } catch (err) {
@@ -264,7 +513,7 @@ index d111a46380..3d1667ac12 100644
      } finally {
        setTesting(false)
      }
-@@ -189,14 +189,14 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -188,14 +188,14 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
        onMainModelChanged?.(response.provider, response.model)
        triggerHaptic('success')
      } catch (err) {
@@ -281,7 +530,7 @@ index d111a46380..3d1667ac12 100644
        return
      }
  
-@@ -213,7 +213,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -212,7 +212,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
        onConfigSaved?.()
        triggerHaptic('success')
      } catch (err) {
@@ -290,7 +539,7 @@ index d111a46380..3d1667ac12 100644
      } finally {
        setDeleting(null)
      }
-@@ -230,7 +230,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -229,7 +229,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
      <SettingsContent>
        <div className="space-y-6">
          <section>
@@ -299,7 +548,7 @@ index d111a46380..3d1667ac12 100644
            <div className="divide-y divide-border/40 rounded-md border border-border/50">
              {endpoints.length ? (
                endpoints.map(endpoint => (
-@@ -258,7 +258,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -257,7 +257,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
                      </div>
                      <div className="mt-1 flex flex-wrap gap-2 text-xs text-muted-foreground">
                        <span>{endpoint.model}</span>
@@ -308,7 +557,7 @@ index d111a46380..3d1667ac12 100644
                      </div>
                    </button>
                    <div className="flex items-center gap-2 sm:justify-end">
-@@ -277,7 +277,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -276,7 +276,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
                          disabled={deleting === endpoint.id}
                          onClick={() => void handleDelete(endpoint)}
                          size="icon-sm"
@@ -317,7 +566,7 @@ index d111a46380..3d1667ac12 100644
                          variant="ghost"
                        >
                          {deleting === endpoint.id ? <Loader2 className="animate-spin" /> : <Trash2 />}
-@@ -287,13 +287,13 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -286,13 +286,13 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
                  </div>
                ))
              ) : (
@@ -334,18 +583,49 @@ index d111a46380..3d1667ac12 100644
              <div className="grid gap-3 sm:grid-cols-2">
                <label className="grid gap-1.5 text-xs text-muted-foreground">
 diff --git a/apps/desktop/src/app/settings/model-settings.tsx b/apps/desktop/src/app/settings/model-settings.tsx
-index b91a04f103..132f093719 100644
+index 28036e9e67..3fc5433011 100644
 --- a/apps/desktop/src/app/settings/model-settings.tsx
 +++ b/apps/desktop/src/app/settings/model-settings.tsx
-@@ -27,7 +27,6 @@ import { useI18n } from '@/i18n'
- import { AlertTriangle, Cpu, Loader2 } from '@/lib/icons'
- import { DEFAULT_REASONING_EFFORT, REASONING_EFFORT_VALUES } from '@/lib/reasoning-effort'
- import { cn } from '@/lib/utils'
--import { setMainModelAssignment } from '@/store/cron-model-impact'
- import { notifyError } from '@/store/notifications'
- import { startManualLocalEndpoint, startManualOnboarding, startManualProviderOAuth } from '@/store/onboarding'
+@@ -95,13 +95,13 @@ const isFastTier = (tier: unknown): boolean =>
+ // A provider row is "ready" to pick a model from when it reports models. The
+ // backend now surfaces the full `hermes model` universe (every canonical
+ // provider), so unconfigured providers come back with `authenticated:false`
+-// and an empty `models` list — those need a setup step before a model exists.
++// and an empty `models` list тАФ those need a setup step before a model exists.
+ function isProviderReady(p?: ModelOptionProvider): boolean {
+   return !!p && (p.authenticated !== false || (p.models?.length ?? 0) > 0)
+ }
  
-@@ -168,11 +167,13 @@ function StaleAuxWarning({ applying, onReset, slots, taskLabel }: StaleAuxWarnin
+ // Mirrors `_AUX_TASK_SLOTS` in hermes_cli/web_server.py. Friendly labels and
+-// hints make the assignments readable; raw task keys (vision, mcp, …) are
++// hints make the assignments readable; raw task keys (vision, mcp, тАж) are
+ // opaque to most users.
+ interface AuxTaskMeta {
+   key: string
+@@ -118,11 +118,11 @@ const AUX_TASKS: readonly AuxTaskMeta[] = [
+   { key: 'curator' }
+ ]
+ 
+-const NO_PROVIDERS: readonly ModelOptionProvider[] = [{ name: '—', slug: '', models: [] }]
++const NO_PROVIDERS: readonly ModelOptionProvider[] = [{ name: 'тАФ', slug: '', models: [] }]
+ 
+ // Radix <Select> renders a blank trigger when `value` matches no <SelectItem>.
+ // A custom model (e.g. one added via config that isn't in the provider's
+-// curated list) would vanish — surface the active value so it stays selectable.
++// curated list) would vanish тАФ surface the active value so it stays selectable.
+ export const withActive = (models: readonly string[], active: string): readonly string[] =>
+   active && !models.includes(active) ? [active, ...models] : models
+ 
+@@ -131,7 +131,7 @@ export const withActive = (models: readonly string[], active: string): readonly
+ // passes through an incomplete state while the user picks the new model.
+ export const moaSlotComplete = (slot: MoaModelSlot): boolean => !!(slot.provider.trim() && slot.model.trim())
+ 
+-// True when every slot in every preset is fully specified — the only state
++// True when every slot in every preset is fully specified тАФ the only state
+ // that is safe to persist. The backend rejects configs with half-filled slots
+ // (HTTP 422) instead of silently swapping the preset for hardcoded defaults
+ // (#64156), so the autosave must simply wait for the edit to finish rather
+@@ -168,11 +168,13 @@ function StaleAuxWarning({ applying, onReset, slots, taskLabel }: StaleAuxWarnin
      <div className="flex flex-wrap items-center gap-2 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-200">
        <AlertTriangle className="size-3.5 shrink-0" />
        <span className="grow">
@@ -362,23 +642,157 @@ index b91a04f103..132f093719 100644
        </Button>
      </div>
    )
-@@ -620,9 +621,10 @@ export function ModelSettings({ onMainModelChanged }: ModelSettingsProps) {
-     setError('')
+@@ -199,7 +201,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+   const [moa, setMoa] = useState<MoaConfigResponse | null>(null)
+   const [selectedMoaPreset, setSelectedMoaPreset] = useState('')
+   const [newMoaPresetName, setNewMoaPresetName] = useState('')
+-  // agent.* defaults round-trip through the shared config cache (read → write
++  // agent.* defaults round-trip through the shared config cache (read тЖТ write
+   // back the whole record), so a save here shows in the MCP/model surfaces.
+   const { data: config } = useHermesConfigRecord(scopeProfile)
+   const setConfig = useMemo(() => hermesConfigCacheWriter(scopeProfile), [scopeProfile])
+@@ -210,7 +212,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+   // switch (provider differs from the new main). Cleared on next switch/reset.
+   const [switchStaleAux, setSwitchStaleAux] = useState<StaleAuxAssignment[]>([])
+   // Inline API-key entry for picking an unconfigured `api_key` provider in
+-  // place — mirrors the onboarding ApiKeyForm but scoped to the model picker.
++  // place тАФ mirrors the onboarding ApiKeyForm but scoped to the model picker.
+   const [apiKeyDraft, setApiKeyDraft] = useState('')
+   const [activating, setActivating] = useState(false)
  
-     try {
--      const result = await setMainModelAssignment({
-+      const result = await setModelAssignment({
-         model: selectedModel,
-         provider: selectedProvider,
-+        scope: 'main',
-         ...(selectedProviderRow?.api_url ? { base_url: selectedProviderRow.api_url } : {})
-       })
+@@ -283,7 +285,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+     void refresh()
+   }, [refresh])
  
+-  // A profile switch swaps the backend under the mounted panel — reload for the
++  // A profile switch swaps the backend under the mounted panel тАФ reload for the
+   // new profile (bumping the epoch first so any in-flight A request is discarded).
+   useOnProfileSwitch(() => {
+     profileEpoch.current += 1
+@@ -309,7 +311,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+     [providerOptions, providers, selectedProvider]
+   )
+ 
+-  // MoA reference/aggregator slots must never be the moa virtual provider —
++  // MoA reference/aggregator slots must never be the moa virtual provider тАФ
+   // that would create a recursive MoA tree (the backend rejects it on save).
+   // Hide it from the slot selectors so it isn't offered as a dead choice.
+   const moaSlotProviderOptions = providerOptions.filter(provider => (provider.slug || '').toLowerCase() !== 'moa')
+@@ -373,7 +375,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+   // Guard against stale save responses overwriting newer state.
+   const moaSaveGeneration = useRef(0)
+ 
+-  // Quiet debounced persist for inline MoA edits — mirrors the config page's
++  // Quiet debounced persist for inline MoA edits тАФ mirrors the config page's
+   // autosave so slot/aggregator tweaks save themselves, matching the
+   // preset-level ops (set default / add / delete) that already persist on
+   // click. No `applying` spinner, so selecting stays responsive.
+@@ -441,7 +443,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+     const next = { ...slot, ...patch }
+ 
+     // Picking a new provider invalidates the model choice (models are
+-    // per-provider). A same-provider update must not wipe the model — Radix
++    // per-provider). A same-provider update must not wipe the model тАФ Radix
+     // filters same-value changes, but programmatic callers may not.
+     if (patch.provider && patch.provider !== slot.provider) {
+       next.model = ''
+@@ -455,7 +457,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+       const epoch = profileEpoch.current
+ 
+       // Explicit preset ops (set default / add / delete) supersede any pending
+-      // debounced slot autosave — cancel it and invalidate in-flight responses
++      // debounced slot autosave тАФ cancel it and invalidate in-flight responses
+       // so the two writers can't race each other's state.
+       if (moaSaveTimer.current) {
+         window.clearTimeout(moaSaveTimer.current)
+@@ -504,7 +506,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+       .map(entry => ({ task: entry.task, provider: entry.provider, model: entry.model }))
+   }, [auxiliary, mainModel])
+ 
+-  // Capabilities of the APPLIED main model — gates the profile-default
++  // Capabilities of the APPLIED main model тАФ gates the profile-default
+   // reasoning/speed controls the same way the composer picker gates per-model
+   // edits (reasoning defaults on, fast defaults off when unreported).
+   const mainCaps = useMemo(() => {
+@@ -517,7 +519,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+   const fastSupported = mainCaps?.fast ?? false
+ 
+   // Hand-written `reasoning_effort: false`/`off` reaches us as boolean false
+-  // ("false" once stringified) — show it as Off, not an empty select.
++  // ("false" once stringified) тАФ show it as Off, not an empty select.
+   const rawEffort = String(getNested(config ?? {}, 'agent.reasoning_effort') ?? '')
+     .trim()
+     .toLowerCase()
+@@ -527,7 +529,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+   const fastOn = isFastTier(getNested(config ?? {}, 'agent.service_tier'))
+ 
+   // Persist a single agent.* default by round-tripping the whole config record
+-  // (PUT /api/config replaces it) — optimistic, with rollback on failure.
++  // (PUT /api/config replaces it) тАФ optimistic, with rollback on failure.
+   const writeAgentDefault = useCallback(
+     async (key: string, value: string) => {
+       if (!config) {
+@@ -568,7 +570,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+       setApiKeyDraft('')
+ 
+       // Pick a sensible default for the freshly-activated provider (mirrors
+-      // `hermes model` curation). Best-effort — fall through to the refreshed
++      // `hermes model` curation). Best-effort тАФ fall through to the refreshed
+       // model list if it fails.
+       let nextModel = ''
+ 
+@@ -596,7 +598,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+     }
+   }, [apiKeyDraft, scopeProfile, selectedProviderRow])
+ 
+-  // OAuth / external providers can't be activated with a pasted key — hand off
++  // OAuth / external providers can't be activated with a pasted key тАФ hand off
+   // to the shared onboarding flow scoped to this provider's real sign-in. The
+   // custom / local endpoint is NOT an OAuth provider, so it gets the dedicated
+   // local-endpoint form (URL + optional API key) instead of being dead-ended
+@@ -859,8 +861,8 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+         {needsSetup && !setupIsApiKey && selectedProviderRow && (
+           <p className="mt-2 text-xs text-muted-foreground">
+             {selectedProviderRow?.auth_type === 'api_key'
+-              ? `${selectedProviderRow?.name} needs an API key — set it up to choose a model.`
+-              : `${selectedProviderRow?.name} signs in through your browser — Hermes runs the flow for you.`}
++              ? `${selectedProviderRow?.name} needs an API key тАФ set it up to choose a model.`
++              : `${selectedProviderRow?.name} signs in through your browser тАФ Hermes runs the flow for you.`}
+           </p>
+         )}
+         {config && mainModel && (reasoningSupported || fastSupported) && (
+@@ -1014,7 +1016,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+                   }
+                   description={
+                     <span className="font-mono text-[0.68rem]">
+-                      {isAuto ? m.autoUseMain : `${current.provider} · ${current.model || m.providerDefault}`}
++                      {isAuto ? m.autoUseMain : `${current.provider} ┬╖ ${current.model || m.providerDefault}`}
+                     </span>
+                   }
+                   title={
+@@ -1220,7 +1222,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+                 className={cn(slot.enabled === false && 'opacity-60')}
+                 description={
+                   <span className="font-mono text-[0.68rem]">
+-                    {slot.provider} · {slot.model || m.model}
++                    {slot.provider} ┬╖ {slot.model || m.model}
+                   </span>
+                 }
+                 key={`${selectedMoaPreset}-${index}`}
+@@ -1297,7 +1299,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+               }
+               description={
+                 <span className="font-mono text-[0.68rem]">
+-                  {currentMoaPreset.aggregator.provider} · {currentMoaPreset.aggregator.model}
++                  {currentMoaPreset.aggregator.provider} ┬╖ {currentMoaPreset.aggregator.model}
+                 </span>
+               }
+               title="Aggregator"
 diff --git a/apps/desktop/src/app/settings/plugins-settings.tsx b/apps/desktop/src/app/settings/plugins-settings.tsx
-index ca31ff3838..b31dbfebe1 100644
+index 69598afe43..ea0671428a 100644
 --- a/apps/desktop/src/app/settings/plugins-settings.tsx
 +++ b/apps/desktop/src/app/settings/plugins-settings.tsx
-@@ -59,7 +59,7 @@ async function revealPluginsDir() {
+@@ -55,7 +55,7 @@ async function revealPluginsDir() {
      const dir = await window.hermesDesktop?.desktopPluginsRoot?.()
  
      if (!dir) {
@@ -387,7 +801,7 @@ index ca31ff3838..b31dbfebe1 100644
  
        return
      }
-@@ -69,10 +69,10 @@ async function revealPluginsDir() {
+@@ -65,10 +65,10 @@ async function revealPluginsDir() {
      const result = await window.hermesDesktop?.openDir?.(dir)
  
      if (result && !result.ok) {
@@ -400,7 +814,7 @@ index ca31ff3838..b31dbfebe1 100644
    }
  }
  
-@@ -86,7 +86,7 @@ async function revealAgentPluginsDir(request: GatewayRequest) {
+@@ -82,7 +82,7 @@ async function revealAgentPluginsDir(request: GatewayRequest) {
      const home = (result?.home ?? '').trim()
  
      if (!home) {
@@ -409,7 +823,7 @@ index ca31ff3838..b31dbfebe1 100644
  
        return
      }
-@@ -94,10 +94,10 @@ async function revealAgentPluginsDir(request: GatewayRequest) {
+@@ -90,10 +90,10 @@ async function revealAgentPluginsDir(request: GatewayRequest) {
      const opened = await window.hermesDesktop?.openDir?.(`${home}/plugins`)
  
      if (opened && !opened.ok) {
@@ -436,7 +850,7 @@ index 5ac21ac80e..236a5931e9 100644
        <div className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3">
          {loading ? (
 diff --git a/apps/desktop/src/components/assistant-ui/markdown-text.tsx b/apps/desktop/src/components/assistant-ui/markdown-text.tsx
-index 2158e54662..b5b9784e31 100644
+index b2e6ba0c2b..f18e3215a8 100644
 --- a/apps/desktop/src/components/assistant-ui/markdown-text.tsx
 +++ b/apps/desktop/src/components/assistant-ui/markdown-text.tsx
 @@ -14,7 +14,6 @@ import { ExpandableBlock } from '@/components/chat/expandable-block'
@@ -447,7 +861,7 @@ index 2158e54662..b5b9784e31 100644
  import { detectArtifact } from '@/lib/artifact-detect'
  import { normalizeExternalUrl, openExternalLink, PrettyLink } from '@/lib/external-link'
  import { createMemoizedMathPlugin } from '@/lib/katex-memo'
-@@ -231,7 +230,7 @@ function MediaAttachment({ path }: { path: string }) {
+@@ -232,7 +231,7 @@ function MediaAttachment({ path }: { path: string }) {
            open()
          }}
        >
@@ -456,7 +870,7 @@ index 2158e54662..b5b9784e31 100644
        </a>
        {openFailed && <OpenMediaFailedNote name={name} />}
      </span>
-@@ -603,46 +602,23 @@ function MarkdownTextSurface({
+@@ -629,46 +628,23 @@ function MarkdownTextSurface({
    }
  
    return (
@@ -520,94 +934,11 @@ index 2158e54662..b5b9784e31 100644
    )
  }
  
-diff --git a/apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx b/apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx
-index d0293b22ad..dd0c6ea686 100644
---- a/apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx
-+++ b/apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx
-@@ -18,7 +18,7 @@ import {
- import { MESSAGE_PARTS_COMPONENTS } from '@/components/assistant-ui/thread/message-parts'
- import { ReactionPicker } from '@/components/assistant-ui/thread/message-reactions'
- import { ResponseLoadingIndicator, StreamStallIndicator } from '@/components/assistant-ui/thread/status'
--import { formatMessageTimestamp } from '@/components/assistant-ui/thread/timestamp'
-+import { MessageTimestamp } from '@/components/assistant-ui/thread/message-timestamp'
- import { useMessageReactions, useTapbackDoubleClick } from '@/components/assistant-ui/thread/use-message-reactions'
- import { AGENT_MESSAGE_RE } from '@/components/assistant-ui/thread/user-message'
- import { TooltipIconButton } from '@/components/assistant-ui/tooltip-icon-button'
-@@ -29,7 +29,6 @@ import { useI18n } from '@/i18n'
- import { triggerHaptic } from '@/lib/haptics'
- import { AudioLines, GitForkIcon, Loader2Icon, RefreshCwIcon, SmilePlusIcon, VolumeXIcon, XIcon } from '@/lib/icons'
- import { extractPreviewTargets } from '@/lib/preview-targets'
--import { formatAgo } from '@/lib/time'
- import { useEnterAnimation } from '@/lib/use-enter-animation'
- import { cn } from '@/lib/utils'
- import { playSpeechText, stopVoicePlayback } from '@/lib/voice-playback'
-@@ -262,7 +261,6 @@ const AssistantActionBar: FC<MessageActionProps> = ({ messageId, getMessageText,
-         }
-         data-slot="aui_msg-actions"
-       >
--        <MessageAge />
-         {onBranchInNewChat && (
-           <TooltipIconButton
-             onClick={() => {
-@@ -364,28 +362,11 @@ const ReadAloudButton: FC<{ getText: () => string; messageId: string }> = ({ get
-   )
- }
- 
--const MessageAge: FC = () => {
--  const { t } = useI18n()
--  const createdAt = useAuiState(s => s.message.createdAt)
--  const date = createdAt ? new Date(createdAt) : null
--
--  if (!date || Number.isNaN(date.getTime())) {
--    return null
--  }
--
--  // Compact "2h ago" (shared util) with the absolute time on hover.
--  return (
--    <span
--      className="px-0.5 text-[0.6875rem] tabular-nums text-muted-foreground"
--      title={formatMessageTimestamp(date, t.assistant.thread) || undefined}
--    >
--      {formatAgo(date.getTime(), t.agents)}
--    </span>
--  )
--}
--
- const AssistantFooter: FC<MessageActionProps> = props => (
-   <div className="flex min-h-6 flex-col items-end gap-1 pr-(--message-text-indent) pl-(--message-text-indent)">
-+    {/* Mod: hermes-desktop-timestamps — always-visible timestamp; stock
-+        shows the age only inside the hover-revealed action bar. */}
-+    <MessageTimestamp />
-     <BranchPickerPrimitive.Root
-       className="inline-flex h-6 items-center gap-1 text-xs text-muted-foreground"
-       hideWhenSingleBranch
-diff --git a/apps/desktop/src/components/assistant-ui/thread/user-message.tsx b/apps/desktop/src/components/assistant-ui/thread/user-message.tsx
-index 22e918389a..536ab162c5 100644
---- a/apps/desktop/src/components/assistant-ui/thread/user-message.tsx
-+++ b/apps/desktop/src/components/assistant-ui/thread/user-message.tsx
-@@ -3,6 +3,7 @@ import { type FC, type ReactNode, useCallback, useEffect, useRef, useState } fro
- 
- import { DirectiveContent } from '@/components/assistant-ui/directive-text'
- import { messageAttachmentRefs, messageContentText } from '@/components/assistant-ui/thread/content'
-+import { MessageTimestamp } from '@/components/assistant-ui/thread/message-timestamp'
- import { ReactionBadge, ReactionPicker } from '@/components/assistant-ui/thread/message-reactions'
- import { type RestoreMessageTarget } from '@/components/assistant-ui/thread/types'
- import { useMessageReactions } from '@/components/assistant-ui/thread/use-message-reactions'
-@@ -571,6 +572,9 @@ export const UserMessage: FC<{
-               onRetract={() => react(null)}
-               reactions={shownReactions}
-             />
-+            {/* Mod: hermes-desktop-timestamps — stock shows no time at all
-+                for user messages; the timestamp lives below the bubble. */}
-+            <MessageTimestamp className="self-end py-1.5 pr-1.5" />
-             <BranchPickerPrimitive.Root
-               className={cn(
-                 'checkpoint-container flex items-center gap-1 pb-0 pt-1 pl-1.5 text-[0.75rem] leading-none text-(--ui-text-tertiary)',
 diff --git a/apps/desktop/src/components/assistant-ui/tool/fallback.tsx b/apps/desktop/src/components/assistant-ui/tool/fallback.tsx
-index 6e56d0918c..3a92f9c9cf 100644
+index b2c94ecf69..7b72c23c25 100644
 --- a/apps/desktop/src/components/assistant-ui/tool/fallback.tsx
 +++ b/apps/desktop/src/components/assistant-ui/tool/fallback.tsx
-@@ -615,7 +615,7 @@ function ToolEntry({ part }: ToolEntryProps) {
+@@ -620,7 +620,7 @@ function ToolEntry({ part }: ToolEntryProps) {
              <div className="max-w-full text-xs leading-relaxed text-(--ui-text-secondary)">
                {view.searchQuery && (
                  <p className="mb-1 flex min-w-0 gap-1.5 wrap-anywhere">
@@ -655,268 +986,75 @@ index 6dc365e644..6839eee8b3 100644
    }
  ]
  
-diff --git a/apps/desktop/src/i18n/en.ts b/apps/desktop/src/i18n/en.ts
-index ff1c65733a..c157ac5176 100644
---- a/apps/desktop/src/i18n/en.ts
-+++ b/apps/desktop/src/i18n/en.ts
-@@ -705,13 +705,6 @@ export const en: Translations = {
-       existingToken: value => `Existing token ${value}`,
-       savedToken: 'saved',
-       pasteSessionToken: 'Paste session token',
--      plainTextConfirmTitle: 'Store the gateway token in plain text?',
--      plainTextConfirmDesc:
--        'No OS keyring service was found on this machine, so the token would be saved unencrypted in the app’s connection settings file, readable by any process running as this user. Install or enable GNOME Keyring or KWallet for encrypted storage.',
--      plainTextConfirmAction: 'Save as plain text',
--      plainTextStoredTitle: 'Token stored in plain text',
--      plainTextStoredDesc:
--        'Secure storage is unavailable, so the saved token is stored unencrypted in the app’s connection settings file on this machine. Install or enable GNOME Keyring or KWallet to encrypt it.',
-       testRemote: 'Test remote',
-       saveForRestart: 'Save for next restart',
-       saveAndReconnect: 'Save and reconnect',
-@@ -1779,14 +1772,6 @@ export const en: Translations = {
-     close: 'Close cron',
-     title: 'Scheduled jobs',
-     count: count => `${count} ${count === 1 ? 'job' : 'jobs'}`,
--    modelImpact: {
--      title: 'Scheduled jobs need review',
--      message: count =>
--        `${count} scheduled ${count === 1 ? 'job' : 'jobs'} will be skipped until you review their model settings.`,
--      detailMore: (names, remaining) => `${names} and ${remaining} more`,
--      review: 'Review scheduled jobs',
--      saveFailed: 'Hermes did not save that model change.'
--    },
-     search: 'Search cron jobs...',
-     loading: 'Loading cron jobs...',
-     states: {
-@@ -1978,8 +1963,7 @@ export const en: Translations = {
-       'new-session': 'New session',
-       skills: 'Capabilities',
-       messaging: 'Messaging',
--      artifacts: 'Artifacts',
--      cron: 'Scheduled jobs'
-+      artifacts: 'Artifacts'
-     },
-     searchAria: 'Search sessions',
-     searchPlaceholder: 'Search sessions…',
-@@ -2107,8 +2091,6 @@ export const en: Translations = {
-       renameDesc: 'Leave empty to clear.',
-       untitledPlaceholder: 'Untitled session',
-       untitledChat: id => `Chat ${id}`,
--      messageCount: count => `${count} ${count === 1 ? 'message' : 'messages'}`,
--      todoProgress: 'Tasks completed',
-       ageNow: 'now',
-       ageDay: 'd',
-       ageHour: 'h',
-@@ -2215,7 +2197,6 @@ export const en: Translations = {
-     editingQueuedInComposer: 'Editing queued turn in composer',
-     queueEdit: 'Edit',
-     queueSendNext: 'Next',
--    queueSteer: 'Steer — redirect the live turn now',
-     queueSend: 'Send',
-     queueDelete: 'Delete',
-     queueResume: 'Resume',
-@@ -2247,37 +2228,6 @@ export const en: Translations = {
-     snippetsDesc: 'Pick a starter prompt to drop into the composer.',
-     dropFiles: 'Drop files to attach',
-     dropSession: 'Drop to link this chat',
--    mcpSuggestions: {
--      label: server => `Add ${server}`,
--      tip: keyword => `Suggested because you mentioned “${keyword}” — click to connect`,
--      connecting: server => `Connecting ${server}…`,
--      cancelTip: 'Click to cancel',
--      added: server => `Added ${server}`,
--      addedTip: 'Connected — its tools are ready in this chat',
--      connectFailed: server => `Could not connect ${server}`
--    },
--    skillSuggestions: {
--      label: skill => `Use skill: ${skill}`,
--      tip: skill => `You mentioned “${skill}” — click to lead with that skill`,
--      done: skill => `Added /${skill}`,
--      doneTip: 'The skill loads when you send'
--    },
--    repairSuggestions: {
--      label: server => `Reconnect ${server}`,
--      tip: server => `A ${server} call just failed with a connection error`,
--      working: server => `Reconnecting ${server}…`,
--      workingTip: 'Click to cancel',
--      done: server => `Reconnected ${server}`,
--      doneTip: 'Fresh credentials are live in this chat',
--      failed: server => `Could not reconnect ${server}`
--    },
--    cronSuggestions: {
--      label: 'Schedule this',
--      tip: phrase => `“${phrase}” sounds recurring — run it on a schedule instead`,
--      prefix: 'Set this up as a scheduled job:',
--      done: 'Marked for scheduling',
--      doneTip: 'Send it and the agent creates the job'
--    },
-     snippets: {
-       codeReview: {
-         label: 'Code review',
-@@ -2674,7 +2624,6 @@ export const en: Translations = {
-       gatewayTitle: 'Gateway',
-       customizeTitle: 'Show in status bar',
-       hideStatusbar: 'Hide status bar',
--      resetStatusbar: 'Reset to defaults',
-       toggleApprovalMode: 'Approvals',
-       toggleBackendVersion: 'Backend version',
-       toggleCommandCenter: 'Command Center',
-@@ -2976,28 +2925,6 @@ export const en: Translations = {
-       lateAnswerTip: 'Draft this answer as a follow-up message',
-       lateAnswerHint: 'This prompt is no longer waiting. Pick an option to draft it as a follow-up message.'
-     },
--    mcpSetup: {
--      installTitle: server => `Add the ${server} MCP server?`,
--      enableTitle: server => `Enable the ${server} MCP server?`,
--      authorizeTitle: server => `Authorize the ${server} MCP server?`,
--      installAction: 'Install',
--      enableAction: 'Enable',
--      authorizeAction: 'Authorize',
--      decline: 'Not now',
--      declined: 'Declined',
--      installed: server => `Installed ${server}`,
--      enabled: server => `Enabled ${server}`,
--      authorized: server => `Authorized ${server}`,
--      failed: server => `Setup failed for ${server}`,
--      unanswered: 'No response',
--      toolCount: count => (count === 1 ? '1 tool' : `${count} tools`),
--      notInCatalog: server => `“${server}” is not in the MCP catalog`,
--      catalogSource: 'From the Nous-approved catalog',
--      envRequired: 'Fill in the required credentials first',
--      sendFailed: 'Could not send MCP setup response',
--      reloadFailed: 'Server saved, but reloading MCP tools failed — they load next session',
--      gatewayDisconnected: 'Hermes gateway is not connected'
--    },
-     tool: {
-       copyCode: 'Copy code',
-       renderingImage: 'Rendering image',
+diff --git a/apps/desktop/src/i18n/catalog.ts b/apps/desktop/src/i18n/catalog.ts
+index f35c957076..220a88b7f2 100644
+--- a/apps/desktop/src/i18n/catalog.ts
++++ b/apps/desktop/src/i18n/catalog.ts
+@@ -1,6 +1,7 @@
+ import { ar } from './ar'
+ import { en } from './en'
+ import { ja } from './ja'
++import { ru } from './ru'
+ import type { Locale, Translations } from './types'
+ import { zh } from './zh'
+ import { zhHant } from './zh-hant'
+@@ -10,5 +11,6 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
+   zh,
+   'zh-hant': zhHant,
+   ja,
+-  ar
++  ar,
++  ru
+ }
+diff --git a/apps/desktop/src/i18n/languages.ts b/apps/desktop/src/i18n/languages.ts
+index e4a1fb1e02..4955001bf0 100644
+--- a/apps/desktop/src/i18n/languages.ts
++++ b/apps/desktop/src/i18n/languages.ts
+@@ -23,6 +23,12 @@ export const LOCALE_OPTIONS = [
+     englishName: 'Traditional Chinese',
+     configValue: 'zh-hant'
+   },
++  {
++    id: 'ru',
++    name: 'Русский',
++    englishName: 'Russian',
++    configValue: 'ru'
++  },
+   {
+     id: 'ja',
+     name: '日本語',
+@@ -79,7 +85,12 @@ const LOCALE_ALIASES: Record<string, Locale> = {
+   'ar-eg': 'ar',
+   ar_eg: 'ar',
+   arabic: 'ar',
+-  العربية: 'ar'
++  العربية: 'ar',
++  ru: 'ru',
++  'ru-ru': 'ru',
++  ru_ru: 'ru',
++  russian: 'ru',
++  русский: 'ru'
+ }
+ 
+ export function isLocale(value: unknown): value is Locale {
 diff --git a/apps/desktop/src/i18n/types.ts b/apps/desktop/src/i18n/types.ts
-index ff5606f2e6..0e9e4462b6 100644
+index 678e0f88e7..0f8754b57a 100644
 --- a/apps/desktop/src/i18n/types.ts
 +++ b/apps/desktop/src/i18n/types.ts
-@@ -589,11 +589,6 @@ export interface Translations {
-       existingToken: (value: string) => string
-       savedToken: string
-       pasteSessionToken: string
--      plainTextConfirmTitle: string
--      plainTextConfirmDesc: string
--      plainTextConfirmAction: string
--      plainTextStoredTitle: string
--      plainTextStoredDesc: string
-       testRemote: string
-       saveForRestart: string
-       saveAndReconnect: string
-@@ -1504,13 +1499,6 @@ export interface Translations {
-     close: string
-     title: string
-     count: (count: number) => string
--    modelImpact: {
--      title: string
--      message: (count: number) => string
--      detailMore: (names: string, remaining: number) => string
--      review: string
--      saveFailed: string
--    }
-     search: string
-     loading: string
-     states: Record<string, string>
-@@ -1782,8 +1770,6 @@ export interface Translations {
-       renameDesc: string
-       untitledPlaceholder: string
-       untitledChat: (id: string) => string
--      messageCount: (count: number) => string
--      todoProgress: string
-       ageNow: string
-       ageDay: string
-       ageHour: string
-@@ -1859,7 +1845,6 @@ export interface Translations {
-     queueEdit: string
-     queueSendNext: string
-     queueSend: string
--    queueSteer: string
-     queueDelete: string
-     queueResume: string
-     queueResumeTip: string
-@@ -1891,37 +1876,6 @@ export interface Translations {
-     snippets: Record<string, { label: string; description: string; text: string }>
-     dropFiles: string
-     dropSession: string
--    mcpSuggestions: {
--      label: (server: string) => string
--      tip: (keyword: string) => string
--      connecting: (server: string) => string
--      cancelTip: string
--      added: (server: string) => string
--      addedTip: string
--      connectFailed: (server: string) => string
--    }
--    skillSuggestions: {
--      label: (skill: string) => string
--      tip: (skill: string) => string
--      done: (skill: string) => string
--      doneTip: string
--    }
--    repairSuggestions: {
--      label: (server: string) => string
--      tip: (server: string) => string
--      working: (server: string) => string
--      workingTip: string
--      done: (server: string) => string
--      doneTip: string
--      failed: (server: string) => string
--    }
--    cronSuggestions: {
--      label: string
--      tip: (phrase: string) => string
--      prefix: string
--      done: string
--      doneTip: string
--    }
-   }
+@@ -5,7 +5,7 @@
+ // partial locales should use `defineLocale()` so missing desktop-only strings
+ // fall back to English while new keys remain type-checked.
  
-   statusStack: {
-@@ -2254,7 +2208,6 @@ export interface Translations {
-       gatewayTitle: string
-       customizeTitle: string
-       hideStatusbar: string
--      resetStatusbar: string
-       toggleApprovalMode: string
-       toggleBackendVersion: string
-       toggleCommandCenter: string
-@@ -2547,28 +2500,6 @@ export interface Translations {
-       lateAnswerTip: string
-       lateAnswerHint: string
-     }
--    mcpSetup: {
--      installTitle: (server: string) => string
--      enableTitle: (server: string) => string
--      authorizeTitle: (server: string) => string
--      installAction: string
--      enableAction: string
--      authorizeAction: string
--      decline: string
--      declined: string
--      installed: (server: string) => string
--      enabled: (server: string) => string
--      authorized: (server: string) => string
--      failed: (server: string) => string
--      unanswered: string
--      toolCount: (count: number) => string
--      notInCatalog: (server: string) => string
--      catalogSource: string
--      envRequired: string
--      sendFailed: string
--      reloadFailed: string
--      gatewayDisconnected: string
--    }
-     tool: {
-       copyCode: string
-       renderingImage: string
+-export type Locale = 'en' | 'zh' | 'zh-hant' | 'ja' | 'ar'
++export type Locale = 'en' | 'ru' | 'zh' | 'zh-hant' | 'ja' | 'ar'
+ 
+ export type ToolTitleKey =
+   | 'browser_click'
 diff --git a/apps/desktop/src/lib/chat-runtime.ts b/apps/desktop/src/lib/chat-runtime.ts
-index 191ed5dcc3..f9177bb518 100644
+index 8bf133b674..1f08568802 100644
 --- a/apps/desktop/src/lib/chat-runtime.ts
 +++ b/apps/desktop/src/lib/chat-runtime.ts
-@@ -48,12 +48,12 @@ export function createClientSessionState(
+@@ -49,12 +49,12 @@ export function createClientSessionState(
  }
  
  export function sessionTitle(session: SessionInfo): string {
@@ -932,21 +1070,19 @@ index 191ed5dcc3..f9177bb518 100644
  export function coerceGatewayText(value: unknown): string {
    if (typeof value === 'string') {
 diff --git a/apps/desktop/src/plugins/kanban/plugin.tsx b/apps/desktop/src/plugins/kanban/plugin.tsx
-index 605f58ad3c..08aa69addd 100644
+index e4131a359e..2ea94ba4a9 100644
 --- a/apps/desktop/src/plugins/kanban/plugin.tsx
 +++ b/apps/desktop/src/plugins/kanban/plugin.tsx
-@@ -33,6 +33,10 @@ import {
+@@ -33,6 +33,8 @@ import {
  import { $boardSlug, bindApi, boardKey, fetchBoard } from './api'
  import { KanbanBoardPage } from './board'
  import { KANBAN_LOCALES } from './i18n'
 +// MOD: hermes-desktop-ru — Russian kanban locale (registered on import)
 +import './ru-locales'
-+// MOD: hermes-desktop-ru — Russian kanban locale (registered on import)
-+import './ru-locales'
  import { $newTaskLane, useKanban } from './ui'
  
  // Live "N running / ready" pill — one glance at fleet activity from anywhere,
-@@ -80,7 +84,7 @@ function KanbanCount() {
+@@ -80,7 +82,7 @@ function KanbanCount() {
  const plugin: HermesPlugin = {
    id: 'kanban',
    name: 'Kanban',
