@@ -230,7 +230,7 @@ export const ru = defineLocale({
     enterHud: 'Режим HUD',
     exitHud: 'Выйти из режима HUD',
     layoutEditor: 'Редактор макета',
-    layoutEditorTitle: 'Редактор макета — ⌘-клик сбрасывает макет',
+    layoutEditorTitle: mod => `Редактор макета — ${mod}-клик сбрасывает макет`,
   },
   keybinds: {
     title: 'Сочетания клавиш',
@@ -2352,7 +2352,7 @@ export const ru = defineLocale({
       },
     },
     mcpSuggestions: {
-      tip: 'GitHub работает через навыки gh CLI здесь — нажмите, чтобы подключить аккаунт'
+      tip: keyword => `Рекомендуем, потому что вы упомянули «${keyword}» — нажмите, чтобы подключить`,
     },
   },
   statusStack: {
@@ -2398,7 +2398,7 @@ export const ru = defineLocale({
       scopeLastTurn: 'Последний ход',
       commit: 'Коммит',
       commitAndPush: 'Коммит и Пуш',
-      commitPlaceholder: 'Сообщение (⌘↵ для коммита)',
+      commitPlaceholder: shortcut => `Сообщение (${shortcut} для коммита)`,
       generateCommitMessage: 'Сгенерировать сообщение',
       stopGenerating: 'Остановить генерацию',
       createPr: 'Создать PR',
