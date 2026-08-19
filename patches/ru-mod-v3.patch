@@ -1279,7 +1279,7 @@ index 64d9cfa6f..19ece2346 100644
          </>
        ) : (
 diff --git a/apps/desktop/src/app/settings/model-settings.tsx b/apps/desktop/src/app/settings/model-settings.tsx
-index 28036e9e6..62ffc8a92 100644
+index 28036e9e6..a67b53a62 100644
 --- a/apps/desktop/src/app/settings/model-settings.tsx
 +++ b/apps/desktop/src/app/settings/model-settings.tsx
 @@ -168,11 +168,13 @@ function StaleAuxWarning({ applying, onReset, slots, taskLabel }: StaleAuxWarnin
@@ -1299,6 +1299,117 @@ index 28036e9e6..62ffc8a92 100644
        </Button>
      </div>
    )
+@@ -1031,15 +1033,15 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+       </section>
+       {moa && currentMoaPreset && (
+         <section>
+-          <SectionHeading icon={Cpu} title="Mixture of Agents" />
++          <SectionHeading icon={Cpu} title="Смесь агентов (Mixture of Agents)" />
+           <p className="mb-2 text-xs text-muted-foreground">
+-            Configure named presets that appear as models under the Mixture of Agents provider. The aggregator is the
+-            acting model.
++            Настраивает именованные пресеты, которые появляются как модели у провайдера Mixture of Agents. Агрегатор —
++            действующая модель.
+           </p>
+           <div className="mb-2 flex flex-wrap items-center gap-2">
+             <Select onValueChange={setSelectedMoaPreset} value={selectedMoaPreset || moa.default_preset}>
+               <SelectTrigger className={cn('min-w-40', CONTROL_TEXT)}>
+-                <SelectValue placeholder="Preset" />
++                <SelectValue placeholder="Пресет" />
+               </SelectTrigger>
+               <SelectContent>
+                 {Object.keys(moa.presets).map(name => (
+@@ -1050,7 +1052,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+               </SelectContent>
+             </Select>
+             <label className="flex items-center gap-2 rounded-sm border border-border px-2 py-1 text-xs">
+-              Enabled
++              Включён
+               <Switch
+                 checked={currentMoaPreset.enabled !== false}
+                 disabled={applying}
+@@ -1071,7 +1073,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+               size="sm"
+               variant="text"
+             >
+-              Set default
++              Сделать основным
+             </Button>
+             <Button
+               disabled={Object.keys(moa.presets).length <= 1 || applying}
+@@ -1097,12 +1099,12 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+               size="sm"
+               variant="ghost"
+             >
+-              Delete
++              Удалить
+             </Button>
+             <Input
+               className={cn('w-40', CONTROL_TEXT)}
+               onChange={event => setNewMoaPresetName(event.target.value)}
+-              placeholder="new preset"
++              placeholder="новый пресет"
+               value={newMoaPresetName}
+             />
+             <Button
+@@ -1125,18 +1127,18 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+               size="sm"
+               variant="textStrong"
+             >
+-              Add preset
++              Добавить пресет
+             </Button>
+           </div>
+           <div className="mb-2 text-xs text-muted-foreground">
+-            Default: <span className="font-mono">{moa.default_preset}</span>
++            По умолчанию: <span className="font-mono">{moa.default_preset}</span>
+           </div>
+           <div className="grid gap-1">
+             {currentMoaPreset.reference_models.map((slot, index) => (
+               <ListRow
+                 action={
+                   <Switch
+-                    aria-label={`${slot.enabled !== false ? 'Disable' : 'Enable'} reference ${index + 1}`}
++                    aria-label={`${slot.enabled !== false ? 'Отключить' : 'Включить'} референс ${index + 1}`}
+                     checked={slot.enabled !== false}
+                     disabled={applying}
+                     onCheckedChange={checked =>
+@@ -1213,7 +1215,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+                       size="sm"
+                       variant="ghost"
+                     >
+-                      Remove
++                      Удалить
+                     </Button>
+                   </div>
+                 }
+@@ -1224,7 +1226,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+                   </span>
+                 }
+                 key={`${selectedMoaPreset}-${index}`}
+-                title={`Reference ${index + 1}`}
++                title={`Референс ${index + 1}`}
+               />
+             ))}
+             <Button
+@@ -1238,7 +1240,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+               size="sm"
+               variant="textStrong"
+             >
+-              Add reference model
++              Добавить референс-модель
+             </Button>
+             <ListRow
+               below={
+@@ -1300,7 +1302,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
+                   {currentMoaPreset.aggregator.provider} · {currentMoaPreset.aggregator.model}
+                 </span>
+               }
+-              title="Aggregator"
++              title="Агрегатор"
+             />
+           </div>
+         </section>
 diff --git a/apps/desktop/src/app/settings/plugins-settings.tsx b/apps/desktop/src/app/settings/plugins-settings.tsx
 index 69598afe4..ea0671428 100644
 --- a/apps/desktop/src/app/settings/plugins-settings.tsx
