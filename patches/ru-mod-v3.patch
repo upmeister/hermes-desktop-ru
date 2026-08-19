@@ -35,433 +35,6 @@ index 13ed225186..cf2b3348e9 100644
                onCancel={onCancel}
                onPasteClipboardImage={onPasteClipboardImage}
                onPickFiles={onPickFiles}
-diff --git a/apps/desktop/src/app/contrib/controller.tsx b/apps/desktop/src/app/contrib/controller.tsx
-index f14f957c33..4ebbd3e8e8 100644
---- a/apps/desktop/src/app/contrib/controller.tsx
-+++ b/apps/desktop/src/app/contrib/controller.tsx
-@@ -94,25 +94,25 @@ import { ContribWiring, WiredPane } from './wiring'
- // ---------------------------------------------------------------------------
- // Pane contributions. `data.placement` = semantic role for grid presets;
- // `data.minWidth/maxWidth/minHeight/maxHeight` = the SAME clamps the app's
--// `Pane` props declare — the layout tree sizes zones by weight (percentage)
-+// `Pane` props declare тАФ the layout tree sizes zones by weight (percentage)
- // but a zone never shrinks/grows past its active pane's clamp.
- // Headers are contextual (tree-side): a pane alone in a zone shows no
- // header/tab by default; stacked panes show chips. Double-click a zone
- // toggles its header either way.
- // ---------------------------------------------------------------------------
- 
--// ONE render identity for the workspace pane — syncWorkspaceTitle re-registers
-+// ONE render identity for the workspace pane тАФ syncWorkspaceTitle re-registers
- // the contribution (new title) and a fresh closure would remount the chat.
- const renderWorkspacePane = () => <WiredPane part="chatRoutes" />
- 
--// Boot-hidden panes mount behind display:none (instant-toggle contract) — defer
-+// Boot-hidden panes mount behind display:none (instant-toggle contract) тАФ defer
- // them to idle so they're off the first-paint path, warm before reveal.
- const idle = (node: ReactElement) => <IdleMount>{node}</IdleMount>
- // The main tab carries the same session context menu as tile tabs (targets
- // the loaded primary session; no menu on a fresh draft).
- const wrapWorkspaceTab = (tab: ReactElement) => <WorkspaceTabMenu>{tab}</WorkspaceTabMenu>
- 
--/** The `@session` payload for the workspace tab — the loaded primary session,
-+/** The `@session` payload for the workspace tab тАФ the loaded primary session,
-  *  or null on a fresh draft / full-page view (nothing to link). */
- const workspaceDragPayload = (): SessionDragPayload | null => {
-   const selected = $selectedStoredSessionId.get()
-@@ -126,7 +126,7 @@ const workspaceDragPayload = (): SessionDragPayload | null => {
-   return { id: selected, profile: stored?.profile ?? '', title: stored ? storedSessionTitle(stored) : '' }
- }
- 
--// The main tab drags like a session tile — drop it on a composer to link the
-+// The main tab drags like a session tile тАФ drop it on a composer to link the
- // chat, on a zone/edge to stack/split. Defers (`false`) to the generic pane
- // move when there's no loaded session to carry.
- const workspaceTabDrag = (event: ReactPointerEvent<HTMLElement>, onTap: () => void, double?: DoubleTapContext) => {
-@@ -147,7 +147,7 @@ registry.registerMany([
-     area: 'panes',
-     title: 'sessions',
-     // Collapsible: leaves the grid on narrow viewports (edge overlay instead).
--    // dock: where a RE-ADOPTED pane lands (healed from a stale dismissal) —
-+    // dock: where a RE-ADOPTED pane lands (healed from a stale dismissal) тАФ
-     // its default-ish spot beside main, not a random same-placement stack.
-     data: {
-       placement: 'left',
-@@ -180,8 +180,8 @@ registry.registerMany([
-     title: 'terminal',
-     // revealOnPreset: choosing a layout that places the terminal (e.g.
-     // "Terminal deck") turns takeover on so the zone actually shows, instead of
--    // staying collapsed behind the ⌃` toggle. height sizes the fixed track (a
--    // single-pane zone declaring a height is a fixed track — the preset weight
-+    // staying collapsed behind the тМГ` toggle. height sizes the fixed track (a
-+    // single-pane zone declaring a height is a fixed track тАФ the preset weight
-     // is moot): a short deck, not a third of the window.
-     //
-     // NO minHeight: a tool panel drags all the way down to its collapsed
-@@ -216,7 +216,7 @@ registry.registerMany([
-     id: 'review',
-     area: 'panes',
-     title: 'review',
--    // The second right sidebar: hidden until ⌘G ($reviewOpen) — bound below
-+    // The second right sidebar: hidden until тМШG ($reviewOpen) тАФ bound below
-     // like the other chrome toggles; its zone collapses while hidden.
-     data: {
-       placement: 'right',
-@@ -234,7 +234,7 @@ registry.registerMany([
- // Chrome contributions. The title bar and status bar are fixed chrome outside
- // the grid, composable through these areas. Everything real lives in the real
- // components (TitlebarControls / useStatusbarItems). Sample PLUGIN
--// contributions don't live here — they're their own files under `src/plugins/`,
-+// contributions don't live here тАФ they're their own files under `src/plugins/`,
- // auto-discovered by discoverBundledPlugins() below.
- // ---------------------------------------------------------------------------
- 
-@@ -243,7 +243,7 @@ registry.registerMany([
-   // sidebar; place/cwd lives in the sidebar project tree. Center is drag
-   // chrome (plugins can still contribute to titleBar.center if needed).
-   // Layout edit mode registers through the SAME declarative surfaces plugins
--  // use: a rebindable keybind (collision-checked in the panel) + a ⌘K row
-+  // use: a rebindable keybind (collision-checked in the panel) + a тМШK row
-   // whose hotkey hint tracks the live binding.
-   {
-     id: 'layout.editMode',
-@@ -276,7 +276,7 @@ registry.registerMany([
-       run: () => void discoverRuntimePlugins()
-     } satisfies PaletteContribution
-   },
--  // The core `::preview{file="…"}` transcript directive — the model (or a
-+  // The core `::preview{file="тАж"}` transcript directive тАФ the model (or a
-   // skill) renders a workspace HTML file LIVE inside its own message
-   // (sandboxed srcdoc iframe; falls back to the classic preview card for
-   // non-HTML targets and remote gateways). Also the reference consumer for
-@@ -301,7 +301,7 @@ registry.registerMany([
-     } satisfies PaletteContribution
-   },
-   // Hiding the bar removes the surface that would otherwise offer it back, so
--  // ⌘K is the guaranteed door in (alongside the rebindable ⌘⇧S).
-+  // тМШK is the guaranteed door in (alongside the rebindable тМШтЗзS).
-   paletteToggle({
-     id: 'view.toggleStatusbar',
-     label: 'Toggle status bar',
-@@ -330,7 +330,7 @@ registry.registerMany([
-     area: PALETTE_AREA,
-     data: {
-       id: 'profile.export',
--      label: 'Export profile…',
-+      label: 'Export profileтАж',
-       icon: Upload,
-       keywords: ['profile', 'export', 'share', 'bundle', 'theme', 'settings', 'backup'],
-       run: () => void runExportProfileFlow()
-@@ -341,7 +341,7 @@ registry.registerMany([
-     area: PALETTE_AREA,
-     data: {
-       id: 'profile.import',
--      label: 'Import profile…',
-+      label: 'Import profileтАж',
-       icon: Download,
-       keywords: ['profile', 'import', 'share', 'bundle', 'archive', 'restore'],
-       run: () => void runImportProfileFlow()
-@@ -350,16 +350,16 @@ registry.registerMany([
- ])
- 
- // ---------------------------------------------------------------------------
--// Layout presets — CHAT (main) always dominates.
-+// Layout presets тАФ CHAT (main) always dominates.
- // ---------------------------------------------------------------------------
- 
- // The REAL default: sessions left, chat main, and the right sidebars in column
--// order main | … | review | file-browser (files outermost). Each is its OWN
--// zone. Review collapses to nothing while its pane is hidden (⌘G off).
-+// order main | тАж | review | file-browser (files outermost). Each is its OWN
-+// zone. Review collapses to nothing while its pane is hidden (тМШG off).
- //
- // Preview tiles are DYNAMIC panes (like session tiles), so no preset names one:
- // they're registered by watchPreviewTiles as tabs open, and dockPaneBeside lands
--// each one directly beside the file tree wherever that currently lives — so a
-+// each one directly beside the file tree wherever that currently lives тАФ so a
- // file double-click still slides a preview open as its own pane next to the
- // tree, never as a tab stacked into the files sidebar.
- const DEFAULT_TREE = split(
-@@ -409,7 +409,7 @@ const QUAD_TREE = split(
- registry.registerMany([
-   { id: 'default', area: 'layouts', title: 'Default', order: 0, data: DEFAULT_TREE },
-   { id: 'focus', area: 'layouts', title: 'Focus', order: 10, data: FOCUS_TREE },
--  { id: 'terminal-deck', area: 'layouts', title: 'Terminal deck', order: 20, data: TERMINAL_TREE },
-+  { id: 'terminal-deck', area: 'layouts', title: 'Терминал', order: 20, data: TERMINAL_TREE },
-   { id: 'quad', area: 'layouts', title: 'Quad', order: 30, data: QUAD_TREE }
- ])
- 
-@@ -421,7 +421,7 @@ declareDefaultTree(DEFAULT_TREE)
- discoverBundledPlugins()
- 
- // Plugin panes join the tree by their `placement` hint the moment they
--// register — incl. runtime plugins arriving seconds after boot.
-+// register тАФ incl. runtime plugins arriving seconds after boot.
- watchContributedPanes()
- 
- // Session + route (page) tiles: persisted splits register panes docked beside
-@@ -431,7 +431,7 @@ watchRouteTiles()
- watchPreviewTiles()
- 
- // Composer pop-out state is keyed by layout zone, so drop entries for zones the
--// user has since closed or merged away — otherwise a long-lived install keeps a
-+// user has since closed or merged away тАФ otherwise a long-lived install keeps a
- // row for every split it has ever had.
- $layoutTree.subscribe(tree => {
-   if (tree) {
-@@ -447,7 +447,7 @@ watchSessionPins()
- watchUnreadWriteGuard()
- 
- // The main tab reads as its SESSION (the loaded title, "New session" on a
--// fresh draft) — a stack of main + tiles is then just a row of session names.
-+// fresh draft) тАФ a stack of main + tiles is then just a row of session names.
- // register() replaces same-id in place; the render fn is the shared constant
- // above, so the pane content never remounts.
- const syncWorkspaceTitle = () => {
-@@ -457,17 +457,17 @@ const syncWorkspaceTitle = () => {
-   registry.register({
-     id: 'workspace',
-     area: 'panes',
--    // The placeholder, not the draft's live name — `tabTitle` below renders
-+    // The placeholder, not the draft's live name тАФ `tabTitle` below renders
-     // that. Keeping it here would re-register the pane on every keystroke.
-     title: stored ? storedSessionTitle(stored) : NEW_SESSION_TITLE,
-     data: {
--      // The tab's status dot — the SAME primitive the sidebar row and session
-+      // The tab's status dot тАФ the SAME primitive the sidebar row and session
-       // tiles render, so the main tab never disagrees with its sidebar row. A
-       // fresh draft has no session to key by, which IS its status: the dot
-       // resolves to `draft` and marks the tab rather than leaving a hole.
-       tabLead: () => <SessionStatusDot session={stored} storedSessionId={selected} />,
-       // A draft's name lives in its composer, not in any session row, so the
--      // label subscribes to it directly — typing renames the tab without
-+      // label subscribes to it directly тАФ typing renames the tab without
-       // re-registering the pane.
-       tabTitle: stored ? undefined : () => <SessionDraftTitle scope={selected} />,
-       // Pages aren't tab-able: the main zone's bar stands down while one shows.
-@@ -487,29 +487,29 @@ $sessions.listen(syncWorkspaceTitle)
- $workspaceIsPage.listen(syncWorkspaceTitle)
- 
- // Layout reset collapses every session tile into main as a tab (after the
--// workspace) instead of re-scattering them — pre-placed before adoption.
-+// workspace) instead of re-scattering them тАФ pre-placed before adoption.
- registerLayoutResetHandler(stackSessionTilesIntoMain)
- 
- // ---------------------------------------------------------------------------
- // Titlebar chrome toggles -> tree. The TitlebarControls buttons keep their
- // store semantics ($sidebarOpen / $fileBrowserOpen / $panesFlipped); the tree
--// reacts — a hidden pane's zone collapses (content stays mounted), the flip
-+// reacts тАФ a hidden pane's zone collapses (content stays mounted), the flip
- // toggle mirrors the root row.
- // ---------------------------------------------------------------------------
- 
- // HIDE-STYLE PANES (files, review, preview): the binding lives in the tree
--// store — bindPaneVisibility — alongside bindToolPaneCollapse, so both are
-+// store тАФ bindPaneVisibility тАФ alongside bindToolPaneCollapse, so both are
- // testable against the real function instead of a copy.
- 
--// TOOL PANELS (terminal, logs): the binding lives in the tree store —
--// bindToolPaneCollapse — so the boot rule it encodes is testable against the
-+// TOOL PANELS (terminal, logs): the binding lives in the tree store тАФ
-+// bindToolPaneCollapse тАФ so the boot rule it encodes is testable against the
- // real function instead of a copy. See its docblock for the semantics.
- 
- // SIDES have one source of truth: the TREE. The legacy $panesFlipped flag is
- // DERIVED from where the sessions zone actually sits (TitlebarControls maps
--// its left/right buttons through it), so dragging sessions across — or
--// applying a mirrored preset — remaps the buttons automatically. The flip
--// action (⌘\ / titlebar) mirrors the tree only when they disagree.
-+// its left/right buttons through it), so dragging sessions across тАФ or
-+// applying a mirrored preset тАФ remaps the buttons automatically. The flip
-+// action (тМШ\ / titlebar) mirrors the tree only when they disagree.
- const sessionsOnRight = () => {
-   const tree = $layoutTree.get()
- 
-@@ -540,28 +540,28 @@ $panesFlipped.listen(flipped => {
-   }
- })
- 
--// POSITIONAL side toggles (titlebar buttons, ⌘B / ⌘J): $sidebarOpen ≙ the
--// LEFT side of the main zone, $fileBrowserOpen ≙ the RIGHT — everything on
-+// POSITIONAL side toggles (titlebar buttons, тМШB / тМШJ): $sidebarOpen тЙЩ the
-+// LEFT side of the main zone, $fileBrowserOpen тЙЩ the RIGHT тАФ everything on
- // that side hides together, whatever panes have been rearranged there.
- bindTreeSideVisibility('left', $sidebarOpen, setSidebarOpen)
- bindTreeSideVisibility('right', $fileBrowserOpen, setFileBrowserOpen)
- 
- // Workspace-scoped surfaces: the file tree and git diff only mean something
--// inside a project. A detached chat (no cwd) hides them — their zones
-+// inside a project. A detached chat (no cwd) hides them тАФ their zones
- // collapse and the chat absorbs the width; picking a project brings them
- // back. The terminal is NOT workspace-gated: unlike the old shell (where it
- // rode the rail's row and vanished with it), its zone stands on its own.
- const $hasWorkspace = computed($currentCwd, cwd => Boolean(cwd.trim()))
- 
--// The tree pane's own presence tracks ⌘J directly, not just the column's
--// collapse — otherwise a pane revealed into that shared column would drag the
-+// The tree pane's own presence tracks тМШJ directly, not just the column's
-+// collapse тАФ otherwise a pane revealed into that shared column would drag the
- // tree along with it.
- //
--// Both get a CLOSER and an OPENER. The closer keeps ⌘J/⌘G truthful when the
-+// Both get a CLOSER and an OPENER. The closer keeps тМШJ/тМШG truthful when the
- // pane is closed from the tab menu; the opener is its mirror, so bringing the
- // pane back through the tree (the toggle's reveal path, the rail, a preset)
- // writes the store too. Without the opener the boolean went stale the moment
--// anything but the toggle showed the pane — the divergence this whole change
-+// anything but the toggle showed the pane тАФ the divergence this whole change
- // is about.
- bindPaneVisibility(
-   'files',
-@@ -569,14 +569,14 @@ bindPaneVisibility(
-   () => setFileBrowserOpen(false),
-   () => setFileBrowserOpen(true)
- )
--// ⌘G — the review sidebar appears/disappears (and comes to the front).
-+// тМШG тАФ the review sidebar appears/disappears (and comes to the front).
- bindPaneVisibility(
-   'review',
-   computed([$reviewOpen, $hasWorkspace], (open, workspace) => open && workspace),
-   closeReview,
-   openReview
- )
--// ⌃` / statusbar toggle — the terminal COLLAPSES to a rail (tab stays), not
-+// тМГ` / statusbar toggle тАФ the terminal COLLAPSES to a rail (tab stays), not
- // hides; PTYs stay alive while collapsed (see PersistentTerminal).
- bindToolPaneCollapse(
-   'terminal',
-@@ -584,7 +584,7 @@ bindToolPaneCollapse(
-   () => setTerminalTakeover(false),
-   () => setTerminalTakeover(true)
- )
--// ⌘K door onto the same pane the keybind and statusbar pill flip — was a
-+// тМШK door onto the same pane the keybind and statusbar pill flip тАФ was a
- // one-way "open" row under Go to, so it never showed on/off and couldn't hide.
- // Reads the TREE like every other pane toggle: `$terminalTakeover` stays true
- // behind a stacked sibling tab or a minimized zone, which would light the row
-@@ -601,12 +601,12 @@ registry.register(
-   })
- )
- 
--// Logs are ⌘K-ONLY chrome: the pane contribution EXISTS only while $logsOpen
-+// Logs are тМШK-ONLY chrome: the pane contribution EXISTS only while $logsOpen
- // is on. Off (the default) keeps logs out of the registry and the tree
--// entirely — no secondary tab riding the terminal strip, no preset or
-+// entirely тАФ no secondary tab riding the terminal strip, no preset or
- // adoption path that resurrects it. Session-only on purpose (not persisted):
- // a fresh boot never re-opens logs automatically. The palette toggle is the
--// single door in; tab ✕ / ⌘W / the toggle itself remove it again.
-+// single door in; tab тЬХ / тМШW / the toggle itself remove it again.
- const $logsOpen = atom(false)
- 
- let unregisterLogsPane: (() => void) | null = null
-@@ -617,9 +617,9 @@ const syncLogsPane = (open: boolean) => {
-       id: 'logs',
-       area: 'panes',
-       title: 'logs',
--      // Same tool-panel sizing rule as the terminal above — no minHeight, so
-+      // Same tool-panel sizing rule as the terminal above тАФ no minHeight, so
-       // the sash floors it at COLLAPSED_ZONE_PX and folds the zone to its rail
--      // rather than leaving a sliver. dock: its OWN zone beside the terminal —
-+      // rather than leaving a sliver. dock: its OWN zone beside the terminal тАФ
-       // never a tab in the terminal's strip.
-       data: {
-         placement: 'bottom',
-@@ -629,14 +629,14 @@ const syncLogsPane = (open: boolean) => {
-       },
-       render: () => idle(<LogsPane />)
-     })
--    // Summoning logs is explicit intent — front it (un-dismisses if a ✕ close
-+    // Summoning logs is explicit intent тАФ front it (un-dismisses if a тЬХ close
-     // left a dismissal record behind).
-     revealTreePane('logs')
-   } else {
-     unregisterLogsPane?.()
-     unregisterLogsPane = null
- 
--    // No dismissal record — the next toggle-on must re-adopt cleanly. Also
-+    // No dismissal record тАФ the next toggle-on must re-adopt cleanly. Also
-     // sweeps 'logs' out of persisted trees from before it was summon-only.
-     // Guarded: removePane rebuilds the tree even for an absent pane, and a
-     // no-op boot sweep would commit (and persist) a fresh identical tree.
-@@ -648,7 +648,7 @@ const syncLogsPane = (open: boolean) => {
-   }
- }
- 
--// Tool-panel tab semantics (✕ / ⌘W route through the store) so the palette
-+// Tool-panel tab semantics (тЬХ / тМШW route through the store) so the palette
- // toggle stays truthful either way.
- markCollapsePane('logs')
- registerPaneCloser('logs', () => $logsOpen.set(false))
-@@ -664,7 +664,7 @@ registry.register(
-     keywords: ['logs', 'agent log', 'tail', 'debug'],
-     // On-screen, not the store's boolean. Summon-only keeps the two in step
-     // while logs sits in its own zone, but the user can still drag it into the
--    // terminal's strip or minimize its zone — and then `$logsOpen` reads true
-+    // terminal's strip or minimize its zone тАФ and then `$logsOpen` reads true
-     // with nothing visible, so the row would show "on" and its press would
-     // spend itself re-asserting a value it already held.
-     get: () => isPaneVisible('logs'),
-@@ -673,7 +673,7 @@ registry.register(
- )
- 
- // YOLO (dangerous-command approval bypass) is a status-bar zap and a /yolo
--// command; ⌘K is the third door onto the SAME store function, so a user who
-+// command; тМШK is the third door onto the SAME store function, so a user who
- // lives in the palette never has to hunt for the pill.
- registry.register(
-   paletteToggle({
-@@ -686,11 +686,11 @@ registry.register(
-   })
- )
- 
--// Sessions/files Close = collapse their SIDE (⌘B/⌘J truthful, titlebar button
--// flips back) — but only while the pane actually lives in that root side
-+// Sessions/files Close = collapse their SIDE (тМШB/тМШJ truthful, titlebar button
-+// flips back) тАФ but only while the pane actually lives in that root side
- // column. Dragged next to main, a side collapse can't hide it (the collapse
--// skips main-bearing children), so Close falls back to dismissal there —
--// otherwise ⌘W/Close silently no-op.
-+// skips main-bearing children), so Close falls back to dismissal there тАФ
-+// otherwise тМШW/Close silently no-op.
- registerPaneCloser('sessions', () =>
-   paneRootSide('sessions') === 'left' ? setSidebarOpen(false) : dismissTreePane('sessions')
- )
-@@ -758,7 +758,7 @@ export function ContribController() {
-             {/* Title bar: fixed chrome outside the grid, composable via slots.
-               Layout contract (no contribution can break it):
-                 - a full-bar DRAG BASE underneath (pointer-events-none, like
--                  AppShell's drag strips) — everywhere without content drags
-+                  AppShell's drag strips) тАФ everywhere without content drags
-                   the window;
-                 - each slot region is width-fit, no-drag, pointer-events-auto,
-                   so every contribution is clickable by construction;
-@@ -768,7 +768,7 @@ export function ContribController() {
-                   clusters (fixed, z-70); center is truly window-centered. */}
-             <div className="relative flex h-[34px] shrink-0 items-center bg-(--ui-sidebar-surface-background) text-xs">
-               {/* Drag strips, AppShell-style: cut to AVOID the fixed control
--                clusters instead of overlapping them — Electron's no-drag
-+                clusters instead of overlapping them тАФ Electron's no-drag
-                 carve-out of fixed/transformed elements is unreliable, so a
-                 full-bar drag base kills their clicks. In-flow slot content
-                 still carves via its own no-drag wrapper (the same pattern as
-@@ -807,12 +807,12 @@ export function ContribController() {
- 
-             <LayoutTreeRoot />
- 
--            {/* "Close running tab?" — the busy/input-blocked tile close gate. */}
-+            {/* "Close running tab?" тАФ the busy/input-blocked tile close gate. */}
-             <SessionTileCloseConfirm />
- 
--            {/* The REAL statusbar (model pill, command center, agents, …) with
--              statusBar.left/right contributions merged in. Unmounted — not
--              just hidden — while toggled off, so its 15s status poll and the
-+            {/* The REAL statusbar (model pill, command center, agents, тАж) with
-+              statusBar.left/right contributions merged in. Unmounted тАФ not
-+              just hidden тАФ while toggled off, so its 15s status poll and the
-               per-turn readouts stop with it. */}
-             {statusbarVisible && <WiredPane part="statusbar" />}
-           </div>
 diff --git a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx b/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
 index 3f5d54835d..57b9c198f7 100644
 --- a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
@@ -591,14 +164,14 @@ index 28036e9e67..3fc5433011 100644
  // backend now surfaces the full `hermes model` universe (every canonical
  // provider), so unconfigured providers come back with `authenticated:false`
 -// and an empty `models` list — those need a setup step before a model exists.
-+// and an empty `models` list тАФ those need a setup step before a model exists.
++// and an empty `models` list — those need a setup step before a model exists.
  function isProviderReady(p?: ModelOptionProvider): boolean {
    return !!p && (p.authenticated !== false || (p.models?.length ?? 0) > 0)
  }
  
  // Mirrors `_AUX_TASK_SLOTS` in hermes_cli/web_server.py. Friendly labels and
 -// hints make the assignments readable; raw task keys (vision, mcp, …) are
-+// hints make the assignments readable; raw task keys (vision, mcp, тАж) are
++// hints make the assignments readable; raw task keys (vision, mcp, …) are
  // opaque to most users.
  interface AuxTaskMeta {
    key: string
@@ -607,12 +180,12 @@ index 28036e9e67..3fc5433011 100644
  ]
  
 -const NO_PROVIDERS: readonly ModelOptionProvider[] = [{ name: '—', slug: '', models: [] }]
-+const NO_PROVIDERS: readonly ModelOptionProvider[] = [{ name: 'тАФ', slug: '', models: [] }]
++const NO_PROVIDERS: readonly ModelOptionProvider[] = [{ name: '—', slug: '', models: [] }]
  
  // Radix <Select> renders a blank trigger when `value` matches no <SelectItem>.
  // A custom model (e.g. one added via config that isn't in the provider's
 -// curated list) would vanish — surface the active value so it stays selectable.
-+// curated list) would vanish тАФ surface the active value so it stays selectable.
++// curated list) would vanish — surface the active value so it stays selectable.
  export const withActive = (models: readonly string[], active: string): readonly string[] =>
    active && !models.includes(active) ? [active, ...models] : models
  
@@ -621,7 +194,7 @@ index 28036e9e67..3fc5433011 100644
  export const moaSlotComplete = (slot: MoaModelSlot): boolean => !!(slot.provider.trim() && slot.model.trim())
  
 -// True when every slot in every preset is fully specified — the only state
-+// True when every slot in every preset is fully specified тАФ the only state
++// True when every slot in every preset is fully specified — the only state
  // that is safe to persist. The backend rejects configs with half-filled slots
  // (HTTP 422) instead of silently swapping the preset for hardcoded defaults
  // (#64156), so the autosave must simply wait for the edit to finish rather
@@ -647,7 +220,7 @@ index 28036e9e67..3fc5433011 100644
    const [selectedMoaPreset, setSelectedMoaPreset] = useState('')
    const [newMoaPresetName, setNewMoaPresetName] = useState('')
 -  // agent.* defaults round-trip through the shared config cache (read → write
-+  // agent.* defaults round-trip through the shared config cache (read тЖТ write
++  // agent.* defaults round-trip through the shared config cache (read → write
    // back the whole record), so a save here shows in the MCP/model surfaces.
    const { data: config } = useHermesConfigRecord(scopeProfile)
    const setConfig = useMemo(() => hermesConfigCacheWriter(scopeProfile), [scopeProfile])
@@ -656,7 +229,7 @@ index 28036e9e67..3fc5433011 100644
    const [switchStaleAux, setSwitchStaleAux] = useState<StaleAuxAssignment[]>([])
    // Inline API-key entry for picking an unconfigured `api_key` provider in
 -  // place — mirrors the onboarding ApiKeyForm but scoped to the model picker.
-+  // place тАФ mirrors the onboarding ApiKeyForm but scoped to the model picker.
++  // place — mirrors the onboarding ApiKeyForm but scoped to the model picker.
    const [apiKeyDraft, setApiKeyDraft] = useState('')
    const [activating, setActivating] = useState(false)
  
@@ -665,7 +238,7 @@ index 28036e9e67..3fc5433011 100644
    }, [refresh])
  
 -  // A profile switch swaps the backend under the mounted panel — reload for the
-+  // A profile switch swaps the backend under the mounted panel тАФ reload for the
++  // A profile switch swaps the backend under the mounted panel — reload for the
    // new profile (bumping the epoch first so any in-flight A request is discarded).
    useOnProfileSwitch(() => {
      profileEpoch.current += 1
@@ -674,7 +247,7 @@ index 28036e9e67..3fc5433011 100644
    )
  
 -  // MoA reference/aggregator slots must never be the moa virtual provider —
-+  // MoA reference/aggregator slots must never be the moa virtual provider тАФ
++  // MoA reference/aggregator slots must never be the moa virtual provider —
    // that would create a recursive MoA tree (the backend rejects it on save).
    // Hide it from the slot selectors so it isn't offered as a dead choice.
    const moaSlotProviderOptions = providerOptions.filter(provider => (provider.slug || '').toLowerCase() !== 'moa')
@@ -683,7 +256,7 @@ index 28036e9e67..3fc5433011 100644
    const moaSaveGeneration = useRef(0)
  
 -  // Quiet debounced persist for inline MoA edits — mirrors the config page's
-+  // Quiet debounced persist for inline MoA edits тАФ mirrors the config page's
++  // Quiet debounced persist for inline MoA edits — mirrors the config page's
    // autosave so slot/aggregator tweaks save themselves, matching the
    // preset-level ops (set default / add / delete) that already persist on
    // click. No `applying` spinner, so selecting stays responsive.
@@ -692,7 +265,7 @@ index 28036e9e67..3fc5433011 100644
  
      // Picking a new provider invalidates the model choice (models are
 -    // per-provider). A same-provider update must not wipe the model — Radix
-+    // per-provider). A same-provider update must not wipe the model тАФ Radix
++    // per-provider). A same-provider update must not wipe the model — Radix
      // filters same-value changes, but programmatic callers may not.
      if (patch.provider && patch.provider !== slot.provider) {
        next.model = ''
@@ -701,7 +274,7 @@ index 28036e9e67..3fc5433011 100644
  
        // Explicit preset ops (set default / add / delete) supersede any pending
 -      // debounced slot autosave — cancel it and invalidate in-flight responses
-+      // debounced slot autosave тАФ cancel it and invalidate in-flight responses
++      // debounced slot autosave — cancel it and invalidate in-flight responses
        // so the two writers can't race each other's state.
        if (moaSaveTimer.current) {
          window.clearTimeout(moaSaveTimer.current)
@@ -710,7 +283,7 @@ index 28036e9e67..3fc5433011 100644
    }, [auxiliary, mainModel])
  
 -  // Capabilities of the APPLIED main model — gates the profile-default
-+  // Capabilities of the APPLIED main model тАФ gates the profile-default
++  // Capabilities of the APPLIED main model — gates the profile-default
    // reasoning/speed controls the same way the composer picker gates per-model
    // edits (reasoning defaults on, fast defaults off when unreported).
    const mainCaps = useMemo(() => {
@@ -719,7 +292,7 @@ index 28036e9e67..3fc5433011 100644
  
    // Hand-written `reasoning_effort: false`/`off` reaches us as boolean false
 -  // ("false" once stringified) — show it as Off, not an empty select.
-+  // ("false" once stringified) тАФ show it as Off, not an empty select.
++  // ("false" once stringified) — show it as Off, not an empty select.
    const rawEffort = String(getNested(config ?? {}, 'agent.reasoning_effort') ?? '')
      .trim()
      .toLowerCase()
@@ -728,7 +301,7 @@ index 28036e9e67..3fc5433011 100644
  
    // Persist a single agent.* default by round-tripping the whole config record
 -  // (PUT /api/config replaces it) — optimistic, with rollback on failure.
-+  // (PUT /api/config replaces it) тАФ optimistic, with rollback on failure.
++  // (PUT /api/config replaces it) — optimistic, with rollback on failure.
    const writeAgentDefault = useCallback(
      async (key: string, value: string) => {
        if (!config) {
@@ -737,7 +310,7 @@ index 28036e9e67..3fc5433011 100644
  
        // Pick a sensible default for the freshly-activated provider (mirrors
 -      // `hermes model` curation). Best-effort — fall through to the refreshed
-+      // `hermes model` curation). Best-effort тАФ fall through to the refreshed
++      // `hermes model` curation). Best-effort — fall through to the refreshed
        // model list if it fails.
        let nextModel = ''
  
@@ -746,7 +319,7 @@ index 28036e9e67..3fc5433011 100644
    }, [apiKeyDraft, scopeProfile, selectedProviderRow])
  
 -  // OAuth / external providers can't be activated with a pasted key — hand off
-+  // OAuth / external providers can't be activated with a pasted key тАФ hand off
++  // OAuth / external providers can't be activated with a pasted key — hand off
    // to the shared onboarding flow scoped to this provider's real sign-in. The
    // custom / local endpoint is NOT an OAuth provider, so it gets the dedicated
    // local-endpoint form (URL + optional API key) instead of being dead-ended
@@ -756,8 +329,8 @@ index 28036e9e67..3fc5433011 100644
              {selectedProviderRow?.auth_type === 'api_key'
 -              ? `${selectedProviderRow?.name} needs an API key — set it up to choose a model.`
 -              : `${selectedProviderRow?.name} signs in through your browser — Hermes runs the flow for you.`}
-+              ? `${selectedProviderRow?.name} needs an API key тАФ set it up to choose a model.`
-+              : `${selectedProviderRow?.name} signs in through your browser тАФ Hermes runs the flow for you.`}
++              ? `${selectedProviderRow?.name} needs an API key — set it up to choose a model.`
++              : `${selectedProviderRow?.name} signs in through your browser — Hermes runs the flow for you.`}
            </p>
          )}
          {config && mainModel && (reasoningSupported || fastSupported) && (
