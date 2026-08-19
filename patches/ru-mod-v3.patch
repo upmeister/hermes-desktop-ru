@@ -1,3 +1,16 @@
+diff --git a/apps/desktop/electron/connection-registry.ts b/apps/desktop/electron/connection-registry.ts
+index 012743bc0..8c454f416 100644
+--- a/apps/desktop/electron/connection-registry.ts
++++ b/apps/desktop/electron/connection-registry.ts
+@@ -797,7 +797,7 @@ export function connectionDialFieldsChanged(before: RegistryConnection, after: R
+ 
+ // ── Registry-level operations (all pure: return a new registry) ────────────
+ 
+-function localEntry(label = 'This device'): RegistryConnection {
++function localEntry(label = 'Это устройство'): RegistryConnection {
+   return { id: LOCAL_CONNECTION_ID, kind: 'local', label }
+ }
+ 
 diff --git a/apps/desktop/src/app/chat/index.tsx b/apps/desktop/src/app/chat/index.tsx
 index 13ed22518..72347d1e7 100644
 --- a/apps/desktop/src/app/chat/index.tsx
@@ -342,6 +355,19 @@ index 0357bf424..cd9ed2f52 100644
        }
    }
  }
+diff --git a/apps/desktop/src/app/settings/billing/index.tsx b/apps/desktop/src/app/settings/billing/index.tsx
+index 040d37b3b..a7ef239db 100644
+--- a/apps/desktop/src/app/settings/billing/index.tsx
++++ b/apps/desktop/src/app/settings/billing/index.tsx
+@@ -411,7 +411,7 @@ function BillingHeader({
+     <div className="mb-2.5 flex items-center justify-between gap-3 pt-2 text-[length:var(--conversation-text-font-size)] font-medium">
+       <div className="flex min-w-0 items-center gap-2">
+         <BarChart3 className="size-4 shrink-0 text-muted-foreground" />
+-        <span>Billing</span>
++        <span>Биллинг</span>
+       </div>
+       {import.meta.env.DEV && fixtureName && onFixtureChange ? (
+         <BillingFixtureSelect onValueChange={onFixtureChange} value={fixtureName} />
 diff --git a/apps/desktop/src/app/settings/billing/plans-view.tsx b/apps/desktop/src/app/settings/billing/plans-view.tsx
 index 728a81423..3c20325ad 100644
 --- a/apps/desktop/src/app/settings/billing/plans-view.tsx
@@ -1103,7 +1129,7 @@ index ef78dceea..2241a8eb8 100644
      priority: 23
    }
 diff --git a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
-index b74b30a29..e3315e6b5 100644
+index b74b30a29..ada97d722 100644
 --- a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
 +++ b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
 @@ -108,7 +108,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
@@ -1193,6 +1219,15 @@ index b74b30a29..e3315e6b5 100644
                      </div>
                    </button>
                    <div className="flex items-center gap-2 sm:justify-end">
+@@ -268,7 +268,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+                       variant="outline"
+                     >
+                       {activating === endpoint.id ? <Loader2 className="animate-spin" /> : <Zap />}
+-                      Use
++                      Использовать
+                     </Button>
+                     {endpoint.source !== 'direct-config' && (
+                       <Button
 @@ -276,7 +276,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
                          disabled={deleting === endpoint.id}
                          onClick={() => void handleDelete(endpoint)}
@@ -1202,7 +1237,7 @@ index b74b30a29..e3315e6b5 100644
                          variant="ghost"
                        >
                          {deleting === endpoint.id ? <Loader2 className="animate-spin" /> : <Trash2 />}
-@@ -286,13 +286,13 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -286,17 +286,17 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
                  </div>
                ))
              ) : (
@@ -1218,8 +1253,53 @@ index b74b30a29..e3315e6b5 100644
            <div className="grid gap-3 rounded-md border border-border/50 p-3">
              <div className="grid gap-3 sm:grid-cols-2">
                <label className="grid gap-1.5 text-xs text-muted-foreground">
-@@ -349,7 +349,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
-               API Key
+-                Name
++                Название
+                 <Input
+                   onChange={event => setForm(current => ({ ...current, name: event.target.value }))}
+                   placeholder="Axet Proxy"
+@@ -304,7 +304,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+                 />
+               </label>
+               <label className="grid gap-1.5 text-xs text-muted-foreground">
+-                Provider ID
++                ID провайдера
+                 <Input
+                   onChange={event => setForm(current => ({ ...current, id: event.target.value }))}
+                   placeholder="axet-proxy"
+@@ -313,7 +313,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+               </label>
+             </div>
+             <label className="grid gap-1.5 text-xs text-muted-foreground">
+-              Endpoint URL
++              URL эндпоинта
+               <Input
+                 onChange={event => setForm(current => ({ ...current, baseUrl: event.target.value }))}
+                 placeholder="http://127.0.0.1:8081/v1"
+@@ -322,7 +322,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+             </label>
+             <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_12rem]">
+               <label className="grid gap-1.5 text-xs text-muted-foreground">
+-                Default Model
++                Модель по умолчанию
+                 <Input
+                   list="custom-endpoint-models"
+                   onChange={event => setForm(current => ({ ...current, model: event.target.value }))}
+@@ -336,7 +336,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+                 </datalist>
+               </label>
+               <label className="grid gap-1.5 text-xs text-muted-foreground">
+-                Context
++                Контекст
+                 <Input
+                   inputMode="numeric"
+                   onChange={event => setForm(current => ({ ...current, contextLength: event.target.value }))}
+@@ -346,10 +346,10 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+               </label>
+             </div>
+             <label className="grid gap-1.5 text-xs text-muted-foreground">
+-              API Key
++              API-ключ
                <Input
                  onChange={event => setForm(current => ({ ...current, apiKey: event.target.value }))}
 -                placeholder={form.id ? 'Leave blank to keep current key' : 'Optional'}
@@ -1227,6 +1307,46 @@ index b74b30a29..e3315e6b5 100644
                  type="password"
                  value={form.apiKey}
                />
+@@ -360,14 +360,14 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+                   checked={form.makeDefault}
+                   onCheckedChange={checked => setForm(current => ({ ...current, makeDefault: checked === true }))}
+                 />
+-                Use for new chats
++                Использовать для новых чатов
+               </label>
+               <label className="flex items-center gap-2">
+                 <Checkbox
+                   checked={form.discoverModels}
+                   onCheckedChange={checked => setForm(current => ({ ...current, discoverModels: checked === true }))}
+                 />
+-                Discover models
++                Обнаруживать модели
+               </label>
+             </div>
+             <div className="flex flex-wrap gap-2">
+@@ -377,11 +377,11 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+                 variant="outline"
+               >
+                 {testing ? <Loader2 className="animate-spin" /> : <Zap />}
+-                Test
++                Проверить
+               </Button>
+               <Button disabled={saving || !canSave} onClick={() => void handleSave()}>
+                 {saving ? <Loader2 className="animate-spin" /> : <Save />}
+-                Save
++                Сохранить
+               </Button>
+               <Button
+                 className={cn(!form.id && 'hidden')}
+@@ -392,7 +392,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+                 type="button"
+                 variant="ghost"
+               >
+-                New endpoint
++                Новый эндпоинт
+               </Button>
+             </div>
+           </div>
 diff --git a/apps/desktop/src/app/settings/memory/connect.tsx b/apps/desktop/src/app/settings/memory/connect.tsx
 index 64d9cfa6f..19ece2346 100644
 --- a/apps/desktop/src/app/settings/memory/connect.tsx
@@ -1459,10 +1579,52 @@ index 69598afe4..ea0671428 100644
  }
  
 diff --git a/apps/desktop/src/app/settings/uninstall-section.tsx b/apps/desktop/src/app/settings/uninstall-section.tsx
-index 5ac21ac80..236a5931e 100644
+index 5ac21ac80..42647a8c8 100644
 --- a/apps/desktop/src/app/settings/uninstall-section.tsx
 +++ b/apps/desktop/src/app/settings/uninstall-section.tsx
-@@ -122,7 +122,7 @@ export function UninstallSection() {
+@@ -20,23 +20,23 @@ interface ModeOption {
+ const OPTIONS: ModeOption[] = [
+   {
+     mode: 'gui',
+-    title: 'Uninstall Chat GUI only',
+-    description: 'Remove this desktop app. The Hermes agent, your config, and chats all stay.',
+-    consequence: 'the desktop Chat GUI (this app and its data)',
++    title: 'Удалить только интерфейс чата',
++    description: 'Удалит это десктопное приложение. Агент Hermes, ваша конфигурация и чаты останутся.',
++    consequence: 'интерфейс чата (это приложение и его данные)',
+     needsAgent: false
+   },
+   {
+     mode: 'lite',
+-    title: 'Uninstall GUI + agent, keep my data',
+-    description: 'Remove the app and the Hermes agent, but keep config, chats, and secrets for a future reinstall.',
+-    consequence: 'the Chat GUI and the Hermes agent (config, chats, and secrets are kept)',
++    title: 'Удалить интерфейс и агента, сохранив данные',
++    description: 'Удалит приложение и агента Hermes, но сохранит конфигурацию, чаты и секреты для будущей переустановки.',
++    consequence: 'интерфейс чата и агент Hermes (конфигурация, чаты и секреты сохранятся)',
+     needsAgent: true
+   },
+   {
+     mode: 'full',
+-    title: 'Uninstall everything',
+-    description: 'Remove the app, the agent, and all user data — config, chats, scheduled jobs, secrets, logs.',
+-    consequence: 'EVERYTHING — the Chat GUI, the Hermes agent, and all of your config, chats, secrets, and logs',
++    title: 'Удалить всё',
++    description: 'Удалит приложение, агента и все пользовательские данные — конфигурацию, чаты, запланированные задачи, секреты, логи.',
++    consequence: 'ВСЁ — интерфейс чата, агент Hermes и вся ваша конфигурация, чаты, секреты и логи',
+     // full removes the agent (and user data), so it's an agent-removing option:
+     // hide it on a lite client with no local agent, same as lite. A lite client
+     // connecting to a remote backend has no local agent OR local user data the
+@@ -106,7 +106,7 @@ export function UninstallSection() {
+       const result = await bridge.run(pending)
+ 
+       if (!result.ok) {
+-        setError(result.message || result.error || 'Uninstall could not start.')
++        setError(result.message || result.error || 'Не удалось запустить удаление.')
+         setRunning(false)
+         setPending(null)
+       }
+@@ -122,39 +122,39 @@ export function UninstallSection() {
  
    return (
      <div className="mx-auto mt-8 w-full max-w-2xl">
@@ -1471,6 +1633,46 @@ index 5ac21ac80..236a5931e 100644
  
        <div className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3">
          {loading ? (
+           <div className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+             <Loader2 className="size-3.5 animate-spin" />
+-            Checking what&apos;s installed…
++            Проверка установленного…
+           </div>
+         ) : pendingOption ? (
+           <div>
+-            <p className="text-sm font-medium text-destructive">Confirm uninstall</p>
++            <p className="text-sm font-medium text-destructive">Подтверждение удаления</p>
+             <p className="mt-1 text-xs text-muted-foreground">
+-              This removes {pendingOption.consequence}. This can&apos;t be undone.
++              Будет удалено {pendingOption.consequence}. Это действие нельзя отменить.
+             </p>
+             {summary?.running_app_path && (
+-              <p className="mt-1 font-mono text-[0.68rem] text-muted-foreground/60">App: {summary.running_app_path}</p>
++              <p className="mt-1 font-mono text-[0.68rem] text-muted-foreground/60">Приложение: {summary.running_app_path}</p>
+             )}
+             {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
+             <div className="mt-3 flex flex-wrap items-center gap-3">
+               <Button disabled={running} onClick={() => void handleConfirm()} size="sm" variant="destructive">
+                 {running && <Loader2 className="size-3 animate-spin" />}
+-                {running ? 'Uninstalling…' : 'Yes, uninstall'}
++                {running ? 'Удаление…' : 'Да, удалить'}
+               </Button>
+               <Button disabled={running} onClick={() => setPending(null)} size="sm" variant="text">
+-                Cancel
++                Отмена
+               </Button>
+             </div>
+           </div>
+         ) : (
+           <div className="flex flex-col gap-2">
+-            <p className="text-sm font-medium">Uninstall Hermes</p>
++            <p className="text-sm font-medium">Удалить Hermes</p>
+             <p className="text-xs text-muted-foreground">
+-              Choose how much to remove. The app closes to finish the job; reopen the installer any time to come back.
++              Выберите, что удалить. Приложение закроется для завершения; в любой момент можно открыть установщик заново.
+             </p>
+             <div className="mt-1 flex flex-col gap-2">
+               {visibleOptions.map(opt => (
 diff --git a/apps/desktop/src/components/assistant-ui/markdown-text.tsx b/apps/desktop/src/components/assistant-ui/markdown-text.tsx
 index 54e7f0456..bc3788d2f 100644
 --- a/apps/desktop/src/components/assistant-ui/markdown-text.tsx
