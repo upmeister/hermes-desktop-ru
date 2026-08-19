@@ -295,7 +295,7 @@ export const ru = defineLocale({
       'view.toggleStatusbar': 'Переключить строку состояния',
       'view.showFiles': 'Показать обозреватель файлов',
       'view.toggleHud': 'Переключить режим HUD',
-      'hud.snapToPointer': 'Move HUD to pointer (global, while HUD is open)',
+      'hud.snapToPointer': 'Переместить HUD к указателю (глобально, пока HUD открыт)',
       'view.showTerminal': 'Переключить терминал',
       'view.newTerminal': 'Новый терминал',
       'view.nextTerminal': 'Следующий терминал',
@@ -344,12 +344,9 @@ export const ru = defineLocale({
       'composer.help': 'Быстрая справка',
       'composer.history': 'Переключить попап / историю',
       'composer.cancel': 'Закрыть попап · отменить запуск',
-      session: {
-        archive: 'Архивировать текущую сессию',
-      },
-      view: {
-        showBrowser: 'Открыть браузер',
-      },
+      'session.archive': 'Архивировать текущую сессию',
+      'view.showBrowser': 'Открыть браузер',
+      'layout.editMode': 'Редактирование макета',
     },
   },
   findInPage: {

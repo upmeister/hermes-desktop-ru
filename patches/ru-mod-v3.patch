@@ -159,6 +159,19 @@ index 19b560f49..c8ce61878 100644
    $activeTerminalId.set(id)
  
    return id
+diff --git a/apps/desktop/src/app/settings/appearance-settings.tsx b/apps/desktop/src/app/settings/appearance-settings.tsx
+index b84debd60..eaf47b6af 100644
+--- a/apps/desktop/src/app/settings/appearance-settings.tsx
++++ b/apps/desktop/src/app/settings/appearance-settings.tsx
+@@ -397,7 +397,7 @@ export function AppearanceSettings() {
+                   <input
+                     className="w-full rounded-lg border border-(--ui-stroke-tertiary) bg-(--ui-bg-quinary) px-3 py-1.5 text-[length:var(--conversation-caption-font-size)] outline-none placeholder:text-(--ui-text-tertiary) focus:border-(--ui-stroke-secondary)"
+                     onChange={event => setQuery(event.target.value)}
+-                    placeholder="Search your themes or the VS Code Marketplace…"
++                    placeholder="Поиск тем или в VS Code Marketplace…"
+                     spellCheck={false}
+                     value={query}
+                   />
 diff --git a/apps/desktop/src/app/settings/billing/errors.ts b/apps/desktop/src/app/settings/billing/errors.ts
 index 0357bf424..cd9ed2f52 100644
 --- a/apps/desktop/src/app/settings/billing/errors.ts
@@ -1997,3 +2010,61 @@ index 02f2a4090..72727a148 100644
    } catch (error) {
      const message = error instanceof Error ? error.message : String(error)
      $backendUpdateApply.set({
+diff --git a/apps/desktop/src/themes/presets.ts b/apps/desktop/src/themes/presets.ts
+index 464381819..ada8a5dca 100644
+--- a/apps/desktop/src/themes/presets.ts
++++ b/apps/desktop/src/themes/presets.ts
+@@ -34,7 +34,7 @@ const nousTintTransparent = (pct: number) => `color-mix(in srgb, ${NOUS_BLUE} ${
+ export const nousTheme: DesktopTheme = {
+   name: 'nous',
+   label: 'Nous',
+-  description: 'Glass neutrals with Nous blue accents',
++  description: 'Нейтральное стекло с синими акцентами Nous',
+   colors: {
+     background: '#F8FAFF',
+     foreground: '#17171A',
+@@ -100,7 +100,7 @@ export const nousTheme: DesktopTheme = {
+ export const midnightTheme: DesktopTheme = {
+   name: 'midnight',
+   label: 'Midnight',
+-  description: 'Deep blue-violet with cool accents',
++  description: 'Глубокий сине-фиолетовый с холодными акцентами',
+   colors: {
+     background: '#08081c',
+     foreground: '#ddd6ff',
+@@ -137,7 +137,7 @@ export const midnightTheme: DesktopTheme = {
+ export const emberTheme: DesktopTheme = {
+   name: 'ember',
+   label: 'Ember',
+-  description: 'Warm crimson and bronze — forge vibes',
++  description: 'Тёплый багровый и бронза — атмосфера кузницы',
+   colors: {
+     background: '#160800',
+     foreground: '#ffd8b0',
+@@ -174,7 +174,7 @@ export const emberTheme: DesktopTheme = {
+ export const monoTheme: DesktopTheme = {
+   name: 'mono',
+   label: 'Mono',
+-  description: 'Clean grayscale — minimal and focused',
++  description: 'Чистая серая гамма — минимализм и фокус',
+   colors: {
+     background: '#0e0e0e',
+     foreground: '#eaeaea',
+@@ -207,7 +207,7 @@ export const monoTheme: DesktopTheme = {
+ export const cyberpunkTheme: DesktopTheme = {
+   name: 'cyberpunk',
+   label: 'Cyberpunk',
+-  description: 'Neon green on black — matrix terminal',
++  description: 'Неоновая зелень на чёрном — матричный терминал',
+   colors: {
+     background: '#000a00',
+     foreground: '#00ff41',
+@@ -244,7 +244,7 @@ export const cyberpunkTheme: DesktopTheme = {
+ export const slateTheme: DesktopTheme = {
+   name: 'slate',
+   label: 'Slate',
+-  description: 'Cool slate blue — focused developer theme',
++  description: 'Прохладный грифельно-синий — тема для разработчика',
+   colors: {
+     background: '#0d1117',
+     foreground: '#c9d1d9',
