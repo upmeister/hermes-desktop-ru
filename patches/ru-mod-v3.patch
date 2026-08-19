@@ -25,9 +25,18 @@ index 2b205c23d..26d89df74 100644
  
          <DropdownMenuSeparator />
 diff --git a/apps/desktop/src/app/contrib/controller.tsx b/apps/desktop/src/app/contrib/controller.tsx
-index 5c65fd3f1..08a6d732b 100644
+index 5c65fd3f1..b074381aa 100644
 --- a/apps/desktop/src/app/contrib/controller.tsx
 +++ b/apps/desktop/src/app/contrib/controller.tsx
+@@ -183,7 +183,7 @@ registry.registerMany([
+   {
+     id: 'terminal',
+     area: 'panes',
+-    title: 'terminal',
++    title: 'Терминал',
+     // revealOnPreset: choosing a layout that places the terminal (e.g.
+     // "Terminal deck") turns takeover on so the zone actually shows, instead of
+     // staying collapsed behind the ⌃` toggle. height sizes the fixed track (a
 @@ -415,7 +415,7 @@ const QUAD_TREE = split(
  registry.registerMany([
    { id: 'default', area: 'layouts', title: 'Default', order: 0, data: DEFAULT_TREE },
@@ -115,6 +124,28 @@ index 3f5d54835..57b9c198f 100644
              {state.sessions.map(session => (
                <option key={session.id} value={session.id}>
                  {session.title}
+diff --git a/apps/desktop/src/app/right-sidebar/terminal/terminals.ts b/apps/desktop/src/app/right-sidebar/terminal/terminals.ts
+index 19b560f49..c8ce61878 100644
+--- a/apps/desktop/src/app/right-sidebar/terminal/terminals.ts
++++ b/apps/desktop/src/app/right-sidebar/terminal/terminals.ts
+@@ -78,7 +78,7 @@ function sanitizePersistedTerminal(value: unknown): PersistedTerminalEntry | nul
+     id,
+     ...(restoreCwd ? { restoreCwd } : {}),
+     ...(reviveBuffer ? { reviveBuffer } : {}),
+-    title: title || 'Terminal'
++    title: title || 'Терминал'
+   }
+ }
+ 
+@@ -161,7 +161,7 @@ const newId = () =>
+  *  tie to session/project state); pass an explicit cwd to override. Returns the id. */
+ export function createTerminal(cwd: string = $currentCwd.get()): string {
+   const id = newId()
+-  $terminals.set([...$terminals.get(), { id, title: 'Terminal', auto: true, cwd, kind: 'user' }])
++  $terminals.set([...$terminals.get(), { id, title: 'Терминал', auto: true, cwd, kind: 'user' }])
+   $activeTerminalId.set(id)
+ 
+   return id
 diff --git a/apps/desktop/src/app/settings/billing/errors.ts b/apps/desktop/src/app/settings/billing/errors.ts
 index 0357bf424..cd9ed2f52 100644
 --- a/apps/desktop/src/app/settings/billing/errors.ts
@@ -1342,6 +1373,19 @@ index 54e7f0456..bc3788d2f 100644
        </a>
        {openFailed && <OpenMediaFailedNote name={name} />}
      </span>
+diff --git a/apps/desktop/src/components/assistant-ui/reference-kinds.ts b/apps/desktop/src/components/assistant-ui/reference-kinds.ts
+index 7d6c39758..6d2295e73 100644
+--- a/apps/desktop/src/components/assistant-ui/reference-kinds.ts
++++ b/apps/desktop/src/components/assistant-ui/reference-kinds.ts
+@@ -94,7 +94,7 @@ export const REFERENCE_STYLES: Record<ReferenceKind, ReferenceStyle> = {
+     paths: ['M5 9l14 0', 'M5 15l14 0', 'M11 4l-4 16', 'M17 4l-4 16'],
+     label: 'Lines'
+   },
+-  terminal: { codicon: 'terminal', paths: TERMINAL_PATHS, label: 'Terminal' },
++  terminal: { codicon: 'terminal', paths: TERMINAL_PATHS, label: 'Терминал' },
+   session: {
+     codicon: 'comment-discussion',
+     paths: ['M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227'],
 diff --git a/apps/desktop/src/components/assistant-ui/tool/fallback-model/index.ts b/apps/desktop/src/components/assistant-ui/tool/fallback-model/index.ts
 index 2a21657f6..b3ffb9573 100644
 --- a/apps/desktop/src/components/assistant-ui/tool/fallback-model/index.ts
