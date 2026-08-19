@@ -645,7 +645,7 @@ export const ru = defineLocale({
       cantReach: 'Не удалось связаться с сервером обновлений.',
       tapCheck: 'Нажмите «Проверить сейчас» для поиска обновлений.',
       updateReady: count => `Доступно новое обновление (включено изменений: ${count})`,
-      lastChecked: age => `Last checked ${age}`,
+      lastChecked: age => `Проверено ${age} назад`,
       justNowSuffix: ' · только что',
       automaticUpdates: 'Автоматические обновления',
       automaticUpdatesDesc: 'Hermes автоматически проверяет обновления в фоне и сообщает, когда одно готово.',
