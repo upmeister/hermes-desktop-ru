@@ -1,24 +1,8 @@
 diff --git a/apps/desktop/src/app/chat/index.tsx b/apps/desktop/src/app/chat/index.tsx
-index 13ed225186..cf2b3348e9 100644
+index 13ed22518..72347d1e7 100644
 --- a/apps/desktop/src/app/chat/index.tsx
 +++ b/apps/desktop/src/app/chat/index.tsx
-@@ -86,7 +86,6 @@ interface ChatViewProps extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
-   maxVoiceRecordingSeconds?: number
-   onAttachImageBlob: (blob: Blob) => Promise<boolean | void> | boolean | void
-   onAttachDroppedItems: (candidates: DroppedFile[]) => Promise<boolean | void> | boolean | void
--  onAttachPrCommentUrl?: (url: string) => boolean
-   onPasteClipboardImage: (opts?: { silent?: boolean }) => Promise<boolean> | void
-   onPickFiles: () => void
-   onPickFolders: () => void
-@@ -331,7 +330,6 @@ export const ChatView = memo(function ChatView({
-   onAddUrl,
-   onAttachImageBlob,
-   onAttachDroppedItems,
--  onAttachPrCommentUrl,
-   onBranchInNewChat,
-   maxVoiceRecordingSeconds,
-   onPasteClipboardImage,
-@@ -500,7 +498,7 @@ export const ChatView = memo(function ChatView({
+@@ -500,7 +500,7 @@ export const ChatView = memo(function ChatView({
        },
        tools: {
          enabled: true,
@@ -27,16 +11,97 @@ index 13ed225186..cf2b3348e9 100644
          suggestions: contextSuggestions
        },
        voice: {
-@@ -659,7 +657,6 @@ export const ChatView = memo(function ChatView({
-               onAddUrl={onAddUrl}
-               onAttachDroppedItems={onAttachDroppedItems}
-               onAttachImageBlob={onAttachImageBlob}
--              onAttachPrCommentUrl={onAttachPrCommentUrl}
-               onCancel={onCancel}
-               onPasteClipboardImage={onPasteClipboardImage}
-               onPickFiles={onPickFiles}
+diff --git a/apps/desktop/src/app/chat/sidebar/filter-menu.tsx b/apps/desktop/src/app/chat/sidebar/filter-menu.tsx
+index 2b205c23d..26d89df74 100644
+--- a/apps/desktop/src/app/chat/sidebar/filter-menu.tsx
++++ b/apps/desktop/src/app/chat/sidebar/filter-menu.tsx
+@@ -387,7 +387,7 @@ export function SidebarFilterMenu({ className }: { className?: string }) {
+ 
+           {/* One way back rather than two near-identical ones: this drops the
+               grouping and sort too, which "clear filters" left behind. */}
+-          {viewCustomized && <DropdownMenuItem onSelect={resetSidebarView}>Reset to defaults</DropdownMenuItem>}
++          {viewCustomized && <DropdownMenuItem onSelect={resetSidebarView}>Сбросить к стандартным</DropdownMenuItem>}
+         </DropdownMenuGroup>
+ 
+         <DropdownMenuSeparator />
+diff --git a/apps/desktop/src/app/contrib/controller.tsx b/apps/desktop/src/app/contrib/controller.tsx
+index 5c65fd3f1..08a6d732b 100644
+--- a/apps/desktop/src/app/contrib/controller.tsx
++++ b/apps/desktop/src/app/contrib/controller.tsx
+@@ -415,7 +415,7 @@ const QUAD_TREE = split(
+ registry.registerMany([
+   { id: 'default', area: 'layouts', title: 'Default', order: 0, data: DEFAULT_TREE },
+   { id: 'focus', area: 'layouts', title: 'Focus', order: 10, data: FOCUS_TREE },
+-  { id: 'terminal-deck', area: 'layouts', title: 'Terminal deck', order: 20, data: TERMINAL_TREE },
++  { id: 'terminal-deck', area: 'layouts', title: 'Терминал', order: 20, data: TERMINAL_TREE },
+   { id: 'quad', area: 'layouts', title: 'Quad', order: 30, data: QUAD_TREE }
+ ])
+ 
+diff --git a/apps/desktop/src/app/messaging/index.tsx b/apps/desktop/src/app/messaging/index.tsx
+index 579305dd3..17efaa561 100644
+--- a/apps/desktop/src/app/messaging/index.tsx
++++ b/apps/desktop/src/app/messaging/index.tsx
+@@ -811,39 +811,39 @@ function PlatformActionBar({
+ 
+ const PLATFORM_INTRO: Record<string, string> = {
+   telegram:
+-    'In Telegram, talk to @BotFather, run /newbot, and copy the token it gives you. Then grab your numeric user ID from @userinfobot.',
++    'В Telegram напишите @BotFather, выполните /newbot и скопируйте выданный токен. Затем получите свой числовой ID пользователя у @userinfobot.',
+   discord:
+-    'Open the Discord Developer Portal, create an application, add a Bot, then copy its token. Invite the bot to your server with the right scopes.',
++    'Откройте Discord Developer Portal, создайте приложение, добавьте бота и скопируйте его токен. Пригласите бота на свой сервер с нужными правами.',
+   slack:
+-    'Create a Slack app, enable Socket Mode, install it to your workspace, then copy the bot token and app-level token.',
++    'Создайте Slack-приложение, включите Socket Mode, установите его в рабочее пространство и скопируйте токен бота и токен приложения.',
+   mattermost:
+-    'On your Mattermost server, create a bot account or personal access token, then paste the server URL and token here.',
+-  matrix: 'Sign in to your homeserver with the bot account, then copy the access token, user ID, and homeserver URL.',
++    'На вашем сервере Mattermost создайте учётную запись бота или личный токен доступа, затем вставьте сюда URL сервера и токен.',
++  matrix: 'Войдите на свой homeserver под учётной записью бота и скопируйте токен доступа, ID пользователя и URL homeserver.',
+   signal:
+-    'Run a signal-cli REST bridge somewhere reachable, then point Hermes at the URL and the registered phone number.',
++    'Запустите REST-мост signal-cli в доступном месте, затем укажите Hermes его URL и зарегистрированный номер телефона.',
+   whatsapp:
+-    'Start the WhatsApp bridge that ships with Hermes, scan the QR code on first run, then enable the platform.',
++    'Запустите WhatsApp-мост, поставляемый с Hermes, отсканируйте QR-код при первом запуске и включите платформу.',
+   bluebubbles:
+-    'Run BlueBubbles Server on a Mac with iMessage, expose its API, then point Hermes at the URL with the server password.',
++    'Запустите BlueBubbles Server на Mac с iMessage, откройте его API и укажите Hermes URL вместе с паролем сервера.',
+   homeassistant:
+-    'In Home Assistant, open your profile and create a long-lived access token. Paste it here along with your HA URL.',
++    'В Home Assistant откройте свой профиль и создайте долгоживущий токен доступа. Вставьте его сюда вместе с URL вашего HA.',
+   email:
+-    'Use a dedicated mailbox. For Gmail/Workspace, create an app password and use imap.gmail.com / smtp.gmail.com.',
+-  sms: 'Get your Twilio Account SID and Auth Token from the Twilio console, plus a phone number that can send SMS.',
+-  dingtalk: 'Create a DingTalk app in the developer console, then copy the Client ID (App key) and Client Secret here.',
++    'Используйте выделенный почтовый ящик. Для Gmail/Workspace создайте пароль приложения и укажите imap.gmail.com / smtp.gmail.com.',
++  sms: 'Возьмите Account SID и Auth Token из консоли Twilio, а также номер телефона, способный отправлять SMS.',
++  dingtalk: 'Создайте приложение DingTalk в консоли разработчика и скопируйте сюда Client ID (App key) и Client Secret.',
+   feishu:
+-    'Create a Feishu / Lark app, configure the bot capability, and copy the App ID, App secret, and event encryption keys.',
++    'Создайте приложение Feishu / Lark, настройте возможность бота и скопируйте App ID, App secret и ключи шифрования событий.',
+   wecom:
+-    'Add a group robot in WeCom and copy its webhook key as WECOM_BOT_ID. Send-only — use the WeCom (app) option for two-way.',
++    'Добавьте группового робота в WeCom и скопируйте его webhook-ключ как WECOM_BOT_ID. Только отправка — для двусторонней связи используйте вариант WeCom (app).',
+   wecom_callback:
+-    'Set up a WeCom self-built app, expose its callback URL, and provide the corp ID, secret, agent ID, and AES key.',
++    'Настройте самодельное приложение WeCom, откройте его URL обратного вызова и укажите corp ID, secret, agent ID и ключ AES.',
+   weixin:
+-    "Run `hermes gateway setup`, select Weixin, then scan and confirm the QR code with a personal WeChat account. Hermes connects through Tencent's iLink Bot API and saves the credentials.",
+-  qqbot: 'Register an app on the QQ Open Platform (q.qq.com) and copy the App ID and Client Secret.',
++    'Запустите `hermes gateway setup`, выберите Weixin, затем отсканируйте и подтвердите QR-код личным аккаунтом WeChat. Hermes подключается через API iLink Bot от Tencent и сохраняет учётные данные.',
++  qqbot: 'Зарегистрируйте приложение на открытой платформе QQ (q.qq.com) и скопируйте App ID и Client Secret.',
+   api_server:
+-    'Expose Hermes as an OpenAI-compatible API. Set an auth key, then point Open WebUI / LobeChat / etc. at the host:port.',
++    'Откройте Hermes как API, совместимый с OpenAI. Задайте ключ авторизации и укажите Open WebUI / LobeChat и др. адрес host:port.',
+   webhook:
+-    'Run an HTTP server that other tools (GitHub, GitLab, custom apps) can POST to. Use the secret to verify signatures.'
++    'Запустите HTTP-сервер, на который другие инструменты (GitHub, GitLab, собственные приложения) смогут отправлять POST. Используйте секрет для проверки подписей.'
+ }
+ 
+ const introCopy = (platform: MessagingPlatformInfo, m: Translations['messaging']) =>
 diff --git a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx b/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
-index 3f5d54835d..57b9c198f7 100644
+index 3f5d54835..57b9c198f 100644
 --- a/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
 +++ b/apps/desktop/src/app/quick-entry/quick-entry-app.tsx
 @@ -182,8 +182,8 @@ export function QuickEntryApp() {
@@ -50,10 +115,975 @@ index 3f5d54835d..57b9c198f7 100644
              {state.sessions.map(session => (
                <option key={session.id} value={session.id}>
                  {session.title}
+diff --git a/apps/desktop/src/app/settings/billing/errors.ts b/apps/desktop/src/app/settings/billing/errors.ts
+index 0357bf424..cd9ed2f52 100644
+--- a/apps/desktop/src/app/settings/billing/errors.ts
++++ b/apps/desktop/src/app/settings/billing/errors.ts
+@@ -9,15 +9,15 @@ export interface BillingRefusalPresentation {
+ const portalAction = (url?: string): BillingRefusalPresentation['action'] => ({ type: 'portal', url })
+ 
+ const retryMessage = (refusal: BillingRefusal): string => {
+-  const mins = refusal.retryAfter ? ` (try again in ~${Math.max(1, Math.round(refusal.retryAfter / 60))} min)` : ''
++  const mins = refusal.retryAfter ? ` (повторите через ~${Math.max(1, Math.round(refusal.retryAfter / 60))} мин)` : ''
+ 
+-  return `🟡 Too many charges right now${mins}. This isn't a payment failure.`
++  return `🟡 Слишком много списаний сейчас${mins}. Это не ошибка оплаты.`
+ }
+ 
+ const stripeRetryMessage = (refusal: BillingRefusal): string => {
+-  const mins = refusal.retryAfter ? ` (try again in ~${Math.max(1, Math.round(refusal.retryAfter / 60))} min)` : ''
++  const mins = refusal.retryAfter ? ` (повторите через ~${Math.max(1, Math.round(refusal.retryAfter / 60))} мин)` : ''
+ 
+-  return `Stripe is having trouble — try again shortly${mins}`
++  return `Stripe временно недоступен — повторите попытку позже${mins}`
+ }
+ 
+ export const resolveRefusal = (refusal: BillingRefusal): BillingRefusalPresentation => {
+@@ -25,34 +25,34 @@ export const resolveRefusal = (refusal: BillingRefusal): BillingRefusalPresentat
+     case 'consent_required':
+       return {
+         action: portalAction(refusal.portalUrl),
+-        message: 'Confirm this card for terminal charges in the portal',
+-        title: 'Card confirmation needed'
++        message: 'Подтвердите эту карту для списаний терминала в портале',
++        title: 'Требуется подтверждение карты'
+       }
+ 
+     case 'insufficient_scope':
+       return {
+         action: { type: 'step_up' },
+-        message: 'This needs Remote Spending allowed. Start a top-up to allow it, then retry.',
+-        title: 'Remote Spending needs approval'
++        message: 'Для этого нужно разрешение «Удалённые траты». Начните пополнение, чтобы разрешить, затем повторите.',
++        title: 'Требуется одобрение удалённых трат'
+       }
+     case 'remote_spending_revoked': {
+       const who =
+         refusal.actor === 'admin'
+-          ? 'An admin stopped remote spending for this terminal.'
+-          : 'You stopped remote spending for this terminal.'
++          ? 'Администратор остановил удалённые траты для этого терминала.'
++          : 'Вы остановили удалённые траты для этого терминала.'
+ 
+       return {
+         action: portalAction(refusal.portalUrl),
+-        message: `${who} Reconnect from Settings → Gateway to re-authorize this device.`,
+-        title: 'Remote spending was stopped'
++        message: `${who} Подключитесь заново в Настройки → Шлюз, чтобы повторно авторизовать это устройство.`,
++        title: 'Удалённые траты остановлены'
+       }
+     }
+ 
+     case 'session_revoked':
+       return {
+         action: portalAction(refusal.portalUrl),
+-        message: 'Your session was logged out. Sign in again from Settings → Gateway.',
+-        title: 'Session logged out'
++        message: 'Ваша сессия была завершена. Войдите снова в Настройки → Шлюз.',
++        title: 'Сессия завершена'
+       }
+ 
+     case 'cli_billing_disabled':
+@@ -61,38 +61,38 @@ export const resolveRefusal = (refusal: BillingRefusal): BillingRefusalPresentat
+       return {
+         action: portalAction(refusal.portalUrl),
+         message:
+-          "Remote spending is off for this account — a billing admin can turn it on from the portal's Hermes Agent page.",
+-        title: 'Remote spending is off'
++          'Удалённые траты отключены для этого аккаунта — администратор биллинга может включить их на странице Hermes Agent в портале.',
++        title: 'Удалённые траты отключены'
+       }
+ 
+     case 'role_required':
+       return {
+         action: portalAction(refusal.portalUrl),
+-        message: 'Adding funds needs an org admin/owner. Ask an admin, or manage on the portal.',
+-        title: 'Admin role required'
++        message: 'Пополнение средств требует прав администратора/владельца организации. Обратитесь к администратору или управляйте в портале.',
++        title: 'Требуется роль администратора'
+       }
+ 
+     case 'idempotency_conflict':
+       return {
+         action: { type: 'none' },
+-        message: '🔴 That charge key was already used for a different amount. Start a fresh top-up.',
+-        title: 'Start a fresh top-up'
++        message: '🔴 Этот ключ списания уже использован для другой суммы. Начните новое пополнение.',
++        title: 'Начните новое пополнение'
+       }
+ 
+     case 'no_payment_method':
+       return {
+         action: portalAction(refusal.portalUrl),
+         message:
+-          '💳 No saved card for terminal charges yet. Set one up on the portal ' +
+-          "(one-time credit buys don't save a reusable card).",
+-        title: 'No saved card'
++          '💳 Для списаний терминала пока нет сохранённой карты. Добавьте её в портале ' +
++          '(разовые покупки кредитов не сохраняют многоразовую карту).',
++        title: 'Нет сохранённой карты'
+       }
+ 
+     case 'org_access_denied':
+       return {
+         action: { type: 'none' },
+-        message: "This token isn't bound to an org you can manage",
+-        title: 'Org access denied'
++        message: 'Этот токен не привязан к организации, которой вы можете управлять',
++        title: 'Доступ к организации запрещён'
+       }
+     case 'monthly_cap_exceeded': {
+       const remaining = refusal.payload?.remainingUsd
+@@ -101,9 +101,9 @@ export const resolveRefusal = (refusal: BillingRefusal): BillingRefusalPresentat
+         action: portalAction(refusal.portalUrl),
+         message:
+           remaining != null
+-            ? `🔴 Monthly spend cap reached — $${remaining} headroom left.`
+-            : '🔴 Monthly spend cap reached.',
+-        title: 'Monthly spend cap reached'
++            ? `🔴 Достигнут месячный лимит расходов — осталось $${remaining}.`
++            : '🔴 Достигнут месячный лимит расходов.',
++        title: 'Достигнут месячный лимит расходов'
+       }
+     }
+ 
+@@ -113,21 +113,21 @@ export const resolveRefusal = (refusal: BillingRefusal): BillingRefusalPresentat
+       return {
+         action: { type: 'retry' },
+         message: retryMessage(refusal),
+-        title: 'Too many charges right now'
++        title: 'Слишком много списаний сейчас'
+       }
+ 
+     case 'stripe_unavailable':
+       return {
+         action: { type: 'retry' },
+         message: stripeRetryMessage(refusal),
+-        title: 'Stripe is having trouble'
++        title: 'Stripe временно недоступен'
+       }
+ 
+     case 'upgrade_cap_exceeded':
+       return {
+         action: { type: 'none' },
+-        message: 'Daily plan-change limit reached — try again tomorrow',
+-        title: 'Daily plan-change limit reached'
++        message: 'Достигнут дневной лимит смены тарифа — повторите завтра',
++        title: 'Достигнут дневной лимит смены тарифа'
+       }
+ 
+     case 'endpoint_unavailable':
+@@ -135,29 +135,29 @@ export const resolveRefusal = (refusal: BillingRefusal): BillingRefusalPresentat
+         action: { type: 'retry' },
+         message:
+           refusal.message ||
+-          'Billing endpoint returned a non-JSON response (it may not be available on this deployment).',
+-        title: 'Billing endpoint unavailable'
++          'Биллинг-эндпоинт вернул не-JSON ответ (возможно, он недоступен в этой сборке).',
++        title: 'Биллинг-эндпоинт недоступен'
+       }
+ 
+     case 'timeout':
+       return {
+         action: { type: 'retry' },
+-        message: refusal.message || 'Billing request timed out.',
+-        title: 'Billing request timed out'
++        message: refusal.message || 'Время ожидания биллинг-запроса истекло.',
++        title: 'Время ожидания запроса истекло'
+       }
+ 
+     case 'transport':
+       return {
+         action: { type: 'retry' },
+-        message: refusal.message || 'Billing request failed before reaching the gateway.',
+-        title: 'Billing connection failed'
++        message: refusal.message || 'Биллинг-запрос не дошёл до шлюза.',
++        title: 'Не удалось подключиться к биллингу'
+       }
+ 
+     default:
+       return {
+         action: { type: 'none' },
+-        message: refusal.message || 'Billing request failed.',
+-        title: 'Billing request failed'
++        message: refusal.message || 'Биллинг-запрос не удался.',
++        title: 'Биллинг-запрос не удался'
+       }
+   }
+ }
+diff --git a/apps/desktop/src/app/settings/billing/plans-view.tsx b/apps/desktop/src/app/settings/billing/plans-view.tsx
+index 728a81423..3c20325ad 100644
+--- a/apps/desktop/src/app/settings/billing/plans-view.tsx
++++ b/apps/desktop/src/app/settings/billing/plans-view.tsx
+@@ -31,19 +31,19 @@ function previewMessage(phase: DowngradePhase, fallbackTierName: string): null |
+ 
+   switch (preview.effect) {
+     case 'blocked':
+-      return preview.reason ?? 'That change cannot be made here.'
++      return preview.reason ?? 'Это изменение здесь недоступно.'
+ 
+     case 'no_op':
+-      return `You are already on ${targetName} — nothing to change.`
++      return `Вы уже на тарифе ${targetName} — менять нечего.`
+ 
+     case 'scheduled':
+       return (
+-        `Change to ${targetName} — takes effect ${formatBillingDate(preview.effective_at)}. No charge now; ` +
+-        `you keep your current plan until then.${creditsDelta ? ` Monthly credits change: ${creditsDelta}.` : ''}`
++        `Переход на ${targetName} — вступит в силу ${formatBillingDate(preview.effective_at)}. Без списания сейчас; ` +
++        `текущий тариф сохранится до этого момента.${creditsDelta ? ` Месячные кредиты изменятся: ${creditsDelta}.` : ''}`
+       )
+ 
+     default:
+-      return 'This change cannot be scheduled here.'
++      return 'Это изменение здесь нельзя запланировать.'
+   }
+ }
+ 
+@@ -91,19 +91,19 @@ function DowngradeConfirm({ flow, tier }: { flow: DowngradeFlow; tier: BillingPl
+       <div className="flex min-w-0 flex-wrap items-center gap-2">
+         {phase.kind === 'previewFailed' ? (
+           <Button disabled={busy} onClick={flow.retryPreview} size="sm" type="button">
+-            Try again
++            Повторить
+           </Button>
+         ) : canConfirm ? (
+           <Button disabled={busy} onClick={() => void flow.confirm()} size="sm" type="button">
+             {phase.kind === 'scheduling'
+-              ? 'Scheduling…'
++              ? 'Планирование…'
+               : phase.kind === 'scheduleFailed'
+-                ? 'Try again'
+-                : 'Confirm downgrade'}
++                ? 'Повторить'
++                : 'Подтвердить переход на тариф вниз'}
+           </Button>
+         ) : null}
+         <Button disabled={busy} onClick={flow.cancel} size="sm" type="button" variant="outline">
+-          Cancel
++          Отмена
+         </Button>
+       </div>
+     </div>
+@@ -200,7 +200,7 @@ export function BillingPlansView({ onBack, tiers }: { onBack: () => void; tiers:
+     <div className="@container">
+       <div className="mb-2.5 flex items-center gap-2 pt-2 text-[length:var(--conversation-text-font-size)] font-medium">
+         <Button
+-          aria-label="Back to billing"
++          aria-label="Назад к биллингу"
+           className="size-7 p-0 text-(--ui-text-tertiary)"
+           disabled={flow.mutating}
+           onClick={onBack}
+diff --git a/apps/desktop/src/app/settings/billing/use-billing-state.ts b/apps/desktop/src/app/settings/billing/use-billing-state.ts
+index 3ccc8693a..fdb6f88e0 100644
+--- a/apps/desktop/src/app/settings/billing/use-billing-state.ts
++++ b/apps/desktop/src/app/settings/billing/use-billing-state.ts
+@@ -199,9 +199,9 @@ export function deriveBillingView(
+   if (!billing.logged_in || subscription?.logged_in === false) {
+     return {
+       notice: {
+-        action: { label: 'Open portal ↗', url: billing.portal_url ?? subscription?.portal_url ?? FALLBACK_PORTAL_URL },
+-        message: 'Run /portal in the TUI or open the Nous portal to connect your account.',
+-        title: 'Connect your Nous account'
++        action: { label: 'Открыть портал ↗', url: billing.portal_url ?? subscription?.portal_url ?? FALLBACK_PORTAL_URL },
++        message: 'Выполните /portal в TUI или откройте портал Nous, чтобы подключить аккаунт.',
++        title: 'Подключите аккаунт Nous'
+       },
+       status: 'logged_out',
+       summary: emptySummary(),
+@@ -226,12 +226,12 @@ export function deriveBillingView(
+     refillRow: autoReloadRow(billing),
+     status: 'normal',
+     summary: [
+-      { label: 'Balance', value: displayBalance(billing) },
+-      { label: 'Plan', value: displayPlan(subscription, billing.usage) },
++      { label: 'Баланс', value: displayBalance(billing) },
++      { label: 'Тариф', value: displayPlan(subscription, billing.usage) },
+       {
+-        label: 'Auto-refill',
++        label: 'Автопополнение',
+         tone: billing.auto_reload?.enabled ? 'primary' : billing.auto_reload ? 'muted' : undefined,
+-        value: billing.auto_reload ? (billing.auto_reload.enabled ? 'Enabled' : 'Off') : EMPTY_BILLING_VALUE
++        value: billing.auto_reload ? (billing.auto_reload.enabled ? 'Включено' : 'Выключено') : EMPTY_BILLING_VALUE
+       }
+     ],
+     tiers,
+@@ -291,9 +291,9 @@ export function formatBillingDate(value?: null | string): string {
+ 
+ function emptySummary(): BillingSummaryItemView[] {
+   return [
+-    { label: 'Balance', value: EMPTY_BILLING_VALUE },
+-    { label: 'Plan', value: EMPTY_BILLING_VALUE },
+-    { label: 'Auto-refill', value: EMPTY_BILLING_VALUE }
++    { label: 'Баланс', value: EMPTY_BILLING_VALUE },
++    { label: 'Тариф', value: EMPTY_BILLING_VALUE },
++    { label: 'Автопополнение', value: EMPTY_BILLING_VALUE }
+   ]
+ }
+ 
+@@ -302,7 +302,7 @@ function refusalNotice(refusal: BillingRefusal): BillingNoticeView {
+   const portalUrl = resolved.action.type === 'portal' ? resolved.action.url : undefined
+ 
+   return {
+-    action: portalUrl ? { label: 'Open portal ↗', url: portalUrl } : undefined,
++    action: portalUrl ? { label: 'Открыть портал ↗', url: portalUrl } : undefined,
+     message: resolved.message,
+     title: resolved.title,
+     tone: 'warn'
+@@ -318,9 +318,9 @@ function noCardNotice(billing: BillingStateResponse): BillingNoticeView | undefi
+   }
+ 
+   return {
+-    action: { label: 'Add card ↗', url: billing.portal_url ?? FALLBACK_PORTAL_BILLING_URL },
+-    message: 'Buying top-up credits and auto-refill stay disabled until a card is on file. Add one on the portal.',
+-    title: 'No payment method on file',
++    action: { label: 'Добавить карту ↗', url: billing.portal_url ?? FALLBACK_PORTAL_BILLING_URL },
++    message: 'Покупка кредитов и автопополнение отключены, пока не добавлена карта. Добавьте её в портале.',
++    title: 'Нет платёжного метода',
+     tone: 'warn'
+   }
+ }
+@@ -387,7 +387,7 @@ function derivePlanCard(
+   pending: PendingPlanTransition | undefined
+ ): BillingPlanCardView {
+   const current = subscription?.current
+-  const tierName = current?.tier_name ?? billing.usage?.plan_name ?? 'Free'
++  const tierName = current?.tier_name ?? billing.usage?.plan_name ?? 'Бесплатно'
+   // Price resolves against the UNFILTERED catalog so a grandfathered current tier
+   // still shows its price.
+   const price = findCurrentTier(subscription)?.dollars_per_month_display
+@@ -395,14 +395,14 @@ function derivePlanCard(
+   const unavailable = subscriptionResult ? !subscriptionResult.ok : false
+ 
+   const caption = unavailable
+-    ? 'Subscription details are unavailable; opening the portal is still available.'
++    ? 'Детали подписки недоступны; открытие портала по-прежнему возможно.'
+     : pending
+       ? pending.kind === 'downgrade'
+-        ? `Changes to ${pending.tierName} on ${pending.when}.`
+-        : `Cancels on ${pending.when}.`
++        ? `Изменения на ${pending.tierName} с ${pending.when}.`
++        : `Отмена с ${pending.when}.`
+       : current
+-        ? `Renews ${renewal}`
+-        : 'No active subscription — paid models draw down top-up credits.'
++        ? `Продлевается ${renewal}`
++        : 'Нет активной подписки — платные модели расходуют кредиты пополнений.'
+ 
+   // Actionable = a paid tier above (upgrade) or an in-app downgrade below the current
+   // one. Ticket 11 counts downgrades (they act in-app, so they carry no `action`); a
+@@ -410,14 +410,14 @@ function derivePlanCard(
+   const hasActionableTier = tiers.some(tier => tier.state === 'upgrade' || tier.state === 'downgrade')
+ 
+   if (capable && hasActionableTier) {
+-    return { action: { label: current ? 'Change plan' : 'View plans' }, caption, pending, price, tierName }
++    return { action: { label: current ? 'Сменить тариф' : 'Тарифы' }, caption, pending, price, tierName }
+   }
+ 
+   return {
+     caption,
+     // No in-app action → always hand off to the portal so the user isn't stranded.
+     link: {
+-      label: 'Adjust plan ↗',
++      label: 'Настроить тариф ↗',
+       url: buildManageSubscriptionUrl(subscription, subscription?.portal_url ?? billing.portal_url)
+     },
+     pending,
+@@ -529,7 +529,7 @@ function derivePlanTiers(
+ 
+     return {
+       ...base,
+-      action: { label: 'Choose ↗', url: buildManageSubscriptionUrl(subscription, manageBase, tier.tier_id) },
++      action: { label: 'Выбрать ↗', url: buildManageSubscriptionUrl(subscription, manageBase, tier.tier_id) },
+       state: 'upgrade'
+     }
+   })
+@@ -544,18 +544,18 @@ function paymentMethodRow(billing: BillingStateResponse): BillingAccountRowView
+     // it. The reason (buys/auto-refill are blocked) already leads the page as a
+     // notice, so the row stays a bare call-to-action with no redundant status text.
+     return {
+-      action: { label: 'Add payment method', url: portalUrl },
++      action: { label: 'Добавить платёжный метод', url: portalUrl },
+       description: '',
+       id: 'payment_method',
+-      title: 'Payment method'
++      title: 'Платёжный метод'
+     }
+   }
+ 
+   return {
+-    action: { label: 'Update', url: portalUrl },
+-    description: 'Manage the card used for top-ups and subscription renewals.',
++    action: { label: 'Обновить', url: portalUrl },
++    description: 'Управляйте картой, используемой для пополнений и продлений подписки.',
+     id: 'payment_method',
+-    title: 'Payment method',
++    title: 'Платёжный метод',
+     value: `${capitalize(card.brand)} •••• ${card.last4}${provenanceSuffix(card.resolved_via)}`
+   }
+ }
+@@ -566,11 +566,11 @@ function buyCreditsRow(billing: BillingStateResponse): BillingAccountRowView {
+     // (noCardNotice); repeating it here — emoji and all — just clutters the row,
+     // so keep the plain "what buying does" line and let the controls sit disabled.
+     return {
+-      action: { disabled: true, label: 'Buy' },
++      action: { disabled: true, label: 'Купить' },
+       chips: billing.charge_presets.map(amount => ({ disabled: true, label: formatMoney(amount) })),
+-      description: 'A single charge on your card, added to your balance today.',
++      description: 'Одноразовое списание с карты, зачисляется на баланс сегодня.',
+       id: 'buy_credits',
+-      title: 'Buy credits now'
++      title: 'Купить кредиты сейчас'
+     }
+   }
+ 
+@@ -580,45 +580,45 @@ function buyCreditsRow(billing: BillingStateResponse): BillingAccountRowView {
+     return {
+       description: disabledReason,
+       id: 'buy_credits',
+-      title: 'Buy credits now'
++      title: 'Купить кредиты сейчас'
+     }
+   }
+ 
+   return {
+-    action: { disabled: true, label: 'Buy' },
++    action: { disabled: true, label: 'Купить' },
+     chips: billing.charge_presets.map(amount => ({ disabled: true, label: formatMoney(amount) })),
+-    description: 'A single charge on your card, added to your balance today.',
++    description: 'Одноразовое списание с карты, зачисляется на баланс сегодня.',
+     id: 'buy_credits',
+-    title: 'Buy credits now'
++    title: 'Купить кредиты сейчас'
+   }
+ }
+ 
+ // The generic first sentence shared by the off / absent / divergent states,
+ // where the concrete amounts aren't the headline. The configured state overrides
+ // this with the disambiguating "Charges $X … below $Y." sentence (spec §8).
+-const AUTO_REFILL_GENERIC = 'Keep your balance topped up when it drops below your threshold.'
++const AUTO_REFILL_GENERIC = 'Поддерживайте баланс пополненным, когда он опускается ниже вашего порога.'
+ 
+ function autoReloadRow(billing: BillingStateResponse): BillingAccountRowView {
+   const autoReload = billing.auto_reload
+ 
+   if (!autoReload) {
+     return {
+-      action: { disabled: true, label: 'Manage' },
+-      caption: 'Manage auto-refill from the portal.',
++      action: { disabled: true, label: 'Управлять' },
++      caption: 'Управляйте автопополнением в портале.',
+       description: AUTO_REFILL_GENERIC,
+       id: 'auto_reload',
+       pill: { label: EMPTY_BILLING_VALUE, tone: 'muted' },
+-      title: 'Refill when low'
++      title: 'Пополнять при низком балансе'
+     }
+   }
+ 
+   if (!autoReload.enabled) {
+     return {
+-      caption: 'Turn on auto-refill from the portal',
++      caption: 'Включите автопополнение в портале',
+       description: AUTO_REFILL_GENERIC,
+       id: 'auto_reload',
+-      pill: { label: 'Off', tone: 'muted' },
+-      title: 'Refill when low'
++      pill: { label: 'Выключено', tone: 'muted' },
++      title: 'Пополнять при низком балансе'
+     }
+   }
+ 
+@@ -626,16 +626,16 @@ function autoReloadRow(billing: BillingStateResponse): BillingAccountRowView {
+   // the default enabled path below — the same treatment as a canonical card.
+   if (autoReload.card?.kind === 'distinct') {
+     const { brand, last4 } = autoReload.card
+-    const cardLabel = brand && last4 ? `${capitalize(brand)} ••${last4}` : 'a different card'
++    const cardLabel = brand && last4 ? `${capitalize(brand)} ••${last4}` : 'другая карта'
+     const portalUrl = billing.portal_url ?? FALLBACK_PORTAL_BILLING_URL
+ 
+     return {
+-      action: { label: 'Reconcile ↗', url: portalUrl },
+-      caption: `Auto-refill charges ${cardLabel} — reconcile on the portal`,
++      action: { label: 'Согласовать ↗', url: portalUrl },
++      caption: `Автопополнение списывает с ${cardLabel} — согласуйте в портале`,
+       description: AUTO_REFILL_GENERIC,
+       id: 'auto_reload',
+-      pill: { label: 'Enabled', tone: 'primary' },
+-      title: 'Refill when low'
++      pill: { label: 'Включено', tone: 'primary' },
++      title: 'Пополнять при низком балансе'
+     }
+   }
+ 
+@@ -643,16 +643,16 @@ function autoReloadRow(billing: BillingStateResponse): BillingAccountRowView {
+   const threshold = autoReload.threshold_display || formatMoney(autoReload.threshold_usd)
+ 
+   return {
+-    action: { label: 'Manage' },
++    action: { label: 'Управлять' },
+     // Numbers live in the first sentence (spec §8); the swap region below carries
+     // the editable fields, so no redundant caption here.
+-    description: `Charges ${reloadTo} automatically when your balance falls below ${threshold}.`,
++    description: `Списывает ${reloadTo} автоматически, когда баланс опускается ниже ${threshold}.`,
+     id: 'auto_reload',
+     // The only row that edits in place — AutoReloadRow keys its swap layout off this
+     // flag rather than sniffing the action label.
+     manageInApp: true,
+-    pill: { label: 'Enabled', tone: 'primary' },
+-    title: 'Refill when low'
++    pill: { label: 'Включено', tone: 'primary' },
++    title: 'Пополнять при низком балансе'
+   }
+ }
+ 
+@@ -681,16 +681,16 @@ function deriveUsageRows(
+     bar:
+       remainingFraction != null
+         ? {
+-            label: 'Subscription credits remaining',
++            label: 'Осталось кредитов подписки',
+             state: remainingFraction <= 0.1 ? 'danger' : 'ok',
+             tone: 'subscription',
+             track: remaining != null && remaining <= 0 ? 'danger' : undefined,
+             value: clamp01(remainingFraction)
+           }
+         : undefined,
+-    caption: `Resets ${formatBillingDate(current?.cycle_ends_at ?? usage?.renews_at)}`,
++    caption: `Сбрасывается ${formatBillingDate(current?.cycle_ends_at ?? usage?.renews_at)}`,
+     id: 'subscription_credits',
+-    title: 'Subscription credits',
++    title: 'Кредиты подписки',
+     value: subscriptionValue
+   })
+ 
+@@ -699,9 +699,9 @@ function deriveUsageRows(
+   // No bar: top-ups have no denominator (the wire carries only the current
+   // balance, and the pool is open-ended), so a fill fraction would be fiction.
+   rows.push({
+-    caption: 'Does not expire',
++    caption: 'Не истекает',
+     id: 'topup_credits',
+-    title: 'Top-up credits',
++    title: 'Кредиты пополнений',
+     value: topupValue
+   })
+ 
+@@ -711,22 +711,22 @@ function deriveUsageRows(
+     const limit = parseAmount(cap.limit_usd)
+     const spent = parseAmount(cap.spent_this_month_usd) ?? 0
+     const usedFraction = limit != null && limit > 0 ? spent / limit : null
+-    const value = `${cap.spent_display || formatMoney(spent)} of ${cap.limit_display || formatMoney(limit)} used`
++    const value = `${cap.spent_display || formatMoney(spent)} из ${cap.limit_display || formatMoney(limit)} использовано`
+ 
+     rows.push({
+       bar:
+         usedFraction != null
+           ? {
+-              label: 'Monthly spend cap used',
++              label: 'Использовано месячного лимита',
+               state: usedFraction >= 0.9 ? 'danger' : 'ok',
+               tone: 'cap',
+               track: usedFraction >= 1 ? 'danger' : undefined,
+               value: clamp01(usedFraction)
+             }
+           : undefined,
+-      caption: cap.is_default_ceiling ? 'Default ceiling' : 'Monthly remote spending',
++      caption: cap.is_default_ceiling ? 'Стандартный потолок' : 'Удалённые траты за месяц',
+       id: 'monthly_cap',
+-      title: 'Monthly spend cap',
++      title: 'Месячный лимит расходов',
+       value
+     })
+   }
+@@ -784,12 +784,12 @@ function provenanceSuffix(resolvedVia?: null | string): string {
+   }
+ 
+   const labels: Record<string, string> = {
+-    autoRefill: 'auto-refill card',
+-    customerDefault: 'customer default',
+-    subPin: 'subscription card'
++    autoRefill: 'карта автопополнения',
++    customerDefault: 'основная карта',
++    subPin: 'карта подписки'
+   }
+ 
+-  return ` - ${labels[resolvedVia] ?? resolvedVia}`
++  return ` — ${labels[resolvedVia] ?? resolvedVia}`
+ }
+ 
+ function capitalize(value: string): string {
+diff --git a/apps/desktop/src/app/settings/computer-use-panel.tsx b/apps/desktop/src/app/settings/computer-use-panel.tsx
+index 2423df8ae..7733e41a4 100644
+--- a/apps/desktop/src/app/settings/computer-use-panel.tsx
++++ b/apps/desktop/src/app/settings/computer-use-panel.tsx
+@@ -18,8 +18,9 @@ interface ComputerUsePanelProps {
+ // Per-OS one-liner shown when there's no TCC grant flow (Windows/Linux). macOS
+ // drives the permission rows instead, so it has no entry here.
+ const PLATFORM_NOTE: Record<string, string> = {
+-  linux: 'Drives your desktop via the X11/XWayland accessibility stack — no permission prompt.',
+-  win32: 'First run may trigger a Windows SmartScreen prompt for the cua-driver UIAccess worker — allow it.'
++  linux: 'Управляет вашим рабочим столом через стек доступности X11/XWayland — запросы разрешений не требуются.',
++  win32:
++    'При первом запуске Windows может показать запрос SmartScreen для рабочего процесса UIAccess cua-driver — разрешите.'
+ }
+ 
+ function tone(granted: boolean | null) {
+@@ -41,7 +42,7 @@ function PermissionRow({ granted, label, hint }: { granted: boolean | null; labe
+       </div>
+       <Pill tone={tone(granted)}>
+         <GrantIcon granted={granted} />
+-        {granted === true ? 'Granted' : granted === false ? 'Not granted' : 'Unknown'}
++        {granted === true ? 'Предоставлено' : granted === false ? 'Не предоставлено' : 'Неизвестно'}
+       </Pill>
+     </div>
+   )
+@@ -70,7 +71,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+     try {
+       setStatus(await getComputerUseStatus())
+     } catch (err) {
+-      notifyError(err, 'Could not read Computer Use status')
++      notifyError(err, 'Не удалось прочитать статус Computer Use')
+     } finally {
+       setLoading(false)
+     }
+@@ -91,15 +92,16 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+       const started = await grantComputerUsePermissions()
+ 
+       if (!started.ok) {
+-        notifyError(new Error('spawn failed'), 'Could not request permissions')
++        notifyError(new Error('spawn failed'), 'Не удалось запросить разрешения')
+ 
+         return
+       }
+ 
+       notify({
+         kind: 'info',
+-        title: 'Approve in System Settings',
+-        message: 'macOS will show a permission dialog attributed to CuaDriver. Approve it, then return here.'
++        title: 'Разрешить в настройках системы',
++        message:
++          'macOS покажет диалог разрешений для CuaDriver. Подтвердите его и вернитесь сюда.'
+       })
+ 
+       // The driver waits for the user to flip the switch — poll until it exits.
+@@ -124,7 +126,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+       }
+     } catch (err) {
+       if (activeRef.current) {
+-        notifyError(err, 'Could not request permissions')
++        notifyError(err, 'Не удалось запросить разрешения')
+       }
+     } finally {
+       if (activeRef.current) {
+@@ -137,7 +139,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+     return (
+       <div className="flex items-center gap-2 px-1 text-xs text-muted-foreground">
+         <Loader2 className="size-3.5 animate-spin" />
+-        Checking Computer Use status…
++        Проверка статуса Computer Use…
+       </div>
+     )
+   }
+@@ -149,7 +151,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+   if (!status.platform_supported) {
+     return (
+       <p className="px-1 text-xs text-muted-foreground">
+-        Computer Use isn&apos;t supported on this platform ({status.platform}).
++        Computer Use не поддерживается на этой платформе ({status.platform}).
+       </p>
+     )
+   }
+@@ -157,8 +159,8 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+   if (!status.installed) {
+     return (
+       <p className="px-1 text-xs text-muted-foreground">
+-        Install the cua-driver backend below to drive this machine.
+-        {status.can_grant && ' Then grant Accessibility and Screen Recording here.'}
++        Установите бэкенд cua-driver ниже, чтобы управлять этой машиной.
++        {status.can_grant && ' Затем предоставьте доступ к специальным возможностям и записи экрана здесь.'}
+       </p>
+     )
+   }
+@@ -171,8 +173,8 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+         <div className="min-w-0">
+           {status.can_grant ? (
+             <p className="text-[0.72rem] text-muted-foreground">
+-              Grants attach to CuaDriver&apos;s own identity (com.trycua.driver), not Hermes — so the dialog is
+-              attributed to the process that drives your Mac.
++              Разрешения привязываются к идентификатору CuaDriver (com.trycua.driver), а не Hermes — поэтому диалог
++              приписывается процессу, который управляет вашим Mac.
+             </p>
+           ) : (
+             <p className="text-[0.72rem] text-muted-foreground">{PLATFORM_NOTE[status.platform] ?? ''}</p>
+@@ -181,7 +183,7 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+         </div>
+         <Button onClick={() => void refresh()} size="sm" variant="text">
+           <RefreshCw className="size-3.5" />
+-          Recheck
++          Перепроверить
+         </Button>
+       </div>
+ 
+@@ -189,21 +191,21 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+         <>
+           <PermissionRow
+             granted={status.accessibility}
+-            hint="Lets cua-driver post clicks, keystrokes, and read the accessibility tree."
+-            label="Accessibility"
++            hint="Позволяет cua-driver отправлять клики и нажатия клавиш и читать дерево доступности."
++            label="Специальные возможности"
+           />
+           <PermissionRow
+             granted={status.screen_recording}
+-            hint="Lets cua-driver capture screenshots of app windows."
+-            label="Screen Recording"
++            hint="Позволяет cua-driver делать снимки окон приложений."
++            label="Запись экрана"
+           />
+         </>
+       ) : (
+         <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-background/55 p-2.5">
+-          <span className="text-sm font-medium">Driver health</span>
++          <span className="text-sm font-medium">Работоспособность драйвера</span>
+           <Pill tone={tone(status.ready)}>
+             <GrantIcon granted={status.ready} />
+-            {status.ready === true ? 'Ready' : status.ready === false ? 'Not ready' : 'Unknown'}
++            {status.ready === true ? 'Готов' : status.ready === false ? 'Не готов' : 'Неизвестно'}
+           </Pill>
+         </div>
+       )}
+@@ -225,13 +227,13 @@ export function ComputerUsePanel({ onConfiguredChange }: ComputerUsePanelProps)
+       {status.ready ? (
+         <div className="flex items-center gap-1.5 px-1 text-xs text-muted-foreground">
+           <Check className="size-3.5" />
+-          Computer Use is ready. Ask the agent to capture an app and click around.
++          Computer Use готов. Попросите агента захватить приложение и пощёлкать по нему.
+         </div>
+       ) : (
+         status.can_grant && (
+           <Button disabled={granting} onClick={() => void grant()} size="sm">
+             {granting ? <Loader2 className="size-3.5 animate-spin" /> : <ExternalLink className="size-3.5" />}
+-            {granting ? 'Waiting for approval…' : 'Grant permissions'}
++            {granting ? 'Ожидание подтверждения…' : 'Предоставить разрешения'}
+           </Button>
+         )
+       )}
+diff --git a/apps/desktop/src/app/settings/constants.ts b/apps/desktop/src/app/settings/constants.ts
+index ef78dceea..2241a8eb8 100644
+--- a/apps/desktop/src/app/settings/constants.ts
++++ b/apps/desktop/src/app/settings/constants.ts
+@@ -46,14 +46,14 @@ export const PROVIDER_GROUPS: ProviderPrefix[] = [
+   {
+     prefix: 'NOUS_',
+     name: 'Nous Portal',
+-    description: 'Hosted Hermes & Nous-trained models',
++    description: 'Размещённые модели Hermes и Nous',
+     docsUrl: 'https://portal.nousresearch.com',
+     priority: 0
+   },
+   {
+     prefix: 'FIREWORKS_',
+     name: 'Fireworks AI',
+-    description: 'OpenAI-compatible direct model API',
++    description: 'Прямой API моделей, совместимый с OpenAI',
+     docsUrl: 'https://app.fireworks.ai/settings/users/api-keys',
+     // Slot #2 — mirrors CANONICAL_PROVIDERS (after Nous, ahead of OpenRouter).
+     // Same numeric priority as OpenRouter; name sort puts Fireworks first.
+@@ -62,21 +62,21 @@ export const PROVIDER_GROUPS: ProviderPrefix[] = [
+   {
+     prefix: 'OPENROUTER_',
+     name: 'OpenRouter',
+-    description: 'Aggregator for hundreds of frontier models',
++    description: 'Агрегатор сотен передовых моделей',
+     docsUrl: 'https://openrouter.ai/keys',
+     priority: 1
+   },
+   {
+     prefix: 'ANTHROPIC_',
+     name: 'Anthropic',
+-    description: 'Claude API access (Sonnet, Opus, Haiku)',
++    description: 'Доступ к API Claude (Sonnet, Opus, Haiku)',
+     docsUrl: 'https://console.anthropic.com/settings/keys',
+     priority: 2
+   },
+   {
+     prefix: 'XAI_',
+     name: 'xAI',
+-    description: 'Grok models (use OAuth for SuperGrok / Premium+)',
++    description: 'Модели Grok (для SuperGrok / Premium+ используйте OAuth)',
+     docsUrl: 'https://console.x.ai/',
+     priority: 3
+   },
+@@ -91,14 +91,14 @@ export const PROVIDER_GROUPS: ProviderPrefix[] = [
+   {
+     prefix: 'DEEPSEEK_',
+     name: 'DeepSeek',
+-    description: 'Direct DeepSeek API (V3.x, R1)',
++    description: 'Прямой API DeepSeek (V3.x, R1)',
+     docsUrl: 'https://platform.deepseek.com/api_keys',
+     priority: 5
+   },
+   {
+     prefix: 'DASHSCOPE_',
+     name: 'DashScope (Qwen)',
+-    description: 'Alibaba Cloud DashScope — Qwen and multi-vendor models',
++    description: 'Alibaba Cloud DashScope — Qwen и модели других вендоров',
+     docsUrl: 'https://modelstudio.console.alibabacloud.com/',
+     priority: 6
+   },
+@@ -106,7 +106,7 @@ export const PROVIDER_GROUPS: ProviderPrefix[] = [
+   {
+     prefix: 'GLM_',
+     name: 'GLM / Z.AI',
+-    description: 'Zhipu GLM-4.6 and Z.AI hosted endpoints',
++    description: 'Zhipu GLM-4.6 и размещённые эндпоинты Z.AI',
+     docsUrl: 'https://z.ai/',
+     priority: 7
+   },
+@@ -115,91 +115,91 @@ export const PROVIDER_GROUPS: ProviderPrefix[] = [
+   {
+     prefix: 'KIMI_',
+     name: 'Kimi / Moonshot',
+-    description: 'Moonshot Kimi K2 / coding endpoints',
++    description: 'Moonshot Kimi K2 / кодинговые эндпоинты',
+     docsUrl: 'https://platform.moonshot.cn/',
+     priority: 8
+   },
+   {
+     prefix: 'KIMI_CN_',
+     name: 'Kimi (China)',
+-    description: 'Moonshot China endpoint',
++    description: 'Эндпоинт Moonshot для Китая',
+     docsUrl: 'https://platform.moonshot.cn/',
+     priority: 9
+   },
+   {
+     prefix: 'MINIMAX_',
+     name: 'MiniMax',
+-    description: 'MiniMax-M2 and Hailuo international endpoints',
++    description: 'MiniMax-M2 и международные эндпоинты Hailuo',
+     docsUrl: 'https://www.minimax.io/',
+     priority: 10
+   },
+   {
+     prefix: 'MINIMAX_CN_',
+     name: 'MiniMax (China)',
+-    description: 'MiniMax mainland China endpoint',
++    description: 'Эндпоинт MiniMax для материкового Китая',
+     docsUrl: 'https://www.minimaxi.com/',
+     priority: 11
+   },
+   {
+     prefix: 'HF_',
+     name: 'Hugging Face',
+-    description: 'Inference Providers — 20+ open models via router.huggingface.co',
++    description: 'Inference Providers — 20+ открытых моделей через router.huggingface.co',
+     docsUrl: 'https://huggingface.co/settings/tokens',
+     priority: 12
+   },
+   {
+     prefix: 'OPENCODE_ZEN_',
+     name: 'OpenCode Zen',
+-    description: 'Pay-as-you-go access to curated coding models',
++    description: 'Оплата по мере использования курируемых кодинговых моделей',
+     docsUrl: 'https://opencode.ai/auth',
+     priority: 13
+   },
+   {
+     prefix: 'OPENCODE_GO_',
+     name: 'OpenCode Go',
+-    description: '$10/month subscription for open coding models',
++    description: 'Подписка $10/мес на открытые кодинговые модели',
+     docsUrl: 'https://opencode.ai/auth',
+     priority: 14
+   },
+   {
+     prefix: 'NVIDIA_',
+     name: 'NVIDIA NIM',
+-    description: 'build.nvidia.com or your own local NIM endpoint',
++    description: 'build.nvidia.com или ваш собственный локальный эндпоинт NIM',
+     docsUrl: 'https://build.nvidia.com/',
+     priority: 15
+   },
+   {
+     prefix: 'OLLAMA_',
+     name: 'Ollama Cloud',
+-    description: 'Cloud-hosted open models from ollama.com',
++    description: 'Облачные открытые модели с ollama.com',
+     docsUrl: 'https://ollama.com/settings',
+     priority: 16
+   },
+   {
+     prefix: 'LM_',
+     name: 'LM Studio',
+-    description: 'Local LM Studio server (OpenAI-compatible)',
++    description: 'Локальный сервер LM Studio (совместим с OpenAI)',
+     docsUrl: 'https://lmstudio.ai/docs/local-server',
+     priority: 17
+   },
+   {
+     prefix: 'STEPFUN_',
+     name: 'StepFun',
+-    description: 'StepFun Step Plan coding models',
++    description: 'Кодинговые модели StepFun Step Plan',
+     docsUrl: 'https://platform.stepfun.com/',
+     priority: 18
+   },
+   {
+     prefix: 'XIAOMI_',
+     name: 'Xiaomi MiMo',
+-    description: 'MiMo-V2.5 and Xiaomi proprietary models',
++    description: 'MiMo-V2.5 и проприетарные модели Xiaomi',
+     docsUrl: 'https://platform.xiaomimimo.com',
+     priority: 19
+   },
+   {
+     prefix: 'ARCEEAI_',
+     name: 'Arcee AI',
+-    description: 'Arcee-hosted small + medium models',
++    description: 'Небольшие и средние модели, развёрнутые Arcee',
+     docsUrl: 'https://chat.arcee.ai/',
+     priority: 20
+   },
+@@ -207,21 +207,21 @@ export const PROVIDER_GROUPS: ProviderPrefix[] = [
+   {
+     prefix: 'GMI_',
+     name: 'GMI Cloud',
+-    description: 'GMI Cloud GPU + model serving',
++    description: 'GPU и обслуживание моделей GMI Cloud',
+     docsUrl: 'https://www.gmicloud.ai/',
+     priority: 21
+   },
+   {
+     prefix: 'AZURE_FOUNDRY_',
+     name: 'Azure Foundry',
+-    description: 'Azure AI Foundry custom endpoints (OpenAI / Anthropic-compatible)',
++    description: 'Пользовательские эндпоинты Azure AI Foundry (совместимы с OpenAI / Anthropic)',
+     docsUrl: 'https://ai.azure.com/',
+     priority: 22
+   },
+   {
+     prefix: 'AWS_',
+     name: 'AWS Bedrock',
+-    description: 'Authenticate via AWS profile + region',
++    description: 'Аутентификация через профиль AWS + регион',
+     docsUrl: 'https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-regions.html',
+     priority: 23
+   }
 diff --git a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
-index b74b30a290..47676e7af7 100644
+index b74b30a29..e3315e6b5 100644
 --- a/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
 +++ b/apps/desktop/src/app/settings/custom-endpoints-settings.tsx
+@@ -108,7 +108,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+           setDiscoveredModels(current.models)
+         }
+       } catch (err) {
+-        notifyError(err, 'Could not load custom endpoints')
++        notifyError(err, 'Не удалось загрузить пользовательские эндпоинты')
+       } finally {
+         if (!cancelled) {
+           setLoading(false)
 @@ -141,9 +141,9 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
  
        triggerHaptic('success')
@@ -66,7 +1096,7 @@ index b74b30a290..47676e7af7 100644
      } finally {
        setSaving(false)
      }
-@@ -163,8 +163,8 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+@@ -163,17 +163,17 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
          notify({
            kind: 'success',
            message: response.models.length
@@ -77,7 +1107,9 @@ index b74b30a290..47676e7af7 100644
          })
        } else {
          notify({
-@@ -173,7 +173,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+           kind: response.reachable ? 'warning' : 'error',
+-          message: response.message || 'Endpoint validation failed.'
++          message: response.message || 'Ошибка проверки эндпоинта.'
          })
        }
      } catch (err) {
@@ -155,49 +1187,70 @@ index b74b30a290..47676e7af7 100644
            <div className="grid gap-3 rounded-md border border-border/50 p-3">
              <div className="grid gap-3 sm:grid-cols-2">
                <label className="grid gap-1.5 text-xs text-muted-foreground">
+@@ -349,7 +349,7 @@ export function CustomEndpointsSettings({ onConfigSaved, onMainModelChanged }: C
+               API Key
+               <Input
+                 onChange={event => setForm(current => ({ ...current, apiKey: event.target.value }))}
+-                placeholder={form.id ? 'Leave blank to keep current key' : 'Optional'}
++                placeholder={form.id ? 'Оставьте пустым, чтобы сохранить текущий ключ' : 'Необязательно'}
+                 type="password"
+                 value={form.apiKey}
+               />
+diff --git a/apps/desktop/src/app/settings/memory/connect.tsx b/apps/desktop/src/app/settings/memory/connect.tsx
+index 64d9cfa6f..19ece2346 100644
+--- a/apps/desktop/src/app/settings/memory/connect.tsx
++++ b/apps/desktop/src/app/settings/memory/connect.tsx
+@@ -92,7 +92,7 @@ export function MemoryConnect({ profile = null, provider }: { profile?: null | s
+             if (Date.now() > deadline.current) {
+               stop()
+               setPhase('error')
+-              setDetail('Timed out — try again.')
++              setDetail('Истекло время ожидания — попробуйте ещё раз.')
+             }
+ 
+             return
+@@ -104,7 +104,7 @@ export function MemoryConnect({ profile = null, provider }: { profile?: null | s
+ 
+           if (next.state === 'error') {
+             setPhase('error')
+-            setDetail(next.detail || 'Connection failed.')
++            setDetail(next.detail || 'Не удалось подключиться.')
+           } else {
+             setPhase('idle')
+           }
+@@ -124,24 +124,24 @@ export function MemoryConnect({ profile = null, provider }: { profile?: null | s
+     return null
+   }
+ 
+-  const connectLabel = connected ? (auth === 'apikey' ? 'Connect via OAuth' : 'Reconnect') : 'Connect'
++  const connectLabel = connected ? (auth === 'apikey' ? 'Подключить через OAuth' : 'Переподключить') : 'Подключить'
+ 
+   return (
+     <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+       {phase === 'idle' && connected && (
+         <span className="inline-flex items-center gap-1 text-muted-foreground">
+           <Check className="size-3" />
+-          {auth === 'apikey' ? 'api key set' : 'oauth set'}
++          {auth === 'apikey' ? 'ключ api задан' : 'oauth задан'}
+         </span>
+       )}
+       {phase === 'pending' ? (
+         <>
+           <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+             <Loader2 className="size-3 animate-spin" />
+-            Waiting for browser consent…
++            Ожидание подтверждения в браузере…
+           </span>
+           <Button className="h-auto p-0 text-xs" onClick={cancel} size="sm" type="button" variant="link">
+-            Cancel
++            Отмена
+           </Button>
+         </>
+       ) : (
 diff --git a/apps/desktop/src/app/settings/model-settings.tsx b/apps/desktop/src/app/settings/model-settings.tsx
-index 28036e9e67..3fc5433011 100644
+index 28036e9e6..62ffc8a92 100644
 --- a/apps/desktop/src/app/settings/model-settings.tsx
 +++ b/apps/desktop/src/app/settings/model-settings.tsx
-@@ -95,13 +95,13 @@ const isFastTier = (tier: unknown): boolean =>
- // A provider row is "ready" to pick a model from when it reports models. The
- // backend now surfaces the full `hermes model` universe (every canonical
- // provider), so unconfigured providers come back with `authenticated:false`
--// and an empty `models` list — those need a setup step before a model exists.
-+// and an empty `models` list — those need a setup step before a model exists.
- function isProviderReady(p?: ModelOptionProvider): boolean {
-   return !!p && (p.authenticated !== false || (p.models?.length ?? 0) > 0)
- }
- 
- // Mirrors `_AUX_TASK_SLOTS` in hermes_cli/web_server.py. Friendly labels and
--// hints make the assignments readable; raw task keys (vision, mcp, …) are
-+// hints make the assignments readable; raw task keys (vision, mcp, …) are
- // opaque to most users.
- interface AuxTaskMeta {
-   key: string
-@@ -118,11 +118,11 @@ const AUX_TASKS: readonly AuxTaskMeta[] = [
-   { key: 'curator' }
- ]
- 
--const NO_PROVIDERS: readonly ModelOptionProvider[] = [{ name: '—', slug: '', models: [] }]
-+const NO_PROVIDERS: readonly ModelOptionProvider[] = [{ name: '—', slug: '', models: [] }]
- 
- // Radix <Select> renders a blank trigger when `value` matches no <SelectItem>.
- // A custom model (e.g. one added via config that isn't in the provider's
--// curated list) would vanish — surface the active value so it stays selectable.
-+// curated list) would vanish — surface the active value so it stays selectable.
- export const withActive = (models: readonly string[], active: string): readonly string[] =>
-   active && !models.includes(active) ? [active, ...models] : models
- 
-@@ -131,7 +131,7 @@ export const withActive = (models: readonly string[], active: string): readonly
- // passes through an incomplete state while the user picks the new model.
- export const moaSlotComplete = (slot: MoaModelSlot): boolean => !!(slot.provider.trim() && slot.model.trim())
- 
--// True when every slot in every preset is fully specified — the only state
-+// True when every slot in every preset is fully specified — the only state
- // that is safe to persist. The backend rejects configs with half-filled slots
- // (HTTP 422) instead of silently swapping the preset for hardcoded defaults
- // (#64156), so the autosave must simply wait for the edit to finish rather
 @@ -168,11 +168,13 @@ function StaleAuxWarning({ applying, onReset, slots, taskLabel }: StaleAuxWarnin
      <div className="flex flex-wrap items-center gap-2 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-200">
        <AlertTriangle className="size-3.5 shrink-0" />
@@ -215,154 +1268,8 @@ index 28036e9e67..3fc5433011 100644
        </Button>
      </div>
    )
-@@ -199,7 +201,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-   const [moa, setMoa] = useState<MoaConfigResponse | null>(null)
-   const [selectedMoaPreset, setSelectedMoaPreset] = useState('')
-   const [newMoaPresetName, setNewMoaPresetName] = useState('')
--  // agent.* defaults round-trip through the shared config cache (read → write
-+  // agent.* defaults round-trip through the shared config cache (read → write
-   // back the whole record), so a save here shows in the MCP/model surfaces.
-   const { data: config } = useHermesConfigRecord(scopeProfile)
-   const setConfig = useMemo(() => hermesConfigCacheWriter(scopeProfile), [scopeProfile])
-@@ -210,7 +212,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-   // switch (provider differs from the new main). Cleared on next switch/reset.
-   const [switchStaleAux, setSwitchStaleAux] = useState<StaleAuxAssignment[]>([])
-   // Inline API-key entry for picking an unconfigured `api_key` provider in
--  // place — mirrors the onboarding ApiKeyForm but scoped to the model picker.
-+  // place — mirrors the onboarding ApiKeyForm but scoped to the model picker.
-   const [apiKeyDraft, setApiKeyDraft] = useState('')
-   const [activating, setActivating] = useState(false)
- 
-@@ -283,7 +285,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-     void refresh()
-   }, [refresh])
- 
--  // A profile switch swaps the backend under the mounted panel — reload for the
-+  // A profile switch swaps the backend under the mounted panel — reload for the
-   // new profile (bumping the epoch first so any in-flight A request is discarded).
-   useOnProfileSwitch(() => {
-     profileEpoch.current += 1
-@@ -309,7 +311,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-     [providerOptions, providers, selectedProvider]
-   )
- 
--  // MoA reference/aggregator slots must never be the moa virtual provider —
-+  // MoA reference/aggregator slots must never be the moa virtual provider —
-   // that would create a recursive MoA tree (the backend rejects it on save).
-   // Hide it from the slot selectors so it isn't offered as a dead choice.
-   const moaSlotProviderOptions = providerOptions.filter(provider => (provider.slug || '').toLowerCase() !== 'moa')
-@@ -373,7 +375,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-   // Guard against stale save responses overwriting newer state.
-   const moaSaveGeneration = useRef(0)
- 
--  // Quiet debounced persist for inline MoA edits — mirrors the config page's
-+  // Quiet debounced persist for inline MoA edits — mirrors the config page's
-   // autosave so slot/aggregator tweaks save themselves, matching the
-   // preset-level ops (set default / add / delete) that already persist on
-   // click. No `applying` spinner, so selecting stays responsive.
-@@ -441,7 +443,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-     const next = { ...slot, ...patch }
- 
-     // Picking a new provider invalidates the model choice (models are
--    // per-provider). A same-provider update must not wipe the model — Radix
-+    // per-provider). A same-provider update must not wipe the model — Radix
-     // filters same-value changes, but programmatic callers may not.
-     if (patch.provider && patch.provider !== slot.provider) {
-       next.model = ''
-@@ -455,7 +457,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-       const epoch = profileEpoch.current
- 
-       // Explicit preset ops (set default / add / delete) supersede any pending
--      // debounced slot autosave — cancel it and invalidate in-flight responses
-+      // debounced slot autosave — cancel it and invalidate in-flight responses
-       // so the two writers can't race each other's state.
-       if (moaSaveTimer.current) {
-         window.clearTimeout(moaSaveTimer.current)
-@@ -504,7 +506,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-       .map(entry => ({ task: entry.task, provider: entry.provider, model: entry.model }))
-   }, [auxiliary, mainModel])
- 
--  // Capabilities of the APPLIED main model — gates the profile-default
-+  // Capabilities of the APPLIED main model — gates the profile-default
-   // reasoning/speed controls the same way the composer picker gates per-model
-   // edits (reasoning defaults on, fast defaults off when unreported).
-   const mainCaps = useMemo(() => {
-@@ -517,7 +519,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-   const fastSupported = mainCaps?.fast ?? false
- 
-   // Hand-written `reasoning_effort: false`/`off` reaches us as boolean false
--  // ("false" once stringified) — show it as Off, not an empty select.
-+  // ("false" once stringified) — show it as Off, not an empty select.
-   const rawEffort = String(getNested(config ?? {}, 'agent.reasoning_effort') ?? '')
-     .trim()
-     .toLowerCase()
-@@ -527,7 +529,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-   const fastOn = isFastTier(getNested(config ?? {}, 'agent.service_tier'))
- 
-   // Persist a single agent.* default by round-tripping the whole config record
--  // (PUT /api/config replaces it) — optimistic, with rollback on failure.
-+  // (PUT /api/config replaces it) — optimistic, with rollback on failure.
-   const writeAgentDefault = useCallback(
-     async (key: string, value: string) => {
-       if (!config) {
-@@ -568,7 +570,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-       setApiKeyDraft('')
- 
-       // Pick a sensible default for the freshly-activated provider (mirrors
--      // `hermes model` curation). Best-effort — fall through to the refreshed
-+      // `hermes model` curation). Best-effort — fall through to the refreshed
-       // model list if it fails.
-       let nextModel = ''
- 
-@@ -596,7 +598,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-     }
-   }, [apiKeyDraft, scopeProfile, selectedProviderRow])
- 
--  // OAuth / external providers can't be activated with a pasted key — hand off
-+  // OAuth / external providers can't be activated with a pasted key — hand off
-   // to the shared onboarding flow scoped to this provider's real sign-in. The
-   // custom / local endpoint is NOT an OAuth provider, so it gets the dedicated
-   // local-endpoint form (URL + optional API key) instead of being dead-ended
-@@ -859,8 +861,8 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-         {needsSetup && !setupIsApiKey && selectedProviderRow && (
-           <p className="mt-2 text-xs text-muted-foreground">
-             {selectedProviderRow?.auth_type === 'api_key'
--              ? `${selectedProviderRow?.name} needs an API key — set it up to choose a model.`
--              : `${selectedProviderRow?.name} signs in through your browser — Hermes runs the flow for you.`}
-+              ? `${selectedProviderRow?.name} needs an API key — set it up to choose a model.`
-+              : `${selectedProviderRow?.name} signs in through your browser — Hermes runs the flow for you.`}
-           </p>
-         )}
-         {config && mainModel && (reasoningSupported || fastSupported) && (
-@@ -1014,7 +1016,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-                   }
-                   description={
-                     <span className="font-mono text-[0.68rem]">
--                      {isAuto ? m.autoUseMain : `${current.provider} · ${current.model || m.providerDefault}`}
-+                      {isAuto ? m.autoUseMain : `${current.provider} ┬╖ ${current.model || m.providerDefault}`}
-                     </span>
-                   }
-                   title={
-@@ -1220,7 +1222,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-                 className={cn(slot.enabled === false && 'opacity-60')}
-                 description={
-                   <span className="font-mono text-[0.68rem]">
--                    {slot.provider} · {slot.model || m.model}
-+                    {slot.provider} ┬╖ {slot.model || m.model}
-                   </span>
-                 }
-                 key={`${selectedMoaPreset}-${index}`}
-@@ -1297,7 +1299,7 @@ export function ModelSettings({ onMainModelChanged, scopeProfile = null }: Model
-               }
-               description={
-                 <span className="font-mono text-[0.68rem]">
--                  {currentMoaPreset.aggregator.provider} · {currentMoaPreset.aggregator.model}
-+                  {currentMoaPreset.aggregator.provider} ┬╖ {currentMoaPreset.aggregator.model}
-                 </span>
-               }
-               title="Aggregator"
 diff --git a/apps/desktop/src/app/settings/plugins-settings.tsx b/apps/desktop/src/app/settings/plugins-settings.tsx
-index 69598afe43..ea0671428a 100644
+index 69598afe4..ea0671428 100644
 --- a/apps/desktop/src/app/settings/plugins-settings.tsx
 +++ b/apps/desktop/src/app/settings/plugins-settings.tsx
 @@ -55,7 +55,7 @@ async function revealPluginsDir() {
@@ -410,7 +1317,7 @@ index 69598afe43..ea0671428a 100644
  }
  
 diff --git a/apps/desktop/src/app/settings/uninstall-section.tsx b/apps/desktop/src/app/settings/uninstall-section.tsx
-index 5ac21ac80e..236a5931e9 100644
+index 5ac21ac80..236a5931e 100644
 --- a/apps/desktop/src/app/settings/uninstall-section.tsx
 +++ b/apps/desktop/src/app/settings/uninstall-section.tsx
 @@ -122,7 +122,7 @@ export function UninstallSection() {
@@ -423,18 +1330,10 @@ index 5ac21ac80e..236a5931e9 100644
        <div className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3">
          {loading ? (
 diff --git a/apps/desktop/src/components/assistant-ui/markdown-text.tsx b/apps/desktop/src/components/assistant-ui/markdown-text.tsx
-index b2e6ba0c2b..f18e3215a8 100644
+index 54e7f0456..bc3788d2f 100644
 --- a/apps/desktop/src/components/assistant-ui/markdown-text.tsx
 +++ b/apps/desktop/src/components/assistant-ui/markdown-text.tsx
-@@ -14,7 +14,6 @@ import { ExpandableBlock } from '@/components/chat/expandable-block'
- import { PreviewAttachment } from '@/components/chat/preview-attachment'
- import { chunkByLines, SyntaxHighlighter } from '@/components/chat/shiki-highlighter'
- import { ZoomableImage } from '@/components/chat/zoomable-image'
--import { ErrorBoundary } from '@/components/error-boundary'
- import { detectArtifact } from '@/lib/artifact-detect'
- import { normalizeExternalUrl, openExternalLink, PrettyLink } from '@/lib/external-link'
- import { createMemoizedMathPlugin } from '@/lib/katex-memo'
-@@ -232,7 +231,7 @@ function MediaAttachment({ path }: { path: string }) {
+@@ -234,7 +234,7 @@ function MediaAttachment({ path }: { path: string }) {
            open()
          }}
        >
@@ -443,72 +1342,134 @@ index b2e6ba0c2b..f18e3215a8 100644
        </a>
        {openFailed && <OpenMediaFailedNote name={name} />}
      </span>
-@@ -629,46 +628,23 @@ function MarkdownTextSurface({
+diff --git a/apps/desktop/src/components/assistant-ui/tool/fallback-model/index.ts b/apps/desktop/src/components/assistant-ui/tool/fallback-model/index.ts
+index 2a21657f6..b3ffb9573 100644
+--- a/apps/desktop/src/components/assistant-ui/tool/fallback-model/index.ts
++++ b/apps/desktop/src/components/assistant-ui/tool/fallback-model/index.ts
+@@ -915,14 +915,14 @@ function cronjobDetail(argsRecord: Record<string, unknown>, resultRecord: Record
+ 
+   if (jobs) {
+     if (!jobs.length) {
+-      return 'No cron jobs scheduled'
++      return 'Нет запланированных cron-задач'
+     }
+ 
+     return jobs
+       .slice(0, 20)
+       .map(job => {
+         const row = isRecord(job) ? job : {}
+-        const name = firstStringField(row, ['name', 'id']) || 'job'
++        const name = firstStringField(row, ['name', 'id']) || 'задача'
+         const sched = firstStringField(row, ['schedule_display', 'schedule'])
+ 
+         return sched ? `- ${name} · ${sched}` : `- ${name}`
+@@ -933,10 +933,10 @@ function cronjobDetail(argsRecord: Record<string, unknown>, resultRecord: Record
+   const nextRun = cronScalar(resultRecord.next_run_at)
+ 
+   const rows: [string, string][] = [
+-    ['Schedule', cronScalar(resultRecord.schedule)],
+-    ['Repeat', cronScalar(resultRecord.repeat)],
+-    ['Delivery', cronScalar(resultRecord.deliver)],
+-    ['Next run', nextRun ? formatCronTime(nextRun) : '']
++    ['Расписание', cronScalar(resultRecord.schedule)],
++    ['Повтор', cronScalar(resultRecord.repeat)],
++    ['Доставка', cronScalar(resultRecord.deliver)],
++    ['Следующий запуск', nextRun ? formatCronTime(nextRun) : '']
+   ]
+ 
+   const lines = rows.filter(([, value]) => value).map(([key, value]) => `${key}: ${value}`)
+@@ -963,17 +963,17 @@ function toolSubtitle(
+   if (toolName === 'browser_snapshot') {
+     const snapshot = firstStringField(resultRecord, ['snapshot'])
+ 
+-    return snapshot ? summarizeBrowserSnapshot(snapshot) : 'Captured a browser accessibility snapshot'
++    return snapshot ? summarizeBrowserSnapshot(snapshot) : 'Снят снимок доступности браузера'
    }
  
-   return (
--    // Last line of defence for the whole markdown surface — assistant answers,
--    // reasoning, tool output and user bubbles all render through here.
--    //
--    // The pipeline is recursive in several places we don't own (parse5 →
--    // `hast-util-from-parse5` on raw HTML, `mdast-util-to-hast` on nested
--    // block structure), so pathological content can still throw
--    // `RangeError: Maximum call stack size exceeded` from inside Streamdown's
--    // render. `clampHtmlNestingDepth` removes the reachable cause we found;
--    // this catches whatever we haven't. Without it the throw unwinds past
--    // MessageRenderBoundary — which deliberately re-throws anything that isn't
--    // the transient assistant-ui lookup race — and blanks the entire workspace
--    // behind "workspace failed to render", on every reload, because the
--    // offending message is replayed from the session each time.
--    //
--    // Degrading to HugeTextFallback keeps the text readable and the rest of
--    // the transcript alive. The error stays latched for this surface: content
--    // that overflowed the stack will overflow again, and remounting per token
--    // during streaming would cost far more than the plain rendering saves.
--    <ErrorBoundary
--      fallback={() => <HugeTextFallback containerClassName={containerClassName} text={text} />}
--      label="markdown-render"
--    >
--      <StreamdownTextPrimitive
--        components={components}
--        containerClassName={cn(MARKDOWN_CONTAINER_CLASS_NAME, containerClassName)}
--        containerProps={containerProps}
--        defer={defer}
--        lineNumbers={false}
--        mode="streaming"
--        // Incomplete-markdown repair runs in preprocessWithTailRepair on the
--        // full accumulated text; the built-in tail-bounded remend is disabled
--        // because a custom parseMarkdownIntoBlocksFn is supplied, and
--        // parseIncompleteMarkdown stays false to avoid a second full-text
--        // remend pass.
--        parseIncompleteMarkdown={false}
--        parseMarkdownIntoBlocksFn={parseMarkdownIntoBlocksCached}
--        plugins={plugins}
--        preprocess={preprocessWithTailRepair}
--      />
--    </ErrorBoundary>
-+    <StreamdownTextPrimitive
-+      components={components}
-+      containerClassName={cn(MARKDOWN_CONTAINER_CLASS_NAME, containerClassName)}
-+      containerProps={containerProps}
-+      defer={defer}
-+      lineNumbers={false}
-+      mode="streaming"
-+      // Incomplete-markdown repair runs in preprocessWithTailRepair on the
-+      // full accumulated text; the built-in tail-bounded remend is disabled
-+      // because a custom parseMarkdownIntoBlocksFn is supplied, and
-+      // parseIncompleteMarkdown stays false to avoid a second full-text
-+      // remend pass.
-+      parseIncompleteMarkdown={false}
-+      parseMarkdownIntoBlocksFn={parseMarkdownIntoBlocksCached}
-+      plugins={plugins}
-+      preprocess={preprocessWithTailRepair}
-+    />
-   )
- }
+   if (toolName === 'browser_click') {
+     const clicked = firstStringField(resultRecord, ['clicked']) || firstStringField(argsRecord, ['ref', 'target'])
  
+     if (!clicked) {
+-      return 'Clicked on page'
++      return 'Клик по странице'
+     }
+ 
+-    return clicked.startsWith('@') ? `Clicked page element (internal ref ${clicked})` : `Clicked ${clicked}`
++    return clicked.startsWith('@') ? `Клик по элементу страницы (внутр. ref ${clicked})` : `Клик по ${clicked}`
+   }
+ 
+   if (toolName === 'browser_fill' || toolName === 'browser_type') {
+@@ -981,15 +981,15 @@ function toolSubtitle(
+     const value = firstStringField(argsRecord, ['value', 'text'])
+ 
+     return (
+-      [field && `Field: ${field}`, value && `Value: ${compactPreview(value, 42)}`].filter(Boolean).join(' · ') ||
+-      'Filled page input'
++      [field && `Поле: ${field}`, value && `Значение: ${compactPreview(value, 42)}`].filter(Boolean).join(' · ') ||
++      'Заполнено поле страницы'
+     )
+   }
+ 
+   if (toolName === 'web_search') {
+     const query = firstStringField(argsRecord, ['search_term', 'query']) || contextValue(argsRecord)
+ 
+-    return query ? `Query: ${query}` : 'Queried web sources'
++    return query ? `Запрос: ${query}` : 'Запрошены веб-источники'
+   }
+ 
+   if (toolName === 'terminal' || toolName === 'execute_code') {
+@@ -1014,7 +1014,7 @@ function toolSubtitle(
+ 
+     const command = firstStringField(argsRecord, ['context', 'preview', 'command', 'code']) || contextValue(argsRecord)
+ 
+-    return command ? '' : 'Executed command'
++    return command ? '' : 'Выполнена команда'
+   }
+ 
+   if (toolName === 'read_file' || isFileEditTool(toolName)) {
+@@ -1032,7 +1032,7 @@ function toolSubtitle(
+       return fallbackDetailText(argsRecord, resultRecord)
+     }
+ 
+-    return inlineDiffFromResult(resultRecord) ? 'Changed file' : ''
++    return inlineDiffFromResult(resultRecord) ? 'Изменён файл' : ''
+   }
+ 
+   if (toolName === 'web_extract') {
+@@ -1041,7 +1041,7 @@ function toolSubtitle(
+       firstStringField(resultRecord, ['url']) ||
+       findFirstUrl(argsRecord, resultRecord)
+ 
+-    return url ? hostnameOf(url) : 'Fetched webpage'
++    return url ? hostnameOf(url) : 'Получена веб-страница'
+   }
+ 
+   if (toolName === 'memory') {
+@@ -1065,11 +1065,11 @@ function toolSubtitle(
+ 
+ function toolDetailLabel(toolName: string): string {
+   if (toolName === 'web_search') {
+-    return 'Details'
++    return 'Детали'
+   }
+ 
+   if (toolName === 'browser_snapshot') {
+-    return 'Snapshot summary'
++    return 'Сводка снимка'
+   }
+ 
+   return ''
+@@ -1477,7 +1477,7 @@ export function buildToolView(part: ToolPart, inlineDiff: string): ToolView {
+   return {
+     countLabel: resultCount ? formatCountLabel(resultCount) : undefined,
+     detail,
+-    detailLabel: error ? 'Error details' : toolDetailLabel(part.toolName),
++    detailLabel: error ? 'Сведения об ошибке' : toolDetailLabel(part.toolName),
+     durationLabel: durationLabel(resultRecord),
+     icon: meta.icon,
+     imageUrl: toolImageUrl(argsRecord, resultRecord),
 diff --git a/apps/desktop/src/components/assistant-ui/tool/fallback.tsx b/apps/desktop/src/components/assistant-ui/tool/fallback.tsx
-index b2c94ecf69..7b72c23c25 100644
+index b2c94ecf6..7b72c23c2 100644
 --- a/apps/desktop/src/components/assistant-ui/tool/fallback.tsx
 +++ b/apps/desktop/src/components/assistant-ui/tool/fallback.tsx
 @@ -620,7 +620,7 @@ function ToolEntry({ part }: ToolEntryProps) {
@@ -521,7 +1482,7 @@ index b2c94ecf69..7b72c23c25 100644
                  </p>
                )}
 diff --git a/apps/desktop/src/components/chat/intro.tsx b/apps/desktop/src/components/chat/intro.tsx
-index 6dc365e644..6839eee8b3 100644
+index 6dc365e64..6839eee8b 100644
 --- a/apps/desktop/src/components/chat/intro.tsx
 +++ b/apps/desktop/src/components/chat/intro.tsx
 @@ -22,24 +22,24 @@ const NEUTRAL_PERSONALITIES = new Set(['', 'default', 'none', 'neutral'])
@@ -560,7 +1521,7 @@ index 6dc365e644..6839eee8b3 100644
  ]
  
 diff --git a/apps/desktop/src/lib/chat-runtime.ts b/apps/desktop/src/lib/chat-runtime.ts
-index 8bf133b674..1f08568802 100644
+index 8bf133b67..1f0856880 100644
 --- a/apps/desktop/src/lib/chat-runtime.ts
 +++ b/apps/desktop/src/lib/chat-runtime.ts
 @@ -49,12 +49,12 @@ export function createClientSessionState(
@@ -579,7 +1540,7 @@ index 8bf133b674..1f08568802 100644
  export function coerceGatewayText(value: unknown): string {
    if (typeof value === 'string') {
 diff --git a/apps/desktop/src/plugins/kanban/plugin.tsx b/apps/desktop/src/plugins/kanban/plugin.tsx
-index e4131a359e..2ea94ba4a9 100644
+index e4131a359..2ea94ba4a 100644
 --- a/apps/desktop/src/plugins/kanban/plugin.tsx
 +++ b/apps/desktop/src/plugins/kanban/plugin.tsx
 @@ -33,6 +33,8 @@ import {
@@ -600,3 +1561,82 @@ index e4131a359e..2ea94ba4a9 100644
    defaultEnabled: false,
    register(ctx) {
      ctx.i18n.register(KANBAN_LOCALES)
+diff --git a/apps/desktop/src/store/onboarding.ts b/apps/desktop/src/store/onboarding.ts
+index 3c40c5433..498265beb 100644
+--- a/apps/desktop/src/store/onboarding.ts
++++ b/apps/desktop/src/store/onboarding.ts
+@@ -192,7 +192,7 @@ function shouldPreserveConfiguredOnFallback(runtime: RuntimeReadinessResult, sta
+ }
+ 
+ function notifyReady(provider: string) {
+-  notify({ kind: 'success', title: 'Hermes is ready', message: `${provider} connected.` })
++  notify({ kind: 'success', title: 'Hermes готов', message: `${provider} подключён.` })
+ }
+ 
+ // Human-friendly labels for tools auto-routed through the Nous Tool Gateway,
+@@ -559,9 +559,9 @@ export async function refreshOnboarding(ctx: OnboardingContext) {
+     notify({
+       id: 'runtime-not-ready',
+       kind: 'error',
+-      title: 'Runtime not ready',
++      title: 'Среда выполнения не готова',
+       message:
+-        'Hermes Desktop could not verify the running backend on startup. Some features may be unavailable until the gateway is reachable.'
++        'Hermes Desktop не смог проверить запущенный бэкенд при старте. Некоторые функции могут быть недоступны, пока шлюз не станет доступен.'
+     })
+ 
+     return false
+@@ -781,7 +781,7 @@ export async function saveOnboardingApiKey(
+   const trimmed = value.trim()
+ 
+   if (!trimmed) {
+-    return { ok: false, message: 'Enter a value first.' }
++    return { ok: false, message: 'Сначала введите значение.' }
+   }
+ 
+   // The "Local / custom endpoint" option carries a base URL (in `value`) plus
+diff --git a/apps/desktop/src/store/updates.ts b/apps/desktop/src/store/updates.ts
+index 02f2a4090..72727a148 100644
+--- a/apps/desktop/src/store/updates.ts
++++ b/apps/desktop/src/store/updates.ts
+@@ -398,11 +398,11 @@ export async function applyUpdates(opts: DesktopUpdateApplyOptions = {}): Promis
+   const bridge = window.hermesDesktop?.updates
+ 
+   if (!bridge) {
+-    return { ok: false, error: 'unavailable', message: 'Desktop bridge unavailable.' }
++    return { ok: false, error: 'unavailable', message: 'Мост рабочего стола недоступен.' }
+   }
+ 
+   dismissNotification(UPDATE_TOAST_ID)
+-  $updateApply.set({ ...IDLE, applying: true, stage: 'prepare', message: 'Starting update…' })
++  $updateApply.set({ ...IDLE, applying: true, stage: 'prepare', message: 'Запуск обновления…' })
+ 
+   try {
+     const result = await bridge.apply(opts)
+@@ -508,7 +508,7 @@ function finishBackendApply(returned: boolean): DesktopUpdateApplyResult {
+     setUpdateOverlayOpen(false)
+     void checkBackendUpdates()
+ 
+-    return { ok: true, message: 'Backend update applied.' }
++    return { ok: true, message: 'Обновление бэкенда применено.' }
+   }
+ 
+   $backendUpdateApply.set({
+@@ -519,7 +519,7 @@ function finishBackendApply(returned: boolean): DesktopUpdateApplyResult {
+     message: translateNow('updates.applyStatus.noReturn')
+   })
+ 
+-  return { ok: false, error: 'apply-failed', message: 'Backend did not come back online.' }
++  return { ok: false, error: 'apply-failed', message: 'Бэкенд не вернулся в сеть.' }
+ }
+ 
+ function ingestBackendActionStatus(status: Awaited<ReturnType<typeof getActionStatus>>): void {
+@@ -674,7 +674,7 @@ async function runBackendUpdate(): Promise<DesktopUpdateApplyResult> {
+       message: translateNow('updates.applyStatus.failed')
+     })
+ 
+-    return { ok: false, error: 'apply-failed', message: 'Backend update failed.' }
++    return { ok: false, error: 'apply-failed', message: 'Не удалось обновить бэкенд.' }
+   } catch (error) {
+     const message = error instanceof Error ? error.message : String(error)
+     $backendUpdateApply.set({
