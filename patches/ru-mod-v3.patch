@@ -75,10 +75,19 @@ index 5c65fd3f1..b074381aa 100644
  ])
  
 diff --git a/apps/desktop/src/app/messaging/index.tsx b/apps/desktop/src/app/messaging/index.tsx
-index 579305dd3..17efaa561 100644
+index 579305dd3..bac6cdb6d 100644
 --- a/apps/desktop/src/app/messaging/index.tsx
 +++ b/apps/desktop/src/app/messaging/index.tsx
-@@ -811,39 +811,39 @@ function PlatformActionBar({
+@@ -601,7 +601,7 @@ function PlatformDetail({
+             {!platform.gateway_running && <SetupPill active={false}>{m.gatewayStopped}</SetupPill>}
+           </div>
+           <p className="mt-1 text-[length:var(--conversation-caption-font-size)] leading-(--conversation-caption-line-height) text-(--ui-text-tertiary)">
+-            {platform.description}
++            {PLATFORM_TAGLINES[platform.id] || platform.description}
+           </p>
+           <PlatformHint platform={platform} />
+         </div>
+@@ -811,39 +811,75 @@ function PlatformActionBar({
  
  const PLATFORM_INTRO: Record<string, string> = {
    telegram:
@@ -134,6 +143,42 @@ index 579305dd3..17efaa561 100644
    webhook:
 -    'Run an HTTP server that other tools (GitHub, GitLab, custom apps) can POST to. Use the secret to verify signatures.'
 +    'Запустите HTTP-сервер, на который другие инструменты (GitHub, GitLab, собственные приложения) смогут отправлять POST. Используйте секрет для проверки подписей.'
++}
++
++// MOD: hermes-desktop-ru — короткие подписи платформ под шапкой карточки. Приходят с
++// бэкенда на английском (platform.description); локальный словарь выигрывает.
++const PLATFORM_TAGLINES: Record<string, string> = {
++  telegram: 'Hermes в личных сообщениях, группах и топиках Telegram.',
++  discord: 'Подключите Hermes к личным сообщениям, каналам и тредам Discord.',
++  slack: 'Используйте Hermes из Slack через Socket Mode. Добавьте ID разрешённых участников, чтобы боты могли отвечать.',
++  mattermost: 'Подключите Hermes к каналам и личным сообщениям Mattermost.',
++  matrix: 'Используйте Hermes в комнатах и личных сообщениях Matrix.',
++  signal: 'Подключение через REST-мост signal-cli.',
++  whatsapp: 'Используйте Hermes через встроенный WhatsApp-мост с авторизацией по QR-коду.',
++  homeassistant: 'Управляйте умным домом из Hermes через Home Assistant.',
++  email: 'Общайтесь с Hermes через IMAP/SMTP почтовый ящик.',
++  sms: 'Отправка и приём текстовых сообщений через Twilio.',
++  dingtalk: 'Подключите Hermes к группам DingTalk (钉钉).',
++  feishu: 'Используйте Hermes внутри Feishu / Lark.',
++  google_chat: 'Подключите Hermes к Google Chat через Cloud Pub/Sub.',
++  wecom: 'Групповой бот WeCom для отправки через webhook.',
++  wecom_callback: 'Двусторонняя интеграция WeCom через callback-приложение.',
++  weixin: 'Подключите личный аккаунт WeChat через API iLink Bot от Tencent.',
++  bluebubbles: 'Используйте Hermes через iMessage на сервере BlueBubbles.',
++  qqbot: 'Подключите Hermes к QQ Bot с открытой платформы QQ.',
++  teams: 'Подключите Hermes к чатам Microsoft Teams через Bot Framework.',
++  irc: 'Пересылайте сообщения между IRC-каналом (или ЛС) и Hermes.',
++  line: 'Используйте Hermes из LINE через webhook LINE Messaging API.',
++  ntfy: 'Общайтесь с Hermes через push-топики ntfy (ntfy.sh или свой сервер).',
++  photon: 'Используйте Hermes через iMessage на управляемой платформе Photon Spectrum.',
++  raft: 'Подключитесь к рабочему пространству Raft как внешний агент.',
++  simplex: 'Общайтесь с Hermes в SimpleX Chat через локальный демон simplex-chat.',
++  yuanbao: 'Подключите Hermes к Tencent Yuanbao.',
++  api_server: 'Откройте Hermes как HTTP API, совместимый с OpenAI, для Open WebUI и подобных.',
++  webhook: 'Принимайте события от GitHub, GitLab и других источников webhook-запросов.',
++  msgraph_webhook: 'Получайте уведомления Microsoft Graph (встречи Teams, Outlook, …).',
++  whatsapp_cloud: 'Используйте Hermes через размещённый WhatsApp Cloud API от Meta (без локального моста).',
++  relay: 'Универсальный адаптер ретранслятора от Hermes Relay.'
  }
  
  const introCopy = (platform: MessagingPlatformInfo, m: Translations['messaging']) =>
