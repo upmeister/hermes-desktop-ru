@@ -1,0 +1,22 @@
+[
+  {
+    "id": "custom-endpoints-settings.tsx-9",
+    "file": "apps/desktop/src/app/settings/custom-endpoints-settings.tsx",
+    "before": [
+      "    if (!(await confirm({ destructive: true, title: `Delete ${endpoint.name}?` }))) {"
+    ],
+    "after": [
+      "    if (!(await confirm({ destructive: true, title: `Удалить ${endpoint.name}?` }))) {"
+    ]
+  },
+  {
+    "id": "presets.ts-1",
+    "file": "apps/desktop/src/themes/presets.ts",
+    "before": [
+      "  description: 'GitHub chrome, Nous blue accent',"
+    ],
+    "after": [
+      "  description: 'Оформление GitHub, акцент Nous синий',"
+    ]
+  }
+]
