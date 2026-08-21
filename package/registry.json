@@ -6179,5 +6179,148 @@
   "after": [
    "                            ['general', 'Общие'],"
   ]
+ },
+ {
+  "id": "hermes-bots-w5-5614",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "          'Provider',"
+  ],
+  "after": [
+   "          'Провайдер',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-5622",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "          'Model',"
+  ],
+  "after": [
+   "          'Модель',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-5678",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "        'Provider',"
+  ],
+  "after": [
+   "        'Провайдер',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-5717",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "        'Model',"
+  ],
+  "after": [
+   "        'Модель',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-6536-all",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "              'Title',"
+  ],
+  "after": [
+   "              'Заголовок',"
+  ],
+  "all": true
+ },
+ {
+  "id": "hermes-bots-w5-6544-all",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "              'Description',"
+  ],
+  "after": [
+   "              'Описание',"
+  ],
+  "all": true
+ },
+ {
+  "id": "hermes-bots-w5-6559",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                'Advanced — model, skills, toolsets, SOUL.md'"
+  ],
+  "after": [
+   "                'Дополнительно — модель, навыки, наборы инструментов, SOUL.md'"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-6975-all",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "              'Name',"
+  ],
+  "after": [
+   "              'Имя',"
+  ],
+  "all": true
+ },
+ {
+  "id": "hermes-bots-w5-7070",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                'Advanced'"
+  ],
+  "after": [
+   "                'Дополнительно'"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-7174",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                              'SOUL.md (optional — replaces the generated persona)',"
+  ],
+  "after": [
+   "                              'SOUL.md (необязательно — заменяет сгенерированную персону)',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-7178",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                                  'Leave blank to auto-generate from name/title/description + agent-messaging roster.',"
+  ],
+  "after": [
+   "                                  'Оставьте пустым, чтобы сгенерировать из имени/заголовка/описания + перечня агентов.',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-8015",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "              'Instruction',"
+  ],
+  "after": [
+   "              'Инструкция',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-8023",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "            labeled('When to run', jsx(SchedulePicker, { state: sched, setState: setSched })),"
+  ],
+  "after": [
+   "            labeled('Когда запускать', jsx(SchedulePicker, { state: sched, setState: setSched })),"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-7196",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                                'Subscriptions, OAuth logins, and API keys stay shared (not copied), so token refreshes never invalidate each other. Uncheck for an isolated snapshot copy.'"
+  ],
+  "after": [
+   "                                'Подписки, OAuth-входы и API-ключи остаются общими (не копируются), чтобы обновления токенов не инвалидировали друг друга. Снимите, чтобы получить изолированную копию.'"
+  ]
  }
 ]
