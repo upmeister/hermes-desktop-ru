@@ -2388,5 +2388,45 @@
     "after": [
       "                                'Подписки, OAuth-входы и API-ключи остаются общими (не копируются), чтобы обновления токенов не инвалидировали друг друга. Снимите, чтобы получить изолированную копию.'"
     ]
+  },
+  {
+    "id": "hermes-bots-w6-6978",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                placeholder: 'inbox-triage',"
+    ],
+    "after": [
+      "                placeholder: 'разбор-входящих',"
+    ]
+  },
+  {
+    "id": "hermes-bots-w6-7022",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                                  ? `${connection.label || connection.id} (current)`"
+    ],
+    "after": [
+      "                                  ? `${connection.label || connection.id} (текущий)`"
+    ]
+  },
+  {
+    "id": "hermes-bots-w6-7216",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                                : 'Name the agent first — a draft profile is created when you open this tab (discarded if you cancel).'"
+    ],
+    "after": [
+      "                                : 'Сначала укажите имя агента — при открытии этой вкладки создаётся черновой профиль (отбрасывается при отмене).'"
+    ]
+  },
+  {
+    "id": "hermes-bots-w6-7215",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                                ? 'That name is taken — pick another before configuring capabilities.'"
+    ],
+    "after": [
+      "                                ? 'Это имя уже занято — выберите другое, прежде чем настраивать возможности.'"
+    ]
   }
 ]
