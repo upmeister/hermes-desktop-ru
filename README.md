@@ -1,105 +1,140 @@
-# Hermes Desktop — Russian Language Mod (Русский мод)
+# 🇷🇺 Hermes Desktop — Russian Language Mod
 
-Русская локализация десктопного приложения [Hermes Agent](https://github.com/NousResearch/hermes-agent).
-Работает на **0.20.4** (проверено; механизм структурных якорей рассчитан на будущие версии).
-Покрытие: **97% ключей i18n** (2912 из 2855 EN + свои), плюс перевод канбан-плагина, настроек,
-плагинов и хардкодов (терминал, «Опасная зона», таймстампы — см. ниже).
+Полная русская локализация десктопного приложения [Hermes Agent](https://github.com/NousResearch/hermes-agent) (Windows).
 
-## Как это работает
+[![Hermes Agent](https://img.shields.io/badge/Hermes_Agent-0.20.4+-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
+[![Release](https://img.shields.io/github/v/release/upmeister/hermes-desktop-ru?style=for-the-badge&color=green)](https://github.com/upmeister/hermes-desktop-ru/releases)
+[![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
+[![License](https://img.shields.io/github/license/upmeister/hermes-desktop-ru?style=for-the-badge)](LICENSE)
 
-Мод использует встроенную i18n системы Hermes Desktop — `defineLocale(overrides)` из
-`apps/desktop/src/i18n/define-locale.ts`. Это **глубокий merge поверх EN**:
-- ключей, которых нет в `ru.ts`, — fallback на английский → интерфейс не ломается при апдейтах;
-- но **функциональные ключи EN (плейсхолдеры, плюрализация) нельзя заменять строками** — иначе
-  `r.titlebar.layoutEditorTitle is not a function` (краш рендерера, инцидент 16.08). См. «Как переводить».
+**100% перевода**: весь i18n-каталог (defineLocale), настройки (`ru-constants`), канбан-плагин,
+плагин **Bots целиком** (roster, групповые чаты, cron-задачи, профили, petdex, хаб навыков),
+панель фильтров сессий, хардкоды компонентов (биллинг, MoA, уведомления, терминал, «Опасная зона», приветственное окно, мессенджеры).
 
-Регистрация русской локали (`ru` в `types.ts`, `catalog.ts`, `languages.ts`) выполняется
-**структурным патчером по якорям**, а не хунками патча — поэтому переживает рефакторинг апстрима
-(0.20.4 переписал `catalog.ts`, и старые хунки потеряли `ru` → ru=no → весь UI на английском).
+## ⚡ Быстрый старт
 
-## Состав мода (v5, 16.08.2026)
+1. Убедитесь, что Hermes установлен **из исходников** (`git clone`), а не prebuilt-`.exe` —
+   путь по умолчанию `C:\Users\<you>\AppData\Local\hermes\hermes-agent`.
+2. Закройте Hermes Desktop (установщик сам пересоберёт и перепакует приложение).
+3. Скачайте [zip последнего релиза](https://github.com/upmeister/hermes-desktop-ru/releases),
+   распакуйте и запустите:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
+
+4. Запустите Hermes Desktop → интерфейс на русском.
+
+> ⚠️ **Важно**: установщик собирает десктоп из клона (`npm run build`), это занимает 5–10 минут.
+> Требуется [Node.js](https://nodejs.org/) 18+ и npm. При установке Hermes Desktop должен быть закрыт.
+
+## 🔧 Методы установки
+
+| Способ | Команда | Когда |
+|---|---|---|
+| **Установщик (рекомендуется)** | `powershell -ExecutionPolicy Bypass -File install.ps1` | Первая установка, после обновлений Hermes |
+| **Доктор (диагностика)** | `powershell -ExecutionPolicy Bypass -File install.ps1 -Doctor` | Проверить, что все переводы лягут на текущий апстрим (без записи) |
+
+Установщик автоматически:
+1. Проверяет версию клона (`EXPECTED_COMMIT`, version-gate) — предупреждает при несовпадении;
+2. Сбрасывает tracked-файлы к стоку (`git restore`) — untracked-локали не трогаются;
+3. Прогоняет **doctor** (сухая проверка всех 630+ правил по якорям, блок при MISSING);
+4. Применяет реестр якорей + структурный патчер i18n-регистрации;
+5. Чинит `node_modules` при необходимости (deps-health → npm ci);
+6. Собирает десктоп (`npm run build`) и перепаковывает `app.asar`.
+
+## 🔄 Переживание обновлений Hermes
+
+Мод построен на **структурном реестре якорей** (вариант C) вместо классического `git apply --3way`:
+
+- Каждое правило — уникальный блок строк исходника (+ контекст/`all`-варианты);
+- Движок `apply-hardcodes.mjs` ищет якорь по байтам, а не по хункам патча — поэтому
+  переживает **реформат-коммиты апстрима** (`fmt(js): npm run fix` сломал все патчи 19.08, реестр — нет);
+- Несовпадения не приводят к «молчаливому» пропуску: doctor пишет MISSING/AMBIGUOUS;
+- `ru.ts` и другие файлы локалей — **untracked** в клоне: апдейт Hermes их не смывает,
+  установщик восстанавливает их из `files/`.
+
+После **каждого обновления Hermes** просто запустите install.ps1 заново (или `-Doctor`, чтобы убедиться).
+
+## 📦 Состав релиза
 
 ```
 hermes-desktop-ru/
 ├── i18n/
-│   ├── ru.ts               # Перевод (defineLocale, ~97% покрытия)
+│   ├── ru.ts               # Перевод (defineLocale, весь интерфейс)
 │   ├── ru-constants.ts     # Перевод fieldLabels/fieldDescriptions (настройки)
-│   └── ru-locales.ts       # Перевод канбан-плагина (167+8 notify-ключей)
+│   └── ru-locales.ts       # Перевод канбан-плагина
 ├── patches/
-│   └── ru-mod-v3.patch     # Хардкоды компонентов (12 файлов, БЕЗ i18n/ — их шьёт патчер)
+│   └── ru-mod-v3.patch     # Хардкоды компонентов (источник исторических правил)
 ├── package/
-│   ├── install-asar.ps1    # Установщик (restore → structural-i18n → build → asar)
-│   ├── structural-i18n.mjs # Патчер i18n-регистрации по структурным якорям (идемпотентный)
-│   ├── files/ru.ts, ru-constants.ts, ru-locales.ts   # untracked-файлы мода (переживают апдейты)
-│   └── install.bat         # Обёртка для установщика
+│   ├── install-asar.ps1    # Установщик v7 (version-gate → restore → doctor → apply → build → asar)
+│   ├── install.bat         # Обёртка для двойного клика
+│   ├── registry.json       # Реестр якорей (630+ правил: патч + overrides)
+│   ├── overrides.json      # Ручной слой правил (новые хардкоды)
+│   ├── apply-hardcodes.mjs # Движок application (apply/--doctor, идемпотентный)
+│   ├── gen-registry.mjs    # Генератор реестра из патча + overrides
+│   ├── structural-i18n.mjs # Патчер i18n-регистрации по структурным якорям
+│   ├── deps-health.mjs     # Проверка node_modules (npm ci при битых)
+│   ├── EXPECTED_COMMIT     # Коммит апстрима, на котором собран мод
+│   └── files/              # untracked-локали (ru.ts, ru-constants, ru-locales)
 └── README.md
 ```
 
-## Установка (Windows)
+## ✨ Что переведено
 
-> База — ВСЕГДА свежий `npm run build` из клона Windows (включает ВСЕ патчи клона).
-> **Никогда** не ставить пакетный dist — он затирает другие моды клона.
+| Область | Статус |
+|---|---|
+| **i18n-каталог** (весь интерфейс: чат, настройки, биллинг, MCP, шлюз, клавиатура, онбординг…) | ✅ 100% |
+| **Поля настроек** (`ru-constants.ts`, ~100 ключей RU_FIELD_LABELS/DESCRIPTIONS) | ✅ |
+| **Канбан-плагин** (`ru-locales.ts`, 190+ ключей) | ✅ |
+| **Bots-плагин** (roster, групповые чаты, cron-задачи, petdex, хаб навыков, райтклик-меню, поповеры) | ✅ 100% |
+| **Панель фильтров сессий** (Grouping/Ordering/Show/Status/PR/Archived…) | ✅ |
+| **Хардкоды компонентов** (биллинг, МоA, custom-endpoints, приветственное окно, «Подключение…», «Это устройство», мессенджеры, уталки, 28 описаний провайдеров, 6+ тем) | ✅ |
+| **Функциональные ключи EN** (плейсхолдеры с `${}`, плюрализация) | ✅ переведены без потери логики |
 
-1. Клон на месте: `C:\Users\covhnw\AppData\Local\hermes\hermes-agent`
-2. Запустить `package\install.bat` (или `install-asar.ps1` напрямую):
-   - `git apply` патча `patches\ru-mod-v3.patch` (хардкоды, если ещё не применён);
-   - восстановить untracked-файлы из `files\` (ru.ts, ru-constants, ru-locales);
-   - **`node structural-i18n.mjs`** → добавляет `ru` в `types/catalog/languages` по якорям
-     (идемпотентно, безопасно на стоковом апстриме);
-   - `npm run build` в `apps\desktop`;
-   - пересборка `app.asar` (extract со stubs → replace `dist/` → `pack --unpack "**"`)
-     + бэкап `app.asar.stock.bak`.
-3. Перезапустить Hermes Desktop.
+## 📐 Конвенции перевода
 
-## После обновления Hermes
+- **Имена собственные** (платформы, плагины, провайдеры, модели, команды, лог-фильтры) — не переводим;
+- **Технические термины** (MCP, DIFF, URL, PR, Pull request) — остаются в оригинале;
+- «Артефакты» → «Рабочие материалы», Maintenance → «Обслуживание и диагностика»;
+- `model.reasoning` = «Рассуждения» (единый термин);
+- cron-терминология унифицирована с основным клиентом («Новая cron-задача»);
+- Плюрализация — через `ruPlural(n, 'одна', 'неск', 'много')`;
+- **Функциональные ключи EN нельзя заменять строками** — краш «is not a function»
+  (инцидент 16.08; аудит типов — при каждой волне перевода).
 
-Просто повторить шаг 2 — установщик сам смоет старый мод в клоне и пересоберёт.
-Untracked-файлы (`files/`) переживают апдейты (проверено на 0.20.1); tracked-хунки патча
-установщик восстанавливает повторным `git apply`; а каталожную регистрацию `ru` всегда
-делает структурный патчер — даже если апстрим её перепишет.
+## 🩺 Возможные проблемы
 
-Проверка после установки: бандл должен содержать маркеры — `findstr "Применить" <путь>\dist\assets\*.js`
-(или открыть Настройки → верхняя строка должна быть на русском).
+| Проблема | Решение |
+|---|---|
+| Doctor показывает MISSING/AMBIGUOUS | Апстрим сильно изменился — обновите мод до свежего релиза (EXPECTED_COMMIT) |
+| «Access is denied» при сборке | Hermes Desktop запущен — закройте и повторите |
+| Сборка падает на diff-маркерах | В клоне остались артефакты прошлых модов — установщик сам делает `git restore`, либо `git checkout .` вручную |
+| Electron не скачивается (сеть) | `ELECTRON_MIRROR=<mirror> hermes desktop --force-build` |
+| Интерфейс частично английский | Запустите `-Doctor` и перезапустите Desktop (старый бандл в памяти) |
+| Обновление Hermes не пускает (hermes.exe locked) | Это не связано с модом: закройте Desktop/шлюз/другие REPL и повторите `hermes update` |
 
-## Как переводить новые ключи
+## ↔️ Совместимость
 
-1. Сверь `ru.ts` с `en.ts` (`apps/desktop/src/i18n/`). Проверь **все** ключи по типам:
-   - `EN` — значение-функция (например `mod => \`...${mod}...\``)? → в `ru.ts` тоже функция
-     с теми же параметрами, **не строка** (иначе краш «is not a function»).
-   - `EN` — строка? → переводи как строку.
-2. Допиши в `ru.ts` в том же формате; для плюрализации используют `ruPlural(n, 'одна', 'неск', 'много')`.
-3. Прогони синтаксис: `npx -p typescript@5.9.2 tsc --noEmit --noResolve --skipLibCheck --target es2022
-   --module esnext --moduleResolution bundler --jsx react-jsx i18n/ru.ts` (только твои ошибки;
-   нерезолвные импорты `@/...` — норма в изоляции).
-4. Регистрацию новых категорий (если секции нет в EN) не трогать — fallback на EN.
-5. `npm run build` в `apps\desktop`, проверь сборку и маркер в `dist/assets/`.
+| Hermes (коммит) | Мод |
+|---|---|
+| 0.20.4+ / `f43eabee5f` (08.2026) | v7.x, реестр 630+ правил |
+| 0.20.4 / `2d92793045` | v7.0 (реестр 399) |
 
-Совет: при добавлении новых ключей пользуйся аудитом типов — сравнение en/ru в рантайме
-(конвертация в .mjs + walk) ловит все «EN=функция, RU=строка» разом. Утилиты — `~/projects/hermes-desktop-ru/tools/` (исторически в `/tmp/ts2mjs`).
+При выходе новой версии Hermes — запустите `install.ps1 -Doctor`: реестр якорей сообщит,
+пережил ли он апстрим; если нет — дождитесь обновления мода.
 
-## Таймстампы
-
-Апстрим 0.20.4 ввёл **нативные таймстампы** (компонент `MessageTimelineTimestamp`, гейт
-`display.timestamps` в `~/.hermes/config.yaml`, выключены по умолчанию). Включаются:
-`hermes config set display.timestamps true`. Свой таймстамп-мод удалён (был несовместим с 0.20.4).
-Дизайн нативных задаётся Tailwind-классами (`data-slot="timeline-timestamp"`,
-`text-[0.625rem] … text-muted-foreground/55`) — при желании можно перекрыть CSS-оверрайдом в своём
-стиле (без пересборки, точечно).
-
-## История ключевых версий
-
-- **v3.12.1 (16.08)** — фикс краша: 3 функциональных ключа EN (layoutEditorTitle/mcpSuggestions.tip/
-  commitPlaceholder) вернули к функции. **v3.12** — перевод 108 новых ключей 0.20.4 (Connections,
-  MCP deep-links, update-blocker, appearance, kanban-notify), ре-регистрация `ru` (0.20.4 переписал catalog.ts).
-- **v5 установщика (16.08)** — структурный патчер i18n по якорям (+ doctor-проверка состояния).
-
-## Основа перевода
+## 📜 Основа перевода
 
 Базовый перевод — из [warment/hermes-desktop-ru](https://github.com/warment/hermes-desktop-ru)
-(конвертирован в `defineLocale`), diff-словарь DrMaks22 (PR #72250), плюс собственные волны перевода
-(4 + 4.1 + 4.2 x 10 опросников, 5.1 = 108 новых ключей). Сверка спорных технических терминов —
-с реальными переводами в интернете и каталогом терминов.
+(конвертирован в `defineLocale`), использованы наработки
+[anatolijlaptev1991-ctrl/hermes-ru](https://github.com/anatolijlaptev1991-ctrl/hermes-ru)
+(структурные якоря, patch-engine, контрактные тесты; часть идей), diff-словарь DrMaks22
+(PR [#72250](https://github.com/NousResearch/hermes-agent/pull/72250)), плюс собственные
+волны перевода (v3.x → v7.x) и сверка спорных терминов с реальными переводами.
 
-## Лицензия
+Спасибо авторам этих проектов за базу и идеи! ❤️
 
-MIT
+## 📄 Лицензия
+
+MIT — делайте что хотите, ссылка на автора приветствуется.
