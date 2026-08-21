@@ -5,7 +5,7 @@ import { createRequire } from 'node:module'
 import process from 'node:process'
 const root = process.argv[2] || process.cwd()
 const req = createRequire(root + '/package.json')
-const probes = ['vite', '@electron/asar', '@tabler/icons-react', 'react', 'electron-builder']
+const probes = ['vite', '@electron/asar', '@tabler/icons-react', 'react', 'electron-builder', '@rolldown/plugin-babel']
 let bad = false
 for (const p of probes) {
   try {
