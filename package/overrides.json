@@ -1041,17 +1041,6 @@
     ]
   },
   {
-    "id": "hermes-bots-man-Bot_Chat",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-    "before": [
-      "    title: 'Bot Chat',"
-    ],
-    "after": [
-      "    title: 'Чат бота',"
-    ],
-    "all": true
-  },
-  {
     "id": "hermes-bots-oneliner-Edit_Profile",
     "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
     "before": [
@@ -1518,7 +1507,7 @@
       "            jsx(DialogTitle, { children: 'New Cronjob' }),"
     ],
     "after": [
-      "            jsx(DialogTitle, { children: 'Новая задача по расписанию' }),"
+      "            jsx(DialogTitle, { children: 'Новая cron-задача' }),"
     ]
   },
   {
@@ -1798,7 +1787,7 @@
       "        title: 'Cronjobs',"
     ],
     "after": [
-      "        title: 'Задачи по расписанию',"
+      "        title: 'cron-задачи',"
     ]
   },
   {
@@ -1859,6 +1848,402 @@
     ],
     "after": [
       "              children: `${replies} ${replies === 1 ? 'ответ' : (replies >= 2 && replies <= 4 ? 'ответа' : 'ответов')} · ${relativeTime(entries[entries.length - 1].entry.at)}`"
+    ]
+  },
+  {
+    "id": "hermes-bots-w4-7091",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                            ['capabilities', 'Capabilities']"
+    ],
+    "after": [
+      "                            ['capabilities', 'Возможности']"
+    ]
+  },
+  {
+    "id": "hermes-bots-w4-7135",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                              remoteTarget ? `Clone from profile (on ${targetLabel})` : 'Clone from profile',"
+    ],
+    "after": [
+      "                              remoteTarget ? `Клон профиля (на ${targetLabel})` : 'Клон профиля',"
+    ]
+  },
+  {
+    "id": "hermes-bots-w4-7171",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                              placeholderModel: 'inherited from launch profile'"
+    ],
+    "after": [
+      "                              placeholderModel: 'наследуется от запускающего профиля'"
+    ]
+  },
+  {
+    "id": "hermes-bots-w4-7190",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                                'Share keys & accounts with the main profile'"
+    ],
+    "after": [
+      "                                'Делиться ключами и аккаунтами с основным профилем'"
+    ]
+  },
+  {
+    "id": "hermes-bots-w4-7205",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                                'Create empty (skip bundled skills)'"
+    ],
+    "after": [
+      "                                'Создать пустого (пропустить встроенные навыки)'"
+    ]
+  },
+  {
+    "id": "hermes-bots-w4-7998",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "              children: `A recurring task ${displayName({ name: bot }, $botMeta.get()[bot])} runs on a schedule. Runs land in its own chat history.`"
+    ],
+    "after": [
+      "              children: `Регулярная задача ${displayName({ name: bot }, $botMeta.get()[bot])} выполняется по расписанию. Прогон сохраняется в её собственную историю чата.`"
+    ]
+  },
+  {
+    "id": "hermes-bots-w4-8033",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                'Continuity: each run sees the previous run\\u2019s output (dedupe, continue where it left off)'"
+    ],
+    "after": [
+      "                'Непрерывность: каждый прогон видит результат предыдущего (дедупликация, продолжение с места остановки)'"
+    ]
+  },
+  {
+    "id": "filter-menu-75",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'clock', id: 'date', label: 'Updated' },"
+    ],
+    "after": [
+      "  { icon: 'clock', id: 'date', label: 'Обновлено' },"
+    ]
+  },
+  {
+    "id": "filter-menu-76",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'root-folder', id: 'project', label: 'Project' },"
+    ],
+    "after": [
+      "  { icon: 'root-folder', id: 'project', label: 'Проект' },"
+    ]
+  },
+  {
+    "id": "filter-menu-77-all",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'pulse', id: 'status', label: 'Status' },"
+    ],
+    "after": [
+      "  { icon: 'pulse', id: 'status', label: 'Статус' },"
+    ],
+    "all": true
+  },
+  {
+    "id": "filter-menu-78-all",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'account', id: 'profile', label: 'Profile' }"
+    ],
+    "after": [
+      "  { icon: 'account', id: 'profile', label: 'Профиль' }"
+    ],
+    "all": true
+  },
+  {
+    "id": "filter-menu-82-all",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'clock', id: 'updated', label: 'Updated' },"
+    ],
+    "after": [
+      "  { icon: 'clock', id: 'updated', label: 'Обновлено' },"
+    ],
+    "all": true
+  },
+  {
+    "id": "filter-menu-83",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'add', id: 'created', label: 'Created' },"
+    ],
+    "after": [
+      "  { icon: 'add', id: 'created', label: 'Создано' },"
+    ]
+  },
+  {
+    "id": "filter-menu-85-all",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'symbol-numeric', id: 'tokens', label: 'Tokens' },"
+    ],
+    "after": [
+      "  { icon: 'symbol-numeric', id: 'tokens', label: 'Токены' },"
+    ],
+    "all": true
+  },
+  {
+    "id": "filter-menu-86-all",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'credit-card', id: 'cost', label: 'Cost' },"
+    ],
+    "after": [
+      "  { icon: 'credit-card', id: 'cost', label: 'Стоимость' },"
+    ],
+    "all": true
+  },
+  {
+    "id": "filter-menu-87",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'list-ordered', id: 'manual', label: 'Manual' }"
+    ],
+    "after": [
+      "  { icon: 'list-ordered', id: 'manual', label: 'Вручную' }"
+    ]
+  },
+  {
+    "id": "filter-menu-92",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'comment', id: 'preview', label: 'Preview' },"
+    ],
+    "after": [
+      "  { icon: 'comment', id: 'preview', label: 'Превью' },"
+    ]
+  },
+  {
+    "id": "filter-menu-100",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'git-pull-request', id: 'open', label: 'Open' },"
+    ],
+    "after": [
+      "  { icon: 'git-pull-request', id: 'open', label: 'Открытые' },"
+    ]
+  },
+  {
+    "id": "filter-menu-101",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'git-pull-request-draft', id: 'draft', label: 'Draft' },"
+    ],
+    "after": [
+      "  { icon: 'git-pull-request-draft', id: 'draft', label: 'Черновик' },"
+    ]
+  },
+  {
+    "id": "filter-menu-102",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'git-merge', id: 'merged', label: 'Merged' },"
+    ],
+    "after": [
+      "  { icon: 'git-merge', id: 'merged', label: 'Слитые' },"
+    ]
+  },
+  {
+    "id": "filter-menu-103",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'git-pull-request-closed', id: 'closed', label: 'Closed' },"
+    ],
+    "after": [
+      "  { icon: 'git-pull-request-closed', id: 'closed', label: 'Закрытые' },"
+    ]
+  },
+  {
+    "id": "filter-menu-104",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { icon: 'circle-slash', id: 'none', label: 'No PR' }"
+    ],
+    "after": [
+      "  { icon: 'circle-slash', id: 'none', label: 'Без PR' }"
+    ]
+  },
+  {
+    "id": "filter-menu-108",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { dot: sessionDotClassName('needs-input'), id: 'needs-input', label: 'Needs input' },"
+    ],
+    "after": [
+      "  { dot: sessionDotClassName('needs-input'), id: 'needs-input', label: 'Нужен ваш ответ' },"
+    ]
+  },
+  {
+    "id": "filter-menu-109",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { dot: sessionDotClassName('working'), id: 'working', label: 'Working' },"
+    ],
+    "after": [
+      "  { dot: sessionDotClassName('working'), id: 'working', label: 'Работает' },"
+    ]
+  },
+  {
+    "id": "filter-menu-111",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { dot: sessionDotClassName('draft'), id: 'draft', label: 'Draft' },"
+    ],
+    "after": [
+      "  { dot: sessionDotClassName('draft'), id: 'draft', label: 'Черновик' },"
+    ]
+  },
+  {
+    "id": "filter-menu-110",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { dot: sessionDotClassName('unread'), id: 'unread', label: 'Unread' },"
+    ],
+    "after": [
+      "  { dot: sessionDotClassName('unread'), id: 'unread', label: 'Непрочитанное' },"
+    ]
+  },
+  {
+    "id": "filter-menu-112",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "  { dot: cn(sessionDotClassName('idle'), 'bg-(--ui-text-quaternary)'), id: 'idle', label: 'Idle' }"
+    ],
+    "after": [
+      "  { dot: cn(sessionDotClassName('idle'), 'bg-(--ui-text-quaternary)'), id: 'idle', label: 'Ожидание' }"
+    ]
+  },
+  {
+    "id": "filter-menu-230",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "              Grouping"
+    ],
+    "after": [
+      "              Группировка"
+    ]
+  },
+  {
+    "id": "filter-menu-249",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "            <DropdownMenuSubTrigger>Ordering</DropdownMenuSubTrigger>"
+    ],
+    "after": [
+      "            <DropdownMenuSubTrigger>Сортировка</DropdownMenuSubTrigger>"
+    ]
+  },
+  {
+    "id": "filter-menu-263",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "            <DropdownMenuSubTrigger>Show</DropdownMenuSubTrigger>"
+    ],
+    "after": [
+      "            <DropdownMenuSubTrigger>Показывать</DropdownMenuSubTrigger>"
+    ]
+  },
+  {
+    "id": "filter-menu-281",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "            option={{ icon: 'inbox', id: 'card-rows', label: 'Inbox style' }}"
+    ],
+    "after": [
+      "            option={{ icon: 'inbox', id: 'card-rows', label: 'Стиль «Почта»' }}"
+    ]
+  },
+  {
+    "id": "filter-menu-288",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "          <DropdownMenuLabel>Filters</DropdownMenuLabel>"
+    ],
+    "after": [
+      "          <DropdownMenuLabel>Фильтры</DropdownMenuLabel>"
+    ]
+  },
+  {
+    "id": "filter-menu-291",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "            <DropdownMenuSubTrigger>Status</DropdownMenuSubTrigger>"
+    ],
+    "after": [
+      "            <DropdownMenuSubTrigger>Статус</DropdownMenuSubTrigger>"
+    ]
+  },
+  {
+    "id": "filter-menu-323",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "            <DropdownMenuSubTrigger>Profile</DropdownMenuSubTrigger>"
+    ],
+    "after": [
+      "            <DropdownMenuSubTrigger>Профиль</DropdownMenuSubTrigger>"
+    ]
+  },
+  {
+    "id": "filter-menu-350",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "              <DropdownMenuSubTrigger>Project</DropdownMenuSubTrigger>"
+    ],
+    "after": [
+      "              <DropdownMenuSubTrigger>Проект</DropdownMenuSubTrigger>"
+    ]
+  },
+  {
+    "id": "filter-menu-385",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "            option={{ id: 'archived', label: 'Archived' }}"
+    ],
+    "after": [
+      "            option={{ id: 'archived', label: 'В архиве' }}"
+    ]
+  },
+  {
+    "id": "filter-menu-408",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "            {projectsCollapsed ? 'Expand all' : 'Collapse all'}"
+    ],
+    "after": [
+      "            {projectsCollapsed ? 'Развернуть все' : 'Свернуть все'}"
+    ]
+  },
+  {
+    "id": "filter-menu-412",
+    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+    "before": [
+      "          Mark all as read"
+    ],
+    "after": [
+      "          Отметить всё прочитанным"
+    ]
+  },
+  {
+    "id": "hermes-bots-w4-7090-all",
+    "all": true,
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                            ['general', 'General'],"
+    ],
+    "after": [
+      "                            ['general', 'Общие'],"
     ]
   }
 ]
