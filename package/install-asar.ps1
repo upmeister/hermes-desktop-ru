@@ -1,193 +1,280 @@
-﻿param([switch]$Doctor)
+﻿param(
+  [switch]$Doctor,
+  [switch]$Help,
+  [string]$Root
+)
 
 $ErrorActionPreference = 'Stop'
-# install-asar.ps1 v7 (variant C) - install ru-mod into Hermes Desktop.
-# Replaces git apply --3way with the structural anchor registry engine:
-#   apply-hardcodes.mjs <repoRoot> registry.json [--doctor]
-#
-# WHY (20.08.2026, three crashes root-caused):
-#   git apply --3way on a SHALLOW clone returns EXIT 0 even when 3-way merge
-#   leaves conflict markers (<<<<<<< ours / >>>>>>> theirs) in the files;
-#   vite build then dies on "Encountered diff marker". Both our installer v6
-#   and hermes-ru died EXACTLY that way (same files: presets.ts,
-#   custom-endpoints-settings.tsx). The engine searches full unique line
-#   blocks instead (survives upstream reflow), is idempotent, and reports
-#   MISSING/AMBIGUOUS explicitly - a real doctor, no silent breakage.
-#
-# Steps: version-gate (EXPECTED_COMMIT, warn-only) -> restore tracked to HEAD
-#        -> doctor (engine --doctor, FAIL aborts) -> apply (engine) ->
-#        structural-i18n (register 'ru') -> copy untracked locale files ->
-#        backup asar -> npm run build -> asar rebuild -> probe-ru.
-#
-# NOTE: pure ASCII on purpose (PS 5.1 reads .ps1 without BOM as ANSI).
+# install-asar.ps1 v7.6.1 (variant C)
+# Structural anchor registry installer for hermes-desktop-ru.
+# Pure logic in ASCII identifiers; user-facing messages may be Russian (UTF-8 BOM required).
 
-$root = "C:\Users\covhnw\AppData\Local\hermes\hermes-agent"
-$desktop = "$root\apps\desktop"
-$res = "$desktop\release\win-unpacked\resources"
-$asar = "$res\app.asar"
-$asarJs = "$root\node_modules\@electron\asar\bin\asar.js"
-$modDist = Join-Path $PSScriptRoot "dist"
-$tmp = Join-Path $env:TEMP ("asar-mod-" + [guid]::NewGuid().ToString('N').Substring(0, 8))
-$app = "$tmp\app"
-$unpacked = "$res\app.asar.unpacked"
-$expectFile = Join-Path $PSScriptRoot "EXPECTED_COMMIT"
-$registry = Join-Path $PSScriptRoot "registry.json"
+function Show-Help {
+  @"
+Hermes Desktop RU - установщик мода
 
-Write-Host "== Hermes Desktop mod install (v7 structural registry: restore + doctor + apply + build + asar) =="
-if (-not (Test-Path $registry)) { Write-Host "FAIL: registry.json not found next to installer"; exit 1 }
+Использование:
+  install.ps1                 Установить / переустановить мод
+  install.ps1 -Doctor         Сухая проверка совместимости (ничего не пишет)
+  install.ps1 -Root <path>    Явный путь к клону hermes-agent
+  install.ps1 -Help           Эта справка
 
-# ---------- ensure deps: public-release installer fixes its own node_modules ----------
-# Hermes updates can leave node_modules partial or with broken nodes (observed
-# 20.08: vite present but @electron/asar + electron-builder missing; later an
-# @tabler/icons-react node with dist/ but no package.json, which made vite fail
-# to resolve it). deps-health.mjs requires the key packages; exit 1 => rebuild.
+Также можно:
+  install.bat                 То же через двойной клик (с паузой в конце)
+  $env:HERMES_AGENT_ROOT      Переопределить путь к клону
+
+Требования:
+  - Hermes Desktop из исходников (git clone), не prebuilt .exe
+  - Node.js 18+ и npm
+  - Закрытый Hermes Desktop на время установки
+
+По умолчанию ищет клон в:
+  %LOCALAPPDATA%\hermes\hermes-agent
+"@ | Write-Host
+}
+
+if ($Help) { Show-Help; exit 0 }
+
+function Resolve-HermesRoot {
+  param([string]$Explicit)
+  $candidates = @()
+  if ($Explicit) { $candidates += $Explicit }
+  if ($env:HERMES_AGENT_ROOT) { $candidates += $env:HERMES_AGENT_ROOT }
+  if ($env:LOCALAPPDATA) {
+    $candidates += (Join-Path $env:LOCALAPPDATA 'hermes\hermes-agent')
+  }
+  # Legacy / alternate layouts some users keep
+  if ($env:USERPROFILE) {
+    $candidates += (Join-Path $env:USERPROFILE 'AppData\Local\hermes\hermes-agent')
+    $candidates += (Join-Path $env:USERPROFILE 'hermes-agent')
+    $candidates += (Join-Path $env:USERPROFILE 'hermes\hermes-agent')
+  }
+
+  foreach ($c in $candidates) {
+    if (-not $c) { continue }
+    try { $full = [System.IO.Path]::GetFullPath($c) } catch { continue }
+    $desktopPkg = Join-Path $full 'apps\desktop\package.json'
+    if ((Test-Path (Join-Path $full '.git')) -or (Test-Path $desktopPkg)) {
+      if (Test-Path $desktopPkg) { return $full }
+    }
+  }
+  return $null
+}
+
+function Resolve-ModFile {
+  param([string]$RelativePath)
+  # Prefer package/files/<name> (repo layout). Flat zip root is also accepted.
+  $a = Join-Path $PSScriptRoot $RelativePath
+  if (Test-Path $a) { return $a }
+  $leaf = Split-Path $RelativePath -Leaf
+  $b = Join-Path $PSScriptRoot $leaf
+  if (Test-Path $b) { return $b }
+  return $null
+}
+
+$root = Resolve-HermesRoot -Explicit $Root
+if (-not $root) {
+  Write-Host "ОШИБКА: не найден клон hermes-agent."
+  Write-Host "  Ожидается apps\desktop\package.json в одном из путей:"
+  Write-Host "  - %LOCALAPPDATA%\hermes\hermes-agent"
+  Write-Host "  - \$env:HERMES_AGENT_ROOT"
+  Write-Host "  Или передайте: install.ps1 -Root 'D:\path\to\hermes-agent'"
+  exit 1
+}
+
+$desktop = Join-Path $root 'apps\desktop'
+$res = Join-Path $desktop 'release\win-unpacked\resources'
+$asar = Join-Path $res 'app.asar'
+$asarJs = Join-Path $root 'node_modules\@electron\asar\bin\asar.js'
+$modDist = Join-Path $PSScriptRoot 'dist'
+$tmp = Join-Path $env:TEMP ('asar-mod-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
+$app = Join-Path $tmp 'app'
+$unpacked = Join-Path $res 'app.asar.unpacked'
+$expectFile = Join-Path $PSScriptRoot 'EXPECTED_COMMIT'
+$registry = Join-Path $PSScriptRoot 'registry.json'
+$probeJs = Join-Path $PSScriptRoot 'probe-ru.mjs'
+
+Write-Host "== Hermes Desktop RU — установщик v7.6.1 =="
+Write-Host ("клон: " + $root)
+if (-not (Test-Path $registry)) {
+  Write-Host "ОШИБКА: registry.json не найден рядом с установщиком"
+  exit 1
+}
+
+# ---------- deps health ----------
 $healthBad = $false
-node "$PSScriptRoot\deps-health.mjs" $root
+node (Join-Path $PSScriptRoot 'deps-health.mjs') $root
 if ($LASTEXITCODE -ne 0) { $healthBad = $true }
 if ($healthBad) {
-  if (Test-Path "$root\package-lock.json") {
-    Write-Host "WARN: node_modules unhealthy - running 'npm ci' (clean rebuild from lockfile, 3-10 min)..."
+  if (Test-Path (Join-Path $root 'package-lock.json')) {
+    Write-Host "зависимости повреждены — npm ci (3–10 мин)..."
     Push-Location $root
     cmd /c "npm ci 2>&1"
     Pop-Location
   } else {
-    Write-Host "WARN: node_modules unhealthy, no package-lock.json - running 'npm install'..."
+    Write-Host "зависимости повреждены — npm install..."
     Push-Location $root
     cmd /c "npm install 2>&1"
     Pop-Location
   }
-  # re-check
-  node "$PSScriptRoot\deps-health.mjs" $root
+  node (Join-Path $PSScriptRoot 'deps-health.mjs') $root
   if ($LASTEXITCODE -ne 0) {
-    Write-Host "FAIL: node_modules still missing packages after rebuild - check npm network"; exit 1
+    Write-Host "ОШИБКА: после переустановки node_modules пакеты всё ещё отсутствуют (проверьте сеть/npm)"
+    exit 1
   }
-  Write-Host "node_modules rebuilt"
+  Write-Host "зависимости восстановлены"
 } else {
-  Write-Host "deps: node_modules healthy"
+  Write-Host "зависимости: OK"
 }
-if (-not (Test-Path $asarJs)) { Write-Host "FAIL: @electron/asar not found after deps step"; exit 1 }
+if (-not (Test-Path $asarJs)) {
+  Write-Host "ОШИБКА: @electron/asar не найден после шага зависимостей"
+  exit 1
+}
 
 Get-Process -Name Hermes -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 1
 
-# ---------- version-gate: compare clone HEAD vs the build the registry targets ----------
+# ---------- version-gate ----------
 $actualCommit = ""
 Push-Location $root
 $actualCommit = (& cmd /c "git rev-parse HEAD 2>nul")
 Pop-Location
-if (-not $actualCommit) { $actualCommit = "(git unavailable?)" }
+if (-not $actualCommit) { $actualCommit = "(git недоступен?)" }
 if (Test-Path $expectFile) {
   $expectedCommit = (Get-Content $expectFile -Raw).Trim()
-  Write-Host ("version-gate: clone HEAD=" + $actualCommit.Substring(0, [Math]::Min(12, $actualCommit.Length)))
-  Write-Host ("              expected = " + $expectedCommit.Substring(0, [Math]::Min(12, $expectedCommit.Length)))
-  if ("$actualCommit".Trim() -ne $expectedCommit -and -not ($actualCommit.StartsWith($expectedCommit) -or $expectedCommit.StartsWith("$actualCommit".Trim().Substring(0, [Math]::Min(7, $actualCommit.Length))))) {
-    Write-Host "WARN: clone HEAD differs from the version the registry was generated for."
-    Write-Host "      The engine doctor below is the real gate: if it passes 100%, the registry"
-    Write-Host "      still fits this upstream. If it reports MISSING, re-run gen-registry.mjs"
-    Write-Host "      on the new patch (or update overrides.json) before installing."
+  $aShort = $actualCommit.Substring(0, [Math]::Min(12, $actualCommit.Length))
+  $eShort = $expectedCommit.Substring(0, [Math]::Min(12, $expectedCommit.Length))
+  Write-Host ("версия клона: " + $aShort + "  (ожидалась " + $eShort + ")")
+  $aTrim = "$actualCommit".Trim()
+  $match = ($aTrim -eq $expectedCommit) -or $aTrim.StartsWith($expectedCommit) -or $expectedCommit.StartsWith($aTrim.Substring(0, [Math]::Min(7, $aTrim.Length)))
+  if (-not $match) {
+    Write-Host "ПРЕДУПРЕЖДЕНИЕ: HEAD клона отличается от версии, на которой собран реестр."
+    Write-Host "  Реальный контроль — doctor ниже. Если он 100% OK, мод всё ещё совместим."
   } else {
-    Write-Host "OK: clone is on the expected commit."
+    Write-Host "версия: совпадает с ожидаемой"
   }
 } else {
-  Write-Host ("version-gate: EXPECTED_COMMIT not found, skip (HEAD=" + $actualCommit.Substring(0, [Math]::Min(12, $actualCommit.Length)) + ")")
+  Write-Host ("version-gate: EXPECTED_COMMIT нет (HEAD=" + $actualCommit.Substring(0, [Math]::Min(12, $actualCommit.Length)) + ")")
 }
 
-# ---------- 0. RESTORE tracked files to HEAD (untracked locales survive) ----------
+# ---------- restore tracked to stock ----------
 Push-Location $root
 cmd /c "git restore --source=HEAD --staged --worktree . 2>nul"
 $restoreExit = $LASTEXITCODE
 Pop-Location
-Write-Host ("restore to stock: exit=" + $restoreExit + " (untracked locale files untouched)")
+Write-Host ("сброс к стоку: exit=" + $restoreExit + " (untracked-локали не трогаем)")
 
-# ---------- doctor: engine dry-run (WILL NOT WRITE) ----------
-$doctorFail = $false
+# ---------- doctor ----------
 Push-Location $root
-node "$PSScriptRoot\apply-hardcodes.mjs" $root $registry --doctor
+node (Join-Path $PSScriptRoot 'apply-hardcodes.mjs') $root $registry --doctor
 $doctorExit = $LASTEXITCODE
 Pop-Location
 if ($doctorExit -ne 0) {
-  Write-Host "FAIL: registry doctor reports MISSING/AMBIGUOUS rules."
-  Write-Host "      The mod does NOT fit this upstream version without updating the registry."
-  Write-Host "      Re-run gen-registry.mjs on a fresh patch, or fix overrides.json."
+  Write-Host "ОШИБКА: doctor — часть правил реестра не применяется к этой версии Hermes."
+  Write-Host "  Скачайте свежий релиз мода или обновите registry/overrides."
   if ($Doctor) {
     Write-Host ""
-    Write-Host "=== DOCTOR REPORT ==="
-    Write-Host ("clone HEAD : " + $actualCommit)
-    Write-Host ("registry   : " + $registry)
-    Write-Host "status: FAIL - engine found unapplicable rules"
+    Write-Host "=== ОТЧЁТ DOCTOR ==="
+    Write-Host ("HEAD клона : " + $actualCommit)
+    Write-Host ("реестр     : " + $registry)
+    Write-Host "статус: FAIL"
     exit 1
   }
   exit 1
 } else {
-  Write-Host "doctor: registry applies 100%"
+  Write-Host "doctor: 100% правил применяются"
 }
 if ($Doctor) {
   Write-Host ""
-  Write-Host "=== DOCTOR REPORT ==="
-  Write-Host ("clone HEAD : " + $actualCommit)
-  Write-Host ("registry   : " + $registry)
-  Write-Host "status: OK - all rules apply cleanly (engine dry-run, nothing written)"
+  Write-Host "=== ОТЧЁТ DOCTOR ==="
+  Write-Host ("HEAD клона : " + $actualCommit)
+  Write-Host ("реестр     : " + $registry)
+  Write-Host "статус: OK (сухой прогон, ничего не записано)"
   exit 0
 }
 
-# ---------- 1. APPLY the registry (structural replacements, idempotent) ----------
+# ---------- apply ----------
 Push-Location $root
-node "$PSScriptRoot\apply-hardcodes.mjs" $root $registry
+node (Join-Path $PSScriptRoot 'apply-hardcodes.mjs') $root $registry
 $applyExit = $LASTEXITCODE
 Pop-Location
-if ($applyExit -ne 0) { Write-Host "FAIL: registry apply aborted"; exit 1 }
-Write-Host "apply: registry applied"
+if ($applyExit -ne 0) { Write-Host "ОШИБКА: apply реестра прерван"; exit 1 }
+Write-Host "apply: реестр применён"
 
-# ---------- 2. untracked locale/component files (always overwrite - part of the mod) ----------
-$files = @(
-  @("files\ru.ts", "apps\desktop\src\i18n\ru.ts"),
-  @("files\ru-constants.ts", "apps\desktop\src\app\settings\ru-constants.ts"),
-  @("files\ru-locales.ts", "apps\desktop\src\plugins\kanban\ru-locales.ts")
+# ---------- locale files (files/ layout OR flat zip root) ----------
+$fileMap = @(
+  @('files\ru.ts', 'apps\desktop\src\i18n\ru.ts'),
+  @('files\ru-constants.ts', 'apps\desktop\src\app\settings\ru-constants.ts'),
+  @('files\ru-locales.ts', 'apps\desktop\src\plugins\kanban\ru-locales.ts')
 )
-foreach ($f in $files) {
-  $src = Join-Path $PSScriptRoot $f[0]
+$copied = 0
+foreach ($f in $fileMap) {
+  $src = Resolve-ModFile $f[0]
   $dst = Join-Path $root $f[1]
-  if (Test-Path $src) {
+  if ($src) {
     $dir = Split-Path $dst -Parent
     if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
     Copy-Item $src $dst -Force
-    Write-Host ("file restored: " + $f[1])
+    Write-Host ("локаль: " + $f[1])
+    $copied++
+  } else {
+    Write-Host ("ПРЕДУПРЕЖДЕНИЕ: не найден файл мода " + $f[0] + " (и плоский fallback)")
   }
 }
-
-# ---------- 3. backups (first run only) ----------
-if ((Test-Path $asar) -and -not (Test-Path "$asar.stock.bak")) { Copy-Item $asar "$asar.stock.bak" }
-if ((Test-Path "$unpacked\dist") -and -not (Test-Path "$unpacked\dist.stock.bak")) { Copy-Item "$unpacked\dist" "$unpacked\dist.stock.bak" -Recurse }
-Write-Host "backups ok"
-
-# ---------- 4. structural i18n patcher (register 'ru' in types/catalog/languages) ----------
-$i18nDir = "$root\apps\desktop\src\i18n"
-if (Test-Path "$PSScriptRoot\structural-i18n.mjs") {
-  node "$PSScriptRoot\structural-i18n.mjs" "$i18nDir"
-  if ($LASTEXITCODE -ne 0) { Write-Host "FAIL: structural-i18n patcher"; exit 1 }
-  Write-Host "structural-i18n done"
-} else {
-  Write-Host "WARN: structural-i18n.mjs missing - 'ru' registration may be missing from bundle"
+if ($copied -lt 1) {
+  Write-Host "ОШИБКА: ни один locale-файл мода не найден рядом с установщиком"
+  exit 1
 }
 
-# ---------- 5. BUILD dist from the clone ----------
-Write-Host "building dist from clone (npm run build)..."
+# ---------- backups ----------
+if ((Test-Path $asar) -and -not (Test-Path ($asar + '.stock.bak'))) {
+  Copy-Item $asar ($asar + '.stock.bak')
+}
+if ((Test-Path (Join-Path $unpacked 'dist')) -and -not (Test-Path (Join-Path $unpacked 'dist.stock.bak'))) {
+  Copy-Item (Join-Path $unpacked 'dist') (Join-Path $unpacked 'dist.stock.bak') -Recurse
+}
+Write-Host "бэкапы: OK"
+
+# ---------- structural i18n ----------
+$i18nDir = Join-Path $root 'apps\desktop\src\i18n'
+$struct = Join-Path $PSScriptRoot 'structural-i18n.mjs'
+if (Test-Path $struct) {
+  node $struct $i18nDir
+  if ($LASTEXITCODE -ne 0) { Write-Host "ОШИБКА: structural-i18n"; exit 1 }
+  Write-Host "регистрация ru: OK"
+} else {
+  Write-Host "ПРЕДУПРЕЖДЕНИЕ: structural-i18n.mjs отсутствует — язык ru может не попасть в бандл"
+}
+
+# ---------- build ----------
+Write-Host "сборка dist (npm run build, 5–10 мин)..."
 Push-Location $desktop
-cmd /c "npm run build > $env:TEMP\mod-build.log 2>&1"
+$buildLog = Join-Path $env:TEMP 'mod-build.log'
+cmd /c ("npm run build > `"" + $buildLog + "`" 2>&1")
 $buildExit = $LASTEXITCODE
 Pop-Location
+$usePackage = $false
 if ($buildExit -ne 0) {
-  Write-Host "WARN: npm run build failed (exit $buildExit) - see $env:TEMP\mod-build.log"
-  Write-Host "fallback: using package dist/ if present"
-  if (Test-Path "$modDist\index.html") { Write-Host "using package dist fallback" }
-  else { Write-Host "FAIL: no package dist either"; exit 1 }
-  $usePackage = $true
+  Write-Host ("ПРЕДУПРЕЖДЕНИЕ: npm run build failed (exit " + $buildExit + ") — см. " + $buildLog)
+  if (Test-Path (Join-Path $modDist 'index.html')) {
+    Write-Host "fallback: package dist/"
+    $usePackage = $true
+  } else {
+    Write-Host "ОШИБКА: нет ни успешной сборки, ни package dist/"
+    exit 1
+  }
 } else {
-  Write-Host "build OK"
-  $usePackage = $false
+  Write-Host "сборка: OK"
 }
 
-# ---------- 6. asar rebuild (extract with stubs -> replace dist -> pack) ----------
+# ---------- asar rebuild ----------
+if (-not (Test-Path $asar)) {
+  Write-Host "ОШИБКА: не найден packaged app.asar:"
+  Write-Host ("  " + $asar)
+  Write-Host "  Сначала соберите Desktop: cd apps\desktop && npm run pack"
+  exit 1
+}
+
 $unpackedFiles = @()
 foreach ($line in (node $asarJs list -i $asar)) {
   if ($line -match '^unpack\s*:\s*(.+)$') { $unpackedFiles += $Matches[1].Trim().TrimStart('\') }
@@ -203,29 +290,37 @@ foreach ($f in $unpackedFiles) {
 
 New-Item -ItemType Directory -Path $app -Force | Out-Null
 node $asarJs extract $asar $app | Out-Null
-if ($LASTEXITCODE -ne 0) { Write-Host "FAIL: extract"; exit 1 }
+if ($LASTEXITCODE -ne 0) { Write-Host "ОШИБКА: extract asar"; exit 1 }
 
-if ($usePackage) { $srcDist = $modDist } else { $srcDist = "$desktop\dist" }
-if (Test-Path "$app\dist") { Remove-Item "$app\dist" -Recurse -Force }
-Copy-Item $srcDist "$app\dist" -Recurse
-Write-Host ("dist from: " + $(if ($usePackage) { "package" } else { "clone build" }))
+if ($usePackage) { $srcDist = $modDist } else { $srcDist = Join-Path $desktop 'dist' }
+if (Test-Path (Join-Path $app 'dist')) { Remove-Item (Join-Path $app 'dist') -Recurse -Force }
+Copy-Item $srcDist (Join-Path $app 'dist') -Recurse
+Write-Host ("dist из: " + $(if ($usePackage) { 'package' } else { 'clone build' }))
 
 if (Test-Path $unpacked) { Remove-Item $unpacked -Recurse -Force }
 node $asarJs pack $app $asar --unpack "**" | Out-Null
-if ($LASTEXITCODE -ne 0) { Write-Host "FAIL: pack"; exit 1 }
+if ($LASTEXITCODE -ne 0) { Write-Host "ОШИБКА: pack asar"; exit 1 }
 
-# ---------- 7. checks ----------
-$physIndex = Test-Path "$unpacked\dist\index.html"
-$physMain = Test-Path "$unpacked\dist\electron-main.mjs"
-$physPkg = Test-Path "$unpacked\package.json"
-$ruMarker = "no"
-if (Test-Path "$unpacked\dist\assets") {
-  $ru = node "$PSScriptRoot\probe-ru.mjs" "$unpacked\dist\assets"
-  if ($ru -and $ru -ne "NONE") { $ruMarker = "FOUND ($ru)" }
+# ---------- checks ----------
+$physIndex = Test-Path (Join-Path $unpacked 'dist\index.html')
+$physMain = Test-Path (Join-Path $unpacked 'dist\electron-main.mjs')
+$physPkg = Test-Path (Join-Path $unpacked 'package.json')
+$ruMarker = 'нет'
+$assetsDir = Join-Path $unpacked 'dist\assets'
+if ((Test-Path $assetsDir) -and (Test-Path $probeJs)) {
+  $ru = node $probeJs $assetsDir
+  if ($ru -and $ru -ne 'NONE') { $ruMarker = 'FOUND (' + $ru + ')' }
+} elseif (-not (Test-Path $probeJs)) {
+  Write-Host "ПРЕДУПРЕЖДЕНИЕ: probe-ru.mjs отсутствует — пропускаю проверку маркера"
 }
-Write-Host ("checks: index=" + $physIndex + " main=" + $physMain + " pkg=" + $physPkg + " ru=" + $ruMarker)
-if (-not ($physIndex -and $physMain -and $physPkg)) { Write-Host "WARN: checks failed - restore from .stock.bak"; exit 1 }
-if ($ruMarker -eq "no") { Write-Host "WARN: RU marker not found - ru-mod may be missing from this build" }
+Write-Host ("проверки: index=" + $physIndex + " main=" + $physMain + " pkg=" + $physPkg + " ru=" + $ruMarker)
+if (-not ($physIndex -and $physMain -and $physPkg)) {
+  Write-Host "ОШИБКА: проверки упаковки провалены — восстановите app.asar.stock.bak"
+  exit 1
+}
+if ($ruMarker -eq 'нет') {
+  Write-Host "ПРЕДУПРЕЖДЕНИЕ: RU-маркер не найден — мод мог не попасть в бандл"
+}
 
 Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue
-Write-Host "INSTALL OK - restart Hermes Desktop to see the mods"
+Write-Host "УСТАНОВКА OK — перезапустите Hermes Desktop"

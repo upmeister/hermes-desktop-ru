@@ -1,14 +1,15 @@
 @echo off
-REM Install all clone mods (ru-mod + timestamps) into packaged Hermes Desktop.
-REM Rule v2 (13.08.2026): install base is ALWAYS the freshly built clone dist
-REM (npm run build in apps\desktop), NEVER a shipped package dist - it wipes
-REM other mods. Package dist is fallback only.
+REM Hermes Desktop RU installer (double-click friendly)
 setlocal
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0install-asar.ps1"
-if errorlevel 1 (
-  echo INSTALL FAILED - see messages above
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0install-asar.ps1" %*
+set ERR=%ERRORLEVEL%
+if %ERR% neq 0 (
+  echo.
+  echo USTANOVKA NE UDALAS - smotrite soobscheniya vyshe
+  echo Help: install.bat -Help
   pause
-  exit /b 1
+  exit /b %ERR%
 )
-echo INSTALL OK - restart Hermes Desktop to see the mods
+echo.
+echo USTANOVKA OK - perezapustite Hermes Desktop
 pause

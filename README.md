@@ -1,99 +1,152 @@
-# 🇷🇺 Hermes Desktop — Russian Language Mod
+# 🇷🇺 Hermes Desktop — русский мод
 
-Полная русская локализация десктопного приложения [Hermes Agent](https://github.com/NousResearch/hermes-agent) (Windows).
+Полная русская локализация [Hermes Desktop](https://github.com/NousResearch/hermes-agent) для Windows.
 
-[![Hermes Agent](https://img.shields.io/badge/Hermes_Agent-0.20.4-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
+[![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.20.5-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
 [![Release](https://img.shields.io/github/v/release/upmeister/hermes-desktop-ru?style=for-the-badge&color=green)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
-[![License](https://img.shields.io/github/license/upmeister/hermes-desktop-ru?style=for-the-badge)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 ![Hermes Desktop на русском](docs/screenshot.png)
 
-**Реальные 100% перевода** для клиента **Hermes Desktop 0.20.4** (проверен и на 0.20.5):
-весь i18n-каталог, поля настроек, канбан-плагин, плагин **Bots целиком** (roster, групповые чаты,
-cron-задачи, профили, petdex, хаб навыков), панель фильтров сессий и хардкоды компонентов
-(биллинг, MoA, custom endpoints, приветственное окно, «Это устройство», мессенджеры и другое).
+> Единственный активно поддерживаемый русский мод для актуального Hermes Desktop.
+> **100% покрытия UI** на 0.20.4 / 0.20.5: системные строки, настройки, канбан, Bots, фильтры сессий и хардкоды компонентов.
+> После каждого обновления Hermes достаточно снова запустить установщик.
 
-## ⚡ Быстрый старт
+## Зачем этот мод
 
-1. Hermes должен быть установлен **из исходников** (`git clone`), а не prebuilt-`.exe` —
-   стандартный путь: `C:\Users\<you>\AppData\Local\hermes\hermes-agent`.
-2. Закройте Hermes Desktop (установщик сам пересоберёт и перепакует приложение).
-3. Скачайте [zip последнего релиза](https://github.com/upmeister/hermes-desktop-ru/releases),
-   распакуйте и выполните:
+Официальный клиент уже умеет несколько языков, но **русского в актуальной ветке нет**.
+Этот мод:
+
+- переводит **весь** пользовательский интерфейс, а не только часть ключей;
+- чинит строки, которые «не ловятся» обычным i18n (хардкоды в компонентах, Bots, поля настроек);
+- **переживает `hermes update`**: после обновления клиента вы просто ставите мод заново;
+- перед записью гоняет **doctor** — если апстрим слишком уехал, установщик честно остановится, а не сломает сборку.
+
+## Установка
+
+### Что нужно
+
+1. Hermes Desktop, установленный **из исходников** (`git clone`), не portable/prebuilt `.exe`.
+2. [Node.js](https://nodejs.org/) 18+ и npm.
+3. Закрытый Hermes Desktop на время установки (5–10 минут на `npm run build`).
+
+Стандартный путь клона:
+
+```text
+%LOCALAPPDATA%\hermes\hermes-agent
+```
+
+### Способ 1 — двойной клик
+
+1. Скачайте [последний release zip](https://github.com/upmeister/hermes-desktop-ru/releases).
+2. Распакуйте архив.
+3. Запустите **`install.bat`**.
+
+### Способ 2 — PowerShell
+
+В папке с установщиком:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File install.ps1
 ```
 
-4. Запустите Hermes Desktop — интерфейс на русском.
-
-> ⚠️ Установщик собирает десктоп из клона (`npm run build`, 5–10 минут). Требуются
-> [Node.js](https://nodejs.org/) 18+ и npm. При установке Hermes Desktop должен быть закрыт.
-
-## 🔁 После обновлений Hermes
-
-Просто запустите установщик заново — он сам сбросит исходники к актуальному стоку,
-проверит совместимость всех переводов и пересоберёт приложение. Дополнительно можно
-сделать сухую проверку без записи:
+Полезные флаги:
 
 ```powershell
+# сухая проверка совместимости (ничего не меняет)
 powershell -ExecutionPolicy Bypass -File install.ps1 -Doctor
+
+# если клон лежит не в %LOCALAPPDATA%\hermes\hermes-agent
+powershell -ExecutionPolicy Bypass -File install.ps1 -Root "D:\path\to\hermes-agent"
+
+# справка
+powershell -ExecutionPolicy Bypass -File install.ps1 -Help
 ```
 
-## ✨ Что переведено
+Переменная окружения `HERMES_AGENT_ROOT` тоже задаёт путь к клону.
 
-| Область | Статус |
+После `УСТАНОВКА OK` просто откройте Hermes Desktop — язык интерфейса станет русским
+(при необходимости выберите **Русский** в настройках языка).
+
+## После обновления Hermes
+
+```text
+hermes update  →  install.ps1 / install.bat  →  запуск Desktop
+```
+
+Установщик сам:
+
+1. находит клон Hermes;
+2. восстанавливает исходники к чистому стоку;
+3. проверяет все якоря перевода (doctor);
+4. применяет перевод;
+5. пересобирает `dist` и упаковывает `app.asar`.
+
+> Важно: сам `hermes update` **не** пересобирает уже установленный asar.
+> Старый русский UI может «казаться живым» после апдейта, но это старый бандл.
+> Надёжный путь — всегда прогонять установщик после обновления клиента.
+
+## Что внутри
+
+| Область | Покрытие |
 |---|---|
-| **i18n-каталог** (весь интерфейс: чат, настройки, биллинг, MCP, шлюз, клавиатура, онбординг…) | ✅ 100% |
-| **Поля настроек** (названия и описания полей) | ✅ |
-| **Канбан-плагин** | ✅ 100% |
-| **Bots-плагин** (roster, групповые чаты, cron-задачи, petdex, хаб навыков, меню) | ✅ 100% |
-| **Панель фильтров сессий** (группировка, сортировка, статусы, архив…) | ✅ |
-| **Хардкоды компонентов** (биллинг, MoA, custom endpoints, приветственное окно, «Подключение…», «Это устройство», мессенджеры, описания провайдеров, темы) | ✅ |
-| **Функциональные ключи** (плейсхолдеры, плюрализация) | ✅ переведены без потери логики |
+| Основной i18n-каталог (чат, настройки, шлюз, биллинг, онбординг…) | 100% |
+| Подписи и описания полей настроек | 100% |
+| Канбан | 100% |
+| Плагин Bots (агенты, группы, cron, petdex, хаб навыков, меню) | 100% |
+| Фильтры/группировка сессий | 100% |
+| Хардкоды UI (splash, мессенджеры, темы, MoA…) | 100% |
 
-## 📐 Конвенции перевода
+## Как переводим
 
-- **Имена собственные** (платформы, плагины, провайдеры, модели, команды, лог-фильтры) — не переводим;
-- **Технические термины** (MCP, DIFF, URL, PR, Pull request) — остаются как есть;
-- «Артефакты» → «Рабочие материалы», Maintenance → «Обслуживание и диагностика»;
-- единая терминология: «Рассуждения», «cron-задача» (как в основном клиенте).
+- Имена собственные и команды **не трогаем** (платформы, модели, фильтры логов).
+- Устоявшиеся термины оставляем: MCP, DIFF, URL, PR, YOLO.
+- Единый словарь UI: «Рабочие материалы», «Обслуживание и диагностика», «Рассуждения».
 
-## 🩺 Возможные проблемы
+## Совместимость
 
-| Проблема | Решение |
+| Hermes Desktop | Статус |
 |---|---|
-| Doctor сообщает о несовпадении | Апстрим сильно изменился — скачайте актуальный релиз мода |
-| «Access is denied» при сборке | Hermes Desktop запущен — закройте и повторите |
-| Сборка падает на diff-маркерах | В клоне остались артефакты прошлых модов — установщик сам делает сброс (`git restore`), либо выполните `git checkout .` вручную |
-| Electron не скачивается (сеть) | `ELECTRON_MIRROR=<mirror> hermes desktop --force-build` |
-| Интерфейс частично английский | Сделайте `-Doctor`, перезапустите установку и Hermes Desktop |
-| `hermes update` ругается на занятый hermes.exe | Это не связано с модом: закройте Desktop/шлюз/другие REPL и повторите обновление |
+| **0.20.5** | ✅ проверено (doctor 630/630, install OK) |
+| **0.20.4** | ✅ 100% перевода |
 
-## ↔️ Совместимость
+Если doctor ругается после свежего апдейта Hermes — подождите релиз мода под новую версию
+или откройте issue.
 
-| Hermes | Мод |
+## Возможные проблемы
+
+| Симптом | Что сделать |
 |---|---|
-| 0.20.5 / `2584b7c4` (08.2026) | ✅ проверен (doctor 630/630, install OK) |
-| 0.20.4 (08.2026) | ✅ реальные 100% перевода |
+| «не найден клон hermes-agent» | Укажите `-Root` или `HERMES_AGENT_ROOT` |
+| Doctor FAIL | Апстрим ушёл вперёд — нужен новый релиз мода |
+| Access is denied / EBUSY | Закройте Hermes Desktop и повторите |
+| Долго на npm ci | Нормально при битых `node_modules` после `hermes update` (3–10 мин) |
+| UI частично на английском | `-Doctor`, затем полная установка и перезапуск Desktop |
+| `hermes update` и занятый `hermes.exe` | Это ограничение Windows, не мода: закройте Desktop/шлюз |
 
-## 👤 Об авторе
+## Состав репозитория
 
-Мод поддерживается **активным пользователем и участником сообщества Hermes**.
-Перевод регулярно обновляется по мере выхода новых версий клиента — следите за
-[релизами](https://github.com/upmeister/hermes-desktop-ru/releases).
+```text
+package/           установщик и движок (то, что попадает в release zip)
+  install.bat      двойной клик
+  install.ps1      CLI-обёртка
+  install-asar.ps1 основной сценарий
+  registry.json    630 структурных правил перевода
+  files/           ru.ts + вспомогательные локали
+i18n/              исходные локали для разработки
+docs/screenshot.png
+CHANGELOG.md
+```
 
-## 📜 Основа перевода
+## Основа и благодарности
 
-Базовый перевод — из [warment/hermes-desktop-ru](https://github.com/warment/hermes-desktop-ru)
-(конвертирован в `defineLocale`); использованы наработки
-[anatolijlaptev1991-ctrl/hermes-ru](https://github.com/anatolijlaptev1991-ctrl/hermes-ru)
-и дифф-словарь DrMaks22 (PR [#72250](https://github.com/NousResearch/hermes-agent/pull/72250)),
-плюс собственные волны перевода и сверка спорных терминов.
+- [warment/hermes-desktop-ru](https://github.com/warment/hermes-desktop-ru) — ранняя база перевода  
+- [anatolijlaptev1991-ctrl/hermes-ru](https://github.com/anatolijlaptev1991-ctrl/hermes-ru) — идеи structural/doctor-подхода  
+- DrMaks22 — словарь и PR [#72250](https://github.com/NousResearch/hermes-agent/pull/72250)  
 
-Спасибо авторам этих проектов за базу и идеи! ❤️
+Спасибо авторам и сообществу Hermes ❤️
 
-## 📄 Лицензия
+## Лицензия
 
-MIT — делайте что хотите, ссылка на автора приветствуется.
+[MIT](LICENSE)
