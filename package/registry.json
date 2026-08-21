@@ -6362,5 +6362,98 @@
   "after": [
    "                                ? 'Это имя уже занято — выберите другое, прежде чем настраивать возможности.'"
   ]
+ },
+ {
+  "id": "boot-failure-i18n-then",
+  "file": "apps/desktop/src/i18n/context.tsx",
+  "before": [
+   "      .then(config => {",
+   "        if (!cancelled) {",
+   "          setLocaleState(normalizeLocale(getConfigDisplayLanguage(config)))",
+   "        }",
+   "      })"
+  ],
+  "after": [
+   "      .then(config => {",
+   "        if (!cancelled) {",
+   "          const resolved = normalizeLocale(getConfigDisplayLanguage(config))",
+   "          setLocaleState(resolved)",
+   "          localStorage.setItem('hermes-desktop-ru.locale', resolved)",
+   "        }",
+   "      })"
+  ]
+ },
+ {
+  "id": "boot-failure-i18n-catch",
+  "file": "apps/desktop/src/i18n/context.tsx",
+  "before": [
+   "          setConfigLoadError(toError(error))",
+   "          setLocaleState(DEFAULT_LOCALE)"
+  ],
+  "after": [
+   "          setConfigLoadError(toError(error))",
+   "          // MOD: hermes-desktop-ru — keep the last known locale (persisted locally in",
+   "          // localStorage by the .then/setLocale paths) instead of falling back to the",
+   "          // default (English): the boot-failure overlay must render in the user's",
+   "          // language even when the backend is unreachable and /api/config fails.",
+   "          setLocaleState(prev => normalizeLocale(localStorage.getItem('hermes-desktop-ru.locale') || prev))"
+  ]
+ },
+ {
+  "id": "boot-failure-i18n-savelocale",
+  "file": "apps/desktop/src/i18n/context.tsx",
+  "before": [
+   "        if (!result.ok) {",
+   "          throw new Error('Failed to save language')",
+   "        }"
+  ],
+  "after": [
+   "        if (!result.ok) {",
+   "          throw new Error('Failed to save language')",
+   "        }",
+   "        localStorage.setItem('hermes-desktop-ru.locale', next)"
+  ]
+ },
+ {
+  "id": "main-ts-ticket-auth",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        'Your remote gateway session has expired. Open Settings → Gateway and click \"Sign in\" again.',"
+  ],
+  "after": [
+   "        'Ваша сессия удалённого шлюза истекла. Откройте «Настройки → Шлюз» и нажмите «Войти» ещё раз.',"
+  ]
+ },
+ {
+  "id": "main-ts-ticket-transport",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        'Could not reach the remote Hermes gateway while refreshing its WebSocket ticket. Try reconnecting.'"
+  ],
+  "after": [
+   "        'Не удалось связаться с удалённым шлюзом Hermes при обновлении WebSocket-тикета. Попробуйте переподключиться.'"
+  ]
+ },
+ {
+  "id": "conncfg-ticket-oauth",
+  "file": "apps/desktop/electron/connection-config.ts",
+  "before": [
+   "        'Reached the gateway over HTTP, but the OAuth session was rejected while minting a WebSocket ticket. ' +",
+   "          'Open Settings → Gateway and sign in again.',"
+  ],
+  "after": [
+   "        'До шлюза удалось добраться по HTTP, но OAuth-сессия отклонена при выпуске WebSocket-тикета. ' +",
+   "          'Откройте «Настройки → Шлюз» и войдите ещё раз.',"
+  ]
+ },
+ {
+  "id": "conncfg-ticket-transport",
+  "file": "apps/desktop/electron/connection-config.ts",
+  "before": [
+   "        'Reached the gateway over HTTP, but could not mint a WebSocket ticket. Check the remote gateway connection and try again.'"
+  ],
+  "after": [
+   "        'До шлюза удалось добраться по HTTP, но выпустить WebSocket-тикет не удалось. Проверьте подключение к удалённому шлюзу и попробуйте снова.'"
+  ]
  }
 ]

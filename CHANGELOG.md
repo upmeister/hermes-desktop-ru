@@ -5,6 +5,21 @@
 
 ## [Unreleased]
 
+## [7.6.2] - 2026-08-22
+
+### Fixed
+- Окно «Hermes couldn't start» (BootFailureOverlay) больше не откатывается на
+  английский при недоступном бэкенде: выбранная локаль сохраняется в localStorage
+  и используется как fallback, когда `/api/config` не отвечает (раньше
+  `context.tsx` сбрасывал язык в дефолтный `en` в `.catch`).
+- Переведены хардкод-сообщения main-процесса об ошибках удалённого шлюза:
+  «Could not reach the remote Hermes gateway while refreshing its WebSocket
+  ticket…» и «Your remote gateway session has expired…» (`electron/main.ts`),
+  а также сообщения теста соединения «Reached the gateway over HTTP…»
+  (`electron/connection-config.ts`) — видны в окне ошибки запуска и в
+  настройках Шлюза.
+- `EXPECTED_COMMIT` обновлён под апстрим `1bf8bd2c7d2` (doctor 637/637).
+
 ## [7.6.1] - 2026-08-22
 
 ### Fixed
