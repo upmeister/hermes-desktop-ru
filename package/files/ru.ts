@@ -536,6 +536,8 @@ export const ru = defineLocale({
       translucencyDesc: 'Видно рабочий стол сквозь всё окно. Только macOS и Windows.',
       backdropTitle: 'Фон чата',
       backdropDesc: 'Едва заметное изображение статуи за областью диалога.',
+      introSplashTitle: 'Приветственный экран',
+      introSplashDesc: 'Название и подсказка, отображаемые в пустом чате.',
       reactionsTitle: 'Реакции на сообщения',
       reactionsDesc: 'Эмодзи-реакции в стиле iMessage — отвечайте на сообщения, и Hermes сможет реагировать на ваши.',
       embedsTitle: 'Встроенные предпросмотры',
@@ -2767,7 +2769,7 @@ export const ru = defineLocale({
     modelOptions: {
       noOptions: 'Нет опций для этой модели',
       options: 'Опции',
-      thinking: 'Думаю',
+      thinking: 'Рассуждения',
       fast: 'Быстро',
       effort: 'Усилия',
       minimal: 'Минимальный',
