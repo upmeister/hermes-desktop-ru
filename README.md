@@ -2,7 +2,8 @@
 
 Полная русская локализация [Hermes Desktop](https://github.com/NousResearch/hermes-agent) для Windows.
 
-[![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.20.5-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
+[![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-2026.8.x-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
+[![npm](https://img.shields.io/npm/v/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
 [![Release](https://img.shields.io/github/v/release/upmeister/hermes-desktop-ru?style=for-the-badge&color=green)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
@@ -10,7 +11,8 @@
 ![Hermes Desktop на русском](docs/screenshot.png)
 
 > Единственный активно поддерживаемый русский мод для актуального Hermes Desktop.
-> **100% покрытия UI** на 0.20.4 / 0.20.5: системные строки, настройки, канбан, Bots, фильтры сессий и хардкоды компонентов.
+> **100% покрытия UI** на актуальной ветке (проверено на v2026.8.3+, doctor 637/637):
+> системные строки, настройки, канбан, Bots, фильтры сессий и хардкоды компонентов.
 > После каждого обновления Hermes достаточно снова запустить установщик.
 
 ## Зачем этот мод
@@ -37,13 +39,32 @@
 %LOCALAPPDATA%\hermes\hermes-agent
 ```
 
-### Способ 1 — двойной клик
+### Способ 1 — npm (рекомендуется)
+
+```powershell
+npm install -g hermes-desktop-ru
+hermes-desktop-ru install
+```
+
+| Команда | Что делает |
+|---|---|
+| `hermes-desktop-ru install` | устанавливает / переустанавливает мод |
+| `hermes-desktop-ru doctor` | сухая проверка совместимости (ничего не меняет) |
+| `hermes-desktop-ru help` | справка |
+
+Флаги установщика работают и здесь:
+
+```powershell
+hermes-desktop-ru install -Root "D:\path\to\hermes-agent"
+```
+
+### Способ 2 — двойной клик
 
 1. Скачайте [последний release zip](https://github.com/upmeister/hermes-desktop-ru/releases).
 2. Распакуйте архив.
 3. Запустите **`install.bat`**.
 
-### Способ 2 — PowerShell
+### Способ 3 — PowerShell
 
 В папке с установщиком:
 
@@ -108,8 +129,8 @@ hermes update  →  install.ps1 / install.bat  →  запуск Desktop
 
 | Hermes Desktop | Статус |
 |---|---|
-| **0.20.5** | ✅ проверено (doctor 630/630, install OK) |
-| **0.20.4** | ✅ 100% перевода |
+| **v2026.8.3+** (`1bf8bd2c7d2`) | ✅ проверено (doctor 637/637, install OK) |
+| **0.20.5** и ниже | ⚠️ старые проверки; ставьте мод под актуальную ветку |
 
 Если doctor ругается после свежего апдейта Hermes — подождите релиз мода под новую версию
 или откройте issue.
@@ -132,10 +153,11 @@ package/           установщик и движок (то, что попад
   install.bat      двойной клик
   install.ps1      CLI-обёртка
   install-asar.ps1 основной сценарий
-  registry.json    630 структурных правил перевода
+  registry.json    637 структурных правил перевода
   files/           ru.ts + вспомогательные локали
 i18n/              исходные локали для разработки
 docs/screenshot.png
+package.json       npm-пакет (публикация: npm publish)
 CHANGELOG.md
 ```
 

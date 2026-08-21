@@ -5,7 +5,7 @@
 )
 
 $ErrorActionPreference = 'Stop'
-# install-asar.ps1 v7.6.2 (variant C)
+# install-asar.ps1 v1.0.0 (variant C)
 # Structural anchor registry installer for hermes-desktop-ru.
 # Pure logic in ASCII identifiers; user-facing messages may be Russian (UTF-8 BOM required).
 
@@ -94,7 +94,7 @@ $expectFile = Join-Path $PSScriptRoot 'EXPECTED_COMMIT'
 $registry = Join-Path $PSScriptRoot 'registry.json'
 $probeJs = Join-Path $PSScriptRoot 'probe-ru.mjs'
 
-Write-Host "== Hermes Desktop RU — установщик v7.6.2 =="
+Write-Host "== Hermes Desktop RU — установщик v1.0.0 =="
 Write-Host ("клон: " + $root)
 if (-not (Test-Path $registry)) {
   Write-Host "ОШИБКА: registry.json не найден рядом с установщиком"
