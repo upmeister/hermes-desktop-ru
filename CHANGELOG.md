@@ -9,6 +9,31 @@
 
 ## [Unreleased]
 
+## [1.0.4] - 2026-08-23
+
+### Added
+- Сухой doctor: не убивает процессы, не делает `git restore`, не запускает `npm ci`;
+  при грязном дереве — WARN и проверка текущего дерева.
+- `hermes-desktop-ru uninstall` / `-Uninstall`: откат packaged `app.asar` из
+  `.stock.bak` (+ `dist.stock.bak`), клон не трогается.
+- `hermes-desktop-ru version` / `-Version`: версия пакета из `package.json`.
+- `-AllowStaleDist`: явный флаг вместо тихого fallback на `package/dist`.
+- CI: `.github/workflows/check.yml` (`node --check` + parse `registry.json`).
+- Перевод «Send Diagnostics» (секция `sendDiagnostics`): загрузка отладочного
+  пакета в поддержку Nous (новая фича апстрима) — title, privacy notice, статусы,
+  ссылки поддержки.
+- README: русский юзер-френдли + английский инженерный (structural anchors,
+  doctor, safety, troubleshooting, глоссарий), таблица покрытия,
+  3 скриншота (чат / настройки / боты+канбан).
+
+### Changed
+- Установщик шире гасит процессы: не только `Hermes`, но и процессы с Path
+  внутри клона.
+- `build-release-zip.py`: рассинхрон `i18n/ru.ts` vs `package/files/ru.ts` —
+  теперь `exit 1` (раньше WARN).
+- `gen-registry.mjs`: `let rules` — `override.delete` больше не падает.
+- `EXPECTED_COMMIT` → `987064caa4f` (актуальный апстрим на момент релиза).
+
 ## [1.0.3] - 2026-08-22
 
 ### Added

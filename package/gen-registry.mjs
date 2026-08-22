@@ -35,7 +35,7 @@ function parseHunk(body) {
   return ctx
 }
 
-const rules = []
+let rules = []
 let pairRules = 0, blockRules = 0, insertRules = 0
 
 for (const blk of blocks) {

@@ -1,0 +1,24 @@
+name: check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: syntax (node --check)
+        run: |
+          node --check bin/hermes-desktop-ru.mjs
+          node --check package/apply-hardcodes.mjs
+          node --check package/gen-registry.mjs
+          node --check package/structural-i18n.mjs
+          node --check package/deps-health.mjs
+          node --check package/probe-ru.mjs
+      - name: parse registry.json
+        run: node -e "const r=JSON.parse(require('fs').readFileSync('package/registry.json','utf8')); if(!Array.isArray(r)) process.exit(1); console.log('rules', r.length)"

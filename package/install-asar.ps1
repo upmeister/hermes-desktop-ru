@@ -1,39 +1,75 @@
 ﻿param(
   [switch]$Doctor,
   [switch]$Help,
+  [switch]$Uninstall,
+  [switch]$AllowStaleDist,
+  [switch]$Version,
   [string]$Root
 )
 
 $ErrorActionPreference = 'Stop'
-# install-asar.ps1 v1.0.3 (variant C)
+# install-asar.ps1 v1.0.4 — dry doctor, uninstall, no silent dist fallback, broader process stop
 # Structural anchor registry installer for hermes-desktop-ru.
 # Pure logic in ASCII identifiers; user-facing messages may be Russian (UTF-8 BOM required).
 
+function Get-ModVersion {
+  $candidates = @(
+    (Join-Path $PSScriptRoot '..\package.json'),
+    (Join-Path $PSScriptRoot 'package.json')
+  )
+  foreach ($p in $candidates) {
+    if (Test-Path $p) {
+      try {
+        $j = Get-Content $p -Raw -Encoding UTF8 | ConvertFrom-Json
+        if ($j.version) { return [string]$j.version }
+      } catch { }
+    }
+  }
+  return '1.0.4'
+}
+
 function Show-Help {
+  $ver = Get-ModVersion
   @"
-Hermes Desktop RU - установщик мода
+Hermes Desktop RU - установщик мода v$ver
 
 Использование:
-  install.ps1                 Установить / переустановить мод
-  install.ps1 -Doctor         Сухая проверка совместимости (ничего не пишет)
-  install.ps1 -Root <path>    Явный путь к клону hermes-agent
-  install.ps1 -Help           Эта справка
+  install.ps1                      Установить / переустановить мод
+  install.ps1 -Doctor              Сухая проверка совместимости (ничего не пишет)
+  install.ps1 -Uninstall           Откатить packaged app.asar из .stock.bak
+  install.ps1 -Root <path>         Явный путь к клону hermes-agent
+  install.ps1 -AllowStaleDist      Если npm run build упал — взять package/dist (иначе ошибка)
+  install.ps1 -Help                Эта справка
+
+CLI (npm):
+  hermes-desktop-ru install | doctor | uninstall | version | help
 
 Также можно:
-  install.bat                 То же через двойной клик (с паузой в конце)
-  $env:HERMES_AGENT_ROOT      Переопределить путь к клону
+  install.bat                      То же через двойной клик (с паузой в конце)
+  $env:HERMES_AGENT_ROOT           Переопределить путь к клону
 
 Требования:
   - Hermes Desktop из исходников (git clone), не prebuilt .exe
   - Node.js 18+ и npm
-  - Закрытый Hermes Desktop на время установки
+  - Закрытый Hermes Desktop на время установки / отката
 
 По умолчанию ищет клон в:
   %LOCALAPPDATA%\hermes\hermes-agent
+
+Важно:
+  - doctor ничего не убивает и не делает git restore
+  - install откатывает tracked-исходники клона к HEAD (другие патчи в клоне не живут)
+  - uninstall трогает только app.asar (+ dist.stock.bak), не клон
 "@ | Write-Host
 }
 
 if ($Help) { Show-Help; exit 0 }
+if ($Version) { Write-Host (Get-ModVersion); exit 0 }
+
+if ($Doctor -and $Uninstall) {
+  Write-Host "ОШИБКА: -Doctor и -Uninstall вместе нельзя"
+  exit 2
+}
 
 function Resolve-HermesRoot {
   param([string]$Explicit)
@@ -43,7 +79,6 @@ function Resolve-HermesRoot {
   if ($env:LOCALAPPDATA) {
     $candidates += (Join-Path $env:LOCALAPPDATA 'hermes\hermes-agent')
   }
-  # Legacy / alternate layouts some users keep
   if ($env:USERPROFILE) {
     $candidates += (Join-Path $env:USERPROFILE 'AppData\Local\hermes\hermes-agent')
     $candidates += (Join-Path $env:USERPROFILE 'hermes-agent')
@@ -63,7 +98,6 @@ function Resolve-HermesRoot {
 
 function Resolve-ModFile {
   param([string]$RelativePath)
-  # Prefer package/files/<name> (repo layout). Flat zip root is also accepted.
   $a = Join-Path $PSScriptRoot $RelativePath
   if (Test-Path $a) { return $a }
   $leaf = Split-Path $RelativePath -Leaf
@@ -72,12 +106,86 @@ function Resolve-ModFile {
   return $null
 }
 
+function Stop-HermesRelated {
+  param([string]$CloneRoot)
+  $killed = @()
+  foreach ($n in @('Hermes', 'hermes')) {
+    Get-Process -Name $n -ErrorAction SilentlyContinue | ForEach-Object {
+      $killed += ($_.ProcessName + ':' + $_.Id)
+      Stop-Process -Id $_.Id -Force -ErrorAction SilentlyContinue
+    }
+  }
+  if ($CloneRoot) {
+    $rootNorm = $CloneRoot.TrimEnd('\').ToLowerInvariant()
+    Get-Process -ErrorAction SilentlyContinue | ForEach-Object {
+      $p = $null
+      try { $p = $_.Path } catch { return }
+      if (-not $p) { return }
+      $pl = $p.ToLowerInvariant()
+      if ($pl.StartsWith($rootNorm) -or $pl.Contains('\hermes\hermes-agent\')) {
+        $killed += ($_.ProcessName + ':' + $_.Id)
+        Stop-Process -Id $_.Id -Force -ErrorAction SilentlyContinue
+      }
+    }
+  }
+  $uniq = $killed | Select-Object -Unique
+  if ($uniq) {
+    Write-Host ("остановлены процессы: " + ($uniq -join ', '))
+    Start-Sleep -Seconds 2
+  } else {
+    Write-Host "процессы Hermes не найдены (ок)"
+  }
+}
+
+function Show-VersionGate {
+  param([string]$RootPath, [string]$ExpectFile)
+  $actualCommit = ""
+  Push-Location $RootPath
+  $actualCommit = (& cmd /c "git rev-parse HEAD 2>nul")
+  Pop-Location
+  if (-not $actualCommit) { $actualCommit = "(git недоступен?)" }
+  if (Test-Path $ExpectFile) {
+    $expectedCommit = (Get-Content $ExpectFile -Raw).Trim()
+    $aShort = $actualCommit.Substring(0, [Math]::Min(12, $actualCommit.Length))
+    $eShort = $expectedCommit.Substring(0, [Math]::Min(12, $expectedCommit.Length))
+    Write-Host ("версия клона: " + $aShort + "  (ожидалась " + $eShort + ")")
+    $aTrim = "$actualCommit".Trim()
+    $match = ($aTrim -eq $expectedCommit) -or $aTrim.StartsWith($expectedCommit) -or $expectedCommit.StartsWith($aTrim.Substring(0, [Math]::Min(7, $aTrim.Length)))
+    if (-not $match) {
+      Write-Host "ПРЕДУПРЕЖДЕНИЕ: HEAD клона отличается от версии, на которой собран реестр."
+      Write-Host "  Реальный контроль — doctor. Если он 100% OK, мод всё ещё совместим."
+    } else {
+      Write-Host "версия: совпадает с ожидаемой"
+    }
+  } else {
+    Write-Host ("version-gate: EXPECTED_COMMIT нет (HEAD=" + $actualCommit.Substring(0, [Math]::Min(12, $actualCommit.Length)) + ")")
+  }
+  return $actualCommit
+}
+
+function Invoke-DoctorCheck {
+  param([string]$RootPath, [string]$RegistryPath)
+  Push-Location $RootPath
+  $script:doctorOutput = & node (Join-Path $PSScriptRoot 'apply-hardcodes.mjs') $RootPath $RegistryPath --doctor 2>&1
+  $script:doctorExit = $LASTEXITCODE
+  Pop-Location
+  if ($script:doctorOutput) { $script:doctorOutput | ForEach-Object { Write-Host $_ } }
+
+  $script:crMiss = 0
+  $script:amb = 0
+  foreach ($line in $script:doctorOutput) {
+    if ($line -match 'CRITICAL_MISSING=(\d+)') { $script:crMiss = [int]$Matches[1] }
+    if ($line -match 'AMBIGUOUS=(\d+)') { $script:amb = [int]$Matches[1] }
+  }
+}
+
+$modVer = Get-ModVersion
 $root = Resolve-HermesRoot -Explicit $Root
 if (-not $root) {
   Write-Host "ОШИБКА: не найден клон hermes-agent."
   Write-Host "  Ожидается apps\desktop\package.json в одном из путей:"
   Write-Host "  - %LOCALAPPDATA%\hermes\hermes-agent"
-  Write-Host "  - \$env:HERMES_AGENT_ROOT"
+  Write-Host "  - `$env:HERMES_AGENT_ROOT"
   Write-Host "  Или передайте: install.ps1 -Root 'D:\path\to\hermes-agent'"
   exit 1
 }
@@ -94,14 +202,69 @@ $expectFile = Join-Path $PSScriptRoot 'EXPECTED_COMMIT'
 $registry = Join-Path $PSScriptRoot 'registry.json'
 $probeJs = Join-Path $PSScriptRoot 'probe-ru.mjs'
 
-Write-Host "== Hermes Desktop RU — установщик v1.0.3 =="
+Write-Host ("== Hermes Desktop RU — установщик v" + $modVer + " ==")
 Write-Host ("клон: " + $root)
+
+# ---------- uninstall (asar only, clone untouched) ----------
+if ($Uninstall) {
+  Stop-HermesRelated -CloneRoot $root
+  $bak = $asar + '.stock.bak'
+  if (-not (Test-Path $bak)) {
+    Write-Host "ОШИБКА: нет app.asar.stock.bak — нечего откатывать."
+    Write-Host ("  Ожидался файл: " + $bak)
+    Write-Host "  Его создаёт install при первой установке. Полный сброс — hermes update."
+    exit 1
+  }
+  Copy-Item $bak $asar -Force
+  Write-Host "app.asar восстановлен из .stock.bak"
+  $distBak = Join-Path $unpacked 'dist.stock.bak'
+  $distLive = Join-Path $unpacked 'dist'
+  if (Test-Path $distBak) {
+    if (Test-Path $distLive) { Remove-Item $distLive -Recurse -Force -ErrorAction SilentlyContinue }
+    Copy-Item $distBak $distLive -Recurse -Force
+    Write-Host "app.asar.unpacked\dist восстановлен из dist.stock.bak"
+  }
+  Write-Host "ОТКАТ OK — packaged Desktop снова стоковый."
+  Write-Host "  Исходники клона не трогались. Полный сброс клона — hermes update."
+  exit 0
+}
+
 if (-not (Test-Path $registry)) {
   Write-Host "ОШИБКА: registry.json не найден рядом с установщиком"
   exit 1
 }
 
-# ---------- deps health ----------
+# ---------- doctor (truly dry: no kill, no git restore, no npm ci) ----------
+if ($Doctor) {
+  Push-Location $root
+  $dirty = & cmd /c "git status --porcelain --untracked-files=no 2>nul"
+  Pop-Location
+  if ($dirty) {
+    Write-Host "ПРЕДУПРЕЖДЕНИЕ: в клоне есть локальные правки tracked-файлов."
+    Write-Host "  Doctor проверяет ТЕКУЩЕЕ дерево и ничего не откатывает."
+    Write-Host "  Для проверки против стока сначала: git restore --source=HEAD --staged --worktree ."
+  }
+  $actualCommit = Show-VersionGate -RootPath $root -ExpectFile $expectFile
+  Invoke-DoctorCheck -RootPath $root -RegistryPath $registry
+  Write-Host ""
+  Write-Host "=== ОТЧЁТ DOCTOR ==="
+  Write-Host ("HEAD клона : " + $actualCommit)
+  Write-Host ("реестр     : " + $registry)
+  if ($amb -gt 0 -or $crMiss -gt 2) {
+    Write-Host "статус: FAIL"
+    exit 1
+  } elseif ($crMiss -gt 0) {
+    Write-Host ("статус: WARN (установка возможна, " + $crMiss + " критичных фич отключено)")
+    exit 0
+  } else {
+    Write-Host "статус: OK (сухой прогон, ничего не записано)"
+    exit 0
+  }
+}
+
+# ---------- install only below ----------
+
+# deps health + repair (writes node_modules — install only)
 $healthBad = $false
 node (Join-Path $PSScriptRoot 'deps-health.mjs') $root
 if ($LASTEXITCODE -ne 0) { $healthBad = $true }
@@ -131,66 +294,22 @@ if (-not (Test-Path $asarJs)) {
   exit 1
 }
 
-Get-Process -Name Hermes -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
-Start-Sleep -Seconds 1
+Stop-HermesRelated -CloneRoot $root
 
-# ---------- version-gate ----------
-$actualCommit = ""
-Push-Location $root
-$actualCommit = (& cmd /c "git rev-parse HEAD 2>nul")
-Pop-Location
-if (-not $actualCommit) { $actualCommit = "(git недоступен?)" }
-if (Test-Path $expectFile) {
-  $expectedCommit = (Get-Content $expectFile -Raw).Trim()
-  $aShort = $actualCommit.Substring(0, [Math]::Min(12, $actualCommit.Length))
-  $eShort = $expectedCommit.Substring(0, [Math]::Min(12, $expectedCommit.Length))
-  Write-Host ("версия клона: " + $aShort + "  (ожидалась " + $eShort + ")")
-  $aTrim = "$actualCommit".Trim()
-  $match = ($aTrim -eq $expectedCommit) -or $aTrim.StartsWith($expectedCommit) -or $expectedCommit.StartsWith($aTrim.Substring(0, [Math]::Min(7, $aTrim.Length)))
-  if (-not $match) {
-    Write-Host "ПРЕДУПРЕЖДЕНИЕ: HEAD клона отличается от версии, на которой собран реестр."
-    Write-Host "  Реальный контроль — doctor ниже. Если он 100% OK, мод всё ещё совместим."
-  } else {
-    Write-Host "версия: совпадает с ожидаемой"
-  }
-} else {
-  Write-Host ("version-gate: EXPECTED_COMMIT нет (HEAD=" + $actualCommit.Substring(0, [Math]::Min(12, $actualCommit.Length)) + ")")
-}
+$actualCommit = Show-VersionGate -RootPath $root -ExpectFile $expectFile
 
-# ---------- restore tracked to stock ----------
+# restore tracked to stock — INSTALL ONLY
 Push-Location $root
 cmd /c "git restore --source=HEAD --staged --worktree . 2>nul"
 $restoreExit = $LASTEXITCODE
 Pop-Location
 Write-Host ("сброс к стоку: exit=" + $restoreExit + " (untracked-локали не трогаем)")
 
-# ---------- doctor ----------
-Push-Location $root
-$doctorOutput = & node (Join-Path $PSScriptRoot 'apply-hardcodes.mjs') $root $registry --doctor 2>&1
-$doctorExit = $LASTEXITCODE
-Pop-Location
-if ($doctorOutput) { $doctorOutput | ForEach-Object { Write-Host $_ } }
+Invoke-DoctorCheck -RootPath $root -RegistryPath $registry
 
-# Политика установки: блокируем только критичные пропуски (поведение/логика).
-# Косметические пропуски (текст) — предупреждаем и продолжаем: пропуск не ломает,
-# код остаётся стоковым апстримом, затронутые места — на английском.
-$crMiss = 0
-$amb = 0
-foreach ($line in $doctorOutput) {
-  if ($line -match 'CRITICAL_MISSING=(\d+)') { $crMiss = [int]$Matches[1] }
-  if ($line -match 'AMBIGUOUS=(\d+)') { $amb = [int]$Matches[1] }
-}
 if ($amb -gt 0 -or $crMiss -gt 2) {
   Write-Host "ОШИБКА: doctor — критичные правила реестра не применяются к этой версии Hermes."
   Write-Host "  Апстрим глубоко изменил логику мода. Скачайте свежий релиз мода или обновите registry/overrides."
-  if ($Doctor) {
-    Write-Host ""
-    Write-Host "=== ОТЧЁТ DOCTOR ==="
-    Write-Host ("HEAD клона : " + $actualCommit)
-    Write-Host ("реестр     : " + $registry)
-    Write-Host "статус: FAIL"
-    exit 1
-  }
   exit 1
 } elseif ($crMiss -gt 0) {
   Write-Host "ПРЕДУПРЕЖДЕНИЕ: $crMiss критичных правил не применились — фичи мода, зависящие от них, будут отключены."
@@ -201,15 +320,6 @@ if ($amb -gt 0 -or $crMiss -gt 2) {
     Write-Host "ПРЕДУПРЕЖДЕНИЕ: часть косметических правил не применилась (см. PROBLEMS) — затронутые места останутся на английском."
   }
 }
-if ($Doctor) {
-  Write-Host ""
-  Write-Host "=== ОТЧЁТ DOCTOR ==="
-  Write-Host ("HEAD клона : " + $actualCommit)
-  Write-Host ("реестр     : " + $registry)
-  if ($crMiss -gt 0) { Write-Host "статус: WARN (установка возможна, $crMiss критичных фич отключено)" }
-  else { Write-Host "статус: OK (сухой прогон, ничего не записано)" }
-  exit 0
-}
 
 # ---------- apply ----------
 Push-Location $root
@@ -219,7 +329,7 @@ Pop-Location
 if ($applyExit -ne 0) { Write-Host "ОШИБКА: apply реестра прерван"; exit 1 }
 Write-Host "apply: реестр применён"
 
-# ---------- locale files (files/ layout OR flat zip root) ----------
+# ---------- locale files ----------
 $fileMap = @(
   @('files\ru.ts', 'apps\desktop\src\i18n\ru.ts'),
   @('files\ru-constants.ts', 'apps\desktop\src\app\settings\ru-constants.ts'),
@@ -273,12 +383,13 @@ $buildExit = $LASTEXITCODE
 Pop-Location
 $usePackage = $false
 if ($buildExit -ne 0) {
-  Write-Host ("ПРЕДУПРЕЖДЕНИЕ: npm run build failed (exit " + $buildExit + ") — см. " + $buildLog)
-  if (Test-Path (Join-Path $modDist 'index.html')) {
-    Write-Host "fallback: package dist/"
+  Write-Host ("ОШИБКА: npm run build failed (exit " + $buildExit + ") — см. " + $buildLog)
+  if ($AllowStaleDist -and (Test-Path (Join-Path $modDist 'index.html'))) {
+    Write-Host "ПРЕДУПРЕЖДЕНИЕ: -AllowStaleDist — беру package/dist (может не совпасть с этим апстримом)"
     $usePackage = $true
   } else {
-    Write-Host "ОШИБКА: нет ни успешной сборки, ни package dist/"
+    Write-Host "  Повтор с устаревшим package/dist отключён (иначе «УСТАНОВКА OK» со старым UI)."
+    Write-Host "  Если очень надо: install.ps1 -AllowStaleDist"
     exit 1
   }
 } else {
@@ -313,7 +424,7 @@ if ($LASTEXITCODE -ne 0) { Write-Host "ОШИБКА: extract asar"; exit 1 }
 if ($usePackage) { $srcDist = $modDist } else { $srcDist = Join-Path $desktop 'dist' }
 if (Test-Path (Join-Path $app 'dist')) { Remove-Item (Join-Path $app 'dist') -Recurse -Force }
 Copy-Item $srcDist (Join-Path $app 'dist') -Recurse
-Write-Host ("dist из: " + $(if ($usePackage) { 'package' } else { 'clone build' }))
+Write-Host ("dist из: " + $(if ($usePackage) { 'package (stale, -AllowStaleDist)' } else { 'clone build' }))
 
 if (Test-Path $unpacked) { Remove-Item $unpacked -Recurse -Force }
 node $asarJs pack $app $asar --unpack "**" | Out-Null

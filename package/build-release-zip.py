@@ -46,7 +46,7 @@ ROOT_DOCS = [
 
 
 def main() -> int:
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.0.3.zip"
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.0.4.zip"
     out.parent.mkdir(parents=True, exist_ok=True)
 
     missing = []
@@ -57,11 +57,12 @@ def main() -> int:
         print("MISSING:", *missing, sep="\n  ")
         return 1
 
-    # Guard: locale sync
+    # Guard: locale sync — hard fail, otherwise a release ships a stale catalog
     ru_src = ROOT / "i18n" / "ru.ts"
     ru_pkg = HERE / "files" / "ru.ts"
     if ru_src.exists() and ru_src.read_bytes() != ru_pkg.read_bytes():
-        print("WARN: i18n/ru.ts != package/files/ru.ts — sync before release")
+        print("ERROR: i18n/ru.ts != package/files/ru.ts — sync before release")
+        return 1
 
     with zipfile.ZipFile(out, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for rel in CORE:
