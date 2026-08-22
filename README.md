@@ -1,9 +1,12 @@
 # 🇷🇺 Hermes Desktop — русский мод
 
+[🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md)
+
 Полная русская локализация [Hermes Desktop](https://github.com/NousResearch/hermes-agent) для Windows.
 
 [![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.20.5-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
 [![npm](https://img.shields.io/npm/v/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
+[![npm](https://img.shields.io/npm/dm/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
 [![Release](https://img.shields.io/github/v/release/upmeister/hermes-desktop-ru?style=for-the-badge&color=green)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
@@ -13,7 +16,8 @@
 > Единственный активно поддерживаемый русский мод для актуального Hermes Desktop.
 > **100% покрытия UI** на **0.20.5** (doctor 642/642): системные строки, настройки,
 > канбан, Bots, фильтры сессий и хардкоды компонентов.
-> После каждого обновления Hermes достаточно снова запустить установщик.
+> Апстрим Hermes отслеживается ИИ-агентом 24/7 и оперативно до-переводится —
+> [журнал наблюдения](UPSTREAM-WATCH.md). После `hermes update` достаточно снова запустить установщик.
 
 ## Зачем этот мод
 
@@ -115,7 +119,14 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 | Access is denied / EBUSY | закройте Hermes Desktop и повторите |
 | Долго на npm ci | нормально при битых `node_modules` после `hermes update` (3–10 мин) |
 | UI частично на английском | `hermes-desktop-ru doctor`, затем `install` и перезапуск |
+| Откатить мод | закройте Desktop → замените `resources\app.asar` на `resources\app.asar.stock.bak` (рядом, создаётся установщиком) → запустите; полный сброс — `hermes update` |
 | `hermes update` и занятый `hermes.exe` | ограничение Windows: закройте Desktop/шлюз |
+
+## Журнал апстрима
+
+[UPSTREAM-WATCH.md](UPSTREAM-WATCH.md) — автоматический журнал наблюдения за
+релизами и коммитами Hermes (ведётся ИИ-агентом круглосуточно): новые версии,
+ключи i18n, что проверить перед релизом мода.
 
 ## Обратная связь
 
