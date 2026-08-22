@@ -5,7 +5,7 @@
 )
 
 $ErrorActionPreference = 'Stop'
-# install-asar.ps1 v1.0.1 (variant C)
+# install-asar.ps1 v1.0.2 (variant C)
 # Structural anchor registry installer for hermes-desktop-ru.
 # Pure logic in ASCII identifiers; user-facing messages may be Russian (UTF-8 BOM required).
 
@@ -94,7 +94,7 @@ $expectFile = Join-Path $PSScriptRoot 'EXPECTED_COMMIT'
 $registry = Join-Path $PSScriptRoot 'registry.json'
 $probeJs = Join-Path $PSScriptRoot 'probe-ru.mjs'
 
-Write-Host "== Hermes Desktop RU — установщик v1.0.1 =="
+Write-Host "== Hermes Desktop RU — установщик v1.0.2 =="
 Write-Host ("клон: " + $root)
 if (-not (Test-Path $registry)) {
   Write-Host "ОШИБКА: registry.json не найден рядом с установщиком"
@@ -166,12 +166,23 @@ Write-Host ("сброс к стоку: exit=" + $restoreExit + " (untracked-ло
 
 # ---------- doctor ----------
 Push-Location $root
-node (Join-Path $PSScriptRoot 'apply-hardcodes.mjs') $root $registry --doctor
+$doctorOutput = & node (Join-Path $PSScriptRoot 'apply-hardcodes.mjs') $root $registry --doctor 2>&1
 $doctorExit = $LASTEXITCODE
 Pop-Location
-if ($doctorExit -ne 0) {
-  Write-Host "ОШИБКА: doctor — часть правил реестра не применяется к этой версии Hermes."
-  Write-Host "  Скачайте свежий релиз мода или обновите registry/overrides."
+if ($doctorOutput) { $doctorOutput | ForEach-Object { Write-Host $_ } }
+
+# Политика установки: блокируем только критичные пропуски (поведение/логика).
+# Косметические пропуски (текст) — предупреждаем и продолжаем: пропуск не ломает,
+# код остаётся стоковым апстримом, затронутые места — на английском.
+$crMiss = 0
+$amb = 0
+foreach ($line in $doctorOutput) {
+  if ($line -match 'CRITICAL_MISSING=(\d+)') { $crMiss = [int]$Matches[1] }
+  if ($line -match 'AMBIGUOUS=(\d+)') { $amb = [int]$Matches[1] }
+}
+if ($amb -gt 0 -or $crMiss -gt 2) {
+  Write-Host "ОШИБКА: doctor — критичные правила реестра не применяются к этой версии Hermes."
+  Write-Host "  Апстрим глубоко изменил логику мода. Скачайте свежий релиз мода или обновите registry/overrides."
   if ($Doctor) {
     Write-Host ""
     Write-Host "=== ОТЧЁТ DOCTOR ==="
@@ -181,15 +192,22 @@ if ($doctorExit -ne 0) {
     exit 1
   }
   exit 1
+} elseif ($crMiss -gt 0) {
+  Write-Host "ПРЕДУПРЕЖДЕНИЕ: $crMiss критичных правил не применились — фичи мода, зависящие от них, будут отключены."
+  Write-Host "  Установка продолжается (эти места останутся в поведении Hermes как в апстриме)."
 } else {
-  Write-Host "doctor: 100% правил применяются"
+  Write-Host "doctor: критичные правила — все на месте"
+  if ($doctorExit -ne 0) {
+    Write-Host "ПРЕДУПРЕЖДЕНИЕ: часть косметических правил не применилась (см. PROBLEMS) — затронутые места останутся на английском."
+  }
 }
 if ($Doctor) {
   Write-Host ""
   Write-Host "=== ОТЧЁТ DOCTOR ==="
   Write-Host ("HEAD клона : " + $actualCommit)
   Write-Host ("реестр     : " + $registry)
-  Write-Host "статус: OK (сухой прогон, ничего не записано)"
+  if ($crMiss -gt 0) { Write-Host "статус: WARN (установка возможна, $crMiss критичных фич отключено)" }
+  else { Write-Host "статус: OK (сухой прогон, ничего не записано)" }
   exit 0
 }
 

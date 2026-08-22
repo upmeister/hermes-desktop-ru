@@ -293,6 +293,7 @@ export const ru = defineLocale({
       'view.toggleRightSidebar': 'Переключить обозреватель файлов',
       'view.toggleReview': 'Переключить панель рецензирования',
       'view.toggleStatusbar': 'Переключить строку состояния',
+      'view.toggleTabStrip': 'Переключить вкладки',
       'view.showFiles': 'Показать обозреватель файлов',
       'view.toggleHud': 'Переключить режим HUD',
       'hud.snapToPointer': 'Переместить HUD к указателю (глобально, пока HUD открыт)',

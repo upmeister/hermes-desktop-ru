@@ -22,7 +22,8 @@
    "    if (kind === 'local' && label === 'This device') {",
    "      label = 'Это устройство'",
    "    }"
-  ]
+  ],
+  "severity": "critical"
  },
  {
   "id": "index.tsx-1",
@@ -3791,7 +3792,8 @@
   "after": [
    "// MOD: hermes-desktop-ru — Russian kanban locale (registered on import)",
    "import './ru-locales'"
-  ]
+  ],
+  "severity": "critical"
  },
  {
   "id": "plugin.tsx-2",
@@ -4712,16 +4714,6 @@
   ],
   "after": [
    "            placeholder: 'Поиск в хабе (сообщество и известные источники)…',"
-  ]
- },
- {
-  "id": "hermes-bots-Bot_Chat",
-  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-  "before": [
-   "    title: 'Bot Chat',"
-  ],
-  "after": [
-   "    title: 'Чат бота',"
   ]
  },
  {
@@ -6454,6 +6446,66 @@
   ],
   "after": [
    "        'До шлюза удалось добраться по HTTP, но выпустить WebSocket-тикет не удалось. Проверьте подключение к удалённому шлюзу и попробуйте снова.'"
+  ]
+ },
+ {
+  "id": "hermes-bots-send-results-to",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "              'Send results to',"
+  ],
+  "after": [
+   "              'Отправлять результаты в',"
+  ]
+ },
+ {
+  "id": "hermes-bots-run-history-only",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                { id: 'history', label: 'Run history only' },"
+  ],
+  "after": [
+   "                { id: 'history', label: 'Только в историю запусков' },"
+  ]
+ },
+ {
+  "id": "hermes-bots-chat-responds-option",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                { id: 'bot-chat', label: `${displayName({ name: bot }, $botMeta.get()[bot])}\\u2019s chat (bot responds)` }"
+  ],
+  "after": [
+   "                { id: 'bot-chat', label: `${displayName({ name: bot }, $botMeta.get()[bot])} — чат (отвечает бот)` }"
+  ]
+ },
+ {
+  "id": "hermes-bots-could-not-create-agent",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "        setError('Could not create the agent.')"
+  ],
+  "after": [
+   "        setError('Не удалось создать агента.')"
+  ]
+ },
+ {
+  "id": "hermes-bots-could-not-create-profile-yet",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                                  .catch(err => host.notifyError(err, 'Could not create the profile yet'))"
+  ],
+  "after": [
+   "                                  .catch(err => host.notifyError(err, 'Пока не удалось создать профиль'))"
+  ]
+ },
+ {
+  "id": "controller-toggle-tabs",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    label: 'Toggle tabs',"
+  ],
+  "after": [
+   "    label: 'Переключить вкладки',"
   ]
  }
 ]

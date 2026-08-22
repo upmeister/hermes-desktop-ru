@@ -172,14 +172,18 @@ for (const rule of rules) {
 // Summary
 const by = {}
 for (const r of results) by[r.status] = (by[r.status] || 0) + 1
+const criticalIds = new Set(rules.filter(r => r.severity === 'critical').map(r => r.id))
+const criticalMissing = results.filter(r =>
+  (r.status === 'MISSING' || r.status === 'MISSING_FILE') && criticalIds.has(r.id)).length
 console.log(`[apply-hardcodes] ${doctor ? 'DOCTOR' : 'APPLY'} rules=${rules.length} ` +
-  Object.entries(by).map(([k, v]) => `${k}=${v}`).join(' '))
+  Object.entries(by).map(([k, v]) => `${k}=${v}`).join(' ') + ` CRITICAL_MISSING=${criticalMissing}`)
 
 if (failCount > 0 || Object.keys(by).includes('AMBIGUOUS')) {
   console.log('--- PROBLEMS ---')
   for (const r of results) {
     if (r.status !== 'APPLIED' && r.status !== 'OK_ALREADY') {
-      console.log(`  [${r.status}] ${r.file} :: ${r.id} :: ${r.why || ''}`)
+      const tag = criticalIds.has(r.id) ? '[critical] ' : ''
+      console.log(`  [${r.status}] ${tag}${r.file} :: ${r.id} :: ${r.why || ''}`)
     }
   }
   process.exit(1)
