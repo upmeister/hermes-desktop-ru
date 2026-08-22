@@ -1,12 +1,15 @@
 {
   "name": "hermes-desktop-ru",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Полная русская локализация Hermes Desktop: i18n-каталог + хардкоды компонентов и main-процесса. Структурный реестр якорей переживает обновления Hermes (doctor + пересборка asar).",
   "license": "MIT",
   "homepage": "https://github.com/upmeister/hermes-desktop-ru",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/upmeister/hermes-desktop-ru.git"
+  },
+  "bugs": {
+    "url": "https://github.com/upmeister/hermes-desktop-ru/issues"
   },
   "keywords": [
     "hermes",

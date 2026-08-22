@@ -1,0 +1,54 @@
+name: Баг / непереведённое
+description: Ошибка UI, краш установщика или место, оставшееся на английском
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо за репорт. Чем полнее поля — тем быстрее разберёмся.
+  - type: input
+    id: mod-version
+    attributes:
+      label: Версия мода
+      description: "npm list -g hermes-desktop-ru или тег релиза"
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: hermes-version
+    attributes:
+      label: Версия Hermes
+      description: "вывод hermes --version"
+      placeholder: "Hermes Agent v0.20.5 (2026.8.19)"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Что не так
+      description: "Где (экран/меню) и что видно. Для непереведённого — точный английский текст."
+      placeholder: "Окно Hermes couldn't start, кнопка Gateway settings на английском…"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Как воспроизвести
+      placeholder: |
+        1. hermes update
+        2. hermes-desktop-ru install
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Вывод doctor (если запускали)
+      description: "hermes-desktop-ru doctor"
+      render: text
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Скриншоты
+      description: "Можно просто вставить картинки в issue после создания"

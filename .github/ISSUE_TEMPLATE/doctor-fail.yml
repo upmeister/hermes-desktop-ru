@@ -1,0 +1,48 @@
+name: Doctor FAIL после апдейта
+description: Установщик/doctor не проходит на свежем Hermes — апстрим уехал
+title: "[doctor] FAIL на Hermes "
+labels: ["doctor", "compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Если doctor остановился — это нормальный сценарий после апдейта Hermes.
+        Пришлите версии и полный вывод: по ним обновим реестр.
+  - type: input
+    id: mod-version
+    attributes:
+      label: Версия мода
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: hermes-version
+    attributes:
+      label: Версия Hermes
+      description: "hermes --version и короткий SHA клона (git rev-parse --short HEAD в hermes-agent)"
+      placeholder: "v0.20.5 (2026.8.19) · b6bcb3e7"
+    validations:
+      required: true
+  - type: textarea
+    id: doctor-out
+    attributes:
+      label: Полный вывод doctor
+      description: "hermes-desktop-ru doctor от первой до последней строки"
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: install-path
+    attributes:
+      label: Как ставили мод
+      options:
+        - npm (hermes-desktop-ru install)
+        - release zip / install.bat
+        - другое
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Дополнительно
+      description: "Нестандартный путь клона, ошибка npm ci, и т.п."
