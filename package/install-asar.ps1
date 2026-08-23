@@ -8,7 +8,7 @@
 )
 
 $ErrorActionPreference = 'Stop'
-# install-asar.ps1 v1.0.4 — dry doctor, uninstall, no silent dist fallback, broader process stop
+# install-asar.ps1 v1.0.5 — dry doctor, uninstall, no silent dist fallback, broader process stop
 # Structural anchor registry installer for hermes-desktop-ru.
 # Pure logic in ASCII identifiers; user-facing messages may be Russian (UTF-8 BOM required).
 
@@ -25,7 +25,7 @@ function Get-ModVersion {
       } catch { }
     }
   }
-  return '1.0.4'
+  return '1.0.5'
 }
 
 function Show-Help {

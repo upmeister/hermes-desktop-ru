@@ -6507,5 +6507,60 @@
   "after": [
    "    label: 'Переключить вкладки',"
   ]
+ },
+ {
+  "id": "plugin-js-open-chat-meta",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "        host.notifyError?.(error, `Could not open ${displayName(bot, meta)}'s chat — try again`)"
+  ],
+  "after": [
+   "        host.notifyError?.(error, `Не удалось открыть чат ${displayName(bot, meta)} — попробуйте ещё раз`)"
+  ],
+  "severity": "cosmetic"
+ },
+ {
+  "id": "plugin-js-open-chat",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+  "before": [
+   "                host.notifyError?.(error, `Could not open ${displayName(bot)}'s chat — try again`)"
+  ],
+  "after": [
+   "                host.notifyError?.(error, `Не удалось открыть чат ${displayName(bot)} — попробуйте ещё раз`)"
+  ],
+  "severity": "cosmetic"
+ },
+ {
+  "id": "reactions-ts-could-not-react",
+  "file": "apps/desktop/src/store/reactions.ts",
+  "before": [
+   "    notifyError(new Error(!sessionId ? 'No active session' : 'Gateway not connected'), 'Could not react')"
+  ],
+  "after": [
+   "    notifyError(new Error(!sessionId ? 'Нет активной сессии' : 'Шлюз не подключён'), 'Не удалось поставить реакцию')"
+  ],
+  "severity": "cosmetic"
+ },
+ {
+  "id": "reactions-ts-could-not-react-2",
+  "file": "apps/desktop/src/store/reactions.ts",
+  "before": [
+   "    notifyError(err, 'Could not react')"
+  ],
+  "after": [
+   "    notifyError(err, 'Не удалось поставить реакцию')"
+  ],
+  "severity": "cosmetic"
+ },
+ {
+  "id": "api-client-ts-not-connected",
+  "file": "apps/desktop/src/api/client.ts",
+  "before": [
+   "      notConnectedErrorMessage: 'Hermes gateway is not connected',"
+  ],
+  "after": [
+   "      notConnectedErrorMessage: 'Шлюз Hermes не подключён',"
+  ],
+  "severity": "cosmetic"
  }
 ]

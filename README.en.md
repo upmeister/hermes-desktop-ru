@@ -11,7 +11,7 @@ Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/h
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.0.4](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.0.4) · Hermes Desktop 0.20.5 · 2026-08-23**
+**Latest: [v1.0.5](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.0.5) · Hermes Desktop 0.20.5 · 2026-08-23**
 
 Hermes Desktop has **no Russian locale in the current release line** (upstream `ru` PRs have sat open since July). i18n-only packs translate the catalog and leave hardcoded strings in components, settings field labels, Bots/kanban, and the Electron main process.
 

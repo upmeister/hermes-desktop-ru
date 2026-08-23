@@ -9,6 +9,23 @@
 
 ## [Unreleased]
 
+## [1.0.5] - 2026-08-23
+
+### Fixed
+- Тосты плагина Bots: «Could not open `<имя>`'s chat — try again» → «Не удалось
+  открыть чат `<имя>` — попробуйте ещё раз» (2 правила на `hermes-bots/plugin.js`).
+- Тосты реакций: «Could not react» / «No active session» / «Gateway not connected»
+  (`store/reactions.ts` + `api/client.ts` `notConnectedErrorMessage`).
+- `updates`-секция ru.ts: стадия `error` — «Обновление приостановлено» (было
+  «ошибка»); `applyingBody` (была старая английская), `applyingBodyBackend` и
+  `guiSkewBody` (были пустые) — переведены; добавлены 7 недостающих ключей
+  (`clientAlsoBehind*`, `everything*`).
+
+### Changed
+- Скриншот «Боты и канбан» в обоих README заменён (1280px).
+- `*.tgz` добавлен в `.gitignore` (артефакт `npm pack` убран из git).
+- Registry: 642 → 647 правил.
+
 ## [1.0.4] - 2026-08-23
 
 ### Added
