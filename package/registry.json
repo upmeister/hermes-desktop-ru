@@ -26,7 +26,7 @@
   "severity": "critical"
  },
  {
-  "id": "index.tsx-1",
+  "id": "index.tsx-chat",
   "file": "apps/desktop/src/app/chat/index.tsx",
   "before": [
    "        label: 'Add context',"
@@ -66,7 +66,7 @@
   ]
  },
  {
-  "id": "index.tsx-1",
+  "id": "index.tsx-messaging",
   "file": "apps/desktop/src/app/messaging/index.tsx",
   "before": [
    "            {platform.description}"
@@ -743,7 +743,7 @@
   ]
  },
  {
-  "id": "index.tsx-1",
+  "id": "index.tsx-billing",
   "file": "apps/desktop/src/app/settings/billing/index.tsx",
   "before": [
    "        <span>Billing</span>"

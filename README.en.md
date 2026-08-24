@@ -11,7 +11,7 @@ Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/h
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.0.5](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.0.5) · Hermes Desktop 0.20.5 · 2026-08-23**
+**Latest: [v1.1.0](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.1.0) · Hermes Desktop 0.20.5 · 2026-08-24**
 
 Hermes Desktop has **no Russian locale in the current release line** (upstream `ru` PRs have sat open since July). i18n-only packs translate the catalog and leave hardcoded strings in components, settings field labels, Bots/kanban, and the Electron main process.
 
@@ -34,8 +34,8 @@ This is not a portable/prebuilt `.exe` patch. It expects a **source install** (`
 | Bots / kanban / main-process | ❌ | ✅ |
 | After `hermes update` | new UI stays English | re-run `hermes-desktop-ru install` |
 
-- **642-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
-- **Doctor-gated installer** — dry-run before any write. Cosmetic misses warn (that spot stays English). Critical logic drift fails closed.
+- **647-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
+- **Doctor-gated installer** — dry-run before any write. Cosmetic misses (including an ambiguous short literal in Bots) warn — that spot stays English. Install fails only if a *critical file* is gone (kanban / connection-registry). A failed `npm run build` is the real hard stop.
 - **Survives `hermes update`**: restore tracked sources to stock → doctor → apply → register `ru` → rebuild `dist` → repack `asar` (original kept as `.stock.bak`).
 
 ## Why structural anchors, not `git apply`
@@ -46,7 +46,7 @@ The registry instead:
 
 - matches **full unique string blocks** anywhere in the file (survives inserts above);
 - is idempotent and EOL-preserving;
-- reports `MISSING` / `AMBIGUOUS` with exit 1 instead of skipping;
+- reports `MISSING` / `AMBIGUOUS`; cosmetic skips, a missing critical *file* fails closed;
 - `EXPECTED_COMMIT` warns (does not block) when HEAD moved past the build base.
 
 ## Install
@@ -89,8 +89,8 @@ hermes update  →  hermes-desktop-ru install  →  launch
 `hermes-desktop-ru doctor` writes nothing, does not stop Desktop, does not run `npm ci`. It reports:
 
 - `OK` — every registry rule matches;
-- `WARN` — cosmetic misses (install may proceed);
-- `FAIL` — critical drift (install stops).
+- `WARN` — cosmetic miss or ambiguous literal (install proceeds; that spot stays English). `hermes-bots/plugin.js` is always this zone;
+- `FAIL` — a critical rule's *file* is gone (kanban / connection-registry). Missing or ambiguous *text* is never FAIL.
 
 If the working tree is dirty, doctor warns and checks the **current** tree.
 
@@ -106,7 +106,8 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 | Symptom | What to do |
 |---|---|
 | "clone not found" | `-Root` or `HERMES_AGENT_ROOT` |
-| Doctor FAIL | upstream moved ahead — [issue "Doctor FAIL"](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
+| Doctor FAIL | a critical file is gone — [issue "Doctor FAIL"](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
+| Doctor WARN / UI partly English | expected after a large Bots rewrite; wait for the next mod release or install as-is |
 | Access denied / EBUSY | close Hermes Desktop and retry |
 | Long `npm ci` | normal with broken `node_modules` after `hermes update` (3–10 min) |
 | UI partially English | `hermes-desktop-ru doctor`, then `install` and restart |
@@ -116,10 +117,10 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 | Hermes Desktop | |
 |---|---|
-| **0.20.5** | verified (doctor 642/642) |
+| **0.20.5** | verified (doctor 703/703 at 1.1.0). A later Bots rewrite may WARN — install still proceeds |
 | older | install the mod release that matches |
 
-Doctor fails after a fresh Hermes bump? Wait for the next mod release or [open an issue](https://github.com/upmeister/hermes-desktop-ru/issues/new/choose).
+Doctor FAIL after a fresh Hermes bump? That now means a critical *file* disappeared, not "Bots renamed a button". Open an [issue](https://github.com/upmeister/hermes-desktop-ru/issues/new/choose) or wait for the next mod release.
 
 Upstream Desktop commits and new `en.ts` keys are logged in [UPSTREAM-WATCH.md](UPSTREAM-WATCH.md) (sensor + LLM note; releases stay manual).
 

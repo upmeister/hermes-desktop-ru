@@ -142,6 +142,14 @@ if (fs.existsSync(overridePath)) {
   }
 }
 
+// Default severity after overrides so an explicit stamp wins.
+// insert-after changes control flow (imports / remaps) — critical.
+// Everything else is a UI literal swap — cosmetic.
+for (const r of rules) {
+  if (r.severity) continue
+  r.severity = r.mode === 'insert-after' ? 'critical' : 'cosmetic'
+}
+
 fs.writeFileSync(outPath, JSON.stringify(rules, null, 1) + '\n')
 console.log(`registry: ${outPath}`)
 console.log(`rules total=${rules.length} pair=${pairRules} block=${blockRules} insert=${insertRules} files=${new Set(rules.map(r=>r.file)).size}`)

@@ -8,7 +8,7 @@
 )
 
 $ErrorActionPreference = 'Stop'
-# install-asar.ps1 v1.0.5 — dry doctor, uninstall, no silent dist fallback, broader process stop
+# install-asar.ps1 v1.1.0 + gate 24.08 — cosmetic AMBIGUOUS no longer FAIL
 # Structural anchor registry installer for hermes-desktop-ru.
 # Pure logic in ASCII identifiers; user-facing messages may be Russian (UTF-8 BOM required).
 
@@ -25,7 +25,7 @@ function Get-ModVersion {
       } catch { }
     }
   }
-  return '1.0.5'
+  return '1.1.0'
 }
 
 function Show-Help {
@@ -60,6 +60,8 @@ CLI (npm):
   - doctor ничего не убивает и не делает git restore
   - install откатывает tracked-исходники клона к HEAD (другие патчи в клоне не живут)
   - uninstall трогает только app.asar (+ dist.stock.bak), не клон
+  - косметический MISSING/AMBIGUOUS (в т.ч. Bots) не стопорит установку
+  - FAIL только если пропал файл критичного правила; сборка — отдельный стоп
 "@ | Write-Host
 }
 
@@ -153,7 +155,7 @@ function Show-VersionGate {
     $match = ($aTrim -eq $expectedCommit) -or $aTrim.StartsWith($expectedCommit) -or $expectedCommit.StartsWith($aTrim.Substring(0, [Math]::Min(7, $aTrim.Length)))
     if (-not $match) {
       Write-Host "ПРЕДУПРЕЖДЕНИЕ: HEAD клона отличается от версии, на которой собран реестр."
-      Write-Host "  Реальный контроль — doctor. Если он 100% OK, мод всё ещё совместим."
+      Write-Host "  Реальный контроль — doctor. Косметический WARN не значит «несовместим»."
     } else {
       Write-Host "версия: совпадает с ожидаемой"
     }
@@ -171,11 +173,60 @@ function Invoke-DoctorCheck {
   Pop-Location
   if ($script:doctorOutput) { $script:doctorOutput | ForEach-Object { Write-Host $_ } }
 
+  $script:crMissFile = 0
   $script:crMiss = 0
-  $script:amb = 0
+  $script:crAmb = 0
+  $script:cosMiss = 0
+  $script:cosAmb = 0
   foreach ($line in $script:doctorOutput) {
-    if ($line -match 'CRITICAL_MISSING=(\d+)') { $script:crMiss = [int]$Matches[1] }
-    if ($line -match 'AMBIGUOUS=(\d+)') { $script:amb = [int]$Matches[1] }
+    $s = [string]$line
+    if ($s -match 'GATE critical_missing_file=(\d+) critical_missing=(\d+) critical_ambiguous=(\d+) cosmetic_missing=(\d+) cosmetic_ambiguous=(\d+)') {
+      $script:crMissFile = [int]$Matches[1]
+      $script:crMiss = [int]$Matches[2]
+      $script:crAmb = [int]$Matches[3]
+      $script:cosMiss = [int]$Matches[4]
+      $script:cosAmb = [int]$Matches[5]
+    }
+  }
+}
+
+function Test-DoctorShouldFail {
+  return ($script:crMissFile -gt 0)
+}
+
+function Write-DoctorStatus {
+  param([switch]$AsInstall)
+  if ($script:crMissFile -gt 0) {
+    if ($AsInstall) {
+      Write-Host "ОШИБКА: doctor — пропал файл критичного правила реестра."
+      Write-Host "  Апстрим убрал kanban или connection-registry. Скачайте свежий релиз мода или обновите registry/overrides."
+    } else {
+      Write-Host "статус: FAIL"
+      Write-Host "  Пропал файл критичного правила (обычно kanban/plugin.tsx или connection-registry.ts)."
+    }
+    return
+  }
+  if ($script:crMiss -gt 0 -or $script:crAmb -gt 0) {
+    $n = $script:crMiss + $script:crAmb
+    if ($AsInstall) {
+      Write-Host ("ПРЕДУПРЕЖДЕНИЕ: " + $n + " критичных правил не применились — фичи мода, зависящие от них, будут отключены.")
+      Write-Host "  Установка продолжается (эти места останутся в поведении Hermes как в апстриме)."
+    } else {
+      Write-Host ("статус: WARN (установка возможна, " + $n + " критичных фич отключено)")
+    }
+    return
+  }
+  if ($AsInstall) {
+    Write-Host "doctor: критичные правила — все на месте"
+    if ($script:cosMiss -gt 0 -or $script:cosAmb -gt 0) {
+      Write-Host ("ПРЕДУПРЕЖДЕНИЕ: косметика missing=" + $script:cosMiss + " ambiguous=" + $script:cosAmb + " (см. PROBLEMS) — затронутые места останутся на английском.")
+    }
+  } else {
+    if ($script:cosMiss -gt 0 -or $script:cosAmb -gt 0) {
+      Write-Host ("статус: WARN (косметика missing=" + $script:cosMiss + " ambiguous=" + $script:cosAmb + " — эти места останутся на английском, установка идёт)")
+    } else {
+      Write-Host "статус: OK (сухой прогон, ничего не записано)"
+    }
   }
 }
 
@@ -250,16 +301,9 @@ if ($Doctor) {
   Write-Host "=== ОТЧЁТ DOCTOR ==="
   Write-Host ("HEAD клона : " + $actualCommit)
   Write-Host ("реестр     : " + $registry)
-  if ($amb -gt 0 -or $crMiss -gt 2) {
-    Write-Host "статус: FAIL"
-    exit 1
-  } elseif ($crMiss -gt 0) {
-    Write-Host ("статус: WARN (установка возможна, " + $crMiss + " критичных фич отключено)")
-    exit 0
-  } else {
-    Write-Host "статус: OK (сухой прогон, ничего не записано)"
-    exit 0
-  }
+  Write-DoctorStatus
+  if (Test-DoctorShouldFail) { exit 1 }
+  exit 0
 }
 
 # ---------- install only below ----------
@@ -307,27 +351,19 @@ Write-Host ("сброс к стоку: exit=" + $restoreExit + " (untracked-ло
 
 Invoke-DoctorCheck -RootPath $root -RegistryPath $registry
 
-if ($amb -gt 0 -or $crMiss -gt 2) {
-  Write-Host "ОШИБКА: doctor — критичные правила реестра не применяются к этой версии Hermes."
-  Write-Host "  Апстрим глубоко изменил логику мода. Скачайте свежий релиз мода или обновите registry/overrides."
+if (Test-DoctorShouldFail) {
+  Write-DoctorStatus -AsInstall
   exit 1
-} elseif ($crMiss -gt 0) {
-  Write-Host "ПРЕДУПРЕЖДЕНИЕ: $crMiss критичных правил не применились — фичи мода, зависящие от них, будут отключены."
-  Write-Host "  Установка продолжается (эти места останутся в поведении Hermes как в апстриме)."
-} else {
-  Write-Host "doctor: критичные правила — все на месте"
-  if ($doctorExit -ne 0) {
-    Write-Host "ПРЕДУПРЕЖДЕНИЕ: часть косметических правил не применилась (см. PROBLEMS) — затронутые места останутся на английском."
-  }
 }
+Write-DoctorStatus -AsInstall
 
 # ---------- apply ----------
 Push-Location $root
 node (Join-Path $PSScriptRoot 'apply-hardcodes.mjs') $root $registry
 $applyExit = $LASTEXITCODE
 Pop-Location
-if ($applyExit -ne 0) { Write-Host "ОШИБКА: apply реестра прерван"; exit 1 }
-Write-Host "apply: реестр применён"
+if ($applyExit -ne 0) { Write-Host "ОШИБКА: apply реестра прерван (пропал файл критичного правила)"; exit 1 }
+Write-Host "apply: реестр применён (косметические пропуски, если были, оставлены как есть)"
 
 # ---------- locale files ----------
 $fileMap = @(

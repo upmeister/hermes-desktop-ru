@@ -11,7 +11,7 @@
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Последний релиз: [v1.0.5](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.0.5) · Hermes 0.20.5 · 23 августа 2026**
+**Последний релиз: [v1.1.0](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.1.0) · Hermes 0.20.5 · 24 августа 2026**
 
 Официальный клиент умеет несколько языков, но **русского в актуальной ветке нет**. Этот мод переводит весь UI — в том числе места, которые обычный файл локали не достаёт (Боты, канбан, подписи настроек, сообщения главного процесса). После `hermes update` ставится заново одной командой.
 
@@ -77,10 +77,11 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 | i18n-каталог: чат, настройки, шлюз, биллинг, онбординг | ✅ полный |
 | Хардкоды компонентов: поля настроек, splash, мессенджеры, темы | ✅ |
 | Канбан, плагин Bots, сообщения main-процесса | ✅ |
+| Реестр doctor (хардкод-якоря) | ✅ 703 правила |
 
 Имена собственные и команды не трогаем; MCP, DIFF, URL, PR, YOLO — как есть.
 
-Перед записью гоняется **doctor**: косметический пропуск оставит пятно по-английски, сдвиг логики — остановит установку.
+Перед записью гоняется **doctor**: косметический пропуск или неоднозначный якорь (часто в Bots) оставит пятно по-английски — установка идёт. Остановка только если пропал файл критичного правила (канбан / connection-registry). Сборка (`npm run build`) — отдельный жёсткий стоп.
 
 Актуальная совместимость и журнал апстрима — в [релизах](https://github.com/upmeister/hermes-desktop-ru/releases) и [UPSTREAM-WATCH.md](UPSTREAM-WATCH.md).
 
@@ -89,7 +90,8 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 | Симптом | Что сделать |
 |---|---|
 | «не найден клон hermes-agent» | `-Root` или `HERMES_AGENT_ROOT` |
-| Doctor FAIL | апстрим ушёл вперёд — [issue](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
+| Doctor FAIL | пропал файл критичного правила — [issue](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
+| Doctor WARN, часть UI на английском | нормально после большого апдейта Bots; дождитесь следующего релиза мода или поставьте как есть |
 | Access is denied / EBUSY | закройте Desktop и шлюз, повторите |
 | Долго на npm ci | нормально после `hermes update` (3–10 мин) |
 | Часть UI на английском | `doctor`, затем `install`, перезапуск |

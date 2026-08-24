@@ -7,7 +7,46 @@
 > Предыдущая линия 7.6.x (август 2026) считается тестовой и здесь не описывается;
 > её историю можно посмотреть в git-истории репозитория.
 
-## [Unreleased]
+## [1.1.0] - 2026-08-24
+
+### Added
+- Групповые чаты Bots: перевод всего группового фида активности (10 глаголов
+  `is working…`/`replied`/`took too long`/`hit an error`/`turn settled`/…),
+  `Group settings`, «N из M доступно», фильтр ростера (`Filter roster`,
+  «Активные давно»), подпись панели «Чат бота» (tabTitle, имя сессии в БД
+  не трогается), тултипы устройств («локально/удалённо»), `You` → «Вы».
+- Интер-агентные заголовки ядра: `Message from …`, `Replied to …`,
+  `show message`/`show reply`, `Messaging/Messaged` (agent-delivery,
+  user-message, assistant-message).
+- i18n: `zones.showTabStrip`/`hideTabStrip`, `gatewayConnectionLostDetail`,
+  `auxiliary.tasks.review`, `statusbar.gatewayUnavailable`.
+
+### Changed
+- Registry: 647 → **703 правила** (пересъёмы и delete через overrides).
+- Удалён `docs/screenshot.png` (обзорный скрин — больше не используется в README).
+- `*.zip` в `.gitignore` (временные файлы тестовых сборок).
+
+### Fixed
+- `Group settings — rename …` тултип: апстрим сменил `title:` → `label:`,
+  старый якорь молча умер — переснят на новую форму.
+- Doctor больше не валит установку из‑за косметического `AMBIGUOUS` (живой кейс
+  24.08: `children: 'Retry'` и `title: 'Bots'` по два раза в переписанном
+  `hermes-bots/plugin.js` при `CRITICAL_MISSING=0`). FAIL только если пропал
+  *файл* критичного правила (kanban / connection-registry).
+- `apply-hardcodes.mjs` не abort'ит процесс на косметических MISSING/AMBIGUOUS
+  (раньше `exit 1` после частичной записи). Косметика skip, установка идёт.
+- Сообщение «критичные правила / апстрим изменил логику» больше не врёт на
+  любом неоднозначном литерале.
+
+### Changed
+- `hermes-bots/plugin.js` — зона cosmetic: из неё нельзя FAIL.
+- `boot-failure-i18n-*` помечены `critical` (через overrides + fallback в движке).
+- Порог `CRITICAL_MISSING ≥ 3` убран: 1–2 critical MISSING = WARN («фича мода
+  выключена»), установка продолжается.
+- `gen-registry.mjs` штампует `severity`, если его ещё нет: `insert-after` →
+  `critical`, иначе `cosmetic`. Явный override побеждает.
+- `apply-hardcodes.mjs` мержит `overrides.json` в рантайме — не обязательно
+  перегонять registry, чтобы классификация доехала.
 
 ## [1.0.5] - 2026-08-23
 

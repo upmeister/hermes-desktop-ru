@@ -10,12 +10,20 @@
 //   - якорь не найден и after не найден -> ПОНЯТНЫЙ MISSING-отчёт, ноль молчаливых поломок;
 //   - режим --doctor ничего не пишет: сухая проверка (используется в install-asar.ps1 перед build).
 //
+// Severity (с 24.08.2026, гейт 1–2):
+//   cosmetic (дефолт) — замена UI-литерала. MISSING/AMBIGUOUS = пятно по-английски.
+//     apply не пишет правило и НЕ валит процесс. doctor — WARN.
+//   critical / code — insert, импорт, смена control flow. Пропуск = фича мода выключена.
+//     apply не пишет. doctor/install FAIL только если пропал сам файл (MISSING_FILE).
+//   Зона COSMETIC_ZONES (hermes-bots/plugin.js) всегда cosmetic: из неё нельзя FAIL.
+//   overrides.json рядом с registry мержится в рантайме (severity/delete/новые id) —
+//     не обязательно перегонять gen-registry, чтобы классификация доехала.
+//
 // Формат реестра (registry.json):
-//   [ { file, id, before: [lines], after: [lines] | null } ]
+//   [ { file, id, before: [lines], after: [lines] | null, severity?, all?, mode? } ]
 //   file — путь ОТНОСИТЕЛЬНО srcRoot (например apps/desktop/src/...)
 //   before — точная последовательность строк (без EOL) в текущей форме апстрима (англ.)
-//   after — заменяющие строки. null => чистая вставка (before вставляется дословно? нет:
-//          для вставки используется mode:'insert-after' с anchorLine)
+//   after — заменяющие строки. null => чистая вставка (mode:'insert-after' с insertAfterLine)
 //   ПОДДЕРЖИВАЕМЫЕ режимы:
 //     default : before найдён уникально -> заменить на after (после уже есть -> skip)
 //     insert-after : insertAfterLine — уникальная строка, ПОСЛЕ которой вставить after
@@ -34,10 +42,69 @@ if (!fs.existsSync(regPath)) {
   process.exit(2)
 }
 
-const rules = JSON.parse(fs.readFileSync(regPath, 'utf8'))
+let rules = JSON.parse(fs.readFileSync(regPath, 'utf8'))
 if (!Array.isArray(rules)) {
   console.error('registry must be a JSON array of rules')
   process.exit(2)
+}
+
+// Files whose every rule is cosmetic, even if someone stamped severity:critical.
+// hermes-bots/plugin.js — скомпилированный плагин, апстрим переписывает часто;
+// 200 коротких литералов не должны стопорить установку.
+const COSMETIC_ZONES = new Set([
+  'apps/desktop/src/plugins/hermes-bots/plugin.js',
+])
+
+// Fallback, если overrides ещё не доехали до registry.json.
+const DEFAULT_CRITICAL_IDS = new Set([
+  'connection-registry.ts-2',
+  'plugin.tsx-1',
+  'boot-failure-i18n-then',
+  'boot-failure-i18n-catch',
+  'boot-failure-i18n-savelocale',
+])
+
+function normFile(f) {
+  return String(f || '').replace(/\\/g, '/')
+}
+
+function mergeOverrides(list, overridePath) {
+  if (!fs.existsSync(overridePath)) return list
+  let ovr
+  try {
+    ovr = JSON.parse(fs.readFileSync(overridePath, 'utf8'))
+  } catch (e) {
+    console.error(`overrides.json: не разобрать (${e.message}) — продолжаю без него`)
+    return list
+  }
+  if (!Array.isArray(ovr)) return list
+  let out = list.slice()
+  for (const o of ovr) {
+    if (o && o.delete) {
+      out = out.filter(r => r.id !== o.delete)
+    }
+  }
+  const byId = new Map(out.map(r => [r.id, r]))
+  for (const o of ovr) {
+    if (!o || o.delete) continue
+    const existing = byId.get(o.id)
+    if (existing) {
+      Object.assign(existing, o)
+    } else {
+      out.push(o)
+      byId.set(o.id, o)
+    }
+  }
+  return out
+}
+
+rules = mergeOverrides(rules, path.join(path.dirname(regPath), 'overrides.json'))
+
+function effectiveSeverity(rule) {
+  if (COSMETIC_ZONES.has(normFile(rule.file))) return 'cosmetic'
+  if (rule.severity === 'critical' || rule.severity === 'code') return 'critical'
+  if (DEFAULT_CRITICAL_IDS.has(rule.id)) return 'critical'
+  return 'cosmetic'
 }
 
 function readUtf8(p) {
@@ -70,14 +137,13 @@ function countOccurrences(contentLines, block) {
 }
 
 const results = []
-let failCount = 0
 
 for (const rule of rules) {
   const { id, file, before, after, mode, insertAfterLine } = rule
+  const sev = effectiveSeverity(rule)
   const abs = path.join(srcRoot, file)
   if (!fs.existsSync(abs)) {
-    results.push({ id, status: 'MISSING_FILE', file, why: 'файл не найден' })
-    failCount++
+    results.push({ id, status: 'MISSING_FILE', file, why: 'файл не найден', severity: sev })
     continue
   }
   const { content, eol } = readUtf8(abs)
@@ -91,29 +157,23 @@ for (const rule of rules) {
     const anchor = [insertAfterLine]
     const n = countOccurrences(contentLines, anchor)
     if (n === 0) {
-      // already applied? check that 'after' first line exists after nothing...
       idx = -1
     } else if (n > 1) {
-      status = 'AMBIGUOUS'
-      results.push({ id, status, file, why: `якорь-вставки не уникален (${n})` })
-      failCount++
+      results.push({ id, status: 'AMBIGUOUS', file, why: `якорь-вставки не уникален (${n})`, severity: sev })
       continue
     } else {
       idx = findBlock(contentLines, anchor)
     }
     if (idx === -1) {
-      // idempotency: is the inserted block already present right after the anchor position?
       const afterLines = (after || []).slice(0, 1)
       const already = afterLines.length && afterLines[0] && countOccurrences(contentLines, afterLines) > 0
       if (already) {
-        results.push({ id, status: 'OK_ALREADY', file, why: 'вставка уже присутствует' })
+        results.push({ id, status: 'OK_ALREADY', file, why: 'вставка уже присутствует', severity: sev })
         continue
       }
-      results.push({ id, status: 'MISSING', file, why: `якорь вставки '${(insertAfterLine || '').slice(0, 60)}' не найден` })
-      failCount++
+      results.push({ id, status: 'MISSING', file, why: `якорь вставки '${(insertAfterLine || '').slice(0, 60)}' не найден`, severity: sev })
       continue
     }
-    // Idempotency: block already right after the anchor? (anchor found this run)
     const ins = (after || []).map(l => l)
     let alreadyThere = true
     for (let j = 0; j < ins.length; j++) {
@@ -124,35 +184,29 @@ for (const rule of rules) {
       }
     }
     if (alreadyThere) {
-      results.push({ id, status: 'OK_ALREADY', file, why: 'блок уже сразу после якоря' })
+      results.push({ id, status: 'OK_ALREADY', file, why: 'блок уже сразу после якоря', severity: sev })
       continue
     }
-    // insert after idx (the anchor line)
     if (!doctor) {
       contentLines.splice(idx + 1, 0, ...ins)
       fs.writeFileSync(abs, contentLines.join(eol) + (content.endsWith('\n') ? eol : ''))
     }
     status = 'APPLIED'
   } else {
-    // default replace
     const n = countOccurrences(contentLines, before || [])
     if (n === 0) {
-      // maybe already applied (after present)
       const afterN = (after || []).length && after[0] ? countOccurrences(contentLines, after || []) : 0
       if (afterN > 0) {
-        results.push({ id, status: 'OK_ALREADY', file, why: 'замена уже применена' })
+        results.push({ id, status: 'OK_ALREADY', file, why: 'замена уже применена', severity: sev })
         continue
       }
-      results.push({ id, status: 'MISSING', file, why: `блок не найден (${(before || []).length} строк), после-блок тоже` })
-      failCount++
+      results.push({ id, status: 'MISSING', file, why: `блок не найден (${(before || []).length} строк), после-блок тоже`, severity: sev })
       continue
     }
     if (n > 1 && !rule.all) {
-      results.push({ id, status: 'AMBIGUOUS', file, why: `блок найден ${n} раз` })
-      failCount++
+      results.push({ id, status: 'AMBIGUOUS', file, why: `блок найден ${n} раз`, severity: sev })
       continue
     }
-    // rule.all: заменяем ВСЕ вхождения (одинаковая замена в нескольких местах)
     idx = -1
     let replaced = 0
     while ((idx = findBlock(contentLines, before, idx + 1)) !== -1) {
@@ -166,26 +220,46 @@ for (const rule of rules) {
     }
     status = 'APPLIED'
   }
-  results.push({ id, status, file, why: status === 'AMBIGUOUS' ? results[results.length - 1].why : undefined })
+  results.push({ id, status, file, severity: sev })
 }
 
 // Summary
 const by = {}
 for (const r of results) by[r.status] = (by[r.status] || 0) + 1
-const criticalIds = new Set(rules.filter(r => r.severity === 'critical').map(r => r.id))
-const criticalMissing = results.filter(r =>
-  (r.status === 'MISSING' || r.status === 'MISSING_FILE') && criticalIds.has(r.id)).length
-console.log(`[apply-hardcodes] ${doctor ? 'DOCTOR' : 'APPLY'} rules=${rules.length} ` +
-  Object.entries(by).map(([k, v]) => `${k}=${v}`).join(' ') + ` CRITICAL_MISSING=${criticalMissing}`)
 
-if (failCount > 0 || Object.keys(by).includes('AMBIGUOUS')) {
+const problems = results.filter(r => r.status !== 'APPLIED' && r.status !== 'OK_ALREADY')
+const critMissingFile = problems.filter(r => r.severity === 'critical' && r.status === 'MISSING_FILE').length
+const critMissing = problems.filter(r => r.severity === 'critical' && (r.status === 'MISSING' || r.status === 'MISSING_FILE')).length
+const critAmb = problems.filter(r => r.severity === 'critical' && r.status === 'AMBIGUOUS').length
+const cosMissing = problems.filter(r => r.severity !== 'critical' && (r.status === 'MISSING' || r.status === 'MISSING_FILE')).length
+const cosAmb = problems.filter(r => r.severity !== 'critical' && r.status === 'AMBIGUOUS').length
+
+console.log(
+  `[apply-hardcodes] ${doctor ? 'DOCTOR' : 'APPLY'} rules=${rules.length} ` +
+  Object.entries(by).map(([k, v]) => `${k}=${v}`).join(' ')
+)
+console.log(
+  `GATE critical_missing_file=${critMissingFile} critical_missing=${critMissing} ` +
+  `critical_ambiguous=${critAmb} cosmetic_missing=${cosMissing} cosmetic_ambiguous=${cosAmb}`
+)
+
+if (problems.length) {
   console.log('--- PROBLEMS ---')
-  for (const r of results) {
-    if (r.status !== 'APPLIED' && r.status !== 'OK_ALREADY') {
-      const tag = criticalIds.has(r.id) ? '[critical] ' : ''
-      console.log(`  [${r.status}] ${tag}${r.file} :: ${r.id} :: ${r.why || ''}`)
-    }
+  for (const r of problems) {
+    const tag = r.severity === 'critical' ? '[critical] ' : ''
+    console.log(`  [${r.status}] ${tag}${r.file} :: ${r.id} :: ${r.why || ''}`)
   }
+}
+
+if (doctor) {
+  // ненулевой код = «есть PROBLEMS» (установщик рисует WARN). FAIL решает install-asar по GATE.
+  process.exit(problems.length ? 1 : 0)
+}
+
+// apply: косметика не валит процесс (правила уже пропущены, файлы консистентны).
+// exit 1 только если критичное правило не смогли применить — вызывающий может остановиться.
+if (critMissingFile > 0) {
   process.exit(1)
 }
-console.log('all rules OK')
+console.log(problems.length ? 'apply: косметические пропуски оставлены как есть' : 'all rules OK')
+process.exit(0)

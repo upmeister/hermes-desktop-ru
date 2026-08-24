@@ -109,6 +109,8 @@ export const ru = defineLocale({
       backendStopped: 'Бэкенд остановлен',
       desktopBootFailed: 'Ошибка запуска десктопа',
       gatewayConnectionLost: 'Потеряно соединение со шлюзом',
+      gatewayConnectionLostDetail:
+        'Продолжаем попытки в фоне. Вы можете читать и писать дальше — откройте настройки Шлюза, если это не пройдёт.',
       gatewaySignInRequired: 'Требуется вход в шлюз',
       ipcBridgeUnavailable: 'IPC-мост десктопа недоступен.',
     },
@@ -984,6 +986,7 @@ export const ru = defineLocale({
         mcp: { label: 'MCP', hint: 'MCP tool routing' },
         title_generation: { label: 'Генерация заголовков', hint: 'Заголовки сессий' },
         curator: { label: 'Куратор', hint: 'Анализ использования навыков' },
+        review: { label: 'Ревью', hint: '/review — субагент-ревьюер' },
       },
     },
     providers: {
@@ -1943,6 +1946,38 @@ export const ru = defineLocale({
     displayNameDesc: 'Задаёт отображаемое имя, видимое по всему приложению. Внутренний ID профиля остаётся «default».',
     switchConnectionFailed: name => `Не удалось подключиться к ${name}`,
     switchToConnection: name => `Переключиться на ${name}`,
+    remoteOverride: {
+      menuItem: 'Подключиться к удалённому хосту…',
+      badge: host => `Выполняется на ${host}`,
+      title: profile => `Подключить ${profile} к удалённому хосту`,
+      description: 'Сессии этого профиля будут выполняться на удалённом Hermes, на который вы его направите, а не на этом компьютере.',
+      urlLabel: 'Адрес удалённого сервера',
+      urlPlaceholder: 'https://hermes.example.com',
+      urlInvalid: 'Введите полный адрес, начинающийся с http:// или https://',
+      tokenLabel: 'Токен доступа',
+      tokenPlaceholder: 'Вставьте токен удалённой сессии',
+      tokenSavedHint: 'Токен уже сохранён. Оставьте поле пустым, чтобы сохранить его.',
+      plainTextOptIn:
+        'На этом компьютере нет защищённого хранилища ключей, поэтому токен будет сохранён на диске в открытом виде. Сохранить в любом случае?',
+      collisionWarning: label =>
+        `Шлюз «${label}» уже существует в настройках. Это подключение профиля отдельное и не изменит его.`,
+      confirmTitle: 'Подключить этот профиль к удалённому хосту?',
+      confirmNote: (profile, host) =>
+        `Новые чаты в ${profile} будут выполняться на ${host}. Тот компьютер будет выполнять команды и читать файлы там, а не на этом. Подключайтесь только к хосту, которому доверяете.`,
+      confirmBack: 'Назад',
+      connect: 'Подключить',
+      connecting: 'Подключение…',
+      disconnect: 'Удалить удалённое подключение',
+      savedTitle: 'Профиль подключён',
+      savedMessage: (profile, host) => `${profile} теперь выполняется на ${host}`,
+      removedTitle: 'Удалённое подключение убрано',
+      removedMessage: profile => `${profile} теперь выполняется на этом компьютере`,
+      removeFailed: 'Не удалось удалить удалённое подключение',
+      authFailedTitle: 'Удалённый хост отклонил сохранённый токен',
+      authFailedMessage: (profile, host) =>
+        `${host} отклонил токен, сохранённый для ${profile}. Возможно, он был изменён на удалённой стороне.`,
+      updateToken: 'Ввести новый токен…'
+    },
   },
   cron: {
     close: 'Закрыть',
@@ -2841,6 +2876,7 @@ export const ru = defineLocale({
       branch: branch => `ветка ${branch}`,
       closeCommandCenter: 'Закрыть Центр управления',
       openCommandCenter: 'Открыть Центр управления',
+      gatewayUnavailable: 'инференс недоступен',
       showTerminal: 'Показать терминал',
       hideTerminal: 'Скрыть терминал',
       gateway: 'Шлюз',
@@ -3036,6 +3072,8 @@ export const ru = defineLocale({
     },
   },
   zones: {
+    showTabStrip: 'Показать вкладки',
+    hideTabStrip: 'Скрыть вкладки',
     showHeader: 'Показать заголовок',
     hideHeader: 'Скрыть заголовок',
     minimize: 'Свернуть',
