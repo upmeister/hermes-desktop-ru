@@ -57,3 +57,21 @@
 - Затронутые файлы → куда смотреть в UI: i18n/en.ts (93acc22a9f29) → Настройки, секция Floating Composer / Message Reactions — новый тумблер Vibe Hearts; роутинг-навигация (b637ee0fc683, recordless hash routes) → переключение сессий/вкладок — масштаб UI не должен сбиваться; electron-меню (5400fb88e5bd, e3b5512b7b3f) → Edit→Paste и контекстные меню внутри модальных диалогов
 - Новые ключи en.ts: vibeHeartsTitle ('Vibe Hearts'), vibeHeartsDesc (парящие сердечки за thanks/ily/good bot/heart) — оба НЕ покрыты модом v1.1.0 (в registry.json и ru.ts, включая WIP, отсутствуют)
 - Что проверить перед следующим релизом мода: 1) перевести vibeHeartsTitle/vibeHeartsDesc (Настройки → тумблер Vibe Hearts, рядом с Floating Composer/Message Reactions); 2) вижн-тест: новый тумблер Vibe Hearts и стабильность масштаба UI при навигации между сессиями
+
+## 2026-08-25 12:19 (auto)
+- Релизы: нет (те же 5, записаны 24.08 17:03)
+- Коммиты apps/desktop: 2 новых с прошлого прогона: test(desktop): stop the syntax-diff mock factory from leaking unhandled rejections (#94415); feat: browser snapshots drop LLM summarization — truncate-and-store like web_extract; auxiliary.web_extract slot removed
+- Затронутые файлы → куда смотреть в UI: i18n/en.ts (a75ea37dc5a8) → пикер вспомогательных моделей/задач — пункт «Web extract» (auxiliary.tasks.web_extract) удалён из списка aux-задач; c1b295d003f6 — только тест, без UI-поверхности
+- Новые ключи en.ts: нет новых ключей — удалён auxiliary.tasks.web_extract ('Web extract'/'Page summarization'); модом v1.1.1 уже покрыт (ru.ts:993 «Веб-извлечение») → перевод стал для мода мёртвым
+- Что проверить перед следующим релизом мода: 1) auxiliary.tasks.web_extract удалён апстримом — при следующем релизе убрать мёртвый перевод «Веб-извлечение» из ru.ts (или оставить осознанно, безвредно); 2) вижн-тест: в списке вспомогательных задач (пикер моделей) больше нет пункта Web extract/«Веб-извлечение»
+## 2026-08-25 (release note, вручную)
+
+- Релиз **v1.2.0**: кроссплатформенный Node-установщик (`package/install.mjs` —
+  источник истины; PS/BAT/sh — тонкие обёртки; POSIX экспериментально,
+  официальные .app/AppImage не трогает). CI: `check.yml` + `experimental-posix.yml`
+  (workflow_dispatch, ubuntu+macos). merged: 859 → **865** правил (+6 — окно
+  создания бота: Provider/Model (Custom), Capabilities, SOUL.md, remote-заметка).
+  i18n: vibeHearts, selectionToComposer (ренейм), newTab, +12 по L3 (pets,
+  тулсеты, ssh-хост, блокеры обновления); удалён мёртвый `web_extract`.
+  EXPECTED_COMMIT → `6ce7ab8bfb` (HEAD ПК). README RU/EN переписаны
+  (установщик/CI/POSIX), шапки v1.2.0 · doctor 865. AUTHORS.md — от первого лица.

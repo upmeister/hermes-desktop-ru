@@ -4705,5 +4705,66 @@
     "after": [
       "    label: `существующий Hermes Python в ${python}`,"
     ]
+  },
+  {
+    "id": "v112-bots-provider-custom",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "              'Provider (Custom)',"
+    ],
+    "after": [
+      "              'Провайдер (Пользовательский)',"
+    ]
+  },
+  {
+    "id": "v112-bots-model-custom",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "              'Model (Custom)',"
+    ],
+    "after": [
+      "              'Модель (Пользовательская)',"
+    ]
+  },
+  {
+    "id": "v112-bots-capabilities-applies",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "          'Capabilities (applies immediately — skills, tools, MCP)',"
+    ],
+    "after": [
+      "          'Возможности (применяется сразу — навыки, инструменты, MCP)',"
+    ]
+  },
+  {
+    "id": "v112-bots-soul-persona",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "          'SOUL.md (persona + agent-messaging protocol)',"
+    ],
+    "after": [
+      "          'SOUL.md (персона + протокол сообщений агента)',"
+    ],
+    "all": true
+  },
+  {
+    "id": "v112-bots-soul-persona-indent",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "        'SOUL.md (persona + agent-messaging protocol)',"
+    ],
+    "after": [
+      "        'SOUL.md (персона + протокол сообщений агента)',"
+    ]
+  },
+  {
+    "id": "v112-bots-remote-capabilities",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "          children: 'Remote capabilities require a newer desktop. Model and SOUL changes remain staged until you save.'"
+    ],
+    "after": [
+      "          children: 'Удалённые возможности требуют более новой версии Desktop. Изменения модели и SOUL остаются отложенными до сохранения.'"
+    ]
   }
 ]

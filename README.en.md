@@ -2,7 +2,7 @@
 
 [🇬🇧 English](README.en.md) · [🇷🇺 Русский](README.md)
 
-Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/hermes-agent) on Windows.
+Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/hermes-agent).
 
 [![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.20.5-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
 [![npm](https://img.shields.io/npm/v/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
@@ -11,11 +11,13 @@ Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/h
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.1.1](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.1.1) · Hermes Desktop 0.20.5 · 2026-08-25**
+**Latest: [v1.2.0](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.0) · Hermes Desktop 0.20.5 · 2026-08-25**
 
 Hermes Desktop has **no Russian locale in the current release line** (upstream `ru` PRs have sat open since July). i18n-only packs translate the catalog and leave hardcoded strings in components, settings field labels, Bots/kanban, and the Electron main process.
 
-This is not a portable/prebuilt `.exe` patch. It expects a **source install** (`git clone`) and rebuilds `app.asar`.
+This is not a portable / prebuilt installer patch. It expects a **source checkout** (`hermes desktop` / `git clone`) and rebuilds `app.asar` inside that clone.
+
+**Windows is the supported path** (author-tested). **Linux and macOS are experimental**: the installer resolves POSIX clone/asar layouts, but the author has not run them on a live Desktop. We never patch a notarized `.app` or website AppImage — only `apps/desktop/release/` next to the clone.
 
 ## Screens
 
@@ -34,7 +36,7 @@ This is not a portable/prebuilt `.exe` patch. It expects a **source install** (`
 | Bots / kanban / main-process | ❌ | ✅ |
 | After `hermes update` | new UI stays English | re-run `hermes-desktop-ru install` |
 
-- **859-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
+- **865-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
 - **Doctor-gated installer** — dry-run before any write. Cosmetic misses (including an ambiguous short literal in Bots) warn — that spot stays English. Install fails only if a *critical file* is gone (kanban / connection-registry). A failed `npm run build` is the real hard stop.
 - **Survives `hermes update`**: restore tracked sources to stock → doctor → apply → register `ru` → rebuild `dist` → repack `asar` (original kept as `.stock.bak`).
 
@@ -49,11 +51,37 @@ The registry instead:
 - reports `MISSING` / `AMBIGUOUS`; cosmetic skips, a missing critical *file* fails closed;
 - `EXPECTED_COMMIT` warns (does not block) when HEAD moved past the build base.
 
+## Installer layout
+
+Source of truth is Node: `package/install.mjs`. `bin/hermes-desktop-ru.mjs` just forwards argv. PowerShell / BAT stay as a double-click wrapper on Windows; `install.sh` does the same on POSIX.
+
+Clone resolution, first hit wins:
+
+1. `--root` / `-Root`
+2. `HERMES_AGENT_ROOT`
+3. `HERMES_INSTALL_DIR`
+4. `$HERMES_HOME/hermes-agent`
+5. `~/.hermes/hermes-agent`
+6. `/usr/local/lib/hermes-agent` (Linux root/FHS install)
+7. `%LOCALAPPDATA%\hermes\hermes-agent`
+
+Asar resolution is **clone-local only** (`apps/desktop/release/`):
+
+- `win-unpacked/resources/app.asar`
+- `linux-unpacked/resources/app.asar`
+- `mac[-arm64|-x64]/Hermes.app/Contents/Resources/app.asar`
+
+`/Applications/Hermes.app` and a website AppImage are out of scope on purpose (Gatekeeper / you become an unofficial Hermes distributor).
+
+`package.json` no longer sets `"os": ["win32"]`. npm will install the CLI on Linux/macOS; that does not mean those platforms are supported at Windows quality. Process-kill and uninstall there are best-effort. After swapping asar inside a self-built `.app`, the installer runs ad-hoc `codesign --sign -` — not Apple notarization.
+
+CI: `check.yml` runs `node --check`, parses `registry.json`, and `node package/install.mjs --self-test`. `experimental-posix.yml` is `workflow_dispatch` only: self-test on ubuntu+macos, optional `doctor` against a shallow `hermes-agent` clone (cosmetic WARN on HEAD is expected; FAIL only if a critical file vanished). It does **not** `npm run pack` Hermes.
+
 ## Install
 
-Node.js 18+, Hermes Desktop **closed**, source checkout (default `%LOCALAPPDATA%\hermes\hermes-agent`).
+Node.js 18+, Hermes Desktop **closed**, source checkout.
 
-```powershell
+```bash
 npm install -g hermes-desktop-ru
 hermes-desktop-ru install
 ```
@@ -66,13 +94,13 @@ hermes-desktop-ru install
 | `hermes-desktop-ru version` | package version (from `package.json`) |
 | `hermes-desktop-ru help` | help |
 
-```powershell
-hermes-desktop-ru install -Root "D:\path\to\hermes-agent"
+```bash
+hermes-desktop-ru install --root /path/to/hermes-agent
 ```
 
-(`HERMES_AGENT_ROOT` works too.) Or unpack the [release zip](https://github.com/upmeister/hermes-desktop-ru/releases) and run `install.bat`.
+(`HERMES_AGENT_ROOT` / `HERMES_HOME` work too.) Or unpack the [release zip](https://github.com/upmeister/hermes-desktop-ru/releases) and run `install.bat` / `install.sh` / `node install.mjs`.
 
-Failed `npm run build` is now a hard error. To reuse a bundled `package/dist` (may not match this upstream): `install.ps1 -AllowStaleDist`.
+The clone must already contain a packaged Desktop (`hermes desktop` or `cd apps/desktop && npm run pack`). Failed `npm run build` is a hard error. To reuse a bundled `package/dist` (may not match this upstream): `--allow-stale-dist`.
 
 ## After `hermes update`
 
@@ -98,26 +126,30 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 - Local only: no backend, no telemetry, no network from the installer.
 - Doctor gate before writes; tracked sources restored to stock on **install** only.
+- Process kill is path-restricted to the clone / resolved pack. The installer does not `killall hermes` (that would take down the CLI).
 - `app.asar.stock.bak` next to the live asar — `hermes-desktop-ru uninstall` swaps it back; `hermes update` for a full clone reset.
-- MIT. Read `package/install-asar.ps1` and `package/registry.json` if you want.
+- MIT. Read `package/install.mjs` and `package/registry.json` if you want.
 
 ## Troubleshooting
 
 | Symptom | What to do |
 |---|---|
-| "clone not found" | `-Root` or `HERMES_AGENT_ROOT` |
+| "clone not found" | `--root` or `HERMES_AGENT_ROOT` |
+| "packaged app.asar not found" | pack Desktop from the clone (`hermes desktop` / `npm run pack`). Website prebuilts are out of scope |
 | Doctor FAIL | a critical file is gone — [issue "Doctor FAIL"](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
 | Doctor WARN / UI partly English | expected after a large Bots rewrite; wait for the next mod release or install as-is |
 | Access denied / EBUSY | close Hermes Desktop and retry |
+| macOS "app is damaged" / Gatekeeper | only self-built `.app` from the clone; do not patch the notarized website build |
 | Long `npm ci` | normal with broken `node_modules` after `hermes update` (3–10 min) |
 | UI partially English | `hermes-desktop-ru doctor`, then `install` and restart |
-| Roll back the mod | `hermes-desktop-ru uninstall` (needs `.stock.bak` from a previous install). Or manually: close Desktop → replace `resources\app.asar` with `resources\app.asar.stock.bak` → launch; full reset — `hermes update` |
+| Roll back the mod | `hermes-desktop-ru uninstall` (needs `.stock.bak` from a previous install). Or manually: close Desktop → replace `resources/app.asar` with `resources/app.asar.stock.bak` → launch; full reset — `hermes update` |
 
 ## Compatibility
 
 | Hermes Desktop | |
 |---|---|
-| **0.20.5** | verified (doctor 859/859 at 1.1.1). A later Bots rewrite may WARN — install still proceeds |
+| **0.20.5** | verified on Windows (doctor 859/859 at 1.1.1). A later Bots rewrite may WARN — install still proceeds |
+| Linux / macOS | installer can resolve paths; **not author-tested**. Treat as experimental |
 | older | install the mod release that matches |
 
 Doctor FAIL after a fresh Hermes bump? That now means a critical *file* disappeared, not "Bots renamed a button". Open an [issue](https://github.com/upmeister/hermes-desktop-ru/issues/new/choose) or wait for the next mod release.
@@ -126,13 +158,13 @@ Upstream Desktop commits and new `en.ts` keys are logged in [UPSTREAM-WATCH.md](
 
 ## Glossary / what we do not translate
 
-Proper names and commands stay: platforms, models, providers, log filters.
+Proper names stay: platforms, models, providers, commands, theme names (`Midnight`, `Catppuccin`). Theme *descriptions* are translated.
+
 Established terms stay: MCP, DIFF, URL, PR, YOLO.
+
 Stable UI glossary: «Рабочие материалы» (Artifacts), «Обслуживание и диагностика» (Maintenance), «Рассуждения» (Reasoning).
 
-Backend-produced text (CLI logs, tracebacks, JSON, OS messages) is not translated — it is not UI.
-Rare exceptions are patched when a backend string reaches the interface directly
-(e.g. the wake-word hint from `tui_gateway/server.py`).
+Backend-produced text (CLI logs, tracebacks, JSON, OS messages) is not translated — it is not UI. Rare exceptions are patched when a backend string reaches the interface directly (e.g. the wake-word hint from `tui_gateway/server.py`).
 
 ## Credits
 

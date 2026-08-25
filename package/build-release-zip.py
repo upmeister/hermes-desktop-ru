@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build the public release zip from package/ + root docs.
 
-Layout inside the zip (flat root, Windows-friendly):
-  install.bat / install.ps1 / install-asar.ps1
+Layout inside the zip (flat root, cross-platform):
+  install.bat / install.ps1 / install-asar.ps1 / install.sh / install.mjs
   *.mjs, registry.json, overrides.json, EXPECTED_COMMIT
   files/ru.ts, files/ru-constants.ts, files/ru-locales.ts
   README.md, LICENSE, CHANGELOG.md   (if present next to package/)
@@ -24,6 +24,8 @@ CORE = [
     "install.bat",
     "install.ps1",
     "install-asar.ps1",
+    "install.sh",
+    "install.mjs",
     "apply-hardcodes.mjs",
     "deps-health.mjs",
     "structural-i18n.mjs",
@@ -46,7 +48,7 @@ ROOT_DOCS = [
 
 
 def main() -> int:
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.1.1.zip"
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.2.0.zip"
     out.parent.mkdir(parents=True, exist_ok=True)
 
     missing = []
@@ -83,6 +85,8 @@ def main() -> int:
         print(f"  {n}")
     # hard checks
     assert "probe-ru.mjs" in names
+    assert "install.mjs" in names
+    assert "install.sh" in names
     assert "files/ru.ts" in names
     assert "install.bat" in names
     assert not any(n == "ru.ts" for n in names), "locales must live under files/"

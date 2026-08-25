@@ -2,12 +2,18 @@
 REM Hermes Desktop RU installer (double-click friendly)
 chcp 65001 >nul
 setlocal
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0install-asar.ps1" %*
+where node >nul 2>nul
+if errorlevel 1 (
+  echo ERROR: Node.js 18+ is required and must be in PATH.
+  pause
+  exit /b 1
+)
+node "%~dp0install.mjs" %*
 set ERR=%ERRORLEVEL%
 if %ERR% neq 0 (
   echo.
   echo Команда НЕ УДАЛАСЬ - смотрите сообщения выше.
-  echo Справка: install.bat -Help
+  echo Справка: install.bat help
   pause
   exit /b %ERR%
 )

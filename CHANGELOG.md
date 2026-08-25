@@ -7,6 +7,35 @@
 > Предыдущая линия 7.6.x (август 2026) считается тестовой и здесь не описывается;
 > её историю можно посмотреть в git-истории репозитория.
 
+## [1.2.0] - 2026-08-25
+
+### Added
+- Кроссплатформенный установщик на Node (`package/install.mjs`) — источник истины.
+  PowerShell / BAT остаются обёрткой для двойного клика на Windows; `install.sh` — для POSIX.
+- Резолв клона: `--root` → `HERMES_AGENT_ROOT` → `HERMES_INSTALL_DIR` →
+  `$HERMES_HOME/hermes-agent` → `~/.hermes/hermes-agent` →
+  `/usr/local/lib/hermes-agent` → `%LOCALAPPDATA%\hermes\hermes-agent`.
+- Резолв asar только внутри клона: `win-unpacked` / `linux-unpacked` /
+  `mac[-arm64|-x64]/Hermes.app/Contents/Resources`. Официальный `.app` / AppImage
+  с сайта не трогаем.
+- `node package/install.mjs --self-test` — проверка резолва без клона Hermes.
+- CI: `check.yml` гоняет self-test. `experimental-posix.yml` (`workflow_dispatch`) —
+  self-test на ubuntu+macos и опциональный doctor против shallow-клона апстрима
+  (без `npm run pack`, без UI).
+- README: Linux/macOS помечены как экспериментальные; автор на них установку не гонял.
+- Переводы: `vibeHeartsTitle`/`vibeHeartsDesc` (тумблер Vibe Hearts),
+  `view.selectionToComposer` (ренейм), `newTab`; окно создания бота/агента в
+  `hermes-bots` (Provider/Model (Custom), Capabilities, SOUL.md, remote-заметка).
+- Реестр doctor: 859 → **865 правил**. Удалён мёртвый перевод
+  `auxiliary.tasks.web_extract` (label/hint — ключ убран апстримом).
+- `AUTHORS.md`: атрибуционный текст от первого лица.
+
+### Changed
+- CLI больше не вызывает `powershell.exe`. `package.json`: снят `"os": ["win32"]`.
+- Kill процессов — по пути клона/pack, не по имени `hermes` (CLI не гасим).
+- На darwin после подмены asar — best-effort ad-hoc `codesign --sign -`.
+- README.ru / README.en переписаны (структура та же; конвенции перевода сжаты).
+
 ## [1.1.1] - 2026-08-25
 
 ### Added

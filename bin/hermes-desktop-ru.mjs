@@ -1,13 +1,12 @@
 #!/usr/bin/env node
-// hermes-desktop-ru CLI — тонкая обёртка над PowerShell-установщиком.
-// npm кладёт этот скрипт в PATH (shim), установщик лежит рядом: ../package/install-asar.ps1
+// hermes-desktop-ru CLI — тонкая обёртка над package/install.mjs
 import { spawnSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
-const installer = path.join(here, '..', 'package', 'install-asar.ps1')
+const installer = path.join(here, '..', 'package', 'install.mjs')
 const pkgPath = path.join(here, '..', 'package.json')
 
 function readVersion() {
@@ -19,8 +18,6 @@ function readVersion() {
   }
 }
 
-const [, , cmd, ...rest] = process.argv
-
 function printHelp() {
   console.log('hermes-desktop-ru — русская локализация Hermes Desktop')
   console.log('')
@@ -30,45 +27,34 @@ function printHelp() {
   console.log('  hermes-desktop-ru version              версия пакета (из package.json)')
   console.log('  hermes-desktop-ru help                 справка')
   console.log('')
-  console.log('Флаги install: -Root <путь к клону hermes-agent>, -AllowStaleDist')
+  console.log('Флаги install: --root <путь к клону hermes-agent>, --allow-stale-dist')
+  console.log('Клон: HERMES_AGENT_ROOT или ~/.hermes/hermes-agent или %LOCALAPPDATA%\\hermes\\hermes-agent')
+  console.log('Linux/macOS — экспериментально (автор на них не тестировал).')
 }
 
-let psArgs
-switch (cmd) {
-  case 'install':
-    psArgs = rest
-    break
-  case 'doctor':
-    psArgs = ['-Doctor', ...rest]
-    break
-  case 'uninstall':
-    psArgs = ['-Uninstall', ...rest]
-    break
-  case 'version':
-  case '--version':
-  case '-v':
-    console.log(readVersion())
-    process.exit(0)
-  case 'help':
-  case '--help':
-  case '-h':
-    psArgs = ['-Help']
-    break
-  case undefined:
-    printHelp()
-    process.exit(0)
-  default:
-    console.error(`Неизвестная команда: ${cmd}. Доступно: install, doctor, uninstall, version, help`)
-    process.exit(2)
+const args = process.argv.slice(2)
+if (args.length === 0) {
+  printHelp()
+  process.exit(0)
 }
 
-const r = spawnSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', installer, ...psArgs], {
-  stdio: 'inherit'
+const cmd = args[0]
+if (cmd === 'version' || cmd === '--version' || cmd === '-v') {
+  console.log(readVersion())
+  process.exit(0)
+}
+if (cmd === 'help' || cmd === '--help' || cmd === '-h') {
+  printHelp()
+  process.exit(0)
+}
+
+const r = spawnSync(process.execPath, [installer, ...args], {
+  stdio: 'inherit',
 })
 
 if (r.error) {
-  console.error(`Не удалось запустить PowerShell: ${r.error.message}`)
-  console.error('CLI работает на Windows; на других ОС используйте install-asar.ps1 напрямую.')
+  console.error(`Не удалось запустить установщик: ${r.error.message}`)
+  console.error('Нужен Node.js 18+.')
   process.exit(1)
 }
 

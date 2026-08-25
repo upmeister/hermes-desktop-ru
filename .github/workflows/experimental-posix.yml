@@ -1,0 +1,41 @@
+name: experimental-posix
+
+# Linux / macOS smoke for the Node installer.
+# Does NOT build or pack Hermes Desktop (no asar rewrite).
+# Doctor against upstream HEAD is expected to WARN when the registry lags;
+# this job tests that the installer runs, not 859/859 coverage.
+on:
+  workflow_dispatch:
+    inputs:
+      run_doctor:
+        description: "Clone hermes-agent and run doctor (WARN on HEAD is OK)"
+        type: boolean
+        default: true
+
+jobs:
+  posix:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: syntax + self-test + help
+        run: |
+          node --check package/install.mjs
+          node --check bin/hermes-desktop-ru.mjs
+          node package/install.mjs --self-test
+          node package/install.mjs version
+          node package/install.mjs help
+      - name: doctor vs shallow hermes-agent
+        if: ${{ inputs.run_doctor }}
+        env:
+          HERMES_AGENT_ROOT: ${{ runner.temp }}/hermes-agent
+        run: |
+          git clone --depth 1 https://github.com/NousResearch/hermes-agent.git "$HERMES_AGENT_ROOT"
+          echo "NOTE: cosmetic WARN against upstream HEAD is expected; FAIL only if a critical file vanished."
+          node package/install.mjs doctor --root "$HERMES_AGENT_ROOT"

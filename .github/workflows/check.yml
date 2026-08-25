@@ -15,6 +15,7 @@ jobs:
       - name: syntax (node --check)
         run: |
           node --check bin/hermes-desktop-ru.mjs
+          node --check package/install.mjs
           node --check package/apply-hardcodes.mjs
           node --check package/gen-registry.mjs
           node --check package/structural-i18n.mjs
@@ -22,3 +23,5 @@ jobs:
           node --check package/probe-ru.mjs
       - name: parse registry.json
         run: node -e "const r=JSON.parse(require('fs').readFileSync('package/registry.json','utf8')); if(!Array.isArray(r)) process.exit(1); console.log('rules', r.length)"
+      - name: installer self-test
+        run: node package/install.mjs --self-test

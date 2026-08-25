@@ -2,7 +2,7 @@
 
 [🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md)
 
-Полная русская локализация [Hermes Desktop](https://github.com/NousResearch/hermes-agent) для Windows.
+Полная русская локализация [Hermes Desktop](https://github.com/NousResearch/hermes-agent).
 
 [![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.20.5-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
 [![npm](https://img.shields.io/npm/v/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
@@ -11,11 +11,13 @@
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Последний релиз: [v1.1.1](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.1.1) · Hermes 0.20.5 · 25 августа 2026**
+**Последний релиз: [v1.2.0](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.0) · Hermes 0.20.5 · 25 августа 2026**
 
 Официальный клиент умеет несколько языков, но **русского в актуальной ветке нет**. Этот мод переводит весь UI — в том числе места, которые обычный файл локали не достаёт (Боты, канбан, подписи настроек, сообщения главного процесса). После `hermes update` ставится заново одной командой.
 
-> Не для portable/prebuilt `.exe` — нужен Desktop, установленный из исходников (`git clone`).
+> Нужен Desktop **из исходников** (`hermes desktop` / `git clone`), не portable и не готовый установщик с сайта.
+>
+> **Windows** — основной и проверенный автором путь. **Linux и macOS** — экспериментально: установщик их понимает, но автор на живой машине это не гонял. Официальный подписанный `.app` / AppImage с сайта **не патчим**.
 
 | | Обычный locale pack | Этот мод |
 |---|---|---|
@@ -35,9 +37,13 @@
 ## Установка
 
 Нужны Node.js 18+ и **закрытый** Hermes Desktop (сборка 5–10 минут).
-Обычный путь клона: `%LOCALAPPDATA%\hermes\hermes-agent`
 
-```powershell
+Обычный путь клона:
+
+- Windows: `%LOCALAPPDATA%\hermes\hermes-agent`
+- Linux / macOS: `~/.hermes/hermes-agent`
+
+```bash
 npm install -g hermes-desktop-ru
 hermes-desktop-ru install
 ```
@@ -52,13 +58,22 @@ hermes-desktop-ru install
 
 Клон не там, где обычно:
 
-```powershell
-hermes-desktop-ru install -Root "D:\path\to\hermes-agent"
+```bash
+hermes-desktop-ru install --root /path/to/hermes-agent
 ```
 
-Без npm: скачайте [release zip](https://github.com/upmeister/hermes-desktop-ru/releases), распакуйте, запустите `install.bat`.
+Подойдут и `HERMES_AGENT_ROOT`, и `HERMES_HOME`.
+
+Без npm: скачайте [release zip](https://github.com/upmeister/hermes-desktop-ru/releases), распакуйте.
+
+- Windows: `install.bat` (двойной клик) или `install.ps1`
+- Linux / macOS: `./install.sh` или `node install.mjs`
+
+Перед установкой Desktop должен быть хотя бы раз собран из этого клона (`hermes desktop` или `cd apps/desktop && npm run pack`). Установщик ищет `app.asar` только внутри `apps/desktop/release/` (`win-unpacked` / `linux-unpacked` / `Hermes.app`).
 
 После `УСТАНОВКА OK` откройте Desktop (если язык не сменился сам — **Русский** в настройках).
+
+На Mac после подмены asar установщик ставит ad-hoc подпись. Это не нотаризация Apple: Gatekeeper может всё равно ругнуться. Если Desktop «повреждён» — вы не в том `.app` (нужен self-built из клона, не скачанный с сайта).
 
 ## После обновления Hermes
 
@@ -77,25 +92,15 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 | i18n-каталог: чат, настройки, шлюз, биллинг, онбординг | ✅ полный |
 | Хардкоды компонентов: поля настроек, splash, мессенджеры, темы | ✅ |
 | Канбан, плагин Bots, сообщения main-процесса | ✅ |
-| Реестр doctor (хардкод-якоря) | ✅ 859 правил |
-
-Имена собственные и команды не трогаем; MCP, DIFF, URL, PR, YOLO — как есть.
+| Реестр doctor (хардкод-якоря) | ✅ 865 правил |
 
 ## Конвенции перевода
 
-- **Имена собственные** (платформы, плагины, провайдеры, модели, команды,
-  лог-фильтры) — не переводим. Имена тем тоже: Midnight/Ember/Slate и т.п.
-  (это proper names и бренды сторонних проектов); описания тем — переводим.
-- **Технические термины** (MCP, DIFF, URL, PR, Pull request, JSON) — в оригинале.
-- Стабильный глоссарий: «Артефакты» → «Рабочие материалы», Maintenance →
-  «Обслуживание и диагностика», `model.reasoning` → «Рассуждения».
-- Плюрализация — через `ruPlural`; функциональные ключи EN строками не
-  заменяем (краш «is not a function»).
-- **Что идёт из бэкенда — не переводим**: логи, ошибки CLI, traceback,
-  JSON-ответы, системные сообщения ОС — это не UI, и патчить их нельзя.
-  Иногда мод всё же правит вывод бэкенда, если строка попадает прямо в
-  интерфейс (пример: подсказка wake-word из `tui_gateway/server.py`), но
-  такие места редки и помечены в реестре отдельно.
+- Имена собственные не трогаем: платформы, плагины, провайдеры, модели, команды, имена тем (`Midnight`, `Catppuccin`). Описания тем — переводим.
+- Технические термины оставляем как есть: MCP, DIFF, URL, PR, YOLO, JSON.
+- Устоявшиеся подписи UI: Artifacts → «Рабочие материалы», Maintenance → «Обслуживание и диагностика», Reasoning → «Рассуждения».
+- Плюрализация — через `ruPlural`. Функциональные ключи английскими строками не подменяем (иначе краш «is not a function»).
+- То, что приходит из бэкенда (логи, CLI, traceback, JSON, сообщения ОС), не переводим. Редкое исключение — строка бэкенда, которая торчит прямо в UI (например подсказка wake-word); такие места помечены в реестре.
 
 Перед записью гоняется **doctor**: косметический пропуск или неоднозначный якорь (часто в Bots) оставит пятно по-английски — установка идёт. Остановка только если пропал файл критичного правила (канбан / connection-registry). Сборка (`npm run build`) — отдельный жёсткий стоп.
 
@@ -105,13 +110,15 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 
 | Симптом | Что сделать |
 |---|---|
-| «не найден клон hermes-agent» | `-Root` или `HERMES_AGENT_ROOT` |
+| «не найден клон hermes-agent» | `--root` или `HERMES_AGENT_ROOT` |
+| «не найден packaged app.asar» | соберите Desktop из клона (`hermes desktop` / `npm run pack`). Prebuilt с сайта не подойдёт |
 | Doctor FAIL | пропал файл критичного правила — [issue](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
 | Doctor WARN, часть UI на английском | нормально после большого апдейта Bots; дождитесь следующего релиза мода или поставьте как есть |
-| Access is denied / EBUSY | закройте Desktop и шлюз, повторите |
+| Access is denied / EBUSY / файл занят | закройте Desktop и шлюз, повторите |
+| macOS: «приложение повреждено» / Gatekeeper | мод только для self-built `.app` из клона, не для скачанного с сайта |
 | Долго на npm ci | нормально после `hermes update` (3–10 мин) |
 | Часть UI на английском | `doctor`, затем `install`, перезапуск |
-| Откатить мод | `hermes-desktop-ru uninstall` (нужен `.stock.bak` от прошлой установки). Или руками: закройте Desktop → замените `resources\app.asar` на `resources\app.asar.stock.bak` → запустите. Полный сброс клона — `hermes update` |
+| Откатить мод | `hermes-desktop-ru uninstall` (нужен `.stock.bak` от прошлой установки). Или руками: закройте Desktop → замените `resources/app.asar` на `resources/app.asar.stock.bak` → запустите. Полный сброс клона — `hermes update` |
 
 Баги и непереведённые места: [GitHub Issues](https://github.com/upmeister/hermes-desktop-ru/issues/new/choose).
 
