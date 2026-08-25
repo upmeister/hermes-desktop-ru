@@ -8,7 +8,8 @@
 // Резолв клона: --root → HERMES_AGENT_ROOT → HERMES_INSTALL_DIR →
 //   $HERMES_HOME/hermes-agent → ~/.hermes/hermes-agent →
 //   /usr/local/lib/hermes-agent → %LOCALAPPDATA%\hermes\hermes-agent
-// Резолв asar: только apps/desktop/release/{win-unpacked,linux-unpacked,mac*/Hermes.app}
+// Резолв asar: только apps/desktop/release/
+//   {win,linux}[-arm64]-unpacked / mac[-arm64|-x64]/Hermes.app
 //   Официальный notarized .app из /Applications и AppImage с сайта — не трогаем.
 //
 // Linux/macOS — экспериментально. Автор мода на них установку не гонял.
@@ -36,7 +37,7 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const isWin = process.platform === 'win32'
 const isMac = process.platform === 'darwin'
 const isLinux = process.platform === 'linux'
-const FALLBACK_VERSION = '1.2.0'
+const FALLBACK_VERSION = '1.2.1'
 
 function sleepSync(ms) {
   const buf = new Int32Array(new SharedArrayBuffer(4))
@@ -95,7 +96,9 @@ CLI (npm):
 
 Где ищем app.asar (только внутри клона, не /Applications):
   apps/desktop/release/win-unpacked/resources/app.asar
+  apps/desktop/release/win-arm64-unpacked/resources/app.asar
   apps/desktop/release/linux-unpacked/resources/app.asar
+  apps/desktop/release/linux-arm64-unpacked/resources/app.asar
   apps/desktop/release/mac[-arm64|-x64]/Hermes.app/Contents/Resources/app.asar
 
 Важно:
@@ -229,15 +232,24 @@ function pathInside(child, parent) {
 
 function scorePack(resources) {
   const n = resources.replace(/\\/g, '/')
+  const isWinArm = n.includes('/win-arm64-unpacked/')
+  const isWinX = n.includes('/win-unpacked/') && !isWinArm
+  const isLinuxArm = n.includes('/linux-arm64-unpacked/')
+  const isLinuxX = n.includes('/linux-unpacked/') && !isLinuxArm
+  const isMacApp = /Hermes\.app\/Contents\/Resources$/i.test(n)
   let s = 0
-  if (isWin && n.includes('/win-unpacked/')) s += 20
-  if (isLinux && n.includes('/linux-unpacked/')) s += 20
-  if (isMac && /Hermes\.app\/Contents\/Resources$/i.test(n)) s += 20
+  if (isWin && (isWinX || isWinArm)) s += 20
+  if (isLinux && (isLinuxX || isLinuxArm)) s += 20
+  if (isMac && isMacApp) s += 20
+  if (isWin && isWinArm && process.arch === 'arm64') s += 6
+  if (isWin && isWinX && process.arch !== 'arm64') s += 6
+  if (isLinux && isLinuxArm && process.arch === 'arm64') s += 6
+  if (isLinux && isLinuxX && process.arch !== 'arm64') s += 6
   if (isMac && n.includes('/mac-arm64/') && process.arch === 'arm64') s += 6
   if (isMac && n.includes('/mac-x64/') && process.arch === 'x64') s += 6
-  if (n.includes('/win-unpacked/')) s += 2
-  if (n.includes('/linux-unpacked/')) s += 2
-  if (/Hermes\.app\/Contents\/Resources$/i.test(n)) s += 2
+  if (isWinX || isWinArm) s += 2
+  if (isLinuxX || isLinuxArm) s += 2
+  if (isMacApp) s += 2
   return s
 }
 
@@ -258,7 +270,9 @@ function collectPacks(releaseDir) {
   }
 
   add(path.join(releaseDir, 'win-unpacked', 'resources'))
+  add(path.join(releaseDir, 'win-arm64-unpacked', 'resources'))
   add(path.join(releaseDir, 'linux-unpacked', 'resources'))
+  add(path.join(releaseDir, 'linux-arm64-unpacked', 'resources'))
   add(path.join(releaseDir, 'mac-arm64', 'Hermes.app', 'Contents', 'Resources'))
   add(path.join(releaseDir, 'mac', 'Hermes.app', 'Contents', 'Resources'))
   add(path.join(releaseDir, 'mac-x64', 'Hermes.app', 'Contents', 'Resources'))
@@ -275,7 +289,7 @@ function collectPacks(releaseDir) {
     for (const e of ents) {
       if (!e.isDirectory()) continue
       const p = path.join(dir, e.name)
-      if (e.name === 'Resources') add(p)
+      if (e.name.toLowerCase() === 'resources') add(p)
       else walk(p, depth + 1)
     }
   }
@@ -548,8 +562,8 @@ function printRootHints() {
 
 function packHint() {
   if (isMac) return 'cd apps/desktop && npm run pack   # Hermes.app в release/mac-arm64 или release/mac'
-  if (isLinux) return 'cd apps/desktop && npm run pack   # linux-unpacked в release/'
-  return 'cd apps/desktop && npm run pack   # win-unpacked в release/'
+  if (isLinux) return 'cd apps/desktop && npm run pack   # linux-unpacked или linux-arm64-unpacked в release/'
+  return 'cd apps/desktop && npm run pack   # win-unpacked или win-arm64-unpacked в release/'
 }
 
 function codesignIfMac(pack) {
@@ -603,15 +617,27 @@ function selfTest() {
   try {
     const clone = path.join(tmp, 'hermes-agent')
     const linuxRes = path.join(clone, 'apps', 'desktop', 'release', 'linux-unpacked', 'resources')
+    const linuxArmRes = path.join(clone, 'apps', 'desktop', 'release', 'linux-arm64-unpacked', 'resources')
     const winRes = path.join(clone, 'apps', 'desktop', 'release', 'win-unpacked', 'resources')
+    const winArmRes = path.join(clone, 'apps', 'desktop', 'release', 'win-arm64-unpacked', 'resources')
     const macRes = path.join(clone, 'apps', 'desktop', 'release', 'mac-arm64', 'Hermes.app', 'Contents', 'Resources')
+    const macXRes = path.join(clone, 'apps', 'desktop', 'release', 'mac-x64', 'Hermes.app', 'Contents', 'Resources')
+    const weirdRes = path.join(clone, 'apps', 'desktop', 'release', 'custom-unpacked', 'Resources')
     ensureDir(linuxRes)
+    ensureDir(linuxArmRes)
     ensureDir(winRes)
+    ensureDir(winArmRes)
     ensureDir(macRes)
+    ensureDir(macXRes)
+    ensureDir(weirdRes)
     writeFileSync(path.join(clone, 'apps', 'desktop', 'package.json'), '{"name":"hermes"}\n')
     writeFileSync(path.join(linuxRes, 'app.asar'), 'linux')
+    writeFileSync(path.join(linuxArmRes, 'app.asar'), 'linux-arm')
     writeFileSync(path.join(winRes, 'app.asar'), 'win')
+    writeFileSync(path.join(winArmRes, 'app.asar'), 'win-arm')
     writeFileSync(path.join(macRes, 'app.asar'), 'mac')
+    writeFileSync(path.join(macXRes, 'app.asar'), 'mac-x64')
+    writeFileSync(path.join(weirdRes, 'app.asar'), 'weird')
 
     if (!isHermesClone(clone)) failures.push('isHermesClone fake tree')
     if (isHermesClone(tmp)) failures.push('isHermesClone false positive')
@@ -620,6 +646,29 @@ function selfTest() {
     if (!pack || !existsSync(pack.asar)) failures.push('resolvePack missing')
     if (pack && !pathInside(pack.asar, path.join(clone, 'apps', 'desktop', 'release'))) {
       failures.push('resolvePack escaped release/')
+    }
+    if (pack) {
+      const n = pack.resources.replace(/\\/g, '/')
+      if (n.toLowerCase().includes('/custom-unpacked/')) {
+        failures.push('resolvePack preferred leftover custom-unpacked over native layout')
+      }
+      if (isWin) {
+        const want = process.arch === 'arm64' ? '/win-arm64-unpacked/' : '/win-unpacked/'
+        if (!n.includes(want)) failures.push(`resolvePack expected ${want} on win32/${process.arch}, got ${n}`)
+      }
+      if (isLinux) {
+        const want = process.arch === 'arm64' ? '/linux-arm64-unpacked/' : '/linux-unpacked/'
+        if (!n.includes(want)) failures.push(`resolvePack expected ${want} on linux/${process.arch}, got ${n}`)
+      }
+      if (isMac) {
+        if (!/Hermes\.app\/Contents\/Resources$/i.test(n)) {
+          failures.push(`resolvePack expected Hermes.app on darwin, got ${n}`)
+        } else if (process.arch === 'arm64' && !n.includes('/mac-arm64/')) {
+          failures.push(`resolvePack expected mac-arm64 on darwin/arm64, got ${n}`)
+        } else if (process.arch === 'x64' && !n.includes('/mac-x64/')) {
+          failures.push(`resolvePack expected mac-x64 on darwin/x64, got ${n}`)
+        }
+      }
     }
 
     const outside = path.join(tmp, 'Applications', 'Hermes.app', 'Contents', 'Resources')
@@ -636,6 +685,15 @@ function selfTest() {
     const applyJs = path.join(here, 'apply-hardcodes.mjs')
     if (!existsSync(applyJs)) {
       console.log('self-test: apply-hardcodes.mjs отсутствует в этой раскладке (ок для урезанного zip)')
+    }
+
+    if (isWin) {
+      const npm = run('npm.cmd', ['--version'], { shell: true })
+      if (npm.error) {
+        failures.push(`npm.cmd spawn (shell:true) failed: ${npm.error.message}`)
+      } else if (npm.status !== 0) {
+        failures.push(`npm.cmd --version exit ${npm.status}`)
+      }
     }
   } finally {
     rmSync(tmp, { recursive: true, force: true })

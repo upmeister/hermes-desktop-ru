@@ -7,6 +7,25 @@
 > Предыдущая линия 7.6.x (август 2026) считается тестовой и здесь не описывается;
 > её историю можно посмотреть в git-истории репозитория.
 
+## [1.2.1] - 2026-08-26
+
+### Added
+- Волна переводов «слепых зон»: Боты (статусы провайдеров, continuous chat, Hourly),
+  композер (Attach a file/folder/…), биллинг (Auto-refill, Remote Spending), канбан
+  (help-подсказки колонок), MCP-каталог (Jira/Linear/Figma/Sentry/Datadog), ошибки
+  сессий (Session unavailable / Couldn't open this session), split-меню «Вверх».
+- Реестр: 865 → **946 правил** (doctor 946/946, GATE 0).
+- `.gitattributes`: LF для `sh`/`mjs`, CRLF для `bat`/`ps1`.
+- Asar: `win-arm64-unpacked` / `linux-arm64-unpacked`; walk ищет `resources`
+  без учёта регистра (только под `apps/desktop/release/`).
+- `check.yml`: матрица ubuntu + windows. На Linux — `bash install.sh --self-test`
+  и проверка +x. На Windows `--self-test` спавнит `npm.cmd --version` с `shell: true`.
+- `--self-test`: на фейковом дереве выбирает нативный layout (win/linux/mac + arch).
+- Issue-шаблоны: поля «ОС» и «как собран Desktop».
+
+### Fixed
+- README.en: совместимость 0.20.5 — doctor 865 (1.2.0), не 859/1.1.1.
+
 ## [1.2.0] - 2026-08-25
 
 ### Added

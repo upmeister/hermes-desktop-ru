@@ -11,7 +11,7 @@ Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/h
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.2.0](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.0) · Hermes Desktop 0.20.5 · 2026-08-25**
+**Latest: [v1.2.1](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.1) · Hermes Desktop 0.20.5 · 2026-08-26**
 
 Hermes Desktop has **no Russian locale in the current release line** (upstream `ru` PRs have sat open since July). i18n-only packs translate the catalog and leave hardcoded strings in components, settings field labels, Bots/kanban, and the Electron main process.
 
@@ -36,7 +36,7 @@ This is not a portable / prebuilt installer patch. It expects a **source checkou
 | Bots / kanban / main-process | ❌ | ✅ |
 | After `hermes update` | new UI stays English | re-run `hermes-desktop-ru install` |
 
-- **865-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
+- **946-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
 - **Doctor-gated installer** — dry-run before any write. Cosmetic misses (including an ambiguous short literal in Bots) warn — that spot stays English. Install fails only if a *critical file* is gone (kanban / connection-registry). A failed `npm run build` is the real hard stop.
 - **Survives `hermes update`**: restore tracked sources to stock → doctor → apply → register `ru` → rebuild `dist` → repack `asar` (original kept as `.stock.bak`).
 
@@ -68,14 +68,16 @@ Clone resolution, first hit wins:
 Asar resolution is **clone-local only** (`apps/desktop/release/`):
 
 - `win-unpacked/resources/app.asar`
+- `win-arm64-unpacked/resources/app.asar`
 - `linux-unpacked/resources/app.asar`
+- `linux-arm64-unpacked/resources/app.asar`
 - `mac[-arm64|-x64]/Hermes.app/Contents/Resources/app.asar`
 
 `/Applications/Hermes.app` and a website AppImage are out of scope on purpose (Gatekeeper / you become an unofficial Hermes distributor).
 
 `package.json` no longer sets `"os": ["win32"]`. npm will install the CLI on Linux/macOS; that does not mean those platforms are supported at Windows quality. Process-kill and uninstall there are best-effort. After swapping asar inside a self-built `.app`, the installer runs ad-hoc `codesign --sign -` — not Apple notarization.
 
-CI: `check.yml` runs `node --check`, parses `registry.json`, and `node package/install.mjs --self-test`. `experimental-posix.yml` is `workflow_dispatch` only: self-test on ubuntu+macos, optional `doctor` against a shallow `hermes-agent` clone (cosmetic WARN on HEAD is expected; FAIL only if a critical file vanished). It does **not** `npm run pack` Hermes.
+CI: `check.yml` runs `node --check`, parses `registry.json`, and `--self-test` on ubuntu + windows (on Windows the self-test also spawns `npm.cmd --version` with `shell: true`). `experimental-posix.yml` is `workflow_dispatch` only: self-test on ubuntu+macos, optional `doctor` against a shallow `hermes-agent` clone (cosmetic WARN on HEAD is expected; FAIL only if a critical file vanished). It does **not** `npm run pack` Hermes.
 
 ## Install
 
@@ -148,7 +150,7 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 | Hermes Desktop | |
 |---|---|
-| **0.20.5** | verified on Windows (doctor 865/865 at 1.2.0). A later Bots rewrite may WARN — install still proceeds |
+| **0.20.5** | verified on Windows (doctor 946/946 at 1.2.1). A later Bots rewrite may WARN — install still proceeds |
 | Linux / macOS | installer can resolve paths; **not author-tested**. Treat as experimental |
 | older | install the mod release that matches |
 

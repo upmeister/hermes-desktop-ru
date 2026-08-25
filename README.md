@@ -11,7 +11,7 @@
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Последний релиз: [v1.2.0](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.0) · Hermes 0.20.5 · 25 августа 2026**
+**Последний релиз: [v1.2.1](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.1) · Hermes 0.20.5 · 26 августа 2026**
 
 Официальный клиент умеет несколько языков, но **русского в актуальной ветке нет**. Этот мод переводит весь UI — в том числе места, которые обычный файл локали не достаёт (Боты, канбан, подписи настроек, сообщения главного процесса). После `hermes update` ставится заново одной командой.
 
@@ -69,7 +69,7 @@ hermes-desktop-ru install --root /path/to/hermes-agent
 - Windows: `install.bat` (двойной клик) или `install.ps1`
 - Linux / macOS: `./install.sh` или `node install.mjs`
 
-Перед установкой Desktop должен быть хотя бы раз собран из этого клона (`hermes desktop` или `cd apps/desktop && npm run pack`). Установщик ищет `app.asar` только внутри `apps/desktop/release/` (`win-unpacked` / `linux-unpacked` / `Hermes.app`).
+Перед установкой Desktop должен быть хотя бы раз собран из этого клона (`hermes desktop` или `cd apps/desktop && npm run pack`). Установщик ищет `app.asar` только внутри `apps/desktop/release/` (`win-unpacked` / `win-arm64-unpacked` / `linux-unpacked` / `linux-arm64-unpacked` / `Hermes.app`).
 
 После `УСТАНОВКА OK` откройте Desktop (если язык не сменился сам — **Русский** в настройках).
 
@@ -92,7 +92,7 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 | i18n-каталог: чат, настройки, шлюз, биллинг, онбординг | ✅ полный |
 | Хардкоды компонентов: поля настроек, splash, мессенджеры, темы | ✅ |
 | Канбан, плагин Bots, сообщения main-процесса | ✅ |
-| Реестр doctor (хардкод-якоря) | ✅ 865 правил |
+| Реестр doctor (хардкод-якоря) | ✅ 946 правил |
 
 ## Конвенции перевода
 

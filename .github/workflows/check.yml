@@ -6,7 +6,11 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,3 +29,8 @@ jobs:
         run: node -e "const r=JSON.parse(require('fs').readFileSync('package/registry.json','utf8')); if(!Array.isArray(r)) process.exit(1); console.log('rules', r.length)"
       - name: installer self-test
         run: node package/install.mjs --self-test
+      - name: POSIX wrapper +x / bash self-test
+        if: runner.os == 'Linux'
+        run: |
+          test -x package/install.sh || { echo "install.sh is not executable — git update-index --chmod=+x package/install.sh"; ls -l package/install.sh; exit 1; }
+          bash package/install.sh --self-test

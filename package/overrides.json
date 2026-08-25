@@ -1,5 +1,62 @@
 [
   {
+    "delete": "hermes-bots-No_agents_yet"
+  },
+  {
+    "delete": "hermes-bots-w3-5287"
+  },
+  {
+    "delete": "hermes-bots-w3-5434"
+  },
+  {
+    "delete": "hermes-bots-w3-5449"
+  },
+  {
+    "delete": "hermes-bots-w3-5473"
+  },
+  {
+    "delete": "hermes-bots-w3-9248"
+  },
+  {
+    "delete": "hermes-bots-w6-7216"
+  },
+  {
+    "delete": "hermes-bots-Create_your_first_teamma"
+  },
+  {
+    "delete": "hermes-bots-New_Agent…"
+  },
+  {
+    "delete": "hermes-bots-oneliner-New_Agent"
+  },
+  {
+    "delete": "hermes-bots-needs_you"
+  },
+  {
+    "delete": "hermes-bots-w3-10239"
+  },
+  {
+    "delete": "hermes-bots-w3-10416"
+  },
+  {
+    "delete": "hermes-bots-w3-9274"
+  },
+  {
+    "delete": "hermes-bots-w3-10200"
+  },
+  {
+    "delete": "hermes-bots-Search_bots…"
+  },
+  {
+    "delete": "plugin-js-open-chat"
+  },
+  {
+    "delete": "hermes-bots-Bot_Chat"
+  },
+  {
+    "delete": "hermes-bots-w3-9274"
+  },
+  {
     "id": "custom-endpoints-settings.tsx-9",
     "file": "apps/desktop/src/app/settings/custom-endpoints-settings.tsx",
     "before": [
@@ -2319,57 +2376,6 @@
     "severity": "cosmetic"
   },
   {
-    "delete": "hermes-bots-No_agents_yet"
-  },
-  {
-    "delete": "hermes-bots-w3-5287"
-  },
-  {
-    "delete": "hermes-bots-w3-5434"
-  },
-  {
-    "delete": "hermes-bots-w3-5449"
-  },
-  {
-    "delete": "hermes-bots-w3-5473"
-  },
-  {
-    "delete": "hermes-bots-w3-9248"
-  },
-  {
-    "delete": "hermes-bots-w6-7216"
-  },
-  {
-    "delete": "hermes-bots-Create_your_first_teamma"
-  },
-  {
-    "delete": "hermes-bots-New_Agent…"
-  },
-  {
-    "delete": "hermes-bots-oneliner-New_Agent"
-  },
-  {
-    "delete": "hermes-bots-needs_you"
-  },
-  {
-    "delete": "hermes-bots-w3-10239"
-  },
-  {
-    "delete": "hermes-bots-w3-10416"
-  },
-  {
-    "delete": "hermes-bots-w3-9274"
-  },
-  {
-    "delete": "hermes-bots-w3-10200"
-  },
-  {
-    "delete": "hermes-bots-Search_bots…"
-  },
-  {
-    "delete": "plugin-js-open-chat"
-  },
-  {
     "id": "groupchat-pick",
     "before": [
       "              children: `Pick 2–${GROUP_CHAT_MAX_MEMBERS} bots. Local memberships sync through each Bot profile; cross-machine members stay scoped to this room.`"
@@ -2500,9 +2506,6 @@
       "              'aria-label': `Открыть чат ${label}`,"
     ],
     "severity": "cosmetic"
-  },
-  {
-    "delete": "hermes-bots-Bot_Chat"
   },
   {
     "id": "wave2-cron-unavailable",
@@ -3121,9 +3124,6 @@
     "after": [
       "                      : 'Комната работает…'"
     ]
-  },
-  {
-    "delete": "hermes-bots-w3-9274"
   },
   {
     "id": "wave3b-group-tip-label",
@@ -4765,6 +4765,817 @@
     ],
     "after": [
       "          children: 'Удалённые возможности требуют более новой версии Desktop. Изменения модели и SOUL остаются отложенными до сохранения.'"
+    ]
+  },
+  {
+    "id": "test-expansion-202",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "  provider_auth_or_access: 'Sign in again for this profile',"
+    ],
+    "after": [
+      "  provider_auth_or_access: 'Войдите снова для этого профиля',"
+    ]
+  },
+  {
+    "id": "test-expansion-203",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "  provider_quota_limit: 'Quota or balance exhausted',"
+    ],
+    "after": [
+      "  provider_quota_limit: 'Квота или баланс исчерпаны',"
+    ]
+  },
+  {
+    "id": "test-expansion-204",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "  missing_config: 'Provider not configured — run hermes model',"
+    ],
+    "after": [
+      "  missing_config: 'Провайдер не настроен — выполните hermes model',"
+    ]
+  },
+  {
+    "id": "test-expansion-205",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "  agent_blocked: 'Bot is blocked — see its last message'"
+    ],
+    "after": [
+      "  agent_blocked: 'Бот заблокирован — смотрите последнее сообщение'"
+    ]
+  },
+  {
+    "id": "test-expansion-3906",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "        host.notify({ kind: 'error', message: 'Image too large (max 15MB).' })"
+    ],
+    "after": [
+      "        host.notify({ kind: 'error', message: 'Изображение слишком большое (макс. 15 МБ).' })"
+    ]
+  },
+  {
+    "id": "test-expansion-4555",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                            host.notify({ kind: 'error', message: 'Could not load that pet — try another.' })"
+    ],
+    "after": [
+      "                            host.notify({ kind: 'error', message: 'Не удалось загрузить питомца — попробуйте другого.' })"
+    ]
+  },
+  {
+    "id": "test-expansion-4983",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "    host.notify?.({ kind: 'error', message: 'Update Hermes Desktop to open another Bot chat.' })"
+    ],
+    "after": [
+      "    host.notify?.({ kind: 'error', message: 'Обновите Hermes Desktop, чтобы открыть ещё один чат бота.' })"
+    ],
+    "all": true
+  },
+  {
+    "id": "test-expansion-5555",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "      message: `Update ${gateway}, then try again.`"
+    ],
+    "after": [
+      "      message: `Обновите ${gateway} и попробуйте снова.`"
+    ]
+  },
+  {
+    "id": "test-expansion-5688",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "        await requestForBot(bot, 'prompt.submit', { session_id: runtime, text: 'Hey, tell me about yourself!' })"
+    ],
+    "after": [
+      "        await requestForBot(bot, 'prompt.submit', { session_id: runtime, text: 'Привет, расскажи о себе!' })"
+    ]
+  },
+  {
+    "id": "test-expansion-6523",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "/** Room-log line as a member sees it: `Name (user): …` / `Name: …` /"
+    ],
+    "after": [
+      "/** Room-log line as a member sees it: `Имя (пользователь): …` / `Name: …` /"
+    ]
+  },
+  {
+    "id": "test-expansion-6792",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "    host.notify({ kind: 'error', message: `A group named “${next}” already exists.` })"
+    ],
+    "after": [
+      "    host.notify({ kind: 'error', message: `Группа с именем «${next}» уже существует.` })"
+    ]
+  },
+  {
+    "id": "test-expansion-8535",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "              host.notify({ kind: 'info', message: `Duplicating ${displayName(bot, meta)}…` })"
+    ],
+    "after": [
+      "              host.notify({ kind: 'info', message: `Дублирование ${displayName(bot, meta)}…` })"
+    ]
+  },
+  {
+    "id": "test-expansion-8539",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                  host.notify({ kind: 'success', message: `Created ${name} — full copy of ${bot.name}` })"
+    ],
+    "after": [
+      "                  host.notify({ kind: 'success', message: `Создан ${name} — полная копия ${bot.name}` })"
+    ]
+  },
+  {
+    "id": "test-expansion-9509",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "      host.notify({ kind: 'error', message: 'Saved look locally; remote persistence failed' })"
+    ],
+    "after": [
+      "      host.notify({ kind: 'error', message: 'Внешность сохранена локально, но не на сервере' })"
+    ]
+  },
+  {
+    "id": "test-expansion-9736",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "      .then(() => host.notify({ kind: 'success', message: `Draft agent \"${draft}\" discarded` }))"
+    ],
+    "after": [
+      "      .then(() => host.notify({ kind: 'success', message: `Черновик агента \"${draft}\" discarded` }))"
+    ]
+  },
+  {
+    "id": "test-expansion-12091",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "        options.push({ handle: pick, meta: 'Every bot in the room' })"
+    ],
+    "after": [
+      "        options.push({ handle: pick, meta: 'Каждый бот в комнате' })"
+    ]
+  },
+  {
+    "id": "test-expansion-14637",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                description: 'Create your first bot.'"
+    ],
+    "after": [
+      "                description: 'Создайте своего первого бота.'"
+    ]
+  },
+  {
+    "id": "test-expansion-14790",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "          host.notify({ kind: 'success', message: `Deleted profile ${name}` })"
+    ],
+    "after": [
+      "          host.notify({ kind: 'success', message: `Профиль ${name} удалён` })"
+    ]
+  },
+  {
+    "id": "test-expansion-14807",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "          host.notify({ kind: 'success', message: `Deleted group “${deletingGroup.name}”` })"
+    ],
+    "after": [
+      "          host.notify({ kind: 'success', message: `Группа «${deletingGroup.name}» удалена` })"
+    ]
+  },
+  {
+    "id": "test-expansion-15315",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "          host.notify({ kind: 'info', message: 'Open the Bots pane and hit “New Bot”.' })"
+    ],
+    "after": [
+      "          host.notify({ kind: 'info', message: 'Откройте панель «Боты» и нажмите «Новый бот».' })"
+    ]
+  },
+  {
+    "id": "test-kanban-207",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "    triage: { label: 'Triage', help: 'Raw ideas — a specifier fleshes out the spec.' },"
+    ],
+    "after": [
+      "    triage: { label: 'Triage', help: 'Сырые идеи — спецификатор проработает детали.' },"
+    ]
+  },
+  {
+    "id": "test-kanban-210",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "    ready: { label: 'Ready', help: 'Dependencies satisfied — assign a profile and the dispatcher runs it.' },"
+    ],
+    "after": [
+      "    ready: { label: 'Ready', help: 'Зависимости выполнены — назначьте профиль, и диспетчер запустит задачу.' },"
+    ]
+  },
+  {
+    "id": "test-kanban-215",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "    archived: { label: 'Archived', help: 'Hidden from the default board view.' }"
+    ],
+    "after": [
+      "    archived: { label: 'Archived', help: 'Скрыта из стандартного вида доски.' }"
+    ]
+  },
+  {
+    "id": "test-kanban-218",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "    review: 'Review is entered by the dispatcher when a review agent takes the card.',"
+    ],
+    "after": [
+      "    review: 'Ревью назначается диспетчером, когда карту берёт агент-ревьюер.',"
+    ]
+  },
+  {
+    "id": "test-kanban-219",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "    running: 'Running is set by the dispatcher when a worker claims the card.',"
+    ],
+    "after": [
+      "    running: 'Запущена — диспетчер ставит, когда карту захватывает воркер.',"
+    ]
+  },
+  {
+    "id": "test-kanban-220",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "    scheduled: 'Scheduled needs a wake-up time — agents set it; it can’t be dragged into.'"
+    ],
+    "after": [
+      "    scheduled: 'Запланирована — нужно время пробуждения (ставят агенты), перетащить нельзя.'"
+    ]
+  },
+  {
+    "id": "test-kanban-222",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "  arcRunning: 'An agent is working on this now.',"
+    ],
+    "after": [
+      "  arcRunning: 'Сейчас над этим работает агент.',"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-4217",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                          ? 'Unlock — the face follows the agent\\u2019s name again'"
+    ],
+    "after": [
+      "                          ? 'Разблокировать — лицо снова следует за именем агента'"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-4336",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                  ? 'No image model available. If you just enabled one (or updated Hermes), restart the gateway: Ctrl+K → \"Restart gateway\".'"
+    ],
+    "after": [
+      "                  ? 'Нет доступной модели изображений. Если вы только что включили её (или обновили Hermes), перезапустите шлюз: Ctrl+K → «Перезапустить шлюз».'"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-10662",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "      return h === 1 ? 'Hourly' : `Every ${h}h`"
+    ],
+    "after": [
+      "      return h === 1 ? 'Ежечасно' : `Каждые ${h} ч`"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-11342",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "    ? 'Could not refresh cronjobs. Showing the last list we had.'"
+    ],
+    "after": [
+      "    ? 'Не удалось обновить кроны. Показываем последний список.'"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-13464",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "        title: roster.length ? 'Choose a bot or group chat' : 'No bots yet',"
+    ],
+    "after": [
+      "        title: roster.length ? 'Выберите бота или групповой чат' : 'Ботов пока нет',"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-13465",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "        description: roster.length ? 'Pick one from the Bots sidebar.' : 'Create your first bot from the Bots sidebar.'"
+    ],
+    "after": [
+      "        description: roster.length ? 'Выберите в боковой панели «Боты».' : 'Создайте своего первого бота в боковой панели «Боты».'"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-13563",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                : 'Open this bot’s continuous chat. Its background work keeps running when you switch away.'"
+    ],
+    "after": [
+      "                : 'Непрерывный чат этого бота. Его фоновая работа продолжается, даже когда вы переключаетесь.'"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-14275",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "    ? 'Roster refresh failed — showing the last good list.' + (gatewayUp ? '' : ' Waiting for the gateway to reconnect…')"
+    ],
+    "after": [
+      "    ? 'Не удалось обновить список — показываем последний сохранённый.' + (gatewayUp ? '' : ' Ожидание переподключения шлюза…')"
+    ]
+  },
+  {
+    "id": "w56-plugin.js-14670",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                        : 'No bots or group chats match these filters.'"
+    ],
+    "after": [
+      "                        : 'Ни один бот или групповой чат не подходит под фильтры.'"
+    ]
+  },
+  {
+    "id": "w56-i18n.ts-223",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "  arcStale: 'Claimed, but no worker heartbeat for 2+ minutes — the dispatcher will reclaim it.',"
+    ],
+    "after": [
+      "  arcStale: 'Захвачена, но нет пульса воркера 2+ минуты — диспетчер вернёт её.',"
+    ]
+  },
+  {
+    "id": "w56-i18n.ts-225",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "  orchestrationSettings: 'Orchestration settings',"
+    ],
+    "after": [
+      "  orchestrationSettings: 'Настройки оркестрации',"
+    ]
+  },
+  {
+    "id": "w56-i18n.ts-227",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "  filterCards: 'Filter cards…',"
+    ],
+    "after": [
+      "  filterCards: 'Фильтровать карточки…',"
+    ]
+  },
+  {
+    "id": "w56-i18n.ts-228",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "  noMatch: 'No tasks match the filters',"
+    ],
+    "after": [
+      "  noMatch: 'Ни одна задача не подходит под фильтры',"
+    ]
+  },
+  {
+    "id": "w56-i18n.ts-229",
+    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+    "before": [
+      "  noTasks: 'No tasks on this board',"
+    ],
+    "after": [
+      "  noTasks: 'На доске нет задач',"
+    ]
+  },
+  {
+    "id": "w56-client.ts-31",
+    "file": "apps/desktop/src/api/client.ts",
+    "before": [
+      "      closedErrorMessage: 'Hermes gateway connection closed',"
+    ],
+    "after": [
+      "      closedErrorMessage: 'Соединение со шлюзом Hermes закрыто',"
+    ]
+  },
+  {
+    "id": "w56-client.ts-32",
+    "file": "apps/desktop/src/api/client.ts",
+    "before": [
+      "      connectErrorMessage: 'Could not connect to Hermes gateway',"
+    ],
+    "after": [
+      "      connectErrorMessage: 'Не удалось подключиться к шлюзу Hermes',"
+    ]
+  },
+  {
+    "id": "w56-mcp-directory.ts-40",
+    "file": "apps/desktop/src/lib/mcp-directory.ts",
+    "before": [
+      "    description: 'Jira issues and Confluence pages via Atlassian’s hosted MCP.',"
+    ],
+    "after": [
+      "    description: 'Задачи Jira и страницы Confluence через хостинг MCP Atlassian.',"
+    ]
+  },
+  {
+    "id": "w56-mcp-directory.ts-48",
+    "file": "apps/desktop/src/lib/mcp-directory.ts",
+    "before": [
+      "    description: 'Find, create, and update Linear issues and projects.',"
+    ],
+    "after": [
+      "    description: 'Поиск, создание и обновление задач и проектов Linear.',"
+    ]
+  },
+  {
+    "id": "w56-mcp-directory.ts-56",
+    "file": "apps/desktop/src/lib/mcp-directory.ts",
+    "before": [
+      "    description: 'Design context and Code Connect from Figma files.',"
+    ],
+    "after": [
+      "    description: 'Дизайн-контекст и Code Connect из файлов Figma.',"
+    ]
+  },
+  {
+    "id": "w56-mcp-directory.ts-64",
+    "file": "apps/desktop/src/lib/mcp-directory.ts",
+    "before": [
+      "    description: 'Issues, stack traces, and error context from Sentry.',"
+    ],
+    "after": [
+      "    description: 'Задачи, стектрейсы и контекст ошибок из Sentry.',"
+    ]
+  },
+  {
+    "id": "w56-mcp-directory.ts-72",
+    "file": "apps/desktop/src/lib/mcp-directory.ts",
+    "before": [
+      "    description: 'Logs, monitors, dashboards, and incidents from Datadog.',"
+    ],
+    "after": [
+      "    description: 'Логи, метрики, дашборды и инциденты из Datadog.',"
+    ]
+  },
+  {
+    "id": "w56-field-control.tsx-106",
+    "file": "apps/desktop/src/app/settings/memory/field-control.tsx",
+    "before": [
+      "          placeholder={field.is_set ? 'Leave blank to keep current value' : field.placeholder}"
+    ],
+    "after": [
+      "          placeholder={field.is_set ? 'Оставьте пустым, чтобы сохранить текущее значение' : field.placeholder}"
+    ]
+  },
+  {
+    "id": "w56-provider-config-modal.tsx-84",
+    "file": "apps/desktop/src/app/settings/memory/provider-config-modal.tsx",
+    "before": [
+      "      notify({ kind: 'success', title: `${config.label} saved`, message: 'Memory provider configuration updated.' })"
+    ],
+    "after": [
+      "      notify({ kind: 'success', title: `${config.label} saved`, message: 'Конфигурация провайдера памяти обновлена.' })"
+    ]
+  },
+  {
+    "id": "w56-auto-reload-row.tsx-98",
+    "file": "apps/desktop/src/app/settings/billing/auto-reload-row.tsx",
+    "before": [
+      "    setMessage({ kind: 'success', text: 'Auto-refill updated.' })"
+    ],
+    "after": [
+      "    setMessage({ kind: 'success', text: 'Автопополнение обновлено.' })"
+    ]
+  },
+  {
+    "id": "w56-auto-reload-row.tsx-128",
+    "file": "apps/desktop/src/app/settings/billing/auto-reload-row.tsx",
+    "before": [
+      "    setMessage({ kind: 'success', text: 'Auto-refill turned off.' })"
+    ],
+    "after": [
+      "    setMessage({ kind: 'success', text: 'Автопополнение выключено.' })"
+    ]
+  },
+  {
+    "id": "w56-use-step-up.ts-124",
+    "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
+    "before": [
+      "        text: 'Verification finished without allowing Remote Spending for this terminal.',"
+    ],
+    "after": [
+      "        text: 'Проверка завершена без включения удалённых расходов для этого терминала.',"
+    ]
+  },
+  {
+    "id": "w56-use-step-up.ts-137",
+    "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
+    "before": [
+      "      text: 'Remote Spending is allowed for this terminal.',"
+    ],
+    "after": [
+      "      text: 'Удалённые расходы разрешены для этого терминала.',"
+    ]
+  },
+  {
+    "id": "w56-simulated-api.ts-74",
+    "file": "apps/desktop/src/app/settings/billing/simulated-api.ts",
+    "before": [
+      "      return ok({ message: 'Change cancelled.', ok: true })"
+    ],
+    "after": [
+      "      return ok({ message: 'Изменение отменено.', ok: true })"
+    ]
+  },
+  {
+    "id": "w56-simulated-api.ts-84",
+    "file": "apps/desktop/src/app/settings/billing/simulated-api.ts",
+    "before": [
+      "      return ok({ message: 'Downgrade scheduled.', ok: true })"
+    ],
+    "after": [
+      "      return ok({ message: 'Переход на тариф запланирован.', ok: true })"
+    ]
+  },
+  {
+    "id": "w56-use-charge-poller.ts-242",
+    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+    "before": [
+      "          message: 'The billing service accepted the request but did not return a charge id.',"
+    ],
+    "after": [
+      "          message: 'Биллинг принял запрос, но не вернул id платежа.',"
+    ]
+  },
+  {
+    "id": "w56-use-charge-poller.ts-277",
+    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+    "before": [
+      "    message: 'Charge may still settle. Check the portal before retrying.',"
+    ],
+    "after": [
+      "    message: 'Платёж может ещё пройти. Проверьте портал перед повтором.',"
+    ]
+  },
+  {
+    "id": "w56-billing-amounts.ts-67",
+    "file": "apps/desktop/src/app/settings/billing/billing-amounts.ts",
+    "before": [
+      "    return { error: 'Reload-to amount must be greater than the threshold.' }"
+    ],
+    "after": [
+      "    return { error: 'Сумма пополнения должна быть больше порога.' }"
+    ]
+  },
+  {
+    "id": "w56-session-tile.tsx-403",
+    "file": "apps/desktop/src/app/chat/session-tile.tsx",
+    "before": [
+      "          <div className=\"text-(--ui-danger,#f87171)\">Couldn't open this session</div>"
+    ],
+    "after": [
+      "          <div className=\"text-(--ui-danger,#f87171)\">Не удалось открыть эту сессию</div>"
+    ]
+  },
+  {
+    "id": "w56-preview-act.ts-249",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+    "before": [
+      "      return JSON.stringify({ note: 'The page changed before it could be re-read: ' + err, success: true });"
+    ],
+    "after": [
+      "      return JSON.stringify({ note: 'Страница изменилась до повторного чтения: ' + err, success: true });"
+    ]
+  },
+  {
+    "id": "w56-preview-act.ts-282",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+    "before": [
+      "      result.note = 'The page changed before it could be re-read: ' + err;"
+    ],
+    "after": [
+      "      result.note = 'Страница изменилась до повторного чтения: ' + err;"
+    ]
+  },
+  {
+    "id": "w56-preview-act.ts-306",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+    "before": [
+      "    return { error: 'The page rejected the action: ' + raw.message, kind: 'failed' }"
+    ],
+    "after": [
+      "    return { error: 'Страница отклонила действие: ' + raw.message, kind: 'failed' }"
+    ]
+  },
+  {
+    "id": "w56-preview-act.ts-310",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+    "before": [
+      "    return { error: 'The page did not answer the action.', kind: 'failed' }"
+    ],
+    "after": [
+      "    return { error: 'Страница не ответила на действие.', kind: 'failed' }"
+    ]
+  },
+  {
+    "id": "w56-preview-act.ts-358",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+    "before": [
+      "    return { error: 'Could not work out where that element is on screen.', success: false }"
+    ],
+    "after": [
+      "    return { error: 'Не удалось определить положение элемента на экране.', success: false }"
+    ]
+  },
+  {
+    "id": "w56-preview-act.ts-410",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+    "before": [
+      "      error: 'The pointer input never reached the page, so nothing was ' + acted.split(' ')[0] + '.',"
+    ],
+    "after": [
+      "      error: 'Ввод указателя не достиг страницы, поэтому ничего не было ' + acted.split(' ')[0] + '.',"
+    ]
+  },
+  {
+    "id": "w56-preview-act.ts-464",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+    "before": [
+      "    return { ...anchor, acted: 'scrolled the page', note: 'The page has nothing to scroll — it all fits already.' }"
+    ],
+    "after": [
+      "    return { ...anchor, acted: 'scrolled the page', note: 'На странице нечего прокручивать — всё уже помещается.' }"
+    ]
+  },
+  {
+    "id": "w56-preview-act.ts-503",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+    "before": [
+      "    return { acted: nav, note: 'Page is loading — call elements to see what is on it.', success: true }"
+    ],
+    "after": [
+      "    return { acted: nav, note: 'Страница загружается — вызовите elements, чтобы увидеть её содержимое.', success: true }"
+    ]
+  },
+  {
+    "id": "w56-preview-tour.ts-57",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-tour.ts",
+    "before": [
+      "    return { error: 'No live page is open in the preview pane — open one first.', success: false }"
+    ],
+    "after": [
+      "    return { error: 'В панели предпросмотра нет открытой страницы — откройте её сначала.', success: false }"
+    ]
+  },
+  {
+    "id": "w56-preview-tour.ts-63",
+    "file": "apps/desktop/src/app/chat/right-rail/preview-tour.ts",
+    "before": [
+      "    return { error: 'The page did not answer the tour action.', success: false }"
+    ],
+    "after": [
+      "    return { error: 'Страница не ответила на действие тура.', success: false }"
+    ]
+  },
+  {
+    "id": "w56-use-composer-actions.ts-400",
+    "file": "apps/desktop/src/app/chat/hooks/use-composer-actions.ts",
+    "before": [
+      "        title: kind === 'file' ? 'Add files as context' : 'Add folders as context',"
+    ],
+    "after": [
+      "        title: kind === 'file' ? 'Добавить файлы как контекст' : 'Add folders as context',"
+    ]
+  },
+  {
+    "id": "w56-use-slash-completions.ts-134",
+    "file": "apps/desktop/src/app/chat/composer/hooks/use-slash-completions.ts",
+    "before": [
+      "          display: 'Browse all sessions…',"
+    ],
+    "after": [
+      "          display: 'Смотреть все сессии…',"
+    ]
+  },
+  {
+    "id": "w56-use-at-completions.ts-22",
+    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+    "before": [
+      "  file: 'Attach a file reference',"
+    ],
+    "after": [
+      "  file: 'Прикрепить файл',"
+    ]
+  },
+  {
+    "id": "w56-use-at-completions.ts-23",
+    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+    "before": [
+      "  folder: 'Attach a folder reference',"
+    ],
+    "after": [
+      "  folder: 'Прикрепить папку',"
+    ]
+  },
+  {
+    "id": "w56-use-at-completions.ts-24",
+    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+    "before": [
+      "  url: 'Attach a URL reference',"
+    ],
+    "after": [
+      "  url: 'Прикрепить ссылку',"
+    ]
+  },
+  {
+    "id": "w56-use-at-completions.ts-25",
+    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+    "before": [
+      "  image: 'Attach an image reference',"
+    ],
+    "after": [
+      "  image: 'Прикрепить изображение',"
+    ]
+  },
+  {
+    "id": "w56-use-at-completions.ts-26",
+    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+    "before": [
+      "  tool: 'Attach a tool reference',"
+    ],
+    "after": [
+      "  tool: 'Прикрепить инструмент',"
+    ]
+  },
+  {
+    "id": "w56-use-at-completions.ts-27",
+    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+    "before": [
+      "  git: 'Attach git context'"
+    ],
+    "after": [
+      "  git: 'Прикрепить контекст git'"
+    ]
+  },
+  {
+    "id": "w56b-split-up",
+    "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
+    "before": [
+      "  { dir: 'top', icon: 'arrow-up', label: 'Up' }"
+    ],
+    "after": [
+      "  { dir: 'top', icon: 'arrow-up', label: 'Вверх' }"
+    ]
+  },
+  {
+    "id": "w56b-session-still-avail",
+    "file": "apps/desktop/src/app/chat/session-tile.tsx",
+    "before": [
+      "    return 'Session is still available — retry resuming it.'"
+    ],
+    "after": [
+      "    return 'Сессия всё ещё доступна — попробуйте возобновить её.'"
+    ]
+  },
+  {
+    "id": "w56b-session-unavail",
+    "file": "apps/desktop/src/app/chat/session-tile.tsx",
+    "before": [
+      "  return 'Session unavailable — you can retry resuming it.'"
+    ],
+    "after": [
+      "  return 'Сессия недоступна — вы можете попробовать возобновить её.'"
     ]
   }
 ]

@@ -27,25 +27,26 @@ body:
     id: os
     attributes:
       label: ОС
+      description: Где запускали Desktop / установщик
       options:
         - Windows
         - Linux
         - macOS
-      default: 0
+        - WSL
+        - другое
     validations:
       required: true
   - type: dropdown
-    id: build
+    id: desktop-build
     attributes:
       label: Как собран Hermes Desktop
-      description: "Официальный бинарник мод не патчит — doctor против него всегда FAIL"
+      description: Мод патчит только self-built из клона, не установщик с сайта
       options:
-        - из исходников (git clone, win-unpacked)
-        - из исходников (linux-unpacked)
-        - из исходников (мак .app, self-built)
-        - официальный бинарник с сайта
+        - source clone (hermes desktop / npm run pack) — win-unpacked
+        - source clone — linux-unpacked
+        - source clone — mac / Hermes.app
+        - official website installer / AppImage / notarized .app
         - не знаю
-      default: 0
     validations:
       required: true
   - type: textarea

@@ -48,7 +48,7 @@ ROOT_DOCS = [
 
 
 def main() -> int:
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.2.0.zip"
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.2.1.zip"
     out.parent.mkdir(parents=True, exist_ok=True)
 
     missing = []

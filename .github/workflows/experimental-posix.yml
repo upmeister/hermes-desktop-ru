@@ -31,6 +31,7 @@ jobs:
           node package/install.mjs --self-test
           node package/install.mjs version
           node package/install.mjs help
+          bash package/install.sh --self-test
       - name: doctor vs shallow hermes-agent
         if: ${{ inputs.run_doctor }}
         env:

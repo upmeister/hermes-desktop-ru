@@ -1,0 +1,20 @@
+# Line endings. Does not set the executable bit — see APPLY.md
+# (`git update-index --chmod=+x` for package/install.sh and the Node entrypoints).
+
+* text=auto
+
+*.sh          text eol=lf
+*.mjs         text eol=lf
+*.js          text eol=lf
+*.yml         text eol=lf
+*.yaml        text eol=lf
+*.md          text eol=lf
+*.json        text eol=lf
+*.ts          text eol=lf
+*.py          text eol=lf
+
+*.bat         text eol=crlf
+*.cmd         text eol=crlf
+*.ps1         text eol=crlf
+
+*.png         binary

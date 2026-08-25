@@ -28,7 +28,8 @@ function printHelp() {
   console.log('  hermes-desktop-ru help                 справка')
   console.log('')
   console.log('Флаги install: --root <путь к клону hermes-agent>, --allow-stale-dist')
-  console.log('Клон: HERMES_AGENT_ROOT или ~/.hermes/hermes-agent или %LOCALAPPDATA%\\hermes\\hermes-agent')
+  console.log('Клон: --root · HERMES_AGENT_ROOT · HERMES_INSTALL_DIR · $HERMES_HOME/hermes-agent')
+  console.log('      ~/.hermes/hermes-agent · /usr/local/lib/hermes-agent · %LOCALAPPDATA%\\hermes\\hermes-agent')
   console.log('Linux/macOS — экспериментально (автор на них не тестировал).')
 }
 
