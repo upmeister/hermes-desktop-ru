@@ -11,7 +11,7 @@ Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/h
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.1.0](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.1.0) · Hermes Desktop 0.20.5 · 2026-08-24**
+**Latest: [v1.1.1](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.1.1) · Hermes Desktop 0.20.5 · 2026-08-25**
 
 Hermes Desktop has **no Russian locale in the current release line** (upstream `ru` PRs have sat open since July). i18n-only packs translate the catalog and leave hardcoded strings in components, settings field labels, Bots/kanban, and the Electron main process.
 
@@ -34,7 +34,7 @@ This is not a portable/prebuilt `.exe` patch. It expects a **source install** (`
 | Bots / kanban / main-process | ❌ | ✅ |
 | After `hermes update` | new UI stays English | re-run `hermes-desktop-ru install` |
 
-- **647-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
+- **859-rule structural registry** (647 base + 458 overrides − 18 deletes) rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
 - **Doctor-gated installer** — dry-run before any write. Cosmetic misses (including an ambiguous short literal in Bots) warn — that spot stays English. Install fails only if a *critical file* is gone (kanban / connection-registry). A failed `npm run build` is the real hard stop.
 - **Survives `hermes update`**: restore tracked sources to stock → doctor → apply → register `ru` → rebuild `dist` → repack `asar` (original kept as `.stock.bak`).
 
@@ -117,7 +117,7 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 | Hermes Desktop | |
 |---|---|
-| **0.20.5** | verified (doctor 703/703 at 1.1.0). A later Bots rewrite may WARN — install still proceeds |
+| **0.20.5** | verified (doctor 859/859 at 1.1.1). A later Bots rewrite may WARN — install still proceeds |
 | older | install the mod release that matches |
 
 Doctor FAIL after a fresh Hermes bump? That now means a critical *file* disappeared, not "Bots renamed a button". Open an [issue](https://github.com/upmeister/hermes-desktop-ru/issues/new/choose) or wait for the next mod release.
@@ -129,6 +129,10 @@ Upstream Desktop commits and new `en.ts` keys are logged in [UPSTREAM-WATCH.md](
 Proper names and commands stay: platforms, models, providers, log filters.
 Established terms stay: MCP, DIFF, URL, PR, YOLO.
 Stable UI glossary: «Рабочие материалы» (Artifacts), «Обслуживание и диагностика» (Maintenance), «Рассуждения» (Reasoning).
+
+Backend-produced text (CLI logs, tracebacks, JSON, OS messages) is not translated — it is not UI.
+Rare exceptions are patched when a backend string reaches the interface directly
+(e.g. the wake-word hint from `tui_gateway/server.py`).
 
 ## Credits
 

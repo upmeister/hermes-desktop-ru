@@ -43,6 +43,7 @@ export const RU_FIELD_LABELS: Record<string, string> = {
   'checkpoints.maxSnapshots': 'Макс. число контрольных точек',
   'voice.recordKey': 'Горячая клавиша записи',
   'voice.maxRecordingSeconds': 'Макс. длительность записи',
+  'voice.clientDirect': 'Напрямую с клиента',
   'voice.autoTts': 'Читать ответы вслух',
   'stt.enabled': 'Распознавание речи',
   'stt.echoTranscripts': 'Показывать транскрипты',

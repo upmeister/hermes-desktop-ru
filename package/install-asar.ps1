@@ -8,7 +8,7 @@
 )
 
 $ErrorActionPreference = 'Stop'
-# install-asar.ps1 v1.1.0 + gate 24.08 — cosmetic AMBIGUOUS no longer FAIL
+# install-asar.ps1 v1.1.1 + gate 24.08 — cosmetic AMBIGUOUS no longer FAIL
 # Structural anchor registry installer for hermes-desktop-ru.
 # Pure logic in ASCII identifiers; user-facing messages may be Russian (UTF-8 BOM required).
 
@@ -25,7 +25,7 @@ function Get-ModVersion {
       } catch { }
     }
   }
-  return '1.1.0'
+  return '1.1.1'
 }
 
 function Show-Help {
