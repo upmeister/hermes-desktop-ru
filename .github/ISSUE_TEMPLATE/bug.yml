@@ -23,6 +23,31 @@ body:
       placeholder: "Hermes Agent v0.20.5 (2026.8.19)"
     validations:
       required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: ОС
+      options:
+        - Windows
+        - Linux
+        - macOS
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: build
+    attributes:
+      label: Как собран Hermes Desktop
+      description: "Официальный бинарник мод не патчит — важно, из исходников ли сборка"
+      options:
+        - из исходников (git clone, win-unpacked)
+        - из исходников (linux-unpacked)
+        - из исходников (мак .app, self-built)
+        - официальный бинарник с сайта
+        - не знаю
+      default: 0
+    validations:
+      required: true
   - type: textarea
     id: what
     attributes:

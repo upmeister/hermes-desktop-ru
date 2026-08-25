@@ -148,7 +148,7 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 | Hermes Desktop | |
 |---|---|
-| **0.20.5** | verified on Windows (doctor 859/859 at 1.1.1). A later Bots rewrite may WARN — install still proceeds |
+| **0.20.5** | verified on Windows (doctor 865/865 at 1.2.0). A later Bots rewrite may WARN — install still proceeds |
 | Linux / macOS | installer can resolve paths; **not author-tested**. Treat as experimental |
 | older | install the mod release that matches |
 
