@@ -13,6 +13,7 @@ Usage:
 from __future__ import annotations
 
 import hashlib
+import subprocess
 import sys
 import zipfile
 from pathlib import Path
@@ -48,7 +49,7 @@ ROOT_DOCS = [
 
 
 def main() -> int:
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.2.1.zip"
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.2.2.zip"
     out.parent.mkdir(parents=True, exist_ok=True)
 
     missing = []
@@ -58,6 +59,32 @@ def main() -> int:
     if missing:
         print("MISSING:", *missing, sep="\n  ")
         return 1
+
+    # TS syntax gate: файлы files/*.ts обязаны проходить tsc (прецедент 28.08 —
+    # пропущенная запятая в ru-constants.ts ломала сборку у пользователя).
+    tsc_candidates = [
+        ROOT / "node_modules" / ".bin" / "tsc",
+        HERE / "node_modules" / ".bin" / "tsc",
+        Path.home() / "projects" / "hermes-agent-dev" / "node_modules" / ".bin" / "tsc",
+    ]
+    tsc = next((p for p in tsc_candidates if p.exists()), None)
+    for rel in FILES:
+        if not rel.endswith(".ts"):
+            continue
+        p = HERE / rel
+        if tsc is None:
+            print(f"WARN: tsc не найден — синтаксис {rel} не проверен")
+            break
+        r = subprocess.run(
+            [str(tsc), "--noCheck", "--noEmit", "--skipLibCheck", "--target", "es2022",
+             "--module", "esnext", "--moduleResolution", "bundler", str(p)],
+            capture_output=True, text=True)
+        if r.returncode != 0:
+            print(f"TS-SYNTAX FAIL: {rel}")
+            print(r.stdout[-2000:] or r.stderr[-2000:])
+            return 1
+    if tsc is not None:
+        print("tsc-gate: files/*.ts OK")
 
     # Guard: locale sync — hard fail, otherwise a release ships a stale catalog
     ru_src = ROOT / "i18n" / "ru.ts"

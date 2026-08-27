@@ -54,9 +54,6 @@
     "delete": "hermes-bots-Bot_Chat"
   },
   {
-    "delete": "hermes-bots-w3-9274"
-  },
-  {
     "id": "custom-endpoints-settings.tsx-9",
     "file": "apps/desktop/src/app/settings/custom-endpoints-settings.tsx",
     "before": [
@@ -1163,16 +1160,6 @@
     ]
   },
   {
-    "id": "hermes-bots-oneliner-Activity",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-    "before": [
-      "          jsx('span', { className: 'shrink-0 font-medium', children: 'Activity' }),"
-    ],
-    "after": [
-      "          jsx('span', { className: 'shrink-0 font-medium', children: 'Активность' }),"
-    ]
-  },
-  {
     "id": "hermes-bots-w3-165",
     "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
     "before": [
@@ -1579,16 +1566,6 @@
       "        label: `Расформировать чат группы ${group}`,"
     ],
     "severity": "cosmetic"
-  },
-  {
-    "id": "hermes-bots-w3-9307",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-    "before": [
-      "        title: activityOpen ? 'Hide room activity' : 'Show room activity',"
-    ],
-    "after": [
-      "        title: activityOpen ? 'Скрыть активность комнаты' : 'Показать активность комнаты',"
-    ]
   },
   {
     "id": "hermes-bots-w3-9515",
@@ -2953,16 +2930,6 @@
     ],
     "after": [
       "  delivered: 'доставил(а) поздний ответ',"
-    ]
-  },
-  {
-    "id": "wave3-act-held",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-    "before": [
-      "  held: 'is held (stopped by you) — @mention it or say resume to release'"
-    ],
-    "after": [
-      "  held: 'на паузе (остановлен вами) — @упомяните или напишите resume, чтобы отпустить'"
     ]
   },
   {
@@ -4354,16 +4321,6 @@
     ]
   },
   {
-    "id": "w8-wakeword-hint",
-    "file": "tui_gateway/server.py",
-    "before": [
-      "            hint = f\"Wake-word input device could not be resolved: {input_device['error']}\""
-    ],
-    "after": [
-      "            hint = f\"Не удалось определить устройство ввода ключевого слова: {input_device['error']}\""
-    ]
-  },
-  {
     "id": "w5-delchat-title",
     "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
     "before": [
@@ -4846,16 +4803,6 @@
     ],
     "after": [
       "      message: `Обновите ${gateway} и попробуйте снова.`"
-    ]
-  },
-  {
-    "id": "test-expansion-5688",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-    "before": [
-      "        await requestForBot(bot, 'prompt.submit', { session_id: runtime, text: 'Hey, tell me about yourself!' })"
-    ],
-    "after": [
-      "        await requestForBot(bot, 'prompt.submit', { session_id: runtime, text: 'Привет, расскажи о себе!' })"
     ]
   },
   {
@@ -5576,6 +5523,163 @@
     ],
     "after": [
       "  return 'Сессия недоступна — вы можете попробовать возобновить её.'"
+    ]
+  },
+  {
+    "id": "hermes-bots-model-switch-failed",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "      failureMessage: 'Model switch failed',"
+    ],
+    "after": [
+      "      failureMessage: 'Не удалось переключить модель',"
+    ]
+  },
+  {
+    "id": "hermes-bots-stop-this-run",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                title: 'Stop this run — interrupts the member on turn and holds the rest',"
+    ],
+    "after": [
+      "                title: 'Остановить этот запуск — прерывает текущего участника и удерживает остальных',"
+    ],
+    "all": true
+  },
+  {
+    "id": "connection-registry.ts-2",
+    "file": "apps/desktop/electron/connection-registry.ts",
+    "mode": "insert-after",
+    "insertAfterLine": "      let label = String(entry.label || '').trim()",
+    "after": [
+      "    // MOD: hermes-desktop-ru — a registry saved before the ru-mod wrote the",
+      "    // local entry with the English default. Normalize the stock default so a",
+      "    // persisted file (created before the patch) still shows «Это устройство».",
+      "    // Only the stock default is remapped — user-renamed labels are untouched.",
+      "    if (kind === 'local' && label === 'This device') {",
+      "      label = 'Это устройство'",
+      "    }"
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "hermes-bots-activity-header",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "              jsx('span', { className: 'shrink-0 font-medium', children: 'Activity' }),"
+    ],
+    "after": [
+      "              jsx('span', { className: 'shrink-0 font-medium', children: 'Активность' }),"
+    ]
+  },
+  {
+    "id": "hermes-bots-activity-room-title",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "            title: activityOpen ? 'Hide room activity' : 'Show room activity',"
+    ],
+    "after": [
+      "            title: activityOpen ? 'Скрыть активность комнаты' : 'Показать активность комнаты',"
+    ]
+  },
+  {
+    "id": "hermes-bots-stop-label-18",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                  'Stop'"
+    ],
+    "after": [
+      "                  'Стоп'"
+    ]
+  },
+  {
+    "id": "hermes-bots-stop-label-32",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                                'Stop'"
+    ],
+    "after": [
+      "                                'Стоп'"
+    ]
+  },
+  {
+    "id": "hermes-bots-stop-this-run-2",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                              title: 'Stop this run — interrupts the member on turn and holds the rest',"
+    ],
+    "after": [
+      "                              title: 'Остановить этот запуск — прерывает текущего участника и удерживает остальных',"
+    ]
+  },
+  {
+    "id": "hermes-bots-activity-capped",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "  capped: 'turn stopped at the round/message cap',"
+    ],
+    "after": [
+      "  capped: 'ход остановлен — лимит раунда/сообщений',"
+    ]
+  },
+  {
+    "id": "hermes-bots-activity-held",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "  held: 'is held (stopped by you) — @mention it or say resume to release',"
+    ],
+    "after": [
+      "  held: 'удержан (остановлен вами) — @упомяните его или напишите resume, чтобы отпустить',"
+    ]
+  },
+  {
+    "id": "hermes-bots-activity-stopped",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "  stopped: 'stopped the room — remaining turns are held until resumed'"
+    ],
+    "after": [
+      "  stopped: 'остановил(а) комнату — оставшиеся ходы удержаны до возобновления'"
+    ]
+  },
+  {
+    "id": "hermes-bots-name-the-bot-first",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                                : 'Name the bot first — a draft profile is created when you open this tab (discarded if you cancel).'"
+    ],
+    "after": [
+      "                                : 'Сначала назовите бота — черновой профиль создаётся при открытии этой вкладки (при отмене удаляется).'"
+    ]
+  },
+  {
+    "id": "main-ts-ticket-auth-v2",
+    "file": "apps/desktop/electron/main.ts",
+    "before": [
+      "          'Your Hermes Cloud session has expired. Open Settings → Gateway and sign in again.'"
+    ],
+    "after": [
+      "          'Ваша сессия Hermes Cloud истекла. Откройте «Настройки → Шлюз» и войдите снова.'"
+    ]
+  },
+  {
+    "id": "main-ts-ticket-auth-v2b",
+    "file": "apps/desktop/electron/main.ts",
+    "before": [
+      "    const err = new Error('Your Hermes Cloud session has expired. Sign in to Hermes Cloud again.') as any"
+    ],
+    "after": [
+      "    const err = new Error('Ваша сессия Hermes Cloud истекла. Войдите в Hermes Cloud снова.') as any"
+    ]
+  },
+  {
+    "id": "hermes-bots-chat-responds-option-v2",
+    "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
+    "before": [
+      "                { id: 'bot-chat', label: `${displayName(typeof bot === 'string' ? { name: bot } : bot, botRosterMeta(bot, $botMeta.get()))}\\u2019s chat (bot responds)` }"
+    ],
+    "after": [
+      "                { id: 'bot-chat', label: `${displayName(typeof bot === 'string' ? { name: bot } : bot, botRosterMeta(bot, $botMeta.get()))} — чат (отвечает бот)` }"
     ]
   }
 ]

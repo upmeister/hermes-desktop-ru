@@ -37,7 +37,7 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const isWin = process.platform === 'win32'
 const isMac = process.platform === 'darwin'
 const isLinux = process.platform === 'linux'
-const FALLBACK_VERSION = '1.2.1'
+const FALLBACK_VERSION = '1.2.2'
 
 function sleepSync(ms) {
   const buf = new Int32Array(new SharedArrayBuffer(4))
@@ -903,6 +903,11 @@ function cmdInstall(root, allowStaleDist) {
       if (allowStaleDist && existsSync(path.join(modDist, 'index.html'))) {
         console.log('ПРЕДУПРЕЖДЕНИЕ: --allow-stale-dist — беру package/dist (может не совпасть с этим апстримом)')
         usePackage = true
+      } else if (allowStaleDist) {
+        console.error('  --allow-stale-dist не сработал: package/dist отсутствует в этой поставке')
+        console.error('  (в zip dist не входит; соберите dist вручную в клоне: cd apps/desktop && npm run build,')
+        console.error('   затем положите папку dist рядом с install.mjs как package/dist — или исправьте причину падения сборки).')
+        process.exit(1)
       } else {
         console.error('  Повтор с устаревшим package/dist отключён (иначе «УСТАНОВКА OK» со старым UI).')
         console.error('  Если очень надо: node install.mjs --allow-stale-dist')

@@ -5097,16 +5097,6 @@
   ]
  },
  {
-  "id": "hermes-bots-oneliner-Activity",
-  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-  "before": [
-   "          jsx('span', { className: 'shrink-0 font-medium', children: 'Activity' }),"
-  ],
-  "after": [
-   "          jsx('span', { className: 'shrink-0 font-medium', children: 'Активность' }),"
-  ]
- },
- {
   "id": "hermes-bots-w3-165",
   "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
   "before": [
@@ -5564,16 +5554,6 @@
   ],
   "after": [
    "        title: `Расформировать чат группы ${group}`,"
-  ]
- },
- {
-  "id": "hermes-bots-w3-9307",
-  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-  "before": [
-   "        title: activityOpen ? 'Hide room activity' : 'Show room activity',"
-  ],
-  "after": [
-   "        title: activityOpen ? 'Скрыть активность комнаты' : 'Показать активность комнаты',"
   ]
  },
  {
@@ -6407,16 +6387,6 @@
   ]
  },
  {
-  "id": "main-ts-ticket-auth",
-  "file": "apps/desktop/electron/main.ts",
-  "before": [
-   "        'Your remote gateway session has expired. Open Settings → Gateway and click \"Sign in\" again.',"
-  ],
-  "after": [
-   "        'Ваша сессия удалённого шлюза истекла. Откройте «Настройки → Шлюз» и нажмите «Войти» ещё раз.',"
-  ]
- },
- {
   "id": "main-ts-ticket-transport",
   "file": "apps/desktop/electron/main.ts",
   "before": [
@@ -6466,16 +6436,6 @@
   ],
   "after": [
    "                { id: 'history', label: 'Только в историю запусков' },"
-  ]
- },
- {
-  "id": "hermes-bots-chat-responds-option",
-  "file": "apps/desktop/src/plugins/hermes-bots/plugin.js",
-  "before": [
-   "                { id: 'bot-chat', label: `${displayName({ name: bot }, $botMeta.get()[bot])}\\u2019s chat (bot responds)` }"
-  ],
-  "after": [
-   "                { id: 'bot-chat', label: `${displayName({ name: bot }, $botMeta.get()[bot])} — чат (отвечает бот)` }"
   ]
  },
  {

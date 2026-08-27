@@ -4,14 +4,14 @@
 
 Полная русская локализация [Hermes Desktop](https://github.com/NousResearch/hermes-agent).
 
-[![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.20.5-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
+[![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.20.6-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
 [![npm](https://img.shields.io/npm/v/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
 [![npm](https://img.shields.io/npm/dm/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
 [![Release](https://img.shields.io/github/v/release/upmeister/hermes-desktop-ru?style=for-the-badge&color=green)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Последний релиз: [v1.2.1](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.1) · Hermes 0.20.5 · 26 августа 2026**
+**Последний релиз: [v1.2.2](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.2) · Hermes 0.20.6 · 28 августа 2026**
 
 Официальный клиент умеет несколько языков, но **русского в актуальной ветке нет**. Этот мод переводит весь UI — в том числе места, которые обычный файл локали не достаёт (Боты, канбан, подписи настроек, сообщения главного процесса). После `hermes update` ставится заново одной командой.
 
@@ -92,7 +92,7 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 | i18n-каталог: чат, настройки, шлюз, биллинг, онбординг | ✅ полный |
 | Хардкоды компонентов: поля настроек, splash, мессенджеры, темы | ✅ |
 | Канбан, плагин Bots, сообщения main-процесса | ✅ |
-| Реестр doctor (хардкод-якоря) | ✅ 946 правил |
+| Реестр doctor (хардкод-якоря) | ✅ 953 правила |
 
 ## Конвенции перевода
 
@@ -100,7 +100,8 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 - Технические термины оставляем как есть: MCP, DIFF, URL, PR, YOLO, JSON.
 - Устоявшиеся подписи UI: Artifacts → «Рабочие материалы», Maintenance → «Обслуживание и диагностика», Reasoning → «Рассуждения».
 - Плюрализация — через `ruPlural`. Функциональные ключи английскими строками не подменяем (иначе краш «is not a function»).
-- То, что приходит из бэкенда (логи, CLI, traceback, JSON, сообщения ОС), не переводим. Редкое исключение — строка бэкенда, которая торчит прямо в UI (например подсказка wake-word); такие места помечены в реестре.
+- То, что приходит из бэкенда (логи, CLI, traceback, JSON, сообщения ОС), не переводим — технически перевести их без глубоких патчей бэкенда неосуществимо.
+- Информация от внешних источников (провайдеры памяти вроде Honcho, сторонние сервисы, динамические схемы конфигурации) тоже не переводится — она прилетает извне и не является частью интерфейса мода.
 
 Перед записью гоняется **doctor**: косметический пропуск или неоднозначный якорь (часто в Bots) оставит пятно по-английски — установка идёт. Остановка только если пропал файл критичного правила (канбан / connection-registry). Сборка (`npm run build`) — отдельный жёсткий стоп.
 
