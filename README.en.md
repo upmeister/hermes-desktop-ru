@@ -4,14 +4,14 @@
 
 Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/hermes-agent).
 
-[![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.20.6-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
+[![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.21.0-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
 [![npm](https://img.shields.io/npm/v/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
 [![npm](https://img.shields.io/npm/dm/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
 [![Release](https://img.shields.io/github/v/release/upmeister/hermes-desktop-ru?style=for-the-badge&color=green)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.2.3](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3) · Hermes Desktop 0.20.6 · 2026-09-02**
+**Latest: [v1.2.3](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3) · Hermes Desktop 0.21.0 · 2026-09-02**
 
 Hermes Desktop has **no Russian locale in the current release line** (upstream `ru` PRs have sat open since July). i18n-only packs translate the catalog and leave hardcoded strings in components, settings field labels, Bots/kanban, and the Electron main process.
 
@@ -152,8 +152,8 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 | Hermes Desktop | |
 |---|---|
-| **0.20.6 / Windows** | author-tested, doctor 720/720 at 1.2.3. A later Bots rewrite may WARN — install still proceeds |
-| **0.20.6 / Linux** | installer author-tested (Ubuntu 26). After install: `hermes desktop --skip-build`. Menu icon is an upstream bug, not the mod |
+| **0.21.0 / Windows** | author-tested, doctor 720/720 at 1.2.3. A later Bots rewrite may WARN — install still proceeds |
+| **0.21.0 / Linux** | installer author-tested (Ubuntu 26). After install: `hermes desktop --skip-build`. Menu icon is an upstream bug, not the mod |
 | macOS | installer resolves paths; **not author-tested**. Treat as experimental |
 | older | install the mod release that matches |
 
