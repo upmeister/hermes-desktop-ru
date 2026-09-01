@@ -11,13 +11,13 @@ Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/h
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.2.2](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.2) · Hermes Desktop 0.20.6 · 2026-08-28**
+**Latest: [v1.2.3](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3) · Hermes Desktop 0.20.6 · 2026-09-02**
 
 Hermes Desktop has **no Russian locale in the current release line** (upstream `ru` PRs have sat open since July). i18n-only packs translate the catalog and leave hardcoded strings in components, settings field labels, Bots/kanban, and the Electron main process.
 
 This is not a portable / prebuilt installer patch. It expects a **source checkout** (`hermes desktop` / `git clone`) and rebuilds `app.asar` inside that clone.
 
-**Windows is the supported path** (author-tested). **Linux and macOS are experimental**: the installer resolves POSIX clone/asar layouts, but the author has not run them on a live Desktop. We never patch a notarized `.app` or website AppImage — only `apps/desktop/release/` next to the clone.
+**Windows is the supported path** (author-tested). **Linux installer is author-tested** (Ubuntu 26); after install launch with `hermes desktop --skip-build` (the menu icon is an upstream Linux bug, not the mod; a plain `hermes desktop` also re-packs and wipes the Russian asar). **macOS is experimental** (no live Desktop run). We never patch a notarized `.app` or website AppImage — only `apps/desktop/release/` next to the clone.
 
 ## Screens
 
@@ -36,7 +36,7 @@ This is not a portable / prebuilt installer patch. It expects a **source checkou
 | Bots / kanban / main-process | ❌ | ✅ |
 | After `hermes update` | new UI stays English | re-run `hermes-desktop-ru install` |
 
-- **946-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
+- **953-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
 - **Doctor-gated installer** — dry-run before any write. Cosmetic misses (including an ambiguous short literal in Bots) warn — that spot stays English. Install fails only if a *critical file* is gone (kanban / connection-registry). A failed `npm run build` is the real hard stop.
 - **Survives `hermes update`**: restore tracked sources to stock → doctor → apply → register `ru` → rebuild `dist` → repack `asar` (original kept as `.stock.bak`).
 
@@ -75,7 +75,7 @@ Asar resolution is **clone-local only** (`apps/desktop/release/`):
 
 `/Applications/Hermes.app` and a website AppImage are out of scope on purpose (Gatekeeper / you become an unofficial Hermes distributor).
 
-`package.json` no longer sets `"os": ["win32"]`. npm will install the CLI on Linux/macOS; that does not mean those platforms are supported at Windows quality. Process-kill and uninstall there are best-effort. After swapping asar inside a self-built `.app`, the installer runs ad-hoc `codesign --sign -` — not Apple notarization.
+`package.json` no longer sets `"os": ["win32"]`. npm will install the CLI on Linux/macOS; Linux install is author-tested; macOS is still experimental. Process-kill and uninstall there are best-effort. After swapping asar inside a self-built `.app`, the installer runs ad-hoc `codesign --sign -` — not Apple notarization.
 
 CI: `check.yml` runs `node --check`, parses `registry.json`, and `--self-test` on ubuntu + windows (on Windows the self-test also spawns `npm.cmd --version` with `shell: true`). `experimental-posix.yml` is `workflow_dispatch` only: self-test on ubuntu+macos, optional `doctor` against a shallow `hermes-agent` clone (cosmetic WARN on HEAD is expected; FAIL only if a critical file vanished). It does **not** `npm run pack` Hermes.
 
@@ -100,7 +100,7 @@ hermes-desktop-ru install
 hermes-desktop-ru install --root /path/to/hermes-agent
 ```
 
-(`HERMES_AGENT_ROOT` / `HERMES_HOME` work too.) Or unpack the [release zip](https://github.com/upmeister/hermes-desktop-ru/releases) and run `install.bat` / `install.sh` / `node install.mjs`.
+(`HERMES_AGENT_ROOT` / `HERMES_HOME` work too.) Or unpack the [release zip](https://github.com/upmeister/hermes-desktop-ru/releases) and run `install.bat` / `install.sh` / `node install.mjs`. Zip path needs Node 18+ in PATH (Desktop's managed Node is often at `~/.hermes/node` after a first pack).
 
 The clone must already contain a packaged Desktop (`hermes desktop` or `cd apps/desktop && npm run pack`). Failed `npm run build` is a hard error. To reuse a bundled `package/dist` (may not match this upstream): `--allow-stale-dist`.
 
@@ -140,6 +140,8 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 | "packaged app.asar not found" | pack Desktop from the clone (`hermes desktop` / `npm run pack`). Website prebuilts are out of scope |
 | Doctor FAIL | a critical file is gone — [issue "Doctor FAIL"](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
 | Doctor WARN / UI partly English | expected after a large Bots rewrite; wait for the next mod release or install as-is |
+| Linux: menu icon does nothing, terminal `hermes desktop` works | upstream Hermes bug, not the mod. Launch with `hermes desktop --skip-build` |
+| After the mod the UI is English again / icon spins | `hermes desktop --skip-build`. A plain launch re-packs and wipes the asar |
 | Access denied / EBUSY | close Hermes Desktop and retry |
 | macOS "app is damaged" / Gatekeeper | only self-built `.app` from the clone; do not patch the notarized website build |
 | Long `npm ci` | normal with broken `node_modules` after `hermes update` (3–10 min) |
@@ -150,8 +152,9 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 | Hermes Desktop | |
 |---|---|
-| **0.20.6** | verified on Windows (doctor 953/953 at 1.2.2). A later Bots rewrite may WARN — install still proceeds |
-| Linux / macOS | installer can resolve paths; **not author-tested**. Treat as experimental |
+| **0.20.6 / Windows** | author-tested, doctor 720/720 at 1.2.3. A later Bots rewrite may WARN — install still proceeds |
+| **0.20.6 / Linux** | installer author-tested (Ubuntu 26). After install: `hermes desktop --skip-build`. Menu icon is an upstream bug, not the mod |
+| macOS | installer resolves paths; **not author-tested**. Treat as experimental |
 | older | install the mod release that matches |
 
 Doctor FAIL after a fresh Hermes bump? That now means a critical *file* disappeared, not "Bots renamed a button". Open an [issue](https://github.com/upmeister/hermes-desktop-ru/issues/new/choose) or wait for the next mod release.

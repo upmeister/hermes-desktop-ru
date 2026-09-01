@@ -1,6 +1,6 @@
 {
   "name": "hermes-desktop-ru",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Полная русская локализация Hermes Desktop: i18n-каталог + хардкоды компонентов и main-процесса. Структурный реестр якорей переживает обновления Hermes (doctor + пересборка asar).",
   "license": "MIT",
   "author": {
@@ -43,5 +43,8 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "typescript": "^5.9.3"
   }
 }

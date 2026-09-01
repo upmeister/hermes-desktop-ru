@@ -30,7 +30,8 @@ function printHelp() {
   console.log('Флаги install: --root <путь к клону hermes-agent>, --allow-stale-dist')
   console.log('Клон: --root · HERMES_AGENT_ROOT · HERMES_INSTALL_DIR · $HERMES_HOME/hermes-agent')
   console.log('      ~/.hermes/hermes-agent · /usr/local/lib/hermes-agent · %LOCALAPPDATA%\\hermes\\hermes-agent')
-  console.log('Linux/macOS — экспериментально (автор на них не тестировал).')
+  console.log('Linux: установщик прогнан автором. После install — hermes desktop --skip-build.')
+  console.log('macOS — экспериментально (автор на живой машине не гонял).')
 }
 
 const args = process.argv.slice(2)

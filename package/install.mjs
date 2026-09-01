@@ -12,7 +12,7 @@
 //   {win,linux}[-arm64]-unpacked / mac[-arm64|-x64]/Hermes.app
 //   Официальный notarized .app из /Applications и AppImage с сайта — не трогаем.
 //
-// Linux/macOS — экспериментально. Автор мода на них установку не гонял.
+// Linux: установщик прогнан автором (Ubuntu). macOS — экспериментально.
 // Kill/uninstall на unix — best-effort, не обещаем качество Windows.
 import { spawnSync } from 'node:child_process'
 import {
@@ -37,7 +37,7 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const isWin = process.platform === 'win32'
 const isMac = process.platform === 'darwin'
 const isLinux = process.platform === 'linux'
-const FALLBACK_VERSION = '1.2.2'
+const FALLBACK_VERSION = '1.2.3'
 
 function sleepSync(ms) {
   const buf = new Int32Array(new SharedArrayBuffer(4))
@@ -107,8 +107,9 @@ CLI (npm):
   - uninstall трогает только app.asar (+ dist.stock.bak), не клон
   - косметический MISSING/AMBIGUOUS (в т.ч. Bots) не стопорит установку
   - FAIL только если пропал файл критичного правила; сборка — отдельный стоп
-  - Linux/macOS: экспериментально, автор не тестировал. Не ставьте мод
-    в официальный подписанный .app с сайта — только self-built из клона.
+  - Linux: установщик прогнан автором. После install — hermes desktop --skip-build
+    (иконка в меню на Linux — баг апстрима, не мода). macOS — экспериментально.
+    Не ставьте мод в официальный подписанный .app с сайта — только self-built из клона.
 `
   process.stdout.write(text)
 }
@@ -837,6 +838,7 @@ function cmdInstall(root, allowStaleDist) {
     ['files/ru.ts', path.join('apps', 'desktop', 'src', 'i18n', 'ru.ts')],
     ['files/ru-constants.ts', path.join('apps', 'desktop', 'src', 'app', 'settings', 'ru-constants.ts')],
     ['files/ru-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'kanban', 'ru-locales.ts')],
+    ['files/ru-bots-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'hermes-bots', 'ru-locales.ts')],
   ]
   let copied = 0
   for (const [srcRel, dstRel] of fileMap) {
@@ -991,9 +993,14 @@ function cmdInstall(root, allowStaleDist) {
       console.log('ПРЕДУПРЕЖДЕНИЕ: RU-маркер не найден — мод мог не попасть в бандл')
     }
     console.log('УСТАНОВКА OK — перезапустите Hermes Desktop')
-    if (!isWin) {
-      console.log('  Linux/macOS: экспериментально. Если Desktop не открывается — это self-built')
-      console.log('  из клона; официальный бинарник с сайта мод не патчит.')
+    if (isLinux) {
+      console.log('  Linux: hermes desktop --skip-build')
+      console.log('  Не кликайте иконку: обычный hermes desktop пересоберёт pack и затрёт asar.')
+      console.log('  Меню на Linux сейчас ломает апстрим, не мод.')
+    } else if (isMac) {
+      console.log('  macOS: экспериментально. hermes desktop --skip-build')
+      console.log('  Если Desktop не открывается — это self-built из клона;')
+      console.log('  официальный бинарник с сайта мод не патчит.')
     }
   } finally {
     if (fd != null) {
@@ -1035,7 +1042,7 @@ function main(argv = process.argv.slice(2)) {
 
   console.log(`== Hermes Desktop RU — установщик v${modVer} ==`)
   console.log(`клон: ${root}`)
-  console.log(`платформа: ${process.platform}/${process.arch}${isWin ? '' : ' (POSIX — экспериментально)'}`)
+  console.log(`платформа: ${process.platform}/${process.arch}${isMac ? ' (macOS — экспериментально)' : ''}`)
 
   if (args.cmd === 'doctor') cmdDoctor(root)
   else if (args.cmd === 'uninstall') cmdUninstall(root)

@@ -6,6 +6,40 @@
 > Нумерация начата с 1.0.0 — это первый стабильный публичный релиз.
 > Предыдущая линия 7.6.x (август 2026) считается тестовой и здесь не описывается;
 > её историю можно посмотреть в git-истории репозитория.
+>
+> **2026-09-02: Мод переведён в режим поддержки (maintenance).**
+> Апстрим Hermes v0.21+ получил официальную русскую локаль (коммит a922dad9).
+> Новые фичи и переводы больше не планируются — только критические фиксы.
+> Уникальные наработки (реестр хардкодов, doctor, установщик) переданы в upstream PR.
+
+## [1.2.3] - 2026-09-02
+
+### Added
+- Linux: установщик прогнан автором (Ubuntu 26). `install.sh` ищет Node в `$HERMES_HOME/node/bin`
+  и `~/.hermes/node/bin` если нет в PATH. После install — `hermes desktop --skip-build`.
+- CLI: `bin/hermes-desktop-ru.mjs` — тонкая обёртка над установщиком.
+- +15 правил реестра по 17 скринам: General→Основные, Capabilities→Возможности, Skills→Навыки,
+  Tools→Инструменты, Create Bot→Создать бота, Fresh profile→Новый профиль, Pin/Unpin,
+  Hide/Unhide, Generate→Сгенерировать, Name the bot first, That name is taken,
+  Share keys, Create empty, Handle toggle, колонки Cron.
+- Read-only транскрипты: 3 ключа readOnlyTranscript* (баннер и блокировка отправки).
+
+### Fixed
+- **Build crash**: удалены 3 битых правила registry (w5-6536/6544/6975 — заменяли
+  импорты DialogTitle строкой). Починены 3 правила overrides с потерянными `{...}`.
+- **Установка 1.2.2 падала** на `npm run build` из-за `wave3-you-label` и
+  `bots-avatar-checking-backend` — удалены и заменены.
+- L1 вотчер: FILES bots расширен с 5 до 28 файлов (весь каталог).
+- L4 вотчер: `plugin-i18n-check.py` (крон 06:00 daily) — сверка i18n.ts плагина ↔ ru-locales.
+- `literals.py`: добавен паттерн для standalone `'Value',` в TSX-аргументах.
+- Файлы `install.sh` и `bin/hermes-desktop-ru.mjs` — +x.
+
+### Changed
+- **Режим поддержки**: мод больше не получает новых фич и переводов. Только критические фиксы.
+- Linux: больше не «экспериментально», FAQ обновлён.
+- `package/install.mjs`: раздельные пост-установочные сообщения для Linux/macOS/Windows.
+- `package/install.sh`: fallback на managed Node (HERMES_HOME/node/bin).
+- `README.md`, `README.en.md`: Linux-секции, `--skip-build`, FAQ.
 
 ## [1.2.2] - 2026-08-28
 

@@ -11,13 +11,13 @@
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Последний релиз: [v1.2.2](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.2) · Hermes 0.20.6 · 28 августа 2026**
+**Последний релиз: [v1.2.3](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3) · Hermes 0.20.6 · 2 сентября 2026**
 
 Официальный клиент умеет несколько языков, но **русского в актуальной ветке нет**. Этот мод переводит весь UI — в том числе места, которые обычный файл локали не достаёт (Боты, канбан, подписи настроек, сообщения главного процесса). После `hermes update` ставится заново одной командой.
 
 > Нужен Desktop **из исходников** (`hermes desktop` / `git clone`), не portable и не готовый установщик с сайта.
 >
-> **Windows** — основной и проверенный автором путь. **Linux и macOS** — экспериментально: установщик их понимает, но автор на живой машине это не гонял. Официальный подписанный `.app` / AppImage с сайта **не патчим**.
+> **Windows** — основной путь. **Linux** — установщик прогнан автором (Ubuntu 26); после установки — `hermes desktop --skip-build`. Иконка в меню на Linux — баг апстрима, не мода. **macOS** — экспериментально, живого прогона нет. Официальный подписанный `.app` / AppImage с сайта **не патчим**.
 
 | | Обычный locale pack | Этот мод |
 |---|---|---|
@@ -67,11 +67,11 @@ hermes-desktop-ru install --root /path/to/hermes-agent
 Без npm: скачайте [release zip](https://github.com/upmeister/hermes-desktop-ru/releases), распакуйте.
 
 - Windows: `install.bat` (двойной клик) или `install.ps1`
-- Linux / macOS: `./install.sh` или `node install.mjs`
+- Linux / macOS: `./install.sh` или `node install.mjs` (нужен Node 18+ в PATH; если Desktop уже собирался, его Node часто лежит в `~/.hermes/node`)
 
 Перед установкой Desktop должен быть хотя бы раз собран из этого клона (`hermes desktop` или `cd apps/desktop && npm run pack`). Установщик ищет `app.asar` только внутри `apps/desktop/release/` (`win-unpacked` / `win-arm64-unpacked` / `linux-unpacked` / `linux-arm64-unpacked` / `Hermes.app`).
 
-После `УСТАНОВКА OK` откройте Desktop (если язык не сменился сам — **Русский** в настройках).
+После `УСТАНОВКА OK` запускайте Desktop через `hermes desktop --skip-build` (если язык не сменился сам — **Русский** в настройках). Не кликайте иконку сразу после установки: обычный `hermes desktop` пересобирает pack и затирает русский asar.
 
 На Mac после подмены asar установщик ставит ad-hoc подпись. Это не нотаризация Apple: Gatekeeper может всё равно ругнуться. Если Desktop «повреждён» — вы не в том `.app` (нужен self-built из клона, не скачанный с сайта).
 
@@ -115,6 +115,8 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 | «не найден packaged app.asar» | соберите Desktop из клона (`hermes desktop` / `npm run pack`). Prebuilt с сайта не подойдёт |
 | Doctor FAIL | пропал файл критичного правила — [issue](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
 | Doctor WARN, часть UI на английском | нормально после большого апдейта Bots; дождитесь следующего релиза мода или поставьте как есть |
+| Linux: иконка в меню молчит, из терминала открывается | баг апстрима Hermes, не мод. Запуск: `hermes desktop --skip-build` |
+| После мода UI снова английский / иконка крутится | `hermes desktop --skip-build`. Обычный запуск пересобирает pack и затирает asar |
 | Access is denied / EBUSY / файл занят | закройте Desktop и шлюз, повторите |
 | macOS: «приложение повреждено» / Gatekeeper | мод только для self-built `.app` из клона, не для скачанного с сайта |
 | Долго на npm ci | нормально после `hermes update` (3–10 мин) |

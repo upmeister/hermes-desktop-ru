@@ -40,6 +40,7 @@ FILES = [
     "files/ru.ts",
     "files/ru-constants.ts",
     "files/ru-locales.ts",
+    "files/ru-bots-locales.ts",
 ]
 ROOT_DOCS = [
     "README.md",
@@ -49,7 +50,7 @@ ROOT_DOCS = [
 
 
 def main() -> int:
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.2.2.zip"
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "hermes-desktop-ru-v1.2.3.zip"
     out.parent.mkdir(parents=True, exist_ok=True)
 
     missing = []

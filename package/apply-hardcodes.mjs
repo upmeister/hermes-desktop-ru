@@ -52,7 +52,7 @@ if (!Array.isArray(rules)) {
 // hermes-bots/plugin.js — скомпилированный плагин, апстрим переписывает часто;
 // 200 коротких литералов не должны стопорить установку.
 const COSMETIC_ZONES = new Set([
-  'apps/desktop/src/plugins/hermes-bots/plugin.js',
+  'apps/desktop/src/plugins/hermes-bots/',  // весь каталог bots (бандл + правила)
 ])
 
 // Fallback, если overrides ещё не доехали до registry.json.
