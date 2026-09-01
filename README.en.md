@@ -1,8 +1,8 @@
-# 🇷🇺 Hermes Desktop — Russian mod
+# 🇷🇺 Hermes Desktop — Russian hardcode mod (frozen maintenance)
 
 [🇬🇧 English](README.en.md) · [🇷🇺 Русский](README.md)
 
-Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/hermes-agent).
+Russian-language padding for [Hermes Desktop](https://github.com/NousResearch/hermes-agent).
 
 [![Hermes Desktop](https://img.shields.io/badge/Hermes_Desktop-0.21.0-FFD700?style=for-the-badge&logo=github)](https://github.com/NousResearch/hermes-agent)
 [![npm](https://img.shields.io/npm/v/hermes-desktop-ru?style=for-the-badge&color=red)](https://www.npmjs.com/package/hermes-desktop-ru)
@@ -11,9 +11,16 @@ Full Russian localization for [Hermes Desktop](https://github.com/NousResearch/h
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.2.3](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3) · Hermes Desktop 0.21.0 · 2026-09-02**
+**Latest: [v1.2.3](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3) · Hermes Desktop 0.21.0 · 2026-09-02**  
+**Status: frozen maintenance** — no new translations; only hardcode coverage until upstream moves those into the i18n system.
 
-Hermes Desktop has **no Russian locale in the current release line** (upstream `ru` PRs have sat open since July). i18n-only packs translate the catalog and leave hardcoded strings in components, settings field labels, Bots/kanban, and the Electron main process.
+## Why this mod
+
+An official Russian locale (`ru.ts`) was merged into Hermes Desktop at [`a922dad9`](https://github.com/NousResearch/hermes-agent/commit/a922dad9) (main branch, v0.21+). It covers the i18n catalog — all buttons, settings, onboarding, hundreds of UI strings.
+
+But even with Russian selected, some UI stays English — **hardcoded** strings in components that haven't been wired into `t()` keys yet: Bots, Kanban, Electron main process (gateway auth, boot-failure overlay), settings field labels, plugin metadata.
+
+This mod patches those hardcoded strings — until upstream moves them into the locale system.
 
 This is not a portable / prebuilt installer patch. It expects a **source checkout** (`hermes desktop` / `git clone`) and rebuilds `app.asar` inside that clone.
 
@@ -27,14 +34,17 @@ This is not a portable / prebuilt installer patch. It expects a **source checkou
 
 ![Bots / kanban](docs/screenshots/bots-kanban.png)
 
-## Why not just a locale file
+## Official i18n vs this mod
 
-| | i18n-only pack | this mod |
+| | Official `ru.ts` (v0.21+) | This mod (hardcodes) |
 |---|---|---|
-| Catalog keys | ✅ (~2200+) | ✅ full catalog |
-| Hardcoded component strings | ❌ | ✅ |
-| Bots / kanban / main-process | ❌ | ✅ |
-| After `hermes update` | new UI stays English | re-run `hermes-desktop-ru install` |
+| Catalog keys (buttons, settings, onboarding) | ✅ ~2200 keys | untouched |
+| Hardcoded component strings (settings labels, splash, messengers) | ❌ | ✅ |
+| Bots / kanban / main-process (gateway auth, boot-failure) | ❌ | ✅ |
+| Doctor registry (720 `before→after` rules) | — | ✅ |
+| After `hermes update` | catalog strings update | re-run `hermes-desktop-ru install` |
+
+## How it works
 
 - **720-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
 - **Doctor-gated installer** — dry-run before any write. Cosmetic misses (including an ambiguous short literal in Bots) warn — that spot stays English. Install fails only if a *critical file* is gone (kanban / connection-registry). A failed `npm run build` is the real hard stop.
