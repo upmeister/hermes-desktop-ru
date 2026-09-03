@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes Desktop — мод для хардкодов поверх официального ru</title>
+  <meta name="description" content="Официальный русский язык (ru) есть в Hermes Desktop v0.21+. Этот мод закрывает оставшиеся хардкоды: Боты, канбан, Electron main-process (boot-failure, gateway auth), подписи полей настроек. Переживает hermes update одной командой.">
+  <link rel="canonical" href="https://upmeister.github.io/hermes-desktop-ru/">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="upmeister">
+  <meta name="theme-color" content="#1a1a1a">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Hermes Desktop — мод для хардкодов поверх официального ru">
+  <meta property="og:description" content="Официальный ru в v0.21+. Этот мод переводит то, что i18n не покрывает: Боты, канбан, boot-failure, gateway auth, settings fields. Одна команда после hermes update.">
+  <meta property="og:url" content="https://upmeister.github.io/hermes-desktop-ru/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/upmeister/hermes-desktop-ru/master/docs/screenshots/chat.png">
+  <meta property="og:image:alt" content="Чат Hermes Desktop с русским интерфейсом">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hermes Desktop — мод для хардкодов поверх официального ru">
+  <meta name="twitter:description" content="Официальный ru в v0.21+. Этот мод переводит хардкоды: Боты, канбан, boot-failure, gateway auth, settings fields. Одна команда после hermes update.">
+  <style>
+    :root { color-scheme: light dark; --fg: #1a1a1a; --muted: #555; --bg: #fafafa; --card: #fff; --line: #ddd; --accent: #0b57d0; --ok: #0b6b2e; }
+    @media (prefers-color-scheme: dark) {
+      :root { --fg: #eee; --muted: #aaa; --bg: #121212; --card: #1c1c1c; --line: #333; --accent: #8ab4f8; --ok: #81c995; }
+    }
+    * { box-sizing: border-box; }
+    html { font-size: 18px; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.5; color: var(--fg); background: var(--bg); }
+    header, main, footer { max-width: 44rem; margin: 0 auto; padding: 1.25rem 1rem; }
+    header { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; border-bottom: 1px solid var(--line); }
+    header a { color: var(--accent); }
+    nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+    h1 { font-size: 1.85rem; line-height: 1.2; margin: 0.4rem 0 0.75rem; }
+    h2 { font-size: 1.2rem; margin: 2rem 0 0.6rem; }
+    p, li { color: var(--fg); }
+    .lead { font-size: 1.05rem; }
+    .muted, figcaption { color: var(--muted); font-size: 0.92rem; }
+    .fresh { margin: 0 0 1.25rem; padding: 0.4rem 0.6rem; border-left: 3px solid var(--ok); }
+    .cta { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 1rem 0 1.5rem; }
+    .cta a { display: inline-block; padding: 0.55rem 0.9rem; border: 1px solid var(--line); border-radius: 6px; text-decoration: none; color: var(--fg); background: var(--card); }
+    .cta a.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; background: var(--card); }
+    th, td { border: 1px solid var(--line); padding: 0.45rem 0.55rem; text-align: left; vertical-align: top; }
+    th { font-weight: 600; }
+    pre { background: var(--card); border: 1px solid var(--line); padding: 0.8rem 1rem; overflow-x: auto; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; }
+    figure { margin: 1rem 0; }
+    img { max-width: 100%; height: auto; border: 1px solid var(--line); background: var(--card); }
+    ul.plain { padding-left: 1.2rem; }
+    .note { border: 1px solid var(--line); padding: 0.75rem 1rem; background: var(--card); }
+    footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+    a { color: var(--accent); }
+    .status-banner { background: var(--card); border: 1px solid var(--line); padding: 0.75rem 1rem; margin-bottom: 1rem; border-left: 3px solid var(--accent); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://upmeister.github.io/hermes-desktop-ru/",
+        "url": "https://upmeister.github.io/hermes-desktop-ru/",
+        "name": "Hermes Desktop — мод для хардкодов поверх официального ru",
+        "inLanguage": "ru",
+        "dateModified": "2026-09-03",
+        "description": "Официальный русский язык (ru) в Hermes Desktop v0.21+. Этот мод закрывает оставшиеся хардкоды: Боты, канбан, Electron main-process, подписи полей настроек. Переживает hermes update одной командой.",
+        "isPartOf": { "@type": "WebSite", "name": "hermes-desktop-ru", "url": "https://upmeister.github.io/hermes-desktop-ru/" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "hermes-desktop-ru",
+        "alternateName": "Hermes Desktop — мод для хардкодов поверх официального ru",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Windows, Linux",
+        "softwareVersion": "1.2.3",
+        "url": "https://upmeister.github.io/hermes-desktop-ru/",
+        "downloadUrl": "https://github.com/upmeister/hermes-desktop-ru/releases",
+        "codeRepository": "https://github.com/upmeister/hermes-desktop-ru",
+        "license": "https://github.com/upmeister/hermes-desktop-ru/blob/master/LICENSE",
+        "author": { "@type": "Person", "name": "upmeister", "url": "https://github.com/upmeister" },
+        "isRelatedTo": {
+          "@type": "SoftwareApplication",
+          "name": "Hermes Desktop",
+          "url": "https://github.com/NousResearch/hermes-agent"
+        },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <strong>hermes-desktop-ru</strong>
+    <nav>
+      <a href="#install">Установка</a>
+      <a href="https://github.com/upmeister/hermes-desktop-ru">GitHub</a>
+      <a href="https://github.com/upmeister/hermes-desktop-ru/releases">Релизы</a>
+    </nav>
+  </header>
+  <main>
+    <div class="status-banner">
+      <strong>Статус: frozen maintenance</strong> — официальный русский язык (<code>ru</code>) замержен в Hermes Desktop v0.21+ (коммит <code>a922dad9</code>). Этот мод закрывает <strong>хардкоды</strong>, которые i18n не покрывает. Новых i18n-переводов мод не добавляет.
+    </div>
+
+    <p class="fresh"><time datetime="2026-09-03">Обновлено 3 сентября 2026</time> для публичной версии: мод <a href="https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3">v1.2.3</a> · Hermes Desktop 0.21.0.</p>
+
+    <h1>Hermes Desktop — мод для хардкодов поверх официального <code>ru</code></h1>
+    <p class="lead">В Hermes Desktop v0.21+ появился официальный язык <strong>Russian (ru)</strong> в настройках. Но <strong>i18n-каталог покрывает только ~50–60% UI</strong>. Остальное — хардкоды в компонентах, плагинах и Electron main-process. Этот мод переводит именно их.</p>
+
+    <p class="cta">
+      <a class="primary" href="#install">Поставить мод</a>
+      <a href="https://github.com/upmeister/hermes-desktop-ru">Исходники на GitHub</a>
+    </p>
+
+    <h2>Что именно переводит этот мод (а официальный ru — нет)</h2>
+    <ul class="plain">
+      <li><strong>Боты и канбан</strong> — целые поверхности UI, их i18n-ключей в апстриме нет.</li>
+      <li><strong>Electron main-process</strong> — boot-failure overlay, gateway auth messages, ticket expiry, connection errors.</li>
+      <li><strong>Подписи полей настроек</strong> (<code>app/settings/constants.ts</code>) — они не часть i18n-системы.</li>
+      <li><strong>Плагин-метаданные</strong> (hermes-bots, kanban panes).</li>
+    </ul>
+    <p>После <code>hermes update</code> русский UI возвращается <strong>одной командой</strong> — мод работает через нативный механизм stash/restore апстрима.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Официальный <code>ru</code> (v0.21+)</th><th>Этот мод (поверх официального)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Каталог i18n (кнопки, настройки, онбординг)</td><td>✅ ~2200 ключей</td><td>использует официальный</td></tr>
+        <tr><td>Хардкоды в компонентах (renderer)</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Боты, канбан</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Electron main-process (boot-failure, gateway auth)</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Подписи полей настроек</td><td>❌</td><td>✅</td></tr>
+        <tr><td>После <code>hermes update</code></td><td>i18n сохраняется</td><td><code>hermes-desktop-ru install</code> — хардкоды восстановятся</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Как выглядит</h2>
+    <figure>
+      <img src="docs/screenshots/chat.png" width="1280" alt="Окно чата Hermes Desktop: список сессий, лента сообщений и поле ввода полностью на русском">
+      <figcaption>Чат. Файл: <code>docs/screenshots/chat.png</code></figcaption>
+    </figure>
+    <figure>
+      <img src="docs/screenshots/settings.png" width="1280" alt="Страница настроек Hermes Desktop с русскими подписями полей и выбором языка «Русский»">
+      <figcaption>Настройки, включая поля, которые не живут в locale-файле. Файл: <code>docs/screenshots/settings.png</code></figcaption>
+    </figure>
+    <figure>
+      <img src="docs/screenshots/bots-kanban.png" width="1280" alt="Интерфейс Ботов и канбан-доски Hermes Desktop на русском — экраны, которые locale pack не переводит">
+      <figcaption>Боты и канбан — то, чего нет в официальном i18n. Файл: <code>docs/screenshots/bots-kanban.png</code></figcaption>
+    </figure>
+
+    <h2 id="install">Установка</h2>
+    <p>Нужны Node.js 18+ и <strong>Hermes Desktop, собранный из исходников</strong> (<code>hermes desktop</code> / <code>git clone</code>, первая сборка 5–10 минут). Portable / prebuilt .exe не поддерживаются. Desktop на время установки закройте.</p>
+    <pre><code>npm install -g hermes-desktop-ru
+hermes-desktop-ru install</code></pre>
+    <p>Обычные пути клона: Windows — <code>%LOCALAPPDATA%\hermes\hermes-agent</code>; Linux — <code>~/.hermes/hermes-agent</code>. Иначе: <code>hermes-desktop-ru install --root /path/to/hermes-agent</code>.</p>
+    <table>
+      <thead><tr><th>Команда</th><th>Зачем</th></tr></thead>
+      <tbody>
+        <tr><td><code>hermes-desktop-ru install</code></td><td>поставить / перепоставить (откатывает tracked-исходники клона к стоку, затем патч + сборка)</td></tr>
+        <tr><td><code>hermes-desktop-ru doctor</code></td><td>сухая проверка, без записи и без убийства процессов</td></tr>
+        <tr><td><code>hermes-desktop-ru uninstall</code></td><td>вернуть packaged <code>app.asar</code> из <code>.stock.bak</code></td></tr>
+      </tbody>
+    </table>
+    <p>После апдейта апстрима:</p>
+    <pre><code>hermes update
+hermes-desktop-ru install</code></pre>
+    <p>Без npm — <a href="https://github.com/upmeister/hermes-desktop-ru/releases">zip релиза</a>: <code>install.bat</code> / <code>install.ps1</code> на Windows, <code>./install.sh</code> на Linux.</p>
+
+    <h2>Ограничения — сразу нет</h2>
+    <div class="note">
+      <p><strong>Не патчим portable и готовые установщики.</strong> Скачанный с сайта <code>.exe</code>, подписанный <code>.app</code>, AppImage — вне скоупа. Установщик ищет <code>app.asar</code> только в <code>apps/desktop/release/</code> рядом с клоном.</p>
+      <p><strong>Windows</strong> — основной, автором протестированный путь. <strong>Linux</strong> — установщик прогнан (Ubuntu 26). <strong>macOS</strong> — экспериментально.</p>
+      <p>Другие ваши патчи в том же клоне установщик не бережёт: <code>install</code> сначала делает <code>git restore</code> tracked-файлов.</p>
+    </div>
+
+    <h2>Баги, исходники и апстрим</h2>
+    <p>Репозиторий, issues и журнал совместимости с апстримом: <a href="https://github.com/upmeister/hermes-desktop-ru">github.com/upmeister/hermes-desktop-ru</a>. Лицензия MIT. Мод не связан с Nous Research официально.</p>
+    <p>Предложение по выносу хардкодов в апстрим: <a href="https://github.com/NousResearch/hermes-agent/issues/100731">#100731</a> (interest check). Если апстрим вынесет хардкоды в i18n — мод станет не нужен.</p>
+  </main>
+  <footer>
+    <p>Статическая страница без JS-рендера. Канонический адрес: <a href="https://upmeister.github.io/hermes-desktop-ru/">upmeister.github.io/hermes-desktop-ru</a>. Скриншоты — файлы репозитория <code>docs/screenshots/*.png</code>, не внешние стоки.</p>
+  </footer>
+</body>
+</html>
