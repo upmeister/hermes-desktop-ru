@@ -11,24 +11,20 @@ Russian-language padding for [Hermes Desktop](https://github.com/NousResearch/he
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.2.3.1](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3.1) · Hermes Desktop 0.21.0 · 2026-09-03**  
+**Latest: [v1.2.4](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.4) · Hermes Desktop 0.21.0 · 2026-09-03**  
 **Status: frozen maintenance** — no new translations; only hardcode coverage until upstream moves those into the i18n system.
 
 ## Why this mod
 
-An official Russian locale (`ru.ts`) was merged into Hermes Desktop at [`a922dad9`](https://github.com/NousResearch/hermes-agent/commit/a922dad9) (main branch, v0.21+). It covers the i18n catalog — all buttons, settings, onboarding, hundreds of UI strings.
+An official Russian locale (`ru.ts`) was merged into `main` on September 1, 2026, in [`a922dad9`](https://github.com/NousResearch/hermes-agent/commit/a922dad9) (v0.21+). It covers around 60% of the UI, but some components still contain **hardcoded** English strings: Bots, Kanban, parts of the settings UI, main-process messages, and plugin metadata.
 
-But even with Russian selected, some UI stays English — **hardcoded** strings in components that haven't been wired into `t()` keys yet: Bots, Kanban, Electron main process (gateway auth, boot-failure overlay), settings field labels, plugin metadata.
+This mod complements the official locale by translating the remaining hardcoded strings and refining questionable terminology. For example, `Skills` / `Capabilities` is officially translated as «Возможности» (“Capabilities”), even though the section is actually about skills, tools, and MCP servers.
 
-This mod patches those hardcoded strings — until upstream moves them into the locale system.
-
-Note: the official `ru.ts` is **incomplete and partly debatable**. One of the most visible examples: the `Skills` section (EN `Capabilities` — “Skills, tools, and MCP servers”) is officially translated as **«Возможности»** (“capabilities”) — a word that reflects neither the English name nor the actual content of the section, and confuses rather than helps the Russian user (see the translation conventions below for examples of more precise wording).
-
-And whole menu areas the official translation does not cover at all: Bots tabs and dialogs (bot creation, group chats, user sections), parts of kanban, settings field labels (`ru-constants.ts`), main-process messages. All of that is the mod's zone, not the catalog's.
+See the **translation conventions** and the list of covered components below.
 
 This is not a portable / prebuilt installer patch. It expects a **source checkout** (`hermes desktop` / `git clone`) and rebuilds `app.asar` inside that clone.
 
-**Windows is the supported path** (author-tested). **Linux installer is author-tested** (Ubuntu 26); after install launch with `hermes desktop --skip-build` (the menu icon is an upstream Linux bug, not the mod; a plain `hermes desktop` also re-packs and wipes the Russian asar). **macOS is experimental** (no live Desktop run). We never patch a notarized `.app` or website AppImage — only `apps/desktop/release/` next to the clone.
+**Windows is the supported path** (author-tested). **Linux installer is author-tested** (Ubuntu 26). **macOS is experimental** (no live Desktop run). We never patch a notarized `.app` or website AppImage — only `apps/desktop/release/` next to the clone.
 
 ## Screens
 
@@ -154,8 +150,6 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 | "packaged app.asar not found" | pack Desktop from the clone (`hermes desktop` / `npm run pack`). Website prebuilts are out of scope |
 | Doctor FAIL | a critical file is gone — [issue "Doctor FAIL"](https://github.com/upmeister/hermes-desktop-ru/issues/new?template=doctor-fail.yml) |
 | Doctor WARN / UI partly English | expected after a large Bots rewrite; wait for the next mod release or install as-is |
-| Linux: menu icon does nothing, terminal `hermes desktop` works | upstream Hermes bug, not the mod. Launch with `hermes desktop --skip-build` |
-| After the mod the UI is English again / icon spins | `hermes desktop --skip-build`. A plain launch re-packs and wipes the asar |
 | Access denied / EBUSY | close Hermes Desktop and retry |
 | macOS "app is damaged" / Gatekeeper | only self-built `.app` from the clone; do not patch the notarized website build |
 | Long `npm ci` | normal with broken `node_modules` after `hermes update` (3–10 min) |
@@ -166,8 +160,8 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 | Hermes Desktop | |
 |---|---|
-| **0.21.0 / Windows** | author-tested, doctor 746/746 at 1.2.3.1. A later Bots rewrite may WARN — install still proceeds |
-| **0.21.0 / Linux** | installer author-tested (Ubuntu 26). After install: `hermes desktop --skip-build`. Menu icon is an upstream bug, not the mod |
+| **0.21.0 / Windows** | author-tested, doctor 746/746 at 1.2.4. A later Bots rewrite may WARN — install still proceeds |
+| **0.21.0 / Linux** | installer author-tested (Ubuntu 26) |
 | macOS | installer resolves paths; **not author-tested**. Treat as experimental |
 | older | install the mod release that matches |
 
@@ -182,6 +176,8 @@ Proper names stay: platforms, models, providers, commands, theme names (`Midnigh
 Established terms stay: MCP, DIFF, URL, PR, YOLO.
 
 Stable UI glossary: «Рабочие материалы» (Artifacts), «Обслуживание и диагностика» (Maintenance), «Рассуждения» (Reasoning).
+
+`Skills` / `Capabilities` → **«Навыки и инструменты»** (“Skills and tools”) — the mod's established term; the official «Возможности» does not reflect the section's content (skills, tools, MCP servers).
 
 Backend-produced text (CLI logs, tracebacks, JSON, OS messages) is not translated — it is not UI, and patching it without deep backend changes is not feasible.
 
