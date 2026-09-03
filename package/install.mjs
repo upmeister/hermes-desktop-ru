@@ -37,7 +37,7 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const isWin = process.platform === 'win32'
 const isMac = process.platform === 'darwin'
 const isLinux = process.platform === 'linux'
-const FALLBACK_VERSION = '1.2.3.1'
+const FALLBACK_VERSION = '1.2.4'
 
 function sleepSync(ms) {
   const buf = new Int32Array(new SharedArrayBuffer(4))
