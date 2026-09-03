@@ -1,3305 +1,3519 @@
 [
-  {
-    "id": "custom-endpoints-settings.tsx-9",
-    "file": "apps/desktop/src/app/settings/custom-endpoints-settings.tsx",
-    "before": [
-      "    if (!(await confirm({ destructive: true, title: `Delete ${endpoint.name}?` }))) {"
-    ],
-    "after": [
-      "    if (!(await confirm({ destructive: true, title: `Удалить ${endpoint.name}?` }))) {"
-    ]
-  },
-  {
-    "id": "presets.ts-1",
-    "file": "apps/desktop/src/themes/presets.ts",
-    "before": [
-      "  description: 'GitHub chrome, Nous blue accent',"
-    ],
-    "after": [
-      "  description: 'Оформление GitHub, акцент Nous синий',"
-    ]
-  },
-  {
-    "id": "presets.ts-github",
-    "file": "apps/desktop/src/themes/presets.ts",
-    "before": [
-      "  description: 'GitHub Light Default and Dark Default',"
-    ],
-    "after": [
-      "  description: 'Светлая и тёмная по умолчанию',"
-    ]
-  },
-  {
-    "id": "presets.ts-catppuccin",
-    "file": "apps/desktop/src/themes/presets.ts",
-    "before": [
-      "  description: 'Soothing pastels — Latte and Mocha',"
-    ],
-    "after": [
-      "  description: 'Успокаивающие пастели — Latte и Mocha',"
-    ]
-  },
-  {
-    "id": "presets.ts-everforest",
-    "file": "apps/desktop/src/themes/presets.ts",
-    "before": [
-      "  description: 'Warm, low-contrast forest greens',"
-    ],
-    "after": [
-      "  description: 'Тёплые лесные зелёные с низким контрастом',"
-    ]
-  },
-  {
-    "id": "presets.ts-solarized",
-    "file": "apps/desktop/src/themes/presets.ts",
-    "before": [
-      "  description: 'Fixed-contrast light and dark',"
-    ],
-    "after": [
-      "  description: 'Светлая и тёмная с фиксированным контрастом',"
-    ]
-  },
-  {
-    "id": "kanban-plugin-nav-label",
-    "file": "apps/desktop/src/plugins/kanban/plugin.tsx",
-    "before": [
-      "        data: { codicon: 'project', label: 'Kanban', path: '/kanban' } satisfies SidebarNavContribution"
-    ],
-    "after": [
-      "        data: { codicon: 'project', label: 'Канбан', path: '/kanban' } satisfies SidebarNavContribution"
-    ]
-  },
-  {
-    "id": "controller-sessions-title",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "    title: 'sessions',"
-    ],
-    "after": [
-      "    title: 'Сессии',"
-    ]
-  },
-  {
-    "id": "accent-description",
-    "file": "apps/desktop/src/plugins/accent/plugin.tsx",
-    "before": [
-      "    'Pick the theme accent from an OKLCH color picker in the status bar; the palette re-derives live. Authoring tool — the color is not persisted.',"
-    ],
-    "after": [
-      "    'Выбор акцентного цвета темы в палитре OKLCH в статус-баре; палитра пересчитывается на лету. Инструмент для авторов — цвет не сохраняется.',"
-    ]
-  },
-  {
-    "id": "accent-reset-label",
-    "file": "apps/desktop/src/plugins/accent/plugin.tsx",
-    "before": [
-      "          label: 'Accent: reset to the theme default',"
-    ],
-    "after": [
-      "          label: 'Акцент: сбросить к значению темы по умолчанию',"
-    ]
-  },
-  {
-    "id": "accent-copy-label",
-    "file": "apps/desktop/src/plugins/accent/plugin.tsx",
-    "before": [
-      "          label: 'Accent: copy the current color',"
-    ],
-    "after": [
-      "          label: 'Акцент: скопировать текущий цвет',"
-    ]
-  },
-  {
-    "id": "filter-menu-75",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'clock', id: 'date', label: 'Updated' },"
-    ],
-    "after": [
-      "  { icon: 'clock', id: 'date', label: 'Обновлено' },"
-    ]
-  },
-  {
-    "id": "filter-menu-76",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'root-folder', id: 'project', label: 'Project' },"
-    ],
-    "after": [
-      "  { icon: 'root-folder', id: 'project', label: 'Проект' },"
-    ]
-  },
-  {
-    "id": "filter-menu-77-all",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'pulse', id: 'status', label: 'Status' },"
-    ],
-    "after": [
-      "  { icon: 'pulse', id: 'status', label: 'Статус' },"
-    ],
-    "all": true
-  },
-  {
-    "id": "filter-menu-78-all",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'account', id: 'profile', label: 'Profile' }"
-    ],
-    "after": [
-      "  { icon: 'account', id: 'profile', label: 'Профиль' }"
-    ],
-    "all": true
-  },
-  {
-    "id": "filter-menu-82-all",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'clock', id: 'updated', label: 'Updated' },"
-    ],
-    "after": [
-      "  { icon: 'clock', id: 'updated', label: 'Обновлено' },"
-    ],
-    "all": true
-  },
-  {
-    "id": "filter-menu-83",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'add', id: 'created', label: 'Created' },"
-    ],
-    "after": [
-      "  { icon: 'add', id: 'created', label: 'Создано' },"
-    ]
-  },
-  {
-    "id": "filter-menu-85-all",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'symbol-numeric', id: 'tokens', label: 'Tokens' },"
-    ],
-    "after": [
-      "  { icon: 'symbol-numeric', id: 'tokens', label: 'Токены' },"
-    ],
-    "all": true
-  },
-  {
-    "id": "filter-menu-86-all",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'credit-card', id: 'cost', label: 'Cost' },"
-    ],
-    "after": [
-      "  { icon: 'credit-card', id: 'cost', label: 'Стоимость' },"
-    ],
-    "all": true
-  },
-  {
-    "id": "filter-menu-87",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'list-ordered', id: 'manual', label: 'Manual' }"
-    ],
-    "after": [
-      "  { icon: 'list-ordered', id: 'manual', label: 'Вручную' }"
-    ]
-  },
-  {
-    "id": "filter-menu-92",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'comment', id: 'preview', label: 'Preview' },"
-    ],
-    "after": [
-      "  { icon: 'comment', id: 'preview', label: 'Превью' },"
-    ]
-  },
-  {
-    "id": "filter-menu-100",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'git-pull-request', id: 'open', label: 'Open' },"
-    ],
-    "after": [
-      "  { icon: 'git-pull-request', id: 'open', label: 'Открытые' },"
-    ]
-  },
-  {
-    "id": "filter-menu-101",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'git-pull-request-draft', id: 'draft', label: 'Draft' },"
-    ],
-    "after": [
-      "  { icon: 'git-pull-request-draft', id: 'draft', label: 'Черновик' },"
-    ]
-  },
-  {
-    "id": "filter-menu-102",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'git-merge', id: 'merged', label: 'Merged' },"
-    ],
-    "after": [
-      "  { icon: 'git-merge', id: 'merged', label: 'Слитые' },"
-    ]
-  },
-  {
-    "id": "filter-menu-103",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'git-pull-request-closed', id: 'closed', label: 'Closed' },"
-    ],
-    "after": [
-      "  { icon: 'git-pull-request-closed', id: 'closed', label: 'Закрытые' },"
-    ]
-  },
-  {
-    "id": "filter-menu-104",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { icon: 'circle-slash', id: 'none', label: 'No PR' }"
-    ],
-    "after": [
-      "  { icon: 'circle-slash', id: 'none', label: 'Без PR' }"
-    ]
-  },
-  {
-    "id": "filter-menu-108",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { dot: sessionDotClassName('needs-input'), id: 'needs-input', label: 'Needs input' },"
-    ],
-    "after": [
-      "  { dot: sessionDotClassName('needs-input'), id: 'needs-input', label: 'Нужен ваш ответ' },"
-    ]
-  },
-  {
-    "id": "filter-menu-109",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { dot: sessionDotClassName('working'), id: 'working', label: 'Working' },"
-    ],
-    "after": [
-      "  { dot: sessionDotClassName('working'), id: 'working', label: 'Работает' },"
-    ]
-  },
-  {
-    "id": "filter-menu-111",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { dot: sessionDotClassName('draft'), id: 'draft', label: 'Draft' },"
-    ],
-    "after": [
-      "  { dot: sessionDotClassName('draft'), id: 'draft', label: 'Черновик' },"
-    ]
-  },
-  {
-    "id": "filter-menu-110",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { dot: sessionDotClassName('unread'), id: 'unread', label: 'Unread' },"
-    ],
-    "after": [
-      "  { dot: sessionDotClassName('unread'), id: 'unread', label: 'Непрочитанное' },"
-    ]
-  },
-  {
-    "id": "filter-menu-112",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "  { dot: cn(sessionDotClassName('idle'), 'bg-(--ui-text-quaternary)'), id: 'idle', label: 'Idle' }"
-    ],
-    "after": [
-      "  { dot: cn(sessionDotClassName('idle'), 'bg-(--ui-text-quaternary)'), id: 'idle', label: 'Ожидание' }"
-    ]
-  },
-  {
-    "id": "filter-menu-230",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "              Grouping"
-    ],
-    "after": [
-      "              Группировка"
-    ]
-  },
-  {
-    "id": "filter-menu-249",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "            <DropdownMenuSubTrigger>Ordering</DropdownMenuSubTrigger>"
-    ],
-    "after": [
-      "            <DropdownMenuSubTrigger>Сортировка</DropdownMenuSubTrigger>"
-    ]
-  },
-  {
-    "id": "filter-menu-263",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "            <DropdownMenuSubTrigger>Show</DropdownMenuSubTrigger>"
-    ],
-    "after": [
-      "            <DropdownMenuSubTrigger>Показывать</DropdownMenuSubTrigger>"
-    ]
-  },
-  {
-    "id": "filter-menu-281",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "            option={{ icon: 'inbox', id: 'card-rows', label: 'Inbox style' }}"
-    ],
-    "after": [
-      "            option={{ icon: 'inbox', id: 'card-rows', label: 'Стиль «Почта»' }}"
-    ]
-  },
-  {
-    "id": "filter-menu-288",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "          <DropdownMenuLabel>Filters</DropdownMenuLabel>"
-    ],
-    "after": [
-      "          <DropdownMenuLabel>Фильтры</DropdownMenuLabel>"
-    ]
-  },
-  {
-    "id": "filter-menu-291",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "            <DropdownMenuSubTrigger>Status</DropdownMenuSubTrigger>"
-    ],
-    "after": [
-      "            <DropdownMenuSubTrigger>Статус</DropdownMenuSubTrigger>"
-    ]
-  },
-  {
-    "id": "filter-menu-323",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "            <DropdownMenuSubTrigger>Profile</DropdownMenuSubTrigger>"
-    ],
-    "after": [
-      "            <DropdownMenuSubTrigger>Профиль</DropdownMenuSubTrigger>"
-    ]
-  },
-  {
-    "id": "filter-menu-350",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "              <DropdownMenuSubTrigger>Project</DropdownMenuSubTrigger>"
-    ],
-    "after": [
-      "              <DropdownMenuSubTrigger>Проект</DropdownMenuSubTrigger>"
-    ]
-  },
-  {
-    "id": "filter-menu-385",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "            option={{ id: 'archived', label: 'Archived' }}"
-    ],
-    "after": [
-      "            option={{ id: 'archived', label: 'В архиве' }}"
-    ]
-  },
-  {
-    "id": "filter-menu-412",
-    "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
-    "before": [
-      "          Mark all as read"
-    ],
-    "after": [
-      "          Отметить всё прочитанным"
-    ]
-  },
-  {
-    "id": "reactions-ts-could-not-react",
-    "file": "apps/desktop/src/store/reactions.ts",
-    "before": [
-      "    notifyError(new Error(!sessionId ? 'No active session' : 'Gateway not connected'), 'Could not react')"
-    ],
-    "after": [
-      "    notifyError(new Error(!sessionId ? 'Нет активной сессии' : 'Шлюз не подключён'), 'Не удалось поставить реакцию')"
-    ],
-    "severity": "cosmetic"
-  },
-  {
-    "id": "reactions-ts-could-not-react-2",
-    "file": "apps/desktop/src/store/reactions.ts",
-    "before": [
-      "    notifyError(err, 'Could not react')"
-    ],
-    "after": [
-      "    notifyError(err, 'Не удалось поставить реакцию')"
-    ],
-    "severity": "cosmetic"
-  },
-  {
-    "id": "api-client-ts-not-connected",
-    "file": "apps/desktop/src/api/client.ts",
-    "before": [
-      "      notConnectedErrorMessage: 'Hermes gateway is not connected',"
-    ],
-    "after": [
-      "      notConnectedErrorMessage: 'Шлюз Hermes не подключён',"
-    ],
-    "severity": "cosmetic"
-  },
-  {
-    "id": "wave3-ad-messaging",
-    "file": "apps/desktop/src/components/assistant-ui/thread/agent-delivery.tsx",
-    "before": [
-      "            {pending ? 'Messaging' : 'Messaged'} {target}"
-    ],
-    "after": [
-      "            {pending ? 'Отправка' : 'Отправлено'} {target}"
-    ]
-  },
-  {
-    "id": "wave3-ad-msgfrom",
-    "file": "apps/desktop/src/components/assistant-ui/thread/agent-delivery.tsx",
-    "before": [
-      "            <span className=\"wrap-anywhere\">Message from {target}</span>"
-    ],
-    "after": [
-      "            <span className=\"wrap-anywhere\">Сообщение от {target}</span>"
-    ]
-  },
-  {
-    "id": "wave3-ad-showmsg",
-    "file": "apps/desktop/src/components/assistant-ui/thread/agent-delivery.tsx",
-    "before": [
-      "              show message"
-    ],
-    "after": [
-      "              показать сообщение"
-    ]
-  },
-  {
-    "id": "wave3-um-msgfrom",
-    "file": "apps/desktop/src/components/assistant-ui/thread/user-message.tsx",
-    "before": [
-      "        <span className=\"wrap-anywhere\">Message from {sender}</span>"
-    ],
-    "after": [
-      "        <span className=\"wrap-anywhere\">Сообщение от {sender}</span>"
-    ]
-  },
-  {
-    "id": "wave3-um-showmsg",
-    "file": "apps/desktop/src/components/assistant-ui/thread/user-message.tsx",
-    "before": [
-      "            show message"
-    ],
-    "after": [
-      "            показать сообщение"
-    ]
-  },
-  {
-    "id": "wave3-am-replied",
-    "file": "apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx",
-    "before": [
-      "      <span className=\"wrap-anywhere\">Replied to {sender}</span>"
-    ],
-    "after": [
-      "      <span className=\"wrap-anywhere\">Ответил на сообщение {sender}</span>"
-    ]
-  },
-  {
-    "id": "wave3-am-showreply",
-    "file": "apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx",
-    "before": [
-      "        show reply"
-    ],
-    "after": [
-      "        показать ответ"
-    ]
-  },
-  {
-    "id": "w4-tle-6",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "      label: 'Toggle layout edit mode',"
-    ],
-    "after": [
-      "      label: 'Переключить режим редактирования раскладки',"
-    ]
-  },
-  {
-    "id": "w4-tle-4",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "    label: 'Toggle layout edit mode',"
-    ],
-    "after": [
-      "    label: 'Переключить режим редактирования раскладки',"
-    ]
-  },
-  {
-    "id": "w4-reload-plugins",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "      label: 'Reload desktop plugins',"
-    ],
-    "after": [
-      "      label: 'Перезагрузить плагины рабочего стола',"
-    ]
-  },
-  {
-    "id": "w4-reset-layout",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "      label: 'Reset layout',"
-    ],
-    "after": [
-      "      label: 'Сбросить раскладку',"
-    ]
-  },
-  {
-    "id": "w4-toggle-statusbar",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "    label: 'Toggle status bar',"
-    ],
-    "after": [
-      "    label: 'Переключить строку состояния',"
-    ]
-  },
-  {
-    "id": "w4-keyboard",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "      label: 'Keyboard shortcuts',"
-    ],
-    "after": [
-      "      label: 'Горячие клавиши',"
-    ]
-  },
-  {
-    "id": "w4-export",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "      label: 'Export profile…',"
-    ],
-    "after": [
-      "      label: 'Экспорт профиля…',"
-    ]
-  },
-  {
-    "id": "w4-import",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "      label: 'Import profile…',"
-    ],
-    "after": [
-      "      label: 'Импорт профиля…',"
-    ]
-  },
-  {
-    "id": "w4-focus",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "  { id: 'focus', area: 'layouts', title: 'Focus', order: 10, data: FOCUS_TREE },"
-    ],
-    "after": [
-      "  { id: 'focus', area: 'layouts', title: 'Фокус', order: 10, data: FOCUS_TREE },"
-    ]
-  },
-  {
-    "id": "w4-quad",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "  { id: 'quad', area: 'layouts', title: 'Quad', order: 30, data: QUAD_TREE }"
-    ],
-    "after": [
-      "  { id: 'quad', area: 'layouts', title: 'Четыре зоны', order: 30, data: QUAD_TREE }"
-    ]
-  },
-  {
-    "id": "w4-toggle-terminal",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "    label: 'Toggle terminal',"
-    ],
-    "after": [
-      "    label: 'Переключить терминал',"
-    ]
-  },
-  {
-    "id": "w4-toggle-logs",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "    label: 'Toggle logs',"
-    ],
-    "after": [
-      "    label: 'Переключить журналы',"
-    ]
-  },
-  {
-    "id": "w4-toggle-yolo",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "    label: 'Toggle yolo',"
-    ],
-    "after": [
-      "    label: 'Переключить yolo',"
-    ]
-  },
-  {
-    "id": "w4-artifacts",
-    "file": "apps/desktop/src/app/chat/route-tile.tsx",
-    "before": [
-      "  [ARTIFACTS_ROUTE]: { render: () => <ArtifactsView />, title: 'Artifacts' },"
-    ],
-    "after": [
-      "  [ARTIFACTS_ROUTE]: { render: () => <ArtifactsView />, title: 'Рабочие материалы' },"
-    ]
-  },
-  {
-    "id": "w4-split-right",
-    "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
-    "before": [
-      "  { dir: 'right', icon: 'arrow-right', label: 'Right' },"
-    ],
-    "after": [
-      "  { dir: 'right', icon: 'arrow-right', label: 'Справа' },"
-    ]
-  },
-  {
-    "id": "w4-split-down",
-    "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
-    "before": [
-      "  { dir: 'bottom', icon: 'arrow-down', label: 'Down' },"
-    ],
-    "after": [
-      "  { dir: 'bottom', icon: 'arrow-down', label: 'Снизу' },"
-    ]
-  },
-  {
-    "id": "w4-split-left",
-    "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
-    "before": [
-      "  { dir: 'left', icon: 'arrow-left', label: 'Left' },"
-    ],
-    "after": [
-      "  { dir: 'left', icon: 'arrow-left', label: 'Слева' },"
-    ]
-  },
-  {
-    "id": "w4-current-plan",
-    "file": "apps/desktop/src/app/settings/billing/plans-view.tsx",
-    "before": [
-      "        {isCurrent && <Pill tone=\"primary\">Current plan</Pill>}"
-    ],
-    "after": [
-      "        {isCurrent && <Pill tone=\"primary\">Текущий план</Pill>}"
-    ]
-  },
-  {
-    "id": "w4-scheduled-pill",
-    "file": "apps/desktop/src/app/settings/billing/plans-view.tsx",
-    "before": [
-      "        {tier.state === 'scheduled' && <Pill>Scheduled</Pill>}"
-    ],
-    "after": [
-      "        {tier.state === 'scheduled' && <Pill>Запланировано</Pill>}"
-    ]
-  },
-  {
-    "id": "w4-plans-title",
-    "file": "apps/desktop/src/app/settings/billing/plans-view.tsx",
-    "before": [
-      "        <span>Plans</span>"
-    ],
-    "after": [
-      "        <span>Планы</span>"
-    ]
-  },
-  {
-    "id": "w4-charge-failed",
-    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
-    "before": [
-      "        title: 'Charge failed'"
-    ],
-    "after": [
-      "        title: 'Оплата не прошла'"
-    ]
-  },
-  {
-    "id": "w4-charge-unconfirmed",
-    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
-    "before": [
-      "          title: 'Charge outcome unconfirmed'"
-    ],
-    "after": [
-      "          title: 'Результат оплаты не подтверждён'"
-    ]
-  },
-  {
-    "id": "w4-charge-check",
-    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
-    "before": [
-      "        title: 'Could not check charge'"
-    ],
-    "after": [
-      "        title: 'Не удалось проверить оплату'"
-    ],
-    "all": true
-  },
-  {
-    "id": "w4-charge-track",
-    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
-    "before": [
-      "          title: 'Charge could not be tracked'"
-    ],
-    "after": [
-      "          title: 'Не удалось отследить оплату'"
-    ]
-  },
-  {
-    "id": "w4-charge-slow",
-    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
-    "before": [
-      "    title: 'Still processing after 5 minutes'"
-    ],
-    "after": [
-      "    title: 'Обработка длится дольше 5 минут'"
-    ]
-  },
-  {
-    "id": "w4-stepup-denied",
-    "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
-    "before": [
-      "        title: 'Verification was not approved'"
-    ],
-    "after": [
-      "        title: 'Верификация не одобрена'"
-    ]
-  },
-  {
-    "id": "w4-stepup-ok",
-    "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
-    "before": [
-      "      title: 'Verification complete'"
-    ],
-    "after": [
-      "      title: 'Верификация завершена'"
-    ]
-  },
-  {
-    "id": "w4-appearance",
-    "file": "apps/desktop/src/app/settings/constants.ts",
-    "before": [
-      "    label: 'Appearance',"
-    ],
-    "after": [
-      "    label: 'Внешний вид',"
-    ]
-  },
-  {
-    "id": "w4-safety",
-    "file": "apps/desktop/src/app/settings/constants.ts",
-    "before": [
-      "    label: 'Safety',"
-    ],
-    "after": [
-      "    label: 'Безопасность',"
-    ]
-  },
-  {
-    "id": "w4-memory-context",
-    "file": "apps/desktop/src/app/settings/constants.ts",
-    "before": [
-      "    label: 'Memory & Context',"
-    ],
-    "after": [
-      "    label: 'Память и контекст',"
-    ]
-  },
-  {
-    "id": "w4-voice",
-    "file": "apps/desktop/src/app/settings/constants.ts",
-    "before": [
-      "    label: 'Voice',"
-    ],
-    "after": [
-      "    label: 'Голос',"
-    ]
-  },
-  {
-    "id": "w4-alert-caution",
-    "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
-    "before": [
-      "  caution: { accent: 'text-rose-600 dark:text-rose-400', icon: AlertTriangle, label: 'Caution' },"
-    ],
-    "after": [
-      "  caution: { accent: 'text-rose-600 dark:text-rose-400', icon: AlertTriangle, label: 'Осторожно' },"
-    ]
-  },
-  {
-    "id": "w4-alert-important",
-    "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
-    "before": [
-      "  important: { accent: 'text-violet-600 dark:text-violet-400', icon: AlertCircle, label: 'Important' },"
-    ],
-    "after": [
-      "  important: { accent: 'text-violet-600 dark:text-violet-400', icon: AlertCircle, label: 'Важно' },"
-    ]
-  },
-  {
-    "id": "w4-alert-note",
-    "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
-    "before": [
-      "  note: { accent: 'text-blue-600 dark:text-blue-400', icon: Info, label: 'Note' },"
-    ],
-    "after": [
-      "  note: { accent: 'text-blue-600 dark:text-blue-400', icon: Info, label: 'Примечание' },"
-    ]
-  },
-  {
-    "id": "w4-alert-tip",
-    "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
-    "before": [
-      "  tip: { accent: 'text-emerald-600 dark:text-emerald-400', icon: Zap, label: 'Tip' },"
-    ],
-    "after": [
-      "  tip: { accent: 'text-emerald-600 dark:text-emerald-400', icon: Zap, label: 'Совет' },"
-    ]
-  },
-  {
-    "id": "w4-alert-warning",
-    "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
-    "before": [
-      "  warning: { accent: 'text-amber-600 dark:text-amber-400', icon: AlertTriangle, label: 'Warning' }"
-    ],
-    "after": [
-      "  warning: { accent: 'text-amber-600 dark:text-amber-400', icon: AlertTriangle, label: 'Предупреждение' }"
-    ]
-  },
-  {
-    "id": "w4-embed-load",
-    "file": "apps/desktop/src/components/assistant-ui/embeds/embed-consent.tsx",
-    "before": [
-      "    { id: 'once', label: `Load ${descriptor.label}` },"
-    ],
-    "after": [
-      "    { id: 'once', label: `Загрузить ${descriptor.label}` },"
-    ]
-  },
-  {
-    "id": "w4-embed-always",
-    "file": "apps/desktop/src/components/assistant-ui/embeds/embed-consent.tsx",
-    "before": [
-      "    { id: 'always', label: `Always allow ${descriptor.label}` }"
-    ],
-    "after": [
-      "    { id: 'always', label: `Всегда разрешать ${descriptor.label}` }"
-    ]
-  },
-  {
-    "id": "w4-ref-folders",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "    label: 'Folders'"
-    ],
-    "after": [
-      "    label: 'Папки'"
-    ]
-  },
-  {
-    "id": "w4-ref-links",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "    label: 'Links'"
-    ],
-    "after": [
-      "    label: 'Ссылки'"
-    ]
-  },
-  {
-    "id": "w4-ref-images",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "    label: 'Images'"
-    ],
-    "after": [
-      "    label: 'Изображения'"
-    ]
-  },
-  {
-    "id": "w4-ref-lines",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "    label: 'Lines'"
-    ],
-    "after": [
-      "    label: 'Строки'"
-    ]
-  },
-  {
-    "id": "w4-ref-sessions",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "    label: 'Sessions'"
-    ],
-    "after": [
-      "    label: 'Сессии'"
-    ]
-  },
-  {
-    "id": "w4-ref-staged",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "  staged: { codicon: 'diff-added', paths: ['M12 5l0 14', 'M5 12l14 0'], label: 'Staged' },"
-    ],
-    "after": [
-      "  staged: { codicon: 'diff-added', paths: ['M12 5l0 14', 'M5 12l14 0'], label: 'Подготовлено' },"
-    ]
-  },
-  {
-    "id": "w4-ref-commands",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "  command: { codicon: 'terminal', paths: TERMINAL_PATHS, label: 'Commands' },"
-    ],
-    "after": [
-      "  command: { codicon: 'terminal', paths: TERMINAL_PATHS, label: 'Команды' },"
-    ]
-  },
-  {
-    "id": "w4-ref-themes",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "    label: 'Themes'"
-    ],
-    "after": [
-      "    label: 'Темы'"
-    ]
-  },
-  {
-    "id": "w4-ref-emoji",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "  emoji: { codicon: 'smiley', paths: [], label: 'Emoji' },"
-    ],
-    "after": [
-      "  emoji: { codicon: 'smiley', paths: [], label: 'Эмодзи' },"
-    ]
-  },
-  {
-    "id": "w4-ref-other",
-    "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
-    "before": [
-      "  other: { codicon: 'symbol-misc', paths: FILE_PATHS, label: 'Other' }"
-    ],
-    "after": [
-      "  other: { codicon: 'symbol-misc', paths: FILE_PATHS, label: 'Другое' }"
-    ]
-  },
-  {
-    "id": "w4-idea-gamejam",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Game jam',"
-    ],
-    "after": [
-      "    label: 'Гейм-джем',"
-    ]
-  },
-  {
-    "id": "w4-idea-novel",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Novel',"
-    ],
-    "after": [
-      "    label: 'Роман',"
-    ]
-  },
-  {
-    "id": "w4-idea-discord",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Discord bot',"
-    ],
-    "after": [
-      "    label: 'Бот для Discord',"
-    ]
-  },
-  {
-    "id": "w4-idea-dataviz",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Data viz',"
-    ],
-    "after": [
-      "    label: 'Визуализация данных',"
-    ]
-  },
-  {
-    "id": "w4-idea-genart",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Generative art',"
-    ],
-    "after": [
-      "    label: 'Генеративное искусство',"
-    ]
-  },
-  {
-    "id": "w4-idea-recipe",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Recipe box',"
-    ],
-    "after": [
-      "    label: 'Книга рецептов',"
-    ]
-  },
-  {
-    "id": "w4-idea-research",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Research log',"
-    ],
-    "after": [
-      "    label: 'Журнал исследований',"
-    ]
-  },
-  {
-    "id": "w4-idea-budget",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Budget tracker',"
-    ],
-    "after": [
-      "    label: 'Учёт бюджета',"
-    ]
-  },
-  {
-    "id": "w4-idea-habit",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Habit tracker',"
-    ],
-    "after": [
-      "    label: 'Трекер привычек',"
-    ]
-  },
-  {
-    "id": "w4-idea-trip",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Trip planner',"
-    ],
-    "after": [
-      "    label: 'Планировщик путешествий',"
-    ]
-  },
-  {
-    "id": "w4-idea-music",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Music toy',"
-    ],
-    "after": [
-      "    label: 'Музыкальная игрушка',"
-    ]
-  },
-  {
-    "id": "w4-idea-puzzle",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Puzzle maker',"
-    ],
-    "after": [
-      "    label: 'Конструктор головоломок',"
-    ]
-  },
-  {
-    "id": "w4-idea-garden",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Digital garden',"
-    ],
-    "after": [
-      "    label: 'Цифровой сад',"
-    ]
-  },
-  {
-    "id": "w4-idea-apiwrap",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'API wrapper',"
-    ],
-    "after": [
-      "    label: 'Обёртка API',"
-    ]
-  },
-  {
-    "id": "w4-idea-workout",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Workout plan',"
-    ],
-    "after": [
-      "    label: 'План тренировок',"
-    ]
-  },
-  {
-    "id": "w4-idea-flashcards",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Flashcards',"
-    ],
-    "after": [
-      "    label: 'Карточки для запоминания',"
-    ]
-  },
-  {
-    "id": "w4-idea-screenplay",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Screenplay',"
-    ],
-    "after": [
-      "    label: 'Сценарий',"
-    ]
-  },
-  {
-    "id": "w4-idea-learn",
-    "file": "apps/desktop/src/lib/project-idea-templates.ts",
-    "before": [
-      "    label: 'Learn-by-building',"
-    ],
-    "after": [
-      "    label: 'Учись, создавая',"
-    ]
-  },
-  {
-    "id": "w4-ch-faster",
-    "file": "apps/desktop/src/lib/commit-changelog.ts",
-    "before": [
-      "  faster: { label: 'Faster', order: 2 },"
-    ],
-    "after": [
-      "  faster: { label: 'Быстрее', order: 2 },"
-    ]
-  },
-  {
-    "id": "w4-ch-improved",
-    "file": "apps/desktop/src/lib/commit-changelog.ts",
-    "before": [
-      "  improved: { label: 'Improved', order: 3 },"
-    ],
-    "after": [
-      "  improved: { label: 'Улучшено', order: 3 },"
-    ]
-  },
-  {
-    "id": "w4-ch-other",
-    "file": "apps/desktop/src/lib/commit-changelog.ts",
-    "before": [
-      "  other: { label: 'Other improvements', order: 4 }"
-    ],
-    "after": [
-      "  other: { label: 'Прочие улучшения', order: 4 }"
-    ]
-  },
-  {
-    "id": "w4-ch-inupdate",
-    "file": "apps/desktop/src/lib/commit-changelog.ts",
-    "before": [
-      "const FALLBACK_GROUP: CommitGroup = { id: 'other', items: ['Improvements and fixes'], label: 'In this update' }"
-    ],
-    "after": [
-      "const FALLBACK_GROUP: CommitGroup = { id: 'other', items: ['Improvements and fixes'], label: 'В этом обновлении' }"
-    ]
-  },
-  {
-    "id": "w4-gw-nolog",
-    "file": "apps/desktop/src/lib/gateway-events.ts",
-    "before": [
-      "        label: 'No recent gateway log lines'"
-    ],
-    "after": [
-      "        label: 'Нет свежих строк журнала шлюза'"
-    ]
-  },
-  {
-    "id": "w4-tree-loading",
-    "file": "apps/desktop/src/app/right-sidebar/files/use-project-tree.ts",
-    "before": [
-      "  return { id: `${parentId}::${PLACEHOLDER_ID}`, isDirectory: false, name: 'Loading…', placeholder: 'loading' }"
-    ],
-    "after": [
-      "  return { id: `${parentId}::${PLACEHOLDER_ID}`, isDirectory: false, name: 'Загрузка…', placeholder: 'loading' }"
-    ]
-  },
-  {
-    "id": "w4-preview-restart",
-    "file": "apps/desktop/src/store/activity.ts",
-    "before": [
-      "          label: 'Preview restart',"
-    ],
-    "after": [
-      "          label: 'Перезапуск предпросмотра',"
-    ]
-  },
-  {
-    "id": "w4-toolgateway",
-    "file": "apps/desktop/src/store/onboarding.ts",
-    "before": [
-      "    title: 'Tool Gateway enabled'"
-    ],
-    "after": [
-      "    title: 'Шлюз инструментов включён'"
-    ]
-  },
-  {
-    "id": "w4-pet-setup",
-    "file": "apps/desktop/src/app/pet-generate/components/generate-unavailable.tsx",
-    "before": [
-      "        Set up image generation"
-    ],
-    "after": [
-      "        Настроить генерацию изображений"
-    ]
-  },
-  {
-    "id": "w4-pet-key",
-    "file": "apps/desktop/src/app/pet-generate/components/generate-unavailable.tsx",
-    "before": [
-      "        <span>Grab a key from</span>"
-    ],
-    "after": [
-      "        <span>Получите ключ на</span>"
-    ]
-  },
-  {
-    "id": "w4-anthropic-oauth",
-    "file": "apps/desktop/src/components/onboarding/providers.tsx",
-    "before": [
-      "  'claude-code': { order: 6, title: 'Anthropic OAuth: Required Extra Usage Credits to Use Subscription' }"
-    ],
-    "after": [
-      "  'claude-code': { order: 6, title: 'Anthropic OAuth: требуются дополнительные кредиты использования для подписки' }"
-    ]
-  },
-  {
-    "id": "w4-kan-todo",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    todo: { label: 'Todo', help: 'Waiting on dependencies, or unassigned.' },"
-    ],
-    "after": [
-      "    todo: { label: 'К выполнению', help: 'Waiting on dependencies, or unassigned.' },"
-    ]
-  },
-  {
-    "id": "w4-kan-scheduled",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    scheduled: { label: 'Scheduled', help: 'Waiting for a scheduled time to arrive.' },"
-    ],
-    "after": [
-      "    scheduled: { label: 'Запланировано', help: 'Waiting for a scheduled time to arrive.' },"
-    ]
-  },
-  {
-    "id": "w4-kan-running",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    running: { label: 'Running', help: 'Claimed by a worker — an agent is on it. Set by the dispatcher.' },"
-    ],
-    "after": [
-      "    running: { label: 'Выполняется', help: 'Claimed by a worker — an agent is on it. Set by the dispatcher.' },"
-    ]
-  },
-  {
-    "id": "w4-kan-blocked",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    blocked: { label: 'Blocked', help: 'The worker asked for human input.' },"
-    ],
-    "after": [
-      "    blocked: { label: 'Заблокировано', help: 'The worker asked for human input.' },"
-    ]
-  },
-  {
-    "id": "w4-kan-review",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    review: { label: 'Review', help: 'A review agent is checking the work. Set by the dispatcher.' },"
-    ],
-    "after": [
-      "    review: { label: 'Ревью', help: 'A review agent is checking the work. Set by the dispatcher.' },"
-    ]
-  },
-  {
-    "id": "w4-kan-done",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    done: { label: 'Done', help: 'Completed; dependent children become ready.' },"
-    ],
-    "after": [
-      "    done: { label: 'Готово', help: 'Completed; dependent children become ready.' },"
-    ]
-  },
-  {
-    "id": "w4-kan-open",
-    "file": "apps/desktop/src/plugins/kanban/plugin.tsx",
-    "before": [
-      "          label: 'Kanban: Open board',"
-    ],
-    "after": [
-      "          label: 'Канбан: открыть доску',"
-    ]
-  },
-  {
-    "id": "about-settings.tsx-ru-credit",
-    "file": "apps/desktop/src/app/settings/about-settings.tsx",
-    "before": [
-      "          <p className=\"mt-1 text-xs text-muted-foreground\">",
-      "            {version?.appVersion ? a.version(version.appVersion) : a.versionUnavailable}",
-      "          </p>"
-    ],
-    "after": [
-      "          <p className=\"mt-1 text-xs text-muted-foreground\">",
-      "            {version?.appVersion ? a.version(version.appVersion) : a.versionUnavailable}",
-      "          </p>",
-      "          <p className=\"mt-1 text-xs text-muted-foreground\">",
-      "            Русская локализация: upmeister ·{' '}<a href=\"https://github.com/upmeister/hermes-desktop-ru\" rel=\"noreferrer\" target=\"_blank\" className=\"underline\">hermes-desktop-ru</a>",
-      "          </p>"
-    ]
-  },
-  {
-    "id": "w5-pane-files",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "    title: 'files',"
-    ],
-    "after": [
-      "    title: 'Файлы',"
-    ]
-  },
-  {
-    "id": "w5-pane-review",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "    title: 'review',"
-    ],
-    "after": [
-      "    title: 'Ревью',"
-    ]
-  },
-  {
-    "id": "w5-layout-default",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "  { id: 'default', area: 'layouts', title: 'Default', order: 0, data: DEFAULT_TREE },"
-    ],
-    "after": [
-      "  { id: 'default', area: 'layouts', title: 'Дефолтный', order: 0, data: DEFAULT_TREE },"
-    ]
-  },
-  {
-    "id": "w5-palette-onoff",
-    "file": "apps/desktop/src/app/command-palette/contrib.ts",
-    "before": [
-      "    detail: () => (get() ? 'on' : 'off'),"
-    ],
-    "after": [
-      "    detail: () => (get() ? 'вкл' : 'выкл'),"
-    ]
-  },
-  {
-    "id": "w5-nousalt-desc",
-    "file": "apps/desktop/src/themes/presets.ts",
-    "before": [
-      "  description: 'Glass neutrals, cream on mission-blue',"
-    ],
-    "after": [
-      "  description: 'Стеклянная нейтраль, кремовый на фирменном синем',"
-    ]
-  },
-  {
-    "id": "w5-preview-url",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "    throw new Error('Invalid preview URL')"
-    ],
-    "after": [
-      "    throw new Error('Недопустимый URL предпросмотра')"
-    ]
-  },
-  {
-    "id": "w5-hermes-err",
-    "file": "apps/desktop/src/app/session/hooks/use-message-stream/gateway-event/status.ts",
-    "before": [
-      "        title: 'Hermes error',"
-    ],
-    "after": [
-      "        title: 'Ошибка Hermes',"
-    ]
-  },
-  {
-    "id": "w5-moa",
-    "file": "apps/desktop/src/app/shell/model-catalog-menu.tsx",
-    "before": [
-      "          <DropdownMenuLabel className={dropdownMenuSectionLabel}>MoA presets</DropdownMenuLabel>"
-    ],
-    "after": [
-      "          <DropdownMenuLabel className={dropdownMenuSectionLabel}>Пресеты MoA</DropdownMenuLabel>"
-    ]
-  },
-  {
-    "id": "w5-striptab-hardcode",
-    "file": "apps/desktop/src/app/contrib/controller.tsx",
-    "before": [
-      "            label: translateNow('zones.toggleStripTab', title),"
-    ],
-    "after": [
-      "            label: `Переключить вкладку ${title}`,"
-    ]
-  },
-  {
-    "id": "w5-kanban-newtaskcmd",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  newTaskCommand: 'Kanban: New task',"
-    ],
-    "after": [
-      "  newTaskCommand: 'Канбан: новая задача',"
-    ]
-  },
-  {
-    "id": "w5-kanban-newtask",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  newTask: 'New task',"
-    ],
-    "after": [
-      "  newTask: 'Новая задача',"
-    ]
-  },
-  {
-    "id": "w5-kanban-newtaskin",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  newTaskIn: label => `New task in ${label}`,"
-    ],
-    "after": [
-      "  newTaskIn: label => `Новая задача в ${label}`,"
-    ]
-  },
-  {
-    "id": "w8-sdk-to-err1",
-    "file": "apps/desktop/src/sdk/index.ts",
-    "before": [
-      "      finish(new Error(`Timed out loading ${profile}'s session history.`))"
-    ],
-    "after": [
-      "      finish(new Error(`Не удалось загрузить историю сессий ${profile}: истекло время ожидания.`))"
-    ]
-  },
-  {
-    "id": "w8-sdk-to-err2",
-    "file": "apps/desktop/src/sdk/index.ts",
-    "before": [
-      "          () => reject(new Error(`Timed out loading ${targetProfile}'s session history.`)),"
-    ],
-    "after": [
-      "          () => reject(new Error(`Не удалось загрузить историю сессий ${targetProfile}: истекло время ожидания.`)),"
-    ]
-  },
-  {
-    "id": "w8-sdk-to-matcher1",
-    "file": "apps/desktop/src/sdk/index.ts",
-    "before": [
-      "            error.message.startsWith('Timed out loading ')"
-    ],
-    "after": [
-      "            error.message.startsWith('Не удалось загрузить историю сессий ')"
-    ]
-  },
-  {
-    "id": "w8-sdk-to-matcher2",
-    "file": "apps/desktop/src/sdk/index.ts",
-    "before": [
-      "        error.message.startsWith('Timed out loading ')"
-    ],
-    "after": [
-      "        error.message.startsWith('Не удалось загрузить историю сессий ')"
-    ]
-  },
-  {
-    "id": "w5e-upd-title",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        title: 'Hermes update',"
-    ],
-    "after": [
-      "        title: 'Обновление Hermes',"
-    ]
-  },
-  {
-    "id": "w5e-hermes-at",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "    label: `Hermes at ${ACTIVE_HERMES_ROOT}`,"
-    ],
-    "after": [
-      "    label: `Hermes в ${ACTIVE_HERMES_ROOT}`,"
-    ]
-  },
-  {
-    "id": "w5e-cli-at",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "          label: `existing Hermes CLI at ${hermesCommand}`,"
-    ],
-    "after": [
-      "          label: `существующий Hermes CLI в ${hermesCommand}`,"
-    ]
-  },
-  {
-    "id": "w5e-module-via",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        label: `installed hermes_cli module via ${python}`,"
-    ],
-    "after": [
-      "        label: `установлен модуль hermes_cli через ${python}`,"
-    ]
-  },
-  {
-    "id": "w5e-bootstrap",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "    label: 'Hermes Agent not installed yet; bootstrap required',"
-    ],
-    "after": [
-      "    label: 'Hermes Agent ещё не установлен — требуется первичная установка',"
-    ]
-  },
-  {
-    "id": "w5e-saveimg",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "    title: 'Save Image',"
-    ],
-    "after": [
-      "    title: 'Сохранить изображение',"
-    ]
-  },
-  {
-    "id": "w5e-checupd",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "    label: 'Check for Updates…',"
-    ],
-    "after": [
-      "    label: 'Проверить обновления…',"
-    ]
-  },
-  {
-    "id": "w5e-about",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        { label: `About ${APP_NAME}`, click: () => showAboutPanelFresh() },"
-    ],
-    "after": [
-      "        { label: `О программе ${APP_NAME}`, click: () => showAboutPanelFresh() },"
-    ]
-  },
-  {
-    "id": "w5e-newwin",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "      { click: () => createInstanceWindow(), label: 'New Window' },"
-    ],
-    "after": [
-      "      { click: () => createInstanceWindow(), label: 'Новое окно' },"
-    ]
-  },
-  {
-    "id": "w5e-openfolder",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "      { click: () => sendOpenFolderRequested(), label: 'Open Folder…' },"
-    ],
-    "after": [
-      "      { click: () => sendOpenFolderRequested(), label: 'Открыть папку…' },"
-    ]
-  },
-  {
-    "id": "w5e-devtools",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        label: 'Toggle Developer Tools',"
-    ],
-    "after": [
-      "        label: 'Инструменты разработчика',"
-    ]
-  },
-  {
-    "id": "w5e-actualsize",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        label: 'Actual Size',"
-    ],
-    "after": [
-      "        label: 'Фактический размер',"
-    ]
-  },
-  {
-    "id": "w5e-zoomin",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        label: 'Zoom In',"
-    ],
-    "after": [
-      "        label: 'Увеличить',"
-    ]
-  },
-  {
-    "id": "w5e-zoomout",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        label: 'Zoom Out',"
-    ],
-    "after": [
-      "        label: 'Уменьшить',"
-    ]
-  },
-  {
-    "id": "w5e-help",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "    label: 'Help',"
-    ],
-    "after": [
-      "    label: 'Справка',"
-    ]
-  },
-  {
-    "id": "w5e-savefile",
-    "file": "apps/desktop/electron/main.ts",
-    "all": true,
-    "before": [
-      "    title: 'Save File'"
-    ],
-    "after": [
-      "    title: 'Сохранить файл'"
-    ]
-  },
-  {
-    "id": "w5e-savefile8",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        title: 'Save File',"
-    ],
-    "after": [
-      "        title: 'Сохранить файл',"
-    ]
-  },
-  {
-    "id": "w5e-renewcloud",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "          title: 'Renewing Hermes Cloud session…',"
-    ],
-    "after": [
-      "          title: 'Обновляем сессию Hermes Cloud…',"
-    ]
-  },
-  {
-    "id": "w5e-signcloud",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "        title: 'Sign in to Hermes Cloud',"
-    ],
-    "after": [
-      "        title: 'Войти в Hermes Cloud',"
-    ]
-  },
-  {
-    "id": "w5e-backend-profile",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "    label: `Hermes backend for profile \"${profile}\"`,"
-    ],
-    "after": [
-      "    label: `Бэкенд Hermes для профиля \"${profile}\"`,"
-    ]
-  },
-  {
-    "id": "w5e-oauth-signedin",
-    "file": "apps/desktop/electron/native-oauth-login.ts",
-    "before": [
-      "  '<!doctype html><meta charset=\"utf-8\"><title>Signed in</title>' +"
-    ],
-    "after": [
-      "  '<!doctype html><meta charset=\"utf-8\"><title>Вход выполнен</title>' +"
-    ]
-  },
-  {
-    "id": "w5e-oauth-h2",
-    "file": "apps/desktop/electron/native-oauth-login.ts",
-    "before": [
-      "  '<h2>&#10003; Signed in to Hermes</h2>' +"
-    ],
-    "after": [
-      "  '<h2>&#10003; Вход в Hermes выполнен</h2>' +"
-    ]
-  },
-  {
-    "id": "w5e-py-at",
-    "file": "apps/desktop/electron/windows-hermes-path.ts",
-    "before": [
-      "    label: `existing Hermes Python at ${python}`,"
-    ],
-    "after": [
-      "    label: `существующий Hermes Python в ${python}`,"
-    ]
-  },
-  {
-    "id": "test-kanban-207",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    triage: { label: 'Triage', help: 'Raw ideas — a specifier fleshes out the spec.' },"
-    ],
-    "after": [
-      "    triage: { label: 'Triage', help: 'Сырые идеи — спецификатор проработает детали.' },"
-    ]
-  },
-  {
-    "id": "test-kanban-210",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    ready: { label: 'Ready', help: 'Dependencies satisfied — assign a profile and the dispatcher runs it.' },"
-    ],
-    "after": [
-      "    ready: { label: 'Ready', help: 'Зависимости выполнены — назначьте профиль, и диспетчер запустит задачу.' },"
-    ]
-  },
-  {
-    "id": "test-kanban-215",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    archived: { label: 'Archived', help: 'Hidden from the default board view.' }"
-    ],
-    "after": [
-      "    archived: { label: 'Archived', help: 'Скрыта из стандартного вида доски.' }"
-    ]
-  },
-  {
-    "id": "test-kanban-218",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    review: 'Review is entered by the dispatcher when a review agent takes the card.',"
-    ],
-    "after": [
-      "    review: 'Ревью назначается диспетчером, когда карту берёт агент-ревьюер.',"
-    ]
-  },
-  {
-    "id": "test-kanban-219",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    running: 'Running is set by the dispatcher when a worker claims the card.',"
-    ],
-    "after": [
-      "    running: 'Запущена — диспетчер ставит, когда карту захватывает воркер.',"
-    ]
-  },
-  {
-    "id": "test-kanban-220",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "    scheduled: 'Scheduled needs a wake-up time — agents set it; it can’t be dragged into.'"
-    ],
-    "after": [
-      "    scheduled: 'Запланирована — нужно время пробуждения (ставят агенты), перетащить нельзя.'"
-    ]
-  },
-  {
-    "id": "test-kanban-222",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  arcRunning: 'An agent is working on this now.',"
-    ],
-    "after": [
-      "  arcRunning: 'Сейчас над этим работает агент.',"
-    ]
-  },
-  {
-    "id": "w56-i18n.ts-223",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  arcStale: 'Claimed, but no worker heartbeat for 2+ minutes — the dispatcher will reclaim it.',"
-    ],
-    "after": [
-      "  arcStale: 'Захвачена, но нет пульса воркера 2+ минуты — диспетчер вернёт её.',"
-    ]
-  },
-  {
-    "id": "w56-i18n.ts-225",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  orchestrationSettings: 'Orchestration settings',"
-    ],
-    "after": [
-      "  orchestrationSettings: 'Настройки оркестрации',"
-    ]
-  },
-  {
-    "id": "w56-i18n.ts-227",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  filterCards: 'Filter cards…',"
-    ],
-    "after": [
-      "  filterCards: 'Фильтровать карточки…',"
-    ]
-  },
-  {
-    "id": "w56-i18n.ts-228",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  noMatch: 'No tasks match the filters',"
-    ],
-    "after": [
-      "  noMatch: 'Ни одна задача не подходит под фильтры',"
-    ]
-  },
-  {
-    "id": "w56-i18n.ts-229",
-    "file": "apps/desktop/src/plugins/kanban/i18n.ts",
-    "before": [
-      "  noTasks: 'No tasks on this board',"
-    ],
-    "after": [
-      "  noTasks: 'На доске нет задач',"
-    ]
-  },
-  {
-    "id": "w56-client.ts-31",
-    "file": "apps/desktop/src/api/client.ts",
-    "before": [
-      "      closedErrorMessage: 'Hermes gateway connection closed',"
-    ],
-    "after": [
-      "      closedErrorMessage: 'Соединение со шлюзом Hermes закрыто',"
-    ]
-  },
-  {
-    "id": "w56-client.ts-32",
-    "file": "apps/desktop/src/api/client.ts",
-    "before": [
-      "      connectErrorMessage: 'Could not connect to Hermes gateway',"
-    ],
-    "after": [
-      "      connectErrorMessage: 'Не удалось подключиться к шлюзу Hermes',"
-    ]
-  },
-  {
-    "id": "w56-mcp-directory.ts-40",
-    "file": "apps/desktop/src/lib/mcp-directory.ts",
-    "before": [
-      "    description: 'Jira issues and Confluence pages via Atlassian’s hosted MCP.',"
-    ],
-    "after": [
-      "    description: 'Задачи Jira и страницы Confluence через хостинг MCP Atlassian.',"
-    ]
-  },
-  {
-    "id": "w56-mcp-directory.ts-48",
-    "file": "apps/desktop/src/lib/mcp-directory.ts",
-    "before": [
-      "    description: 'Find, create, and update Linear issues and projects.',"
-    ],
-    "after": [
-      "    description: 'Поиск, создание и обновление задач и проектов Linear.',"
-    ]
-  },
-  {
-    "id": "w56-mcp-directory.ts-56",
-    "file": "apps/desktop/src/lib/mcp-directory.ts",
-    "before": [
-      "    description: 'Design context and Code Connect from Figma files.',"
-    ],
-    "after": [
-      "    description: 'Дизайн-контекст и Code Connect из файлов Figma.',"
-    ]
-  },
-  {
-    "id": "w56-mcp-directory.ts-64",
-    "file": "apps/desktop/src/lib/mcp-directory.ts",
-    "before": [
-      "    description: 'Issues, stack traces, and error context from Sentry.',"
-    ],
-    "after": [
-      "    description: 'Задачи, стектрейсы и контекст ошибок из Sentry.',"
-    ]
-  },
-  {
-    "id": "w56-mcp-directory.ts-72",
-    "file": "apps/desktop/src/lib/mcp-directory.ts",
-    "before": [
-      "    description: 'Logs, monitors, dashboards, and incidents from Datadog.',"
-    ],
-    "after": [
-      "    description: 'Логи, метрики, дашборды и инциденты из Datadog.',"
-    ]
-  },
-  {
-    "id": "w56-field-control.tsx-106",
-    "file": "apps/desktop/src/app/settings/memory/field-control.tsx",
-    "before": [
-      "          placeholder={field.is_set ? 'Leave blank to keep current value' : field.placeholder}"
-    ],
-    "after": [
-      "          placeholder={field.is_set ? 'Оставьте пустым, чтобы сохранить текущее значение' : field.placeholder}"
-    ]
-  },
-  {
-    "id": "w56-provider-config-modal.tsx-84",
-    "file": "apps/desktop/src/app/settings/memory/provider-config-modal.tsx",
-    "before": [
-      "      notify({ kind: 'success', title: `${config.label} saved`, message: 'Memory provider configuration updated.' })"
-    ],
-    "after": [
-      "      notify({ kind: 'success', title: `${config.label} saved`, message: 'Конфигурация провайдера памяти обновлена.' })"
-    ]
-  },
-  {
-    "id": "w56-auto-reload-row.tsx-98",
-    "file": "apps/desktop/src/app/settings/billing/auto-reload-row.tsx",
-    "before": [
-      "    setMessage({ kind: 'success', text: 'Auto-refill updated.' })"
-    ],
-    "after": [
-      "    setMessage({ kind: 'success', text: 'Автопополнение обновлено.' })"
-    ]
-  },
-  {
-    "id": "w56-auto-reload-row.tsx-128",
-    "file": "apps/desktop/src/app/settings/billing/auto-reload-row.tsx",
-    "before": [
-      "    setMessage({ kind: 'success', text: 'Auto-refill turned off.' })"
-    ],
-    "after": [
-      "    setMessage({ kind: 'success', text: 'Автопополнение выключено.' })"
-    ]
-  },
-  {
-    "id": "w56-use-step-up.ts-124",
-    "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
-    "before": [
-      "        text: 'Verification finished without allowing Remote Spending for this terminal.',"
-    ],
-    "after": [
-      "        text: 'Проверка завершена без включения удалённых расходов для этого терминала.',"
-    ]
-  },
-  {
-    "id": "w56-use-step-up.ts-137",
-    "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
-    "before": [
-      "      text: 'Remote Spending is allowed for this terminal.',"
-    ],
-    "after": [
-      "      text: 'Удалённые расходы разрешены для этого терминала.',"
-    ]
-  },
-  {
-    "id": "w56-simulated-api.ts-74",
-    "file": "apps/desktop/src/app/settings/billing/simulated-api.ts",
-    "before": [
-      "      return ok({ message: 'Change cancelled.', ok: true })"
-    ],
-    "after": [
-      "      return ok({ message: 'Изменение отменено.', ok: true })"
-    ]
-  },
-  {
-    "id": "w56-simulated-api.ts-84",
-    "file": "apps/desktop/src/app/settings/billing/simulated-api.ts",
-    "before": [
-      "      return ok({ message: 'Downgrade scheduled.', ok: true })"
-    ],
-    "after": [
-      "      return ok({ message: 'Переход на тариф запланирован.', ok: true })"
-    ]
-  },
-  {
-    "id": "w56-use-charge-poller.ts-242",
-    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
-    "before": [
-      "          message: 'The billing service accepted the request but did not return a charge id.',"
-    ],
-    "after": [
-      "          message: 'Биллинг принял запрос, но не вернул id платежа.',"
-    ]
-  },
-  {
-    "id": "w56-use-charge-poller.ts-277",
-    "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
-    "before": [
-      "    message: 'Charge may still settle. Check the portal before retrying.',"
-    ],
-    "after": [
-      "    message: 'Платёж может ещё пройти. Проверьте портал перед повтором.',"
-    ]
-  },
-  {
-    "id": "w56-billing-amounts.ts-67",
-    "file": "apps/desktop/src/app/settings/billing/billing-amounts.ts",
-    "before": [
-      "    return { error: 'Reload-to amount must be greater than the threshold.' }"
-    ],
-    "after": [
-      "    return { error: 'Сумма пополнения должна быть больше порога.' }"
-    ]
-  },
-  {
-    "id": "w56-session-tile.tsx-403",
-    "file": "apps/desktop/src/app/chat/session-tile.tsx",
-    "before": [
-      "          <div className=\"text-(--ui-danger,#f87171)\">Couldn't open this session</div>"
-    ],
-    "after": [
-      "          <div className=\"text-(--ui-danger,#f87171)\">Не удалось открыть эту сессию</div>"
-    ]
-  },
-  {
-    "id": "w56-preview-act.ts-249",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
-    "before": [
-      "      return JSON.stringify({ note: 'The page changed before it could be re-read: ' + err, success: true });"
-    ],
-    "after": [
-      "      return JSON.stringify({ note: 'Страница изменилась до повторного чтения: ' + err, success: true });"
-    ]
-  },
-  {
-    "id": "w56-preview-act.ts-282",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
-    "before": [
-      "      result.note = 'The page changed before it could be re-read: ' + err;"
-    ],
-    "after": [
-      "      result.note = 'Страница изменилась до повторного чтения: ' + err;"
-    ]
-  },
-  {
-    "id": "w56-preview-act.ts-306",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
-    "before": [
-      "    return { error: 'The page rejected the action: ' + raw.message, kind: 'failed' }"
-    ],
-    "after": [
-      "    return { error: 'Страница отклонила действие: ' + raw.message, kind: 'failed' }"
-    ]
-  },
-  {
-    "id": "w56-preview-act.ts-310",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
-    "before": [
-      "    return { error: 'The page did not answer the action.', kind: 'failed' }"
-    ],
-    "after": [
-      "    return { error: 'Страница не ответила на действие.', kind: 'failed' }"
-    ]
-  },
-  {
-    "id": "w56-preview-act.ts-358",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
-    "before": [
-      "    return { error: 'Could not work out where that element is on screen.', success: false }"
-    ],
-    "after": [
-      "    return { error: 'Не удалось определить положение элемента на экране.', success: false }"
-    ]
-  },
-  {
-    "id": "w56-preview-act.ts-410",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
-    "before": [
-      "      error: 'The pointer input never reached the page, so nothing was ' + acted.split(' ')[0] + '.',"
-    ],
-    "after": [
-      "      error: 'Ввод указателя не достиг страницы, поэтому ничего не было ' + acted.split(' ')[0] + '.',"
-    ]
-  },
-  {
-    "id": "w56-preview-act.ts-464",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
-    "before": [
-      "    return { ...anchor, acted: 'scrolled the page', note: 'The page has nothing to scroll — it all fits already.' }"
-    ],
-    "after": [
-      "    return { ...anchor, acted: 'scrolled the page', note: 'На странице нечего прокручивать — всё уже помещается.' }"
-    ]
-  },
-  {
-    "id": "w56-preview-act.ts-503",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
-    "before": [
-      "    return { acted: nav, note: 'Page is loading — call elements to see what is on it.', success: true }"
-    ],
-    "after": [
-      "    return { acted: nav, note: 'Страница загружается — вызовите elements, чтобы увидеть её содержимое.', success: true }"
-    ]
-  },
-  {
-    "id": "w56-preview-tour.ts-57",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-tour.ts",
-    "before": [
-      "    return { error: 'No live page is open in the preview pane — open one first.', success: false }"
-    ],
-    "after": [
-      "    return { error: 'В панели предпросмотра нет открытой страницы — откройте её сначала.', success: false }"
-    ]
-  },
-  {
-    "id": "w56-preview-tour.ts-63",
-    "file": "apps/desktop/src/app/chat/right-rail/preview-tour.ts",
-    "before": [
-      "    return { error: 'The page did not answer the tour action.', success: false }"
-    ],
-    "after": [
-      "    return { error: 'Страница не ответила на действие тура.', success: false }"
-    ]
-  },
-  {
-    "id": "w56-use-composer-actions.ts-400",
-    "file": "apps/desktop/src/app/chat/hooks/use-composer-actions.ts",
-    "before": [
-      "        title: kind === 'file' ? 'Add files as context' : 'Add folders as context',"
-    ],
-    "after": [
-      "        title: kind === 'file' ? 'Добавить файлы как контекст' : 'Add folders as context',"
-    ]
-  },
-  {
-    "id": "w56-use-slash-completions.ts-134",
-    "file": "apps/desktop/src/app/chat/composer/hooks/use-slash-completions.ts",
-    "before": [
-      "          display: 'Browse all sessions…',"
-    ],
-    "after": [
-      "          display: 'Смотреть все сессии…',"
-    ]
-  },
-  {
-    "id": "w56-use-at-completions.ts-22",
-    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
-    "before": [
-      "  file: 'Attach a file reference',"
-    ],
-    "after": [
-      "  file: 'Прикрепить файл',"
-    ]
-  },
-  {
-    "id": "w56-use-at-completions.ts-23",
-    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
-    "before": [
-      "  folder: 'Attach a folder reference',"
-    ],
-    "after": [
-      "  folder: 'Прикрепить папку',"
-    ]
-  },
-  {
-    "id": "w56-use-at-completions.ts-24",
-    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
-    "before": [
-      "  url: 'Attach a URL reference',"
-    ],
-    "after": [
-      "  url: 'Прикрепить ссылку',"
-    ]
-  },
-  {
-    "id": "w56-use-at-completions.ts-25",
-    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
-    "before": [
-      "  image: 'Attach an image reference',"
-    ],
-    "after": [
-      "  image: 'Прикрепить изображение',"
-    ]
-  },
-  {
-    "id": "w56-use-at-completions.ts-26",
-    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
-    "before": [
-      "  tool: 'Attach a tool reference',"
-    ],
-    "after": [
-      "  tool: 'Прикрепить инструмент',"
-    ]
-  },
-  {
-    "id": "w56-use-at-completions.ts-27",
-    "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
-    "before": [
-      "  git: 'Attach git context'"
-    ],
-    "after": [
-      "  git: 'Прикрепить контекст git'"
-    ]
-  },
-  {
-    "id": "w56b-split-up",
-    "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
-    "before": [
-      "  { dir: 'top', icon: 'arrow-up', label: 'Up' }"
-    ],
-    "after": [
-      "  { dir: 'top', icon: 'arrow-up', label: 'Вверх' }"
-    ]
-  },
-  {
-    "id": "w56b-session-still-avail",
-    "file": "apps/desktop/src/app/chat/session-tile.tsx",
-    "before": [
-      "    return 'Session is still available — retry resuming it.'"
-    ],
-    "after": [
-      "    return 'Сессия всё ещё доступна — попробуйте возобновить её.'"
-    ]
-  },
-  {
-    "id": "w56b-session-unavail",
-    "file": "apps/desktop/src/app/chat/session-tile.tsx",
-    "before": [
-      "  return 'Session unavailable — you can retry resuming it.'"
-    ],
-    "after": [
-      "  return 'Сессия недоступна — вы можете попробовать возобновить её.'"
-    ]
-  },
-  {
-    "id": "connection-registry.ts-2",
-    "file": "apps/desktop/electron/connection-registry.ts",
-    "mode": "insert-after",
-    "insertAfterLine": "      let label = String(entry.label || '').trim()",
-    "after": [
-      "    // MOD: hermes-desktop-ru — a registry saved before the ru-mod wrote the",
-      "    // local entry with the English default. Normalize the stock default so a",
-      "    // persisted file (created before the patch) still shows «Это устройство».",
-      "    // Only the stock default is remapped — user-renamed labels are untouched.",
-      "    if (kind === 'local' && label === 'This device') {",
-      "      label = 'Это устройство'",
-      "    }"
-    ],
-    "severity": "critical"
-  },
-  {
-    "id": "main-ts-ticket-auth-v2",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "          'Your Hermes Cloud session has expired. Open Settings → Gateway and sign in again.'"
-    ],
-    "after": [
-      "          'Ваша сессия Hermes Cloud истекла. Откройте «Настройки → Шлюз» и войдите снова.'"
-    ]
-  },
-  {
-    "id": "main-ts-ticket-auth-v2b",
-    "file": "apps/desktop/electron/main.ts",
-    "before": [
-      "    const err = new Error('Your Hermes Cloud session has expired. Sign in to Hermes Cloud again.') as any"
-    ],
-    "after": [
-      "    const err = new Error('Ваша сессия Hermes Cloud истекла. Войдите в Hermes Cloud снова.') as any"
-    ]
-  },
-  {
-    "id": "hermes-bots-This_chat_never_resets",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
-    "before": [
-      "                title: 'This chat never resets',"
-    ],
-    "after": [
-      "                title: 'Этот чат никогда не сбрасывается',"
-    ]
-  },
-  {
-    "id": "hermes-bots-w3-830",
-    "file": "apps/desktop/src/plugins/hermes-bots/profile-ops.ts",
-    "before": [
-      "        title: meta.title ? `${meta.title} (copy)` : ''"
-    ],
-    "after": [
-      "      title: meta.title ? `${meta.title} (копия)` : ''"
-    ]
-  },
-  {
-    "id": "hermes-bots-w3-2404",
-    "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-    "before": [
-      "                    {locked ? 'Unlock' : 'Lock face'}"
-    ],
-    "after": [
-      "                          {locked ? 'Снять блокировку' : 'Зафиксировать лицо'}"
-    ]
-  },
-  {
-    "id": "hermes-bots-w3-6996",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                'Create on',"
-    ],
-    "after": [
-      "                  'Создать на',"
-    ]
-  },
-  {
-    "id": "hermes-bots-w3-10676",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
-    "before": [
-      "      title: 'Bots',"
-    ],
-    "after": [
-      "      title: 'Боты',"
-    ],
-    "all": true
-  },
-  {
-    "id": "hermes-bots-w3b-4051",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-rounds.ts",
-    "before": [
-      "            const label = img.kind === 'pdf' ? 'attached PDF' : img.kind === 'file' ? 'attached file' : 'attached image'"
-    ],
-    "after": [
-      "          const label = img.kind === 'pdf' ? 'прикреплённый PDF' : img.kind === 'file' ? 'прикреплённый файл' : 'прикреплённое изображение'"
-    ]
-  },
-  {
-    "id": "hermes-bots-w4-7135",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                    remoteTarget ? `Clone from profile (on ${targetLabel})` : 'Clone from profile',"
-    ],
-    "after": [
-      "                              remoteTarget ? `Клон профиля (на ${targetLabel})` : 'Клон профиля',"
-    ]
-  },
-  {
-    "id": "hermes-bots-w5-5614",
-    "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-    "before": [
-      "          'Provider',"
-    ],
-    "after": [
-      "          'Провайдер',"
-    ]
-  },
-  {
-    "id": "hermes-bots-w5-5622",
-    "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-    "before": [
-      "          'Model',"
-    ],
-    "after": [
-      "          'Модель',"
-    ]
-  },
-  {
-    "id": "hermes-bots-w5-5678",
-    "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-    "before": [
-      "        'Provider',"
-    ],
-    "after": [
-      "        'Провайдер',"
-    ]
-  },
-  {
-    "id": "hermes-bots-w5-5717",
-    "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-    "before": [
-      "        'Model',"
-    ],
-    "after": [
-      "        'Модель',"
-    ]
-  },
-  {
-    "id": "hermes-bots-w5-7174",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                    'SOUL.md (optional — replaces the generated persona)',"
-    ],
-    "after": [
-      "                              'SOUL.md (необязательно — заменяет сгенерированную персону)',"
-    ]
-  },
-  {
-    "id": "hermes-bots-w6-7022",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                          ? `${connection.label || connection.id} (current)`"
-    ],
-    "after": [
-      "                                  ? `${connection.label || connection.id} (текущий)`"
-    ]
-  },
-  {
-    "id": "hermes-bots-w6-7215",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                      ? 'That name is taken — pick another before configuring capabilities.'"
-    ],
-    "after": [
-      "                      ? 'Это имя уже занято — выберите другое, прежде чем настраивать возможности.'"
-    ]
-  },
-  {
-    "id": "groupchat-in-groups",
-    "before": [
-      "                            ? `@${botHandle(bot.name, bot)} · in ${currentGroups.map(group => `“${group}”`).join(', ')}`"
-    ],
-    "after": [
-      "                                ? `@${botHandle(bot.name, bot)} · в ${currentGroups.map(group => `«${group}»`).join(', ')}`"
-    ],
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "severity": "cosmetic"
-  },
-  {
-    "id": "groupchat-hidden-label",
-    "before": [
-      "                    : `${displayName(bot, current)} hidden — use the eye button in the Bots header to see hidden bots`"
-    ],
-    "after": [
-      "                    : `${displayName(bot, current)} скрыт — используйте кнопку-глаз в шапке Bots, чтобы увидеть скрытых ботов`"
-    ],
-    "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-    "severity": "cosmetic"
-  },
-  {
-    "id": "wave2-gen-1",
-    "before": [
-      "              {genBusy ? 'Generating…' : 'Generate'}"
-    ],
-    "after": [
-      "                    {genBusy ? 'Генерация…' : 'Сгенерировать'}"
-    ],
-    "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-    "severity": "cosmetic"
-  },
-  {
-    "id": "wave2-catalog-installed2",
-    "before": [
-      "                            {m.installed ? 'catalog · installed' : 'catalog'}"
-    ],
-    "after": [
-      "                                                              ? 'каталог · установлено'"
-    ],
-    "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-    "severity": "cosmetic"
-  },
-  {
-    "id": "wave3-tabtitle",
-    "file": "apps/desktop/src/plugins/hermes-bots/canonical-chat.ts",
-    "before": [
-      "    tabTitle: CANONICAL_CHAT_TITLE"
-    ],
-    "after": [
-      "    tabTitle: 'Чат бота'"
-    ]
-  },
-  {
-    "id": "wave3-meta-bot",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
-    "before": [
-      "              meta: `Bot · ${display}${source}`"
-    ],
-    "after": [
-      "              meta: `Бот · ${display}${source}`"
-    ]
-  },
-  {
-    "id": "wave3-this-device-row",
-    "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-    "before": [
-      "  const gatewayLabel = bot.connectionLabel || (bot.connectionId === 'local' ? 'This device' : '')"
-    ],
-    "after": [
-      "  const gatewayLabel = bot.connectionLabel || (bot.connectionId === 'local' ? 'Это устройство' : '')"
-    ]
-  },
-  {
-    "id": "wave3-current-gateway-a",
-    "file": "apps/desktop/src/plugins/hermes-bots/roster-sections.tsx",
-    "before": [
-      "  const label = option?.label || option?.connectionId || 'Current gateway'"
-    ],
-    "after": [
-      "  const label = option?.label || option?.connectionId || 'Текущий шлюз'"
-    ]
-  },
-  {
-    "id": "wave3-current-gateway-c",
-    "file": "apps/desktop/src/plugins/hermes-bots/roster-sections.tsx",
-    "before": [
-      "        label: bot?.connectionLabel || (id === 'legacy' ? 'Current gateway' : id),"
-    ],
-    "after": [
-      "        label: bot?.connectionLabel || (id === 'legacy' ? 'Текущий шлюз' : id),"
-    ]
-  },
-  {
-    "id": "wave3-avail",
-    "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-    "before": [
-      "  const availabilityLabel = `${availableMembers} of ${members.length} available`"
-    ],
-    "after": [
-      "  const availabilityLabel = `${availableMembers} из ${members.length} доступно`"
-    ],
-    "all": true
-  },
-  {
-    "id": "wave3-act-queued",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  queued: 'sent a message',"
-    ],
-    "after": [
-      "  queued: 'отправил(а) сообщение',"
-    ]
-  },
-  {
-    "id": "wave3-act-working",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  working: 'is working…',"
-    ],
-    "after": [
-      "  working: 'работает…',"
-    ]
-  },
-  {
-    "id": "wave3-act-replied",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  replied: 'replied',"
-    ],
-    "after": [
-      "  replied: 'ответил(а)',"
-    ]
-  },
-  {
-    "id": "wave3-act-passed",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  passed: 'passed',"
-    ],
-    "after": [
-      "  passed: 'передал(а) ход',"
-    ]
-  },
-  {
-    "id": "wave3-act-timedout",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  'timed-out': 'took too long',"
-    ],
-    "after": [
-      "  'timed-out': 'превысил(а) таймаут',"
-    ]
-  },
-  {
-    "id": "wave3-act-failed",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  failed: 'hit an error',"
-    ],
-    "after": [
-      "  failed: 'столкнулся(лась) с ошибкой',"
-    ]
-  },
-  {
-    "id": "wave3-act-cancelled",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  cancelled: 'turn interrupted by a newer message',"
-    ],
-    "after": [
-      "  cancelled: 'ход прерван новым сообщением',"
-    ]
-  },
-  {
-    "id": "wave3-act-settled",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  settled: 'turn settled',"
-    ],
-    "after": [
-      "  settled: 'ход завершён',"
-    ]
-  },
-  {
-    "id": "wave3-act-delivered",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  delivered: 'delivered a late reply',"
-    ],
-    "after": [
-      "  delivered: 'доставил(а) поздний ответ',"
-    ]
-  },
-  {
-    "id": "wave3-who",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  const who = event?.member === 'You' ? 'You' : groupSpeakerLabel(event?.member || 'A bot')"
-    ],
-    "after": [
-      "  const who = event?.member === 'You' ? 'Вы' : groupSpeakerLabel(event?.member || 'Бот')"
-    ]
-  },
-  {
-    "id": "wave3-who-template",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  return `${who} ${base}`"
-    ],
-    "after": [
-      "  return who === 'Вы' ? `${who} ${base.endsWith('(а) сообщение') ? 'отправили сообщение' : base}` : `${who} ${base}`"
-    ]
-  },
-  {
-    "id": "wave3-speaker-fallback",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-chat.ts",
-    "before": [
-      "        name: String(entry?.from?.name || (entry?.from?.kind === 'member' ? 'Bot' : 'You')).slice(0, 128),"
-    ],
-    "after": [
-      "        name: String(entry?.from?.name || (entry?.from?.kind === 'member' ? 'Бот' : 'Вы')).slice(0, 128),"
-    ]
-  },
-  {
-    "id": "w5-newbot",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
-    "before": [
-      "        label: 'New Bot…',"
-    ],
-    "after": [
-      "        label: 'Новый бот…',"
-    ]
-  },
-  {
-    "id": "v112-bots-provider-custom",
-    "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-    "before": [
-      "            'Provider (Custom)',"
-    ],
-    "after": [
-      "              'Провайдер (Пользовательский)',"
-    ]
-  },
-  {
-    "id": "v112-bots-model-custom",
-    "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-    "before": [
-      "            'Model (Custom)',"
-    ],
-    "after": [
-      "              'Модель (Пользовательская)',"
-    ]
-  },
-  {
-    "id": "v112-bots-capabilities-applies",
-    "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-    "before": [
-      "          'Capabilities (applies immediately — skills, tools, MCP)',"
-    ],
-    "after": [
-      "          'Возможности (применяется сразу — навыки, инструменты, MCP)',"
-    ]
-  },
-  {
-    "id": "v112-bots-soul-persona",
-    "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-    "before": [
-      "          'SOUL.md (persona + agent-messaging protocol)',"
-    ],
-    "after": [
-      "          'SOUL.md (персона + протокол сообщений агента)',"
-    ],
-    "all": true
-  },
-  {
-    "id": "v112-bots-soul-persona-indent",
-    "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-    "before": [
-      "        'SOUL.md (persona + agent-messaging protocol)',"
-    ],
-    "after": [
-      "        'SOUL.md (персона + протокол сообщений агента)',"
-    ]
-  },
-  {
-    "id": "test-expansion-202",
-    "file": "apps/desktop/src/plugins/hermes-bots/data.ts",
-    "before": [
-      "  provider_auth_or_access: 'Sign in again for this profile',"
-    ],
-    "after": [
-      "  provider_auth_or_access: 'Войдите снова для этого профиля',"
-    ]
-  },
-  {
-    "id": "test-expansion-203",
-    "file": "apps/desktop/src/plugins/hermes-bots/data.ts",
-    "before": [
-      "  provider_quota_limit: 'Quota or balance exhausted',"
-    ],
-    "after": [
-      "  provider_quota_limit: 'Квота или баланс исчерпаны',"
-    ]
-  },
-  {
-    "id": "test-expansion-204",
-    "file": "apps/desktop/src/plugins/hermes-bots/data.ts",
-    "before": [
-      "  missing_config: 'Provider not configured — run hermes model',"
-    ],
-    "after": [
-      "  missing_config: 'Провайдер не настроен — выполните hermes model',"
-    ]
-  },
-  {
-    "id": "test-expansion-205",
-    "file": "apps/desktop/src/plugins/hermes-bots/data.ts",
-    "before": [
-      "  agent_blocked: 'Bot is blocked — see its last message'"
-    ],
-    "after": [
-      "  agent_blocked: 'Бот заблокирован — смотрите последнее сообщение'"
-    ]
-  },
-  {
-    "id": "test-expansion-6523",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-rounds.ts",
-    "before": [
-      "/** Room-log line as a member sees it: `Name (user): …` / `Name: …` /"
-    ],
-    "after": [
-      "/** Room-log line as a member sees it: `Имя (пользователь): …` / `Name: …` /"
-    ]
-  },
-  {
-    "id": "w56-plugin.js-4336",
-    "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-    "before": [
-      "              ? 'No image model available. If you just enabled one (or updated Hermes), restart the gateway: Ctrl+K → \"Restart gateway\".'"
-    ],
-    "after": [
-      "                  ? 'Нет доступной модели изображений. Если вы только что включили её (или обновили Hermes), перезапустите шлюз: Ctrl+K → «Перезапустить шлюз».'"
-    ]
-  },
-  {
-    "id": "hermes-bots-model-switch-failed",
-    "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-    "before": [
-      "      failureMessage: 'Model switch failed',"
-    ],
-    "after": [
-      "      failureMessage: 'Не удалось переключить модель',"
-    ]
-  },
-  {
-    "id": "hermes-bots-activity-capped",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  capped: 'turn stopped at the round/message cap',"
-    ],
-    "after": [
-      "  capped: 'ход остановлен — лимит раунда/сообщений',"
-    ]
-  },
-  {
-    "id": "hermes-bots-activity-held",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  held: 'is held (stopped by you) — @mention it or say resume to release',"
-    ],
-    "after": [
-      "  held: 'удержан (остановлен вами) — @упомяните его или напишите resume, чтобы отпустить',"
-    ]
-  },
-  {
-    "id": "hermes-bots-activity-stopped",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
-    "before": [
-      "  stopped: 'stopped the room — remaining turns are held until resumed'"
-    ],
-    "after": [
-      "  stopped: 'остановил(а) комнату — оставшиеся ходы удержаны до возобновления'"
-    ]
-  },
-  {
-    "id": "hermes-bots-name-the-bot-first",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                      : 'Name the bot first — a draft profile is created when you open this tab (discarded if you cancel).'}"
-    ],
-    "after": [
-      "                      : 'Сначала назовите бота — черновой профиль создаётся при открытии этой вкладки (при отмене удаляется).'}"
-    ]
-  },
-  {
-    "id": "bots-avatar-choose-image",
-    "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-    "before": [
-      "          Choose an image…"
-    ],
-    "after": [
-      "          Выберите изображение…"
-    ]
-  },
-  {
-    "id": "bots-avatar-face-follows",
-    "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-    "before": [
-      "                  {locked ? 'Face locked — renaming won\\u2019t change it.' : 'Face follows the name.'}"
-    ],
-    "after": [
-      "                  {locked ? 'Лицо закреплено — переименование его не изменит.' : 'Лицо следует за именем.'}"
-    ]
-  },
-  {
-    "id": "bots-avatar-checking-backend",
-    "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-    "before": [
-      "              : 'Checking image backend…'}"
-    ],
-    "after": [
-      "              : 'Проверка модели изображений…'}"
-    ]
-  },
-  {
-    "id": "bots-create-button",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "            {busy ? 'Creating…' : 'Create Bot'}"
-    ],
-    "after": [
-      "            {busy ? 'Создание…' : 'Создать бота'}"
-    ]
-  },
-  {
-    "id": "bots-create-share-keys",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                    Share keys & accounts with the main profile"
-    ],
-    "after": [
-      "                    Общий доступ к ключам и учётным записям с основным профилем"
-    ]
-  },
-  {
-    "id": "bots-create-empty",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                    Create empty (skip bundled skills)"
-    ],
-    "after": [
-      "                    Создать пустым (без встроенных навыков)"
-    ]
-  },
-  {
-    "id": "bots-create-empty-checked-hint",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                    “Create empty” is checked — no bundled skills will be installed."
-    ],
-    "after": [
-      "                    Отмечено «Создать пустым» — встроенные навыки установлены не будут."
-    ]
-  },
-  {
-    "id": "bots-create-teammate-desc",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "            A named teammate with its own memory, skills, and chat. It can message your other agents."
-    ],
-    "after": [
-      "            Именованный участник со своей памятью, навыками и чатом. Он может писать другим агентам."
-    ]
-  },
-  {
-    "id": "bots-create-pick-2",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "            title={selected.length < 2 ? 'Pick at least 2 bots' : undefined}"
-    ],
-    "after": [
-      "            title={selected.length < 2 ? 'Выберите минимум 2 ботов' : undefined}"
-    ]
-  },
-  {
-    "id": "bots-create-nomatch",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                {query.trim() ? `No bots match “${query.trim()}”` : 'No bots yet — create one first.'}"
-    ],
-    "after": [
-      "                {query.trim() ? `Ни один бот не соответствует «${query.trim()}»` : 'Ботов пока нет — создайте первого.'}"
-    ]
-  },
-  {
-    "id": "bots-create-group-placeholder",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "            placeholder={groups.length ? 'New group…' : 'Group name (e.g. Research)'}"
-    ],
-    "after": [
-      "            placeholder={groups.length ? 'Новая группа…' : 'Имя группы (например, Исследования)'}"
-    ]
-  },
-  {
-    "id": "bots-create-group-created",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "      message: `“${groupName}” created with ${selected.length} bots`"
-    ],
-    "after": [
-      "        message: `«${groupName}» создана с ${selected.length} ${selected.length === 1 ? 'ботом' : 'ботами'}`"
-    ]
-  },
-  {
-    "id": "bots-cron-stop-after",
-    "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-    "before": [
-      "          <span className=\"text-xs text-(--ui-text-tertiary)\">Stop after</span>"
-    ],
-    "after": [
-      "          <span className=\"text-xs text-(--ui-text-tertiary)\">Остановить после</span>"
-    ]
-  },
-  {
-    "id": "bots-cron-blank-forever",
-    "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-    "before": [
-      "          <span className=\"text-xs text-(--ui-text-tertiary)\">runs (blank = forever)</span>"
-    ],
-    "after": [
-      "          <span className=\"text-xs text-(--ui-text-tertiary)\">запусков (пусто = без ограничений)</span>"
-    ]
-  },
-  {
-    "id": "bots-roster-filter",
-    "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-    "before": [
-      "              <Tip label={activeFilterCount ? `Filters (${activeFilterCount} active)` : 'Filter roster'}>"
-    ],
-    "after": [
-      "              <Tip label={activeFilterCount ? `Фильтры (${activeFilterCount} активно)` : 'Фильтр списка'}>"
-    ]
-  },
-  {
-    "id": "bots-roster-filter-aria",
-    "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-    "before": [
-      "                    aria-label={activeFilterCount ? `Filter roster, ${activeFilterCount} active` : 'Filter roster'}"
-    ],
-    "after": [
-      "                    aria-label={activeFilterCount ? `Фильтровать список: ${activeFilterCount} активно` : 'Фильтр списка'}"
-    ]
-  },
-  {
-    "id": "bots-roster-toasts",
-    "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-    "before": [
-      "            label={activityToasts ? 'Activity toasts on — click to silence' : 'Activity toasts off — click to enable'}"
-    ],
-    "after": [
-      "            label={activityToasts ? 'Уведомления активны — нажмите, чтобы отключить' : 'Уведомления выключены — нажмите, чтобы включить'}"
-    ]
-  },
-  {
-    "id": "bots-roster-new",
-    "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-    "before": [
-      "            <Tip label=\"New…\">"
-    ],
-    "after": [
-      "            <Tip label=\"Новый…\">"
-    ]
-  },
-  {
-    "id": "bots-gcv-availability",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
-    "before": [
-      "  const availabilityLabel = `${availableMembers} of ${members.length} available`"
-    ],
-    "after": [
-      "  const availabilityLabel = `${availableMembers} из ${members.length} доступно`"
-    ]
-  },
-  {
-    "id": "bots-gcv-no-bots",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
-    "before": [
-      "    members.map(b => displayName(b, botRosterMeta(b, allMeta))).join(', ') || 'No bots in this group chat'"
-    ],
-    "after": [
-      "    members.map(b => displayName(b, botRosterMeta(b, allMeta))).join(', ') || 'В этом групповом чате нет ботов'"
-    ]
-  },
-  {
-    "id": "bots-gc-no-free-name",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-chat.ts",
-    "before": [
-      "  throw new Error('No free name for the group.')"
-    ],
-    "after": [
-      "  throw new Error('Нет свободного имени для группы.')"
-    ]
-  },
-  {
-    "id": "bots-gc-gw-changed",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-chat.ts",
-    "before": [
-      "    throw new Error('Group chat gateway changed before sync')"
-    ],
-    "after": [
-      "    throw new Error('Шлюз группового чата изменился до синхронизации')"
-    ]
-  },
-  {
-    "id": "bots-plugin-metadata",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
-    "before": [
-      "  name: 'Bots',"
-    ],
-    "after": [
-      "    name: 'Боты',"
-    ]
-  },
-  {
-    "id": "bots-plugin-desc",
-    "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
-    "before": [
-      "    'Bot Mode — a one-chat-per-agent roster with avatars, routines, group chats, and bot-to-bot messaging. Ships with the app; disable here if unwanted.',"
-    ],
-    "after": [
-      "    'Режим ботов — список с чатом на каждого агента: аватары, расписания, групповые чаты и обмен сообщениями между ботами. Входит в приложение; отключите здесь, если не нужен.',"
-    ]
-  },
-  {
-    "id": "bots-plugin-select-first",
-    "file": "apps/desktop/src/plugins/hermes-bots/routing.ts",
-    "before": [
-      "  blockedMessage = 'Select a Bot or group first.'"
-    ],
-    "after": [
-      "          title: 'Сначала выберите бота или группу.',"
-    ]
-  },
-  {
-    "delete": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
-    "id": "bots-gcv-gateway-error-migrated-dead"
-  },
-  {
-    "delete": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
-    "id": "bots-plugin-with-desc-migrated-dead"
-  },
-  {
-    "id": "v122-bots-general-label",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                        { id: 'general', label: 'General' },"
-    ],
-    "after": [
-      "                        { id: 'general', label: 'Основные' },"
-    ],
-    "all": true
-  },
-  {
-    "id": "v122-bots-capabilities-label",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                        { id: 'capabilities', label: 'Capabilities' }"
-    ],
-    "after": [
-      "                        { id: 'capabilities', label: 'Возможности' }"
-    ]
-  },
-  {
-    "id": "v122-bots-skills-label",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                        { id: 'skills', label: 'Skills' },"
-    ],
-    "after": [
-      "                        { id: 'skills', label: 'Навыки' },"
-    ]
-  },
-  {
-    "id": "v122-bots-tools-label",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                        { id: 'toolsets', label: 'Tools' },"
-    ],
-    "after": [
-      "                        { id: 'toolsets', label: 'Инструменты' },"
-    ]
-  },
-  {
-    "id": "v122-bots-fresh-profile",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "                        <SelectItem value=\"__none__\">Fresh profile (bundled skills)</SelectItem>"
-    ],
-    "after": [
-      "                        <SelectItem value=\"__none__\">Новый профиль (со стандартными навыками)</SelectItem>"
-    ]
-  },
-  {
-    "id": "v122-bots-pin-unpin",
-    "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-    "before": [
-      "          {pinned ? 'Unpin' : 'Pin to top'}"
-    ],
-    "after": [
-      "          {pinned ? 'Открепить' : 'Закрепить вверху'}"
-    ],
-    "all": true
-  },
-  {
-    "id": "v122-bots-hide-unhide",
-    "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-    "before": [
-      "          {hidden ? 'Unhide' : 'Hide'}"
-    ],
-    "after": [
-      "          {hidden ? 'Показать' : 'Скрыть'}"
-    ],
-    "all": true
-  },
-  {
-    "id": "v122-bots-handle-toggle",
-    "file": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
-    "before": [
-      "                title={revealed ? 'Hide full handle' : 'Show full handle'}"
-    ],
-    "after": [
-      "                title={revealed ? 'Скрыть полный адрес' : 'Показать полный адрес'}"
-    ],
-    "all": true
-  },
-  {
-    "id": "v122-bots-cron-repeat",
-    "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-    "before": [
-      "      ['Repeat', job?.repeat],"
-    ],
-    "after": [
-      "      ['Повтор', job?.repeat],"
-    ]
-  },
-  {
-    "id": "v122-bots-cron-next-run",
-    "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-    "before": [
-      "      ['Next run', paused ? null : routineTimestamp(job?.next_run_at)],"
-    ],
-    "after": [
-      "      ['След. запуск', paused ? null : routineTimestamp(job?.next_run_at)],"
-    ]
-  },
-  {
-    "id": "v122-bots-cron-last-run",
-    "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-    "before": [
-      "      ['Last run', routineTimestamp(job?.last_run_at)],"
-    ],
-    "after": [
-      "      ['Посл. запуск', routineTimestamp(job?.last_run_at)],"
-    ]
-  },
-  {
-    "id": "v122-bots-cron-last-result",
-    "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-    "before": [
-      "      ['Last result', job?.last_status],"
-    ],
-    "after": [
-      "      ['Посл. результат', job?.last_status],"
-    ]
-  },
-  {
-    "id": "v122-bots-cron-delivers-to",
-    "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-    "before": [
-      "      ['Delivers to', job?.deliver],"
-    ],
-    "after": [
-      "      ['Куда доставить', job?.deliver],"
-    ]
-  },
-  {
-    "id": "v122-bots-cron-workdir",
-    "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-    "before": [
-      "      ['Working directory', job?.workdir]"
-    ],
-    "after": [
-      "      ['Рабочий каталог', job?.workdir]"
-    ]
-  },
-  {
-    "id": "v122-bots-avatar-auto",
-    "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-    "before": [
-      "                        <span className=\"text-[0.6rem] text-(--ui-text-tertiary)\">Auto</span>"
-    ],
-    "after": [
-      "                        <span className=\"text-[0.6rem] text-(--ui-text-tertiary)\">Авто</span>"
-    ]
-  },
-  {
-    "id": "v122-bots-avatar-auto-title",
-    "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-    "before": [
-      "                      title={k || 'Auto — the name decides'}"
-    ],
-    "after": [
-      "                      title={k || 'Авто — по имени'}"
-    ],
-    "all": true
-  },
-  {
-    "id": "v122-bots-create-group-btn",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "          >{`Create Group${selected.length ? ` (${selected.length})` : ''}`}</Button>"
-    ],
-    "after": [
-      "          >{`Создать группу${selected.length ? ` (${selected.length})` : ''}`}</Button>"
-    ]
-  },
-  {
-    "id": "v122-bots-create-group-desc",
-    "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-    "before": [
-      "          <DialogDescription>{`Pick 2–${GROUP_CHAT_MAX_MEMBERS} bots. Local memberships sync through each Bot profile; cross-machine members stay scoped to this room.`}</DialogDescription>"
-    ],
-    "after": [
-      "          <DialogDescription>{`Выберите 2–${GROUP_CHAT_MAX_MEMBERS} ботов. Членства синхронизируются через профили ботов; участники с других машин остаются в этой комнате.`}</DialogDescription>"
-    ]
-  }
+ {
+  "id": "custom-endpoints-settings.tsx-9",
+  "file": "apps/desktop/src/app/settings/custom-endpoints-settings.tsx",
+  "before": [
+   "    if (!(await confirm({ destructive: true, title: `Delete ${endpoint.name}?` }))) {"
+  ],
+  "after": [
+   "    if (!(await confirm({ destructive: true, title: `Удалить ${endpoint.name}?` }))) {"
+  ]
+ },
+ {
+  "id": "presets.ts-1",
+  "file": "apps/desktop/src/themes/presets.ts",
+  "before": [
+   "  description: 'GitHub chrome, Nous blue accent',"
+  ],
+  "after": [
+   "  description: 'Оформление GitHub, акцент Nous синий',"
+  ]
+ },
+ {
+  "id": "presets.ts-github",
+  "file": "apps/desktop/src/themes/presets.ts",
+  "before": [
+   "  description: 'GitHub Light Default and Dark Default',"
+  ],
+  "after": [
+   "  description: 'Светлая и тёмная по умолчанию',"
+  ]
+ },
+ {
+  "id": "presets.ts-catppuccin",
+  "file": "apps/desktop/src/themes/presets.ts",
+  "before": [
+   "  description: 'Soothing pastels — Latte and Mocha',"
+  ],
+  "after": [
+   "  description: 'Успокаивающие пастели — Latte и Mocha',"
+  ]
+ },
+ {
+  "id": "presets.ts-everforest",
+  "file": "apps/desktop/src/themes/presets.ts",
+  "before": [
+   "  description: 'Warm, low-contrast forest greens',"
+  ],
+  "after": [
+   "  description: 'Тёплые лесные зелёные с низким контрастом',"
+  ]
+ },
+ {
+  "id": "presets.ts-solarized",
+  "file": "apps/desktop/src/themes/presets.ts",
+  "before": [
+   "  description: 'Fixed-contrast light and dark',"
+  ],
+  "after": [
+   "  description: 'Светлая и тёмная с фиксированным контрастом',"
+  ]
+ },
+ {
+  "id": "kanban-plugin-nav-label",
+  "file": "apps/desktop/src/plugins/kanban/plugin.tsx",
+  "before": [
+   "        data: { codicon: 'project', label: 'Kanban', path: '/kanban' } satisfies SidebarNavContribution"
+  ],
+  "after": [
+   "        data: { codicon: 'project', label: 'Канбан', path: '/kanban' } satisfies SidebarNavContribution"
+  ]
+ },
+ {
+  "id": "controller-sessions-title",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    title: 'sessions',"
+  ],
+  "after": [
+   "    title: 'Сессии',"
+  ]
+ },
+ {
+  "id": "accent-description",
+  "file": "apps/desktop/src/plugins/accent/plugin.tsx",
+  "before": [
+   "    'Pick the theme accent from an OKLCH color picker in the status bar; the palette re-derives live. Authoring tool — the color is not persisted.',"
+  ],
+  "after": [
+   "    'Выбор акцентного цвета темы в палитре OKLCH в статус-баре; палитра пересчитывается на лету. Инструмент для авторов — цвет не сохраняется.',"
+  ]
+ },
+ {
+  "id": "accent-reset-label",
+  "file": "apps/desktop/src/plugins/accent/plugin.tsx",
+  "before": [
+   "          label: 'Accent: reset to the theme default',"
+  ],
+  "after": [
+   "          label: 'Акцент: сбросить к значению темы по умолчанию',"
+  ]
+ },
+ {
+  "id": "accent-copy-label",
+  "file": "apps/desktop/src/plugins/accent/plugin.tsx",
+  "before": [
+   "          label: 'Accent: copy the current color',"
+  ],
+  "after": [
+   "          label: 'Акцент: скопировать текущий цвет',"
+  ]
+ },
+ {
+  "id": "filter-menu-75",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'clock', id: 'date', label: 'Updated' },"
+  ],
+  "after": [
+   "  { icon: 'clock', id: 'date', label: 'Обновлено' },"
+  ]
+ },
+ {
+  "id": "filter-menu-76",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'root-folder', id: 'project', label: 'Project' },"
+  ],
+  "after": [
+   "  { icon: 'root-folder', id: 'project', label: 'Проект' },"
+  ]
+ },
+ {
+  "id": "filter-menu-77-all",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'pulse', id: 'status', label: 'Status' },"
+  ],
+  "after": [
+   "  { icon: 'pulse', id: 'status', label: 'Статус' },"
+  ],
+  "all": true
+ },
+ {
+  "id": "filter-menu-78-all",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'account', id: 'profile', label: 'Profile' }"
+  ],
+  "after": [
+   "  { icon: 'account', id: 'profile', label: 'Профиль' }"
+  ],
+  "all": true
+ },
+ {
+  "id": "filter-menu-82-all",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'clock', id: 'updated', label: 'Updated' },"
+  ],
+  "after": [
+   "  { icon: 'clock', id: 'updated', label: 'Обновлено' },"
+  ],
+  "all": true
+ },
+ {
+  "id": "filter-menu-83",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'add', id: 'created', label: 'Created' },"
+  ],
+  "after": [
+   "  { icon: 'add', id: 'created', label: 'Создано' },"
+  ]
+ },
+ {
+  "id": "filter-menu-85-all",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'symbol-numeric', id: 'tokens', label: 'Tokens' },"
+  ],
+  "after": [
+   "  { icon: 'symbol-numeric', id: 'tokens', label: 'Токены' },"
+  ],
+  "all": true
+ },
+ {
+  "id": "filter-menu-86-all",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'credit-card', id: 'cost', label: 'Cost' },"
+  ],
+  "after": [
+   "  { icon: 'credit-card', id: 'cost', label: 'Стоимость' },"
+  ],
+  "all": true
+ },
+ {
+  "id": "filter-menu-87",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'list-ordered', id: 'manual', label: 'Manual' }"
+  ],
+  "after": [
+   "  { icon: 'list-ordered', id: 'manual', label: 'Вручную' }"
+  ]
+ },
+ {
+  "id": "filter-menu-92",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'comment', id: 'preview', label: 'Preview' },"
+  ],
+  "after": [
+   "  { icon: 'comment', id: 'preview', label: 'Превью' },"
+  ]
+ },
+ {
+  "id": "filter-menu-100",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'git-pull-request', id: 'open', label: 'Open' },"
+  ],
+  "after": [
+   "  { icon: 'git-pull-request', id: 'open', label: 'Открытые' },"
+  ]
+ },
+ {
+  "id": "filter-menu-101",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'git-pull-request-draft', id: 'draft', label: 'Draft' },"
+  ],
+  "after": [
+   "  { icon: 'git-pull-request-draft', id: 'draft', label: 'Черновик' },"
+  ]
+ },
+ {
+  "id": "filter-menu-102",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'git-merge', id: 'merged', label: 'Merged' },"
+  ],
+  "after": [
+   "  { icon: 'git-merge', id: 'merged', label: 'Слитые' },"
+  ]
+ },
+ {
+  "id": "filter-menu-103",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'git-pull-request-closed', id: 'closed', label: 'Closed' },"
+  ],
+  "after": [
+   "  { icon: 'git-pull-request-closed', id: 'closed', label: 'Закрытые' },"
+  ]
+ },
+ {
+  "id": "filter-menu-104",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { icon: 'circle-slash', id: 'none', label: 'No PR' }"
+  ],
+  "after": [
+   "  { icon: 'circle-slash', id: 'none', label: 'Без PR' }"
+  ]
+ },
+ {
+  "id": "filter-menu-108",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { dot: sessionDotClassName('needs-input'), id: 'needs-input', label: 'Needs input' },"
+  ],
+  "after": [
+   "  { dot: sessionDotClassName('needs-input'), id: 'needs-input', label: 'Нужен ваш ответ' },"
+  ]
+ },
+ {
+  "id": "filter-menu-109",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { dot: sessionDotClassName('working'), id: 'working', label: 'Working' },"
+  ],
+  "after": [
+   "  { dot: sessionDotClassName('working'), id: 'working', label: 'Работает' },"
+  ]
+ },
+ {
+  "id": "filter-menu-111",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { dot: sessionDotClassName('draft'), id: 'draft', label: 'Draft' },"
+  ],
+  "after": [
+   "  { dot: sessionDotClassName('draft'), id: 'draft', label: 'Черновик' },"
+  ]
+ },
+ {
+  "id": "filter-menu-110",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { dot: sessionDotClassName('unread'), id: 'unread', label: 'Unread' },"
+  ],
+  "after": [
+   "  { dot: sessionDotClassName('unread'), id: 'unread', label: 'Непрочитанное' },"
+  ]
+ },
+ {
+  "id": "filter-menu-112",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "  { dot: cn(sessionDotClassName('idle'), 'bg-(--ui-text-quaternary)'), id: 'idle', label: 'Idle' }"
+  ],
+  "after": [
+   "  { dot: cn(sessionDotClassName('idle'), 'bg-(--ui-text-quaternary)'), id: 'idle', label: 'Ожидание' }"
+  ]
+ },
+ {
+  "id": "filter-menu-230",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "              Grouping"
+  ],
+  "after": [
+   "              Группировка"
+  ]
+ },
+ {
+  "id": "filter-menu-249",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "            <DropdownMenuSubTrigger>Ordering</DropdownMenuSubTrigger>"
+  ],
+  "after": [
+   "            <DropdownMenuSubTrigger>Сортировка</DropdownMenuSubTrigger>"
+  ]
+ },
+ {
+  "id": "filter-menu-263",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "            <DropdownMenuSubTrigger>Show</DropdownMenuSubTrigger>"
+  ],
+  "after": [
+   "            <DropdownMenuSubTrigger>Показывать</DropdownMenuSubTrigger>"
+  ]
+ },
+ {
+  "id": "filter-menu-281",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "            option={{ icon: 'inbox', id: 'card-rows', label: 'Inbox style' }}"
+  ],
+  "after": [
+   "            option={{ icon: 'inbox', id: 'card-rows', label: 'Стиль «Почта»' }}"
+  ]
+ },
+ {
+  "id": "filter-menu-288",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "          <DropdownMenuLabel>Filters</DropdownMenuLabel>"
+  ],
+  "after": [
+   "          <DropdownMenuLabel>Фильтры</DropdownMenuLabel>"
+  ]
+ },
+ {
+  "id": "filter-menu-291",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "            <DropdownMenuSubTrigger>Status</DropdownMenuSubTrigger>"
+  ],
+  "after": [
+   "            <DropdownMenuSubTrigger>Статус</DropdownMenuSubTrigger>"
+  ]
+ },
+ {
+  "id": "filter-menu-323",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "            <DropdownMenuSubTrigger>Profile</DropdownMenuSubTrigger>"
+  ],
+  "after": [
+   "            <DropdownMenuSubTrigger>Профиль</DropdownMenuSubTrigger>"
+  ]
+ },
+ {
+  "id": "filter-menu-350",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "              <DropdownMenuSubTrigger>Project</DropdownMenuSubTrigger>"
+  ],
+  "after": [
+   "              <DropdownMenuSubTrigger>Проект</DropdownMenuSubTrigger>"
+  ]
+ },
+ {
+  "id": "filter-menu-385",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "            option={{ id: 'archived', label: 'Archived' }}"
+  ],
+  "after": [
+   "            option={{ id: 'archived', label: 'В архиве' }}"
+  ]
+ },
+ {
+  "id": "filter-menu-412",
+  "file": "apps/desktop/src/app/chat/sidebar/filter-menu.tsx",
+  "before": [
+   "          Mark all as read"
+  ],
+  "after": [
+   "          Отметить всё прочитанным"
+  ]
+ },
+ {
+  "id": "reactions-ts-could-not-react",
+  "file": "apps/desktop/src/store/reactions.ts",
+  "before": [
+   "    notifyError(new Error(!sessionId ? 'No active session' : 'Gateway not connected'), 'Could not react')"
+  ],
+  "after": [
+   "    notifyError(new Error(!sessionId ? 'Нет активной сессии' : 'Шлюз не подключён'), 'Не удалось поставить реакцию')"
+  ],
+  "severity": "cosmetic"
+ },
+ {
+  "id": "reactions-ts-could-not-react-2",
+  "file": "apps/desktop/src/store/reactions.ts",
+  "before": [
+   "    notifyError(err, 'Could not react')"
+  ],
+  "after": [
+   "    notifyError(err, 'Не удалось поставить реакцию')"
+  ],
+  "severity": "cosmetic"
+ },
+ {
+  "id": "api-client-ts-not-connected",
+  "file": "apps/desktop/src/api/client.ts",
+  "before": [
+   "      notConnectedErrorMessage: 'Hermes gateway is not connected',"
+  ],
+  "after": [
+   "      notConnectedErrorMessage: 'Шлюз Hermes не подключён',"
+  ],
+  "severity": "cosmetic"
+ },
+ {
+  "id": "wave3-ad-messaging",
+  "file": "apps/desktop/src/components/assistant-ui/thread/agent-delivery.tsx",
+  "before": [
+   "            {pending ? 'Messaging' : 'Messaged'} {target}"
+  ],
+  "after": [
+   "            {pending ? 'Отправка' : 'Отправлено'} {target}"
+  ]
+ },
+ {
+  "id": "wave3-ad-msgfrom",
+  "file": "apps/desktop/src/components/assistant-ui/thread/agent-delivery.tsx",
+  "before": [
+   "            <span className=\"wrap-anywhere\">Message from {target}</span>"
+  ],
+  "after": [
+   "            <span className=\"wrap-anywhere\">Сообщение от {target}</span>"
+  ]
+ },
+ {
+  "id": "wave3-ad-showmsg",
+  "file": "apps/desktop/src/components/assistant-ui/thread/agent-delivery.tsx",
+  "before": [
+   "              show message"
+  ],
+  "after": [
+   "              показать сообщение"
+  ]
+ },
+ {
+  "id": "wave3-um-msgfrom",
+  "file": "apps/desktop/src/components/assistant-ui/thread/user-message.tsx",
+  "before": [
+   "        <span className=\"wrap-anywhere\">Message from {sender}</span>"
+  ],
+  "after": [
+   "        <span className=\"wrap-anywhere\">Сообщение от {sender}</span>"
+  ]
+ },
+ {
+  "id": "wave3-um-showmsg",
+  "file": "apps/desktop/src/components/assistant-ui/thread/user-message.tsx",
+  "before": [
+   "            show message"
+  ],
+  "after": [
+   "            показать сообщение"
+  ]
+ },
+ {
+  "id": "wave3-am-replied",
+  "file": "apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx",
+  "before": [
+   "      <span className=\"wrap-anywhere\">Replied to {sender}</span>"
+  ],
+  "after": [
+   "      <span className=\"wrap-anywhere\">Ответил на сообщение {sender}</span>"
+  ]
+ },
+ {
+  "id": "wave3-am-showreply",
+  "file": "apps/desktop/src/components/assistant-ui/thread/assistant-message.tsx",
+  "before": [
+   "        show reply"
+  ],
+  "after": [
+   "        показать ответ"
+  ]
+ },
+ {
+  "id": "w4-tle-6",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "      label: 'Toggle layout edit mode',"
+  ],
+  "after": [
+   "      label: 'Переключить режим редактирования раскладки',"
+  ]
+ },
+ {
+  "id": "w4-tle-4",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    label: 'Toggle layout edit mode',"
+  ],
+  "after": [
+   "    label: 'Переключить режим редактирования раскладки',"
+  ]
+ },
+ {
+  "id": "w4-reload-plugins",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "      label: 'Reload desktop plugins',"
+  ],
+  "after": [
+   "      label: 'Перезагрузить плагины рабочего стола',"
+  ]
+ },
+ {
+  "id": "w4-reset-layout",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "      label: 'Reset layout',"
+  ],
+  "after": [
+   "      label: 'Сбросить раскладку',"
+  ]
+ },
+ {
+  "id": "w4-toggle-statusbar",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    label: 'Toggle status bar',"
+  ],
+  "after": [
+   "    label: 'Переключить строку состояния',"
+  ]
+ },
+ {
+  "id": "w4-keyboard",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "      label: 'Keyboard shortcuts',"
+  ],
+  "after": [
+   "      label: 'Горячие клавиши',"
+  ]
+ },
+ {
+  "id": "w4-export",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "      label: 'Export profile…',"
+  ],
+  "after": [
+   "      label: 'Экспорт профиля…',"
+  ]
+ },
+ {
+  "id": "w4-import",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "      label: 'Import profile…',"
+  ],
+  "after": [
+   "      label: 'Импорт профиля…',"
+  ]
+ },
+ {
+  "id": "w4-focus",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "  { id: 'focus', area: 'layouts', title: 'Focus', order: 10, data: FOCUS_TREE },"
+  ],
+  "after": [
+   "  { id: 'focus', area: 'layouts', title: 'Фокус', order: 10, data: FOCUS_TREE },"
+  ]
+ },
+ {
+  "id": "w4-quad",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "  { id: 'quad', area: 'layouts', title: 'Quad', order: 30, data: QUAD_TREE }"
+  ],
+  "after": [
+   "  { id: 'quad', area: 'layouts', title: 'Четыре зоны', order: 30, data: QUAD_TREE }"
+  ]
+ },
+ {
+  "id": "w4-toggle-terminal",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    label: 'Toggle terminal',"
+  ],
+  "after": [
+   "    label: 'Переключить терминал',"
+  ]
+ },
+ {
+  "id": "w4-toggle-logs",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    label: 'Toggle logs',"
+  ],
+  "after": [
+   "    label: 'Переключить журналы',"
+  ]
+ },
+ {
+  "id": "w4-toggle-yolo",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    label: 'Toggle yolo',"
+  ],
+  "after": [
+   "    label: 'Переключить yolo',"
+  ]
+ },
+ {
+  "id": "w4-artifacts",
+  "file": "apps/desktop/src/app/chat/route-tile.tsx",
+  "before": [
+   "  [ARTIFACTS_ROUTE]: { render: () => <ArtifactsView />, title: 'Artifacts' },"
+  ],
+  "after": [
+   "  [ARTIFACTS_ROUTE]: { render: () => <ArtifactsView />, title: 'Рабочие материалы' },"
+  ]
+ },
+ {
+  "id": "w4-split-right",
+  "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
+  "before": [
+   "  { dir: 'right', icon: 'arrow-right', label: 'Right' },"
+  ],
+  "after": [
+   "  { dir: 'right', icon: 'arrow-right', label: 'Справа' },"
+  ]
+ },
+ {
+  "id": "w4-split-down",
+  "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
+  "before": [
+   "  { dir: 'bottom', icon: 'arrow-down', label: 'Down' },"
+  ],
+  "after": [
+   "  { dir: 'bottom', icon: 'arrow-down', label: 'Снизу' },"
+  ]
+ },
+ {
+  "id": "w4-split-left",
+  "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
+  "before": [
+   "  { dir: 'left', icon: 'arrow-left', label: 'Left' },"
+  ],
+  "after": [
+   "  { dir: 'left', icon: 'arrow-left', label: 'Слева' },"
+  ]
+ },
+ {
+  "id": "w4-current-plan",
+  "file": "apps/desktop/src/app/settings/billing/plans-view.tsx",
+  "before": [
+   "        {isCurrent && <Pill tone=\"primary\">Current plan</Pill>}"
+  ],
+  "after": [
+   "        {isCurrent && <Pill tone=\"primary\">Текущий план</Pill>}"
+  ]
+ },
+ {
+  "id": "w4-scheduled-pill",
+  "file": "apps/desktop/src/app/settings/billing/plans-view.tsx",
+  "before": [
+   "        {tier.state === 'scheduled' && <Pill>Scheduled</Pill>}"
+  ],
+  "after": [
+   "        {tier.state === 'scheduled' && <Pill>Запланировано</Pill>}"
+  ]
+ },
+ {
+  "id": "w4-plans-title",
+  "file": "apps/desktop/src/app/settings/billing/plans-view.tsx",
+  "before": [
+   "        <span>Plans</span>"
+  ],
+  "after": [
+   "        <span>Планы</span>"
+  ]
+ },
+ {
+  "id": "w4-charge-failed",
+  "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+  "before": [
+   "        title: 'Charge failed'"
+  ],
+  "after": [
+   "        title: 'Оплата не прошла'"
+  ]
+ },
+ {
+  "id": "w4-charge-unconfirmed",
+  "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+  "before": [
+   "          title: 'Charge outcome unconfirmed'"
+  ],
+  "after": [
+   "          title: 'Результат оплаты не подтверждён'"
+  ]
+ },
+ {
+  "id": "w4-charge-check",
+  "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+  "before": [
+   "        title: 'Could not check charge'"
+  ],
+  "after": [
+   "        title: 'Не удалось проверить оплату'"
+  ],
+  "all": true
+ },
+ {
+  "id": "w4-charge-track",
+  "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+  "before": [
+   "          title: 'Charge could not be tracked'"
+  ],
+  "after": [
+   "          title: 'Не удалось отследить оплату'"
+  ]
+ },
+ {
+  "id": "w4-charge-slow",
+  "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+  "before": [
+   "    title: 'Still processing after 5 minutes'"
+  ],
+  "after": [
+   "    title: 'Обработка длится дольше 5 минут'"
+  ]
+ },
+ {
+  "id": "w4-stepup-denied",
+  "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
+  "before": [
+   "        title: 'Verification was not approved'"
+  ],
+  "after": [
+   "        title: 'Верификация не одобрена'"
+  ]
+ },
+ {
+  "id": "w4-stepup-ok",
+  "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
+  "before": [
+   "      title: 'Verification complete'"
+  ],
+  "after": [
+   "      title: 'Верификация завершена'"
+  ]
+ },
+ {
+  "id": "w4-appearance",
+  "file": "apps/desktop/src/app/settings/constants.ts",
+  "before": [
+   "    label: 'Appearance',"
+  ],
+  "after": [
+   "    label: 'Внешний вид',"
+  ]
+ },
+ {
+  "id": "w4-safety",
+  "file": "apps/desktop/src/app/settings/constants.ts",
+  "before": [
+   "    label: 'Safety',"
+  ],
+  "after": [
+   "    label: 'Безопасность',"
+  ]
+ },
+ {
+  "id": "w4-memory-context",
+  "file": "apps/desktop/src/app/settings/constants.ts",
+  "before": [
+   "    label: 'Memory & Context',"
+  ],
+  "after": [
+   "    label: 'Память и контекст',"
+  ]
+ },
+ {
+  "id": "w4-voice",
+  "file": "apps/desktop/src/app/settings/constants.ts",
+  "before": [
+   "    label: 'Voice',"
+  ],
+  "after": [
+   "    label: 'Голос',"
+  ]
+ },
+ {
+  "id": "w4-alert-caution",
+  "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
+  "before": [
+   "  caution: { accent: 'text-rose-600 dark:text-rose-400', icon: AlertTriangle, label: 'Caution' },"
+  ],
+  "after": [
+   "  caution: { accent: 'text-rose-600 dark:text-rose-400', icon: AlertTriangle, label: 'Осторожно' },"
+  ]
+ },
+ {
+  "id": "w4-alert-important",
+  "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
+  "before": [
+   "  important: { accent: 'text-violet-600 dark:text-violet-400', icon: AlertCircle, label: 'Important' },"
+  ],
+  "after": [
+   "  important: { accent: 'text-violet-600 dark:text-violet-400', icon: AlertCircle, label: 'Важно' },"
+  ]
+ },
+ {
+  "id": "w4-alert-note",
+  "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
+  "before": [
+   "  note: { accent: 'text-blue-600 dark:text-blue-400', icon: Info, label: 'Note' },"
+  ],
+  "after": [
+   "  note: { accent: 'text-blue-600 dark:text-blue-400', icon: Info, label: 'Примечание' },"
+  ]
+ },
+ {
+  "id": "w4-alert-tip",
+  "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
+  "before": [
+   "  tip: { accent: 'text-emerald-600 dark:text-emerald-400', icon: Zap, label: 'Tip' },"
+  ],
+  "after": [
+   "  tip: { accent: 'text-emerald-600 dark:text-emerald-400', icon: Zap, label: 'Совет' },"
+  ]
+ },
+ {
+  "id": "w4-alert-warning",
+  "file": "apps/desktop/src/components/assistant-ui/embeds/alert.tsx",
+  "before": [
+   "  warning: { accent: 'text-amber-600 dark:text-amber-400', icon: AlertTriangle, label: 'Warning' }"
+  ],
+  "after": [
+   "  warning: { accent: 'text-amber-600 dark:text-amber-400', icon: AlertTriangle, label: 'Предупреждение' }"
+  ]
+ },
+ {
+  "id": "w4-embed-load",
+  "file": "apps/desktop/src/components/assistant-ui/embeds/embed-consent.tsx",
+  "before": [
+   "    { id: 'once', label: `Load ${descriptor.label}` },"
+  ],
+  "after": [
+   "    { id: 'once', label: `Загрузить ${descriptor.label}` },"
+  ]
+ },
+ {
+  "id": "w4-embed-always",
+  "file": "apps/desktop/src/components/assistant-ui/embeds/embed-consent.tsx",
+  "before": [
+   "    { id: 'always', label: `Always allow ${descriptor.label}` }"
+  ],
+  "after": [
+   "    { id: 'always', label: `Всегда разрешать ${descriptor.label}` }"
+  ]
+ },
+ {
+  "id": "w4-ref-folders",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "    label: 'Folders'"
+  ],
+  "after": [
+   "    label: 'Папки'"
+  ]
+ },
+ {
+  "id": "w4-ref-links",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "    label: 'Links'"
+  ],
+  "after": [
+   "    label: 'Ссылки'"
+  ]
+ },
+ {
+  "id": "w4-ref-images",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "    label: 'Images'"
+  ],
+  "after": [
+   "    label: 'Изображения'"
+  ]
+ },
+ {
+  "id": "w4-ref-lines",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "    label: 'Lines'"
+  ],
+  "after": [
+   "    label: 'Строки'"
+  ]
+ },
+ {
+  "id": "w4-ref-sessions",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "    label: 'Sessions'"
+  ],
+  "after": [
+   "    label: 'Сессии'"
+  ]
+ },
+ {
+  "id": "w4-ref-staged",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "  staged: { codicon: 'diff-added', paths: ['M12 5l0 14', 'M5 12l14 0'], label: 'Staged' },"
+  ],
+  "after": [
+   "  staged: { codicon: 'diff-added', paths: ['M12 5l0 14', 'M5 12l14 0'], label: 'Подготовлено' },"
+  ]
+ },
+ {
+  "id": "w4-ref-commands",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "  command: { codicon: 'terminal', paths: TERMINAL_PATHS, label: 'Commands' },"
+  ],
+  "after": [
+   "  command: { codicon: 'terminal', paths: TERMINAL_PATHS, label: 'Команды' },"
+  ]
+ },
+ {
+  "id": "w4-ref-themes",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "    label: 'Themes'"
+  ],
+  "after": [
+   "    label: 'Темы'"
+  ]
+ },
+ {
+  "id": "w4-ref-emoji",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "  emoji: { codicon: 'smiley', paths: [], label: 'Emoji' },"
+  ],
+  "after": [
+   "  emoji: { codicon: 'smiley', paths: [], label: 'Эмодзи' },"
+  ]
+ },
+ {
+  "id": "w4-ref-other",
+  "file": "apps/desktop/src/components/assistant-ui/reference-kinds.ts",
+  "before": [
+   "  other: { codicon: 'symbol-misc', paths: FILE_PATHS, label: 'Other' }"
+  ],
+  "after": [
+   "  other: { codicon: 'symbol-misc', paths: FILE_PATHS, label: 'Другое' }"
+  ]
+ },
+ {
+  "id": "w4-idea-gamejam",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Game jam',"
+  ],
+  "after": [
+   "    label: 'Гейм-джем',"
+  ]
+ },
+ {
+  "id": "w4-idea-novel",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Novel',"
+  ],
+  "after": [
+   "    label: 'Роман',"
+  ]
+ },
+ {
+  "id": "w4-idea-discord",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Discord bot',"
+  ],
+  "after": [
+   "    label: 'Бот для Discord',"
+  ]
+ },
+ {
+  "id": "w4-idea-dataviz",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Data viz',"
+  ],
+  "after": [
+   "    label: 'Визуализация данных',"
+  ]
+ },
+ {
+  "id": "w4-idea-genart",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Generative art',"
+  ],
+  "after": [
+   "    label: 'Генеративное искусство',"
+  ]
+ },
+ {
+  "id": "w4-idea-recipe",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Recipe box',"
+  ],
+  "after": [
+   "    label: 'Книга рецептов',"
+  ]
+ },
+ {
+  "id": "w4-idea-research",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Research log',"
+  ],
+  "after": [
+   "    label: 'Журнал исследований',"
+  ]
+ },
+ {
+  "id": "w4-idea-budget",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Budget tracker',"
+  ],
+  "after": [
+   "    label: 'Учёт бюджета',"
+  ]
+ },
+ {
+  "id": "w4-idea-habit",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Habit tracker',"
+  ],
+  "after": [
+   "    label: 'Трекер привычек',"
+  ]
+ },
+ {
+  "id": "w4-idea-trip",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Trip planner',"
+  ],
+  "after": [
+   "    label: 'Планировщик путешествий',"
+  ]
+ },
+ {
+  "id": "w4-idea-music",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Music toy',"
+  ],
+  "after": [
+   "    label: 'Музыкальная игрушка',"
+  ]
+ },
+ {
+  "id": "w4-idea-puzzle",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Puzzle maker',"
+  ],
+  "after": [
+   "    label: 'Конструктор головоломок',"
+  ]
+ },
+ {
+  "id": "w4-idea-garden",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Digital garden',"
+  ],
+  "after": [
+   "    label: 'Цифровой сад',"
+  ]
+ },
+ {
+  "id": "w4-idea-apiwrap",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'API wrapper',"
+  ],
+  "after": [
+   "    label: 'Обёртка API',"
+  ]
+ },
+ {
+  "id": "w4-idea-workout",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Workout plan',"
+  ],
+  "after": [
+   "    label: 'План тренировок',"
+  ]
+ },
+ {
+  "id": "w4-idea-flashcards",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Flashcards',"
+  ],
+  "after": [
+   "    label: 'Карточки для запоминания',"
+  ]
+ },
+ {
+  "id": "w4-idea-screenplay",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Screenplay',"
+  ],
+  "after": [
+   "    label: 'Сценарий',"
+  ]
+ },
+ {
+  "id": "w4-idea-learn",
+  "file": "apps/desktop/src/lib/project-idea-templates.ts",
+  "before": [
+   "    label: 'Learn-by-building',"
+  ],
+  "after": [
+   "    label: 'Учись, создавая',"
+  ]
+ },
+ {
+  "id": "w4-ch-faster",
+  "file": "apps/desktop/src/lib/commit-changelog.ts",
+  "before": [
+   "  faster: { label: 'Faster', order: 2 },"
+  ],
+  "after": [
+   "  faster: { label: 'Быстрее', order: 2 },"
+  ]
+ },
+ {
+  "id": "w4-ch-improved",
+  "file": "apps/desktop/src/lib/commit-changelog.ts",
+  "before": [
+   "  improved: { label: 'Improved', order: 3 },"
+  ],
+  "after": [
+   "  improved: { label: 'Улучшено', order: 3 },"
+  ]
+ },
+ {
+  "id": "w4-ch-other",
+  "file": "apps/desktop/src/lib/commit-changelog.ts",
+  "before": [
+   "  other: { label: 'Other improvements', order: 4 }"
+  ],
+  "after": [
+   "  other: { label: 'Прочие улучшения', order: 4 }"
+  ]
+ },
+ {
+  "id": "w4-ch-inupdate",
+  "file": "apps/desktop/src/lib/commit-changelog.ts",
+  "before": [
+   "const FALLBACK_GROUP: CommitGroup = { id: 'other', items: ['Improvements and fixes'], label: 'In this update' }"
+  ],
+  "after": [
+   "const FALLBACK_GROUP: CommitGroup = { id: 'other', items: ['Improvements and fixes'], label: 'В этом обновлении' }"
+  ]
+ },
+ {
+  "id": "w4-gw-nolog",
+  "file": "apps/desktop/src/lib/gateway-events.ts",
+  "before": [
+   "        label: 'No recent gateway log lines'"
+  ],
+  "after": [
+   "        label: 'Нет свежих строк журнала шлюза'"
+  ]
+ },
+ {
+  "id": "w4-tree-loading",
+  "file": "apps/desktop/src/app/right-sidebar/files/use-project-tree.ts",
+  "before": [
+   "  return { id: `${parentId}::${PLACEHOLDER_ID}`, isDirectory: false, name: 'Loading…', placeholder: 'loading' }"
+  ],
+  "after": [
+   "  return { id: `${parentId}::${PLACEHOLDER_ID}`, isDirectory: false, name: 'Загрузка…', placeholder: 'loading' }"
+  ]
+ },
+ {
+  "id": "w4-preview-restart",
+  "file": "apps/desktop/src/store/activity.ts",
+  "before": [
+   "          label: 'Preview restart',"
+  ],
+  "after": [
+   "          label: 'Перезапуск предпросмотра',"
+  ]
+ },
+ {
+  "id": "w4-toolgateway",
+  "file": "apps/desktop/src/store/onboarding.ts",
+  "before": [
+   "    title: 'Tool Gateway enabled'"
+  ],
+  "after": [
+   "    title: 'Шлюз инструментов включён'"
+  ]
+ },
+ {
+  "id": "w4-pet-setup",
+  "file": "apps/desktop/src/app/pet-generate/components/generate-unavailable.tsx",
+  "before": [
+   "        Set up image generation"
+  ],
+  "after": [
+   "        Настроить генерацию изображений"
+  ]
+ },
+ {
+  "id": "w4-pet-key",
+  "file": "apps/desktop/src/app/pet-generate/components/generate-unavailable.tsx",
+  "before": [
+   "        <span>Grab a key from</span>"
+  ],
+  "after": [
+   "        <span>Получите ключ на</span>"
+  ]
+ },
+ {
+  "id": "w4-anthropic-oauth",
+  "file": "apps/desktop/src/components/onboarding/providers.tsx",
+  "before": [
+   "  'claude-code': { order: 6, title: 'Anthropic OAuth: Required Extra Usage Credits to Use Subscription' }"
+  ],
+  "after": [
+   "  'claude-code': { order: 6, title: 'Anthropic OAuth: требуются дополнительные кредиты использования для подписки' }"
+  ]
+ },
+ {
+  "id": "w4-kan-todo",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    todo: { label: 'Todo', help: 'Waiting on dependencies, or unassigned.' },"
+  ],
+  "after": [
+   "    todo: { label: 'К выполнению', help: 'Waiting on dependencies, or unassigned.' },"
+  ]
+ },
+ {
+  "id": "w4-kan-scheduled",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    scheduled: { label: 'Scheduled', help: 'Waiting for a scheduled time to arrive.' },"
+  ],
+  "after": [
+   "    scheduled: { label: 'Запланировано', help: 'Waiting for a scheduled time to arrive.' },"
+  ]
+ },
+ {
+  "id": "w4-kan-running",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    running: { label: 'Running', help: 'Claimed by a worker — an agent is on it. Set by the dispatcher.' },"
+  ],
+  "after": [
+   "    running: { label: 'Выполняется', help: 'Claimed by a worker — an agent is on it. Set by the dispatcher.' },"
+  ]
+ },
+ {
+  "id": "w4-kan-blocked",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    blocked: { label: 'Blocked', help: 'The worker asked for human input.' },"
+  ],
+  "after": [
+   "    blocked: { label: 'Заблокировано', help: 'The worker asked for human input.' },"
+  ]
+ },
+ {
+  "id": "w4-kan-review",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    review: { label: 'Review', help: 'A review agent is checking the work. Set by the dispatcher.' },"
+  ],
+  "after": [
+   "    review: { label: 'Ревью', help: 'A review agent is checking the work. Set by the dispatcher.' },"
+  ]
+ },
+ {
+  "id": "w4-kan-done",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    done: { label: 'Done', help: 'Completed; dependent children become ready.' },"
+  ],
+  "after": [
+   "    done: { label: 'Готово', help: 'Completed; dependent children become ready.' },"
+  ]
+ },
+ {
+  "id": "w4-kan-open",
+  "file": "apps/desktop/src/plugins/kanban/plugin.tsx",
+  "before": [
+   "          label: 'Kanban: Open board',"
+  ],
+  "after": [
+   "          label: 'Канбан: открыть доску',"
+  ]
+ },
+ {
+  "id": "about-settings.tsx-ru-credit",
+  "file": "apps/desktop/src/app/settings/about-settings.tsx",
+  "before": [
+   "          <p className=\"mt-1 text-xs text-muted-foreground\">",
+   "            {version?.appVersion ? a.version(version.appVersion) : a.versionUnavailable}",
+   "          </p>"
+  ],
+  "after": [
+   "          <p className=\"mt-1 text-xs text-muted-foreground\">",
+   "            {version?.appVersion ? a.version(version.appVersion) : a.versionUnavailable}",
+   "          </p>",
+   "          <p className=\"mt-1 text-xs text-muted-foreground\">",
+   "            Русская локализация: upmeister ·{' '}<a href=\"https://github.com/upmeister/hermes-desktop-ru\" rel=\"noreferrer\" target=\"_blank\" className=\"underline\">hermes-desktop-ru</a>",
+   "          </p>"
+  ]
+ },
+ {
+  "id": "w5-pane-files",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    title: 'files',"
+  ],
+  "after": [
+   "    title: 'Файлы',"
+  ]
+ },
+ {
+  "id": "w5-pane-review",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "    title: 'review',"
+  ],
+  "after": [
+   "    title: 'Ревью',"
+  ]
+ },
+ {
+  "id": "w5-layout-default",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "  { id: 'default', area: 'layouts', title: 'Default', order: 0, data: DEFAULT_TREE },"
+  ],
+  "after": [
+   "  { id: 'default', area: 'layouts', title: 'Дефолтный', order: 0, data: DEFAULT_TREE },"
+  ]
+ },
+ {
+  "id": "w5-palette-onoff",
+  "file": "apps/desktop/src/app/command-palette/contrib.ts",
+  "before": [
+   "    detail: () => (get() ? 'on' : 'off'),"
+  ],
+  "after": [
+   "    detail: () => (get() ? 'вкл' : 'выкл'),"
+  ]
+ },
+ {
+  "id": "w5-nousalt-desc",
+  "file": "apps/desktop/src/themes/presets.ts",
+  "before": [
+   "  description: 'Glass neutrals, cream on mission-blue',"
+  ],
+  "after": [
+   "  description: 'Стеклянная нейтраль, кремовый на фирменном синем',"
+  ]
+ },
+ {
+  "id": "w5-preview-url",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "    throw new Error('Invalid preview URL')"
+  ],
+  "after": [
+   "    throw new Error('Недопустимый URL предпросмотра')"
+  ]
+ },
+ {
+  "id": "w5-hermes-err",
+  "file": "apps/desktop/src/app/session/hooks/use-message-stream/gateway-event/status.ts",
+  "before": [
+   "        title: 'Hermes error',"
+  ],
+  "after": [
+   "        title: 'Ошибка Hermes',"
+  ]
+ },
+ {
+  "id": "w5-moa",
+  "file": "apps/desktop/src/app/shell/model-catalog-menu.tsx",
+  "before": [
+   "          <DropdownMenuLabel className={dropdownMenuSectionLabel}>MoA presets</DropdownMenuLabel>"
+  ],
+  "after": [
+   "          <DropdownMenuLabel className={dropdownMenuSectionLabel}>Пресеты MoA</DropdownMenuLabel>"
+  ]
+ },
+ {
+  "id": "w5-striptab-hardcode",
+  "file": "apps/desktop/src/app/contrib/controller.tsx",
+  "before": [
+   "            label: translateNow('zones.toggleStripTab', title),"
+  ],
+  "after": [
+   "            label: `Переключить вкладку ${title}`,"
+  ]
+ },
+ {
+  "id": "w5-kanban-newtaskcmd",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  newTaskCommand: 'Kanban: New task',"
+  ],
+  "after": [
+   "  newTaskCommand: 'Канбан: новая задача',"
+  ]
+ },
+ {
+  "id": "w5-kanban-newtask",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  newTask: 'New task',"
+  ],
+  "after": [
+   "  newTask: 'Новая задача',"
+  ]
+ },
+ {
+  "id": "w5-kanban-newtaskin",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  newTaskIn: label => `New task in ${label}`,"
+  ],
+  "after": [
+   "  newTaskIn: label => `Новая задача в ${label}`,"
+  ]
+ },
+ {
+  "id": "w8-sdk-to-err1",
+  "file": "apps/desktop/src/sdk/index.ts",
+  "before": [
+   "      finish(new Error(`Timed out loading ${profile}'s session history.`))"
+  ],
+  "after": [
+   "      finish(new Error(`Не удалось загрузить историю сессий ${profile}: истекло время ожидания.`))"
+  ]
+ },
+ {
+  "id": "w8-sdk-to-err2",
+  "file": "apps/desktop/src/sdk/index.ts",
+  "before": [
+   "          () => reject(new Error(`Timed out loading ${targetProfile}'s session history.`)),"
+  ],
+  "after": [
+   "          () => reject(new Error(`Не удалось загрузить историю сессий ${targetProfile}: истекло время ожидания.`)),"
+  ]
+ },
+ {
+  "id": "w8-sdk-to-matcher1",
+  "file": "apps/desktop/src/sdk/index.ts",
+  "before": [
+   "            error.message.startsWith('Timed out loading ')"
+  ],
+  "after": [
+   "            error.message.startsWith('Не удалось загрузить историю сессий ')"
+  ]
+ },
+ {
+  "id": "w8-sdk-to-matcher2",
+  "file": "apps/desktop/src/sdk/index.ts",
+  "before": [
+   "        error.message.startsWith('Timed out loading ')"
+  ],
+  "after": [
+   "        error.message.startsWith('Не удалось загрузить историю сессий ')"
+  ]
+ },
+ {
+  "id": "w5e-upd-title",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        title: 'Hermes update',"
+  ],
+  "after": [
+   "        title: 'Обновление Hermes',"
+  ]
+ },
+ {
+  "id": "w5e-hermes-at",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "    label: `Hermes at ${ACTIVE_HERMES_ROOT}`,"
+  ],
+  "after": [
+   "    label: `Hermes в ${ACTIVE_HERMES_ROOT}`,"
+  ]
+ },
+ {
+  "id": "w5e-cli-at",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "          label: `existing Hermes CLI at ${hermesCommand}`,"
+  ],
+  "after": [
+   "          label: `существующий Hermes CLI в ${hermesCommand}`,"
+  ]
+ },
+ {
+  "id": "w5e-module-via",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        label: `installed hermes_cli module via ${python}`,"
+  ],
+  "after": [
+   "        label: `установлен модуль hermes_cli через ${python}`,"
+  ]
+ },
+ {
+  "id": "w5e-bootstrap",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "    label: 'Hermes Agent not installed yet; bootstrap required',"
+  ],
+  "after": [
+   "    label: 'Hermes Agent ещё не установлен — требуется первичная установка',"
+  ]
+ },
+ {
+  "id": "w5e-saveimg",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "    title: 'Save Image',"
+  ],
+  "after": [
+   "    title: 'Сохранить изображение',"
+  ]
+ },
+ {
+  "id": "w5e-checupd",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "    label: 'Check for Updates…',"
+  ],
+  "after": [
+   "    label: 'Проверить обновления…',"
+  ]
+ },
+ {
+  "id": "w5e-about",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        { label: `About ${APP_NAME}`, click: () => showAboutPanelFresh() },"
+  ],
+  "after": [
+   "        { label: `О программе ${APP_NAME}`, click: () => showAboutPanelFresh() },"
+  ]
+ },
+ {
+  "id": "w5e-newwin",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "      { click: () => createInstanceWindow(), label: 'New Window' },"
+  ],
+  "after": [
+   "      { click: () => createInstanceWindow(), label: 'Новое окно' },"
+  ]
+ },
+ {
+  "id": "w5e-openfolder",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "      { click: () => sendOpenFolderRequested(), label: 'Open Folder…' },"
+  ],
+  "after": [
+   "      { click: () => sendOpenFolderRequested(), label: 'Открыть папку…' },"
+  ]
+ },
+ {
+  "id": "w5e-devtools",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        label: 'Toggle Developer Tools',"
+  ],
+  "after": [
+   "        label: 'Инструменты разработчика',"
+  ]
+ },
+ {
+  "id": "w5e-actualsize",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        label: 'Actual Size',"
+  ],
+  "after": [
+   "        label: 'Фактический размер',"
+  ]
+ },
+ {
+  "id": "w5e-zoomin",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        label: 'Zoom In',"
+  ],
+  "after": [
+   "        label: 'Увеличить',"
+  ]
+ },
+ {
+  "id": "w5e-zoomout",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        label: 'Zoom Out',"
+  ],
+  "after": [
+   "        label: 'Уменьшить',"
+  ]
+ },
+ {
+  "id": "w5e-help",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "    label: 'Help',"
+  ],
+  "after": [
+   "    label: 'Справка',"
+  ]
+ },
+ {
+  "id": "w5e-savefile",
+  "file": "apps/desktop/electron/main.ts",
+  "all": true,
+  "before": [
+   "    title: 'Save File'"
+  ],
+  "after": [
+   "    title: 'Сохранить файл'"
+  ]
+ },
+ {
+  "id": "w5e-savefile8",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        title: 'Save File',"
+  ],
+  "after": [
+   "        title: 'Сохранить файл',"
+  ]
+ },
+ {
+  "id": "w5e-renewcloud",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "          title: 'Renewing Hermes Cloud session…',"
+  ],
+  "after": [
+   "          title: 'Обновляем сессию Hermes Cloud…',"
+  ]
+ },
+ {
+  "id": "w5e-signcloud",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "        title: 'Sign in to Hermes Cloud',"
+  ],
+  "after": [
+   "        title: 'Войти в Hermes Cloud',"
+  ]
+ },
+ {
+  "id": "w5e-backend-profile",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "    label: `Hermes backend for profile \"${profile}\"`,"
+  ],
+  "after": [
+   "    label: `Бэкенд Hermes для профиля \"${profile}\"`,"
+  ]
+ },
+ {
+  "id": "w5e-oauth-signedin",
+  "file": "apps/desktop/electron/native-oauth-login.ts",
+  "before": [
+   "  '<!doctype html><meta charset=\"utf-8\"><title>Signed in</title>' +"
+  ],
+  "after": [
+   "  '<!doctype html><meta charset=\"utf-8\"><title>Вход выполнен</title>' +"
+  ]
+ },
+ {
+  "id": "w5e-oauth-h2",
+  "file": "apps/desktop/electron/native-oauth-login.ts",
+  "before": [
+   "  '<h2>&#10003; Signed in to Hermes</h2>' +"
+  ],
+  "after": [
+   "  '<h2>&#10003; Вход в Hermes выполнен</h2>' +"
+  ]
+ },
+ {
+  "id": "w5e-py-at",
+  "file": "apps/desktop/electron/windows-hermes-path.ts",
+  "before": [
+   "    label: `existing Hermes Python at ${python}`,"
+  ],
+  "after": [
+   "    label: `существующий Hermes Python в ${python}`,"
+  ]
+ },
+ {
+  "id": "test-kanban-207",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    triage: { label: 'Triage', help: 'Raw ideas — a specifier fleshes out the spec.' },"
+  ],
+  "after": [
+   "    triage: { label: 'Triage', help: 'Сырые идеи — спецификатор проработает детали.' },"
+  ]
+ },
+ {
+  "id": "test-kanban-210",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    ready: { label: 'Ready', help: 'Dependencies satisfied — assign a profile and the dispatcher runs it.' },"
+  ],
+  "after": [
+   "    ready: { label: 'Ready', help: 'Зависимости выполнены — назначьте профиль, и диспетчер запустит задачу.' },"
+  ]
+ },
+ {
+  "id": "test-kanban-215",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    archived: { label: 'Archived', help: 'Hidden from the default board view.' }"
+  ],
+  "after": [
+   "    archived: { label: 'Archived', help: 'Скрыта из стандартного вида доски.' }"
+  ]
+ },
+ {
+  "id": "test-kanban-218",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    review: 'Review is entered by the dispatcher when a review agent takes the card.',"
+  ],
+  "after": [
+   "    review: 'Ревью назначается диспетчером, когда карту берёт агент-ревьюер.',"
+  ]
+ },
+ {
+  "id": "test-kanban-219",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    running: 'Running is set by the dispatcher when a worker claims the card.',"
+  ],
+  "after": [
+   "    running: 'Запущена — диспетчер ставит, когда карту захватывает воркер.',"
+  ]
+ },
+ {
+  "id": "test-kanban-220",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "    scheduled: 'Scheduled needs a wake-up time — agents set it; it can’t be dragged into.'"
+  ],
+  "after": [
+   "    scheduled: 'Запланирована — нужно время пробуждения (ставят агенты), перетащить нельзя.'"
+  ]
+ },
+ {
+  "id": "test-kanban-222",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  arcRunning: 'An agent is working on this now.',"
+  ],
+  "after": [
+   "  arcRunning: 'Сейчас над этим работает агент.',"
+  ]
+ },
+ {
+  "id": "w56-i18n.ts-223",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  arcStale: 'Claimed, but no worker heartbeat for 2+ minutes — the dispatcher will reclaim it.',"
+  ],
+  "after": [
+   "  arcStale: 'Захвачена, но нет пульса воркера 2+ минуты — диспетчер вернёт её.',"
+  ]
+ },
+ {
+  "id": "w56-i18n.ts-225",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  orchestrationSettings: 'Orchestration settings',"
+  ],
+  "after": [
+   "  orchestrationSettings: 'Настройки оркестрации',"
+  ]
+ },
+ {
+  "id": "w56-i18n.ts-227",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  filterCards: 'Filter cards…',"
+  ],
+  "after": [
+   "  filterCards: 'Фильтровать карточки…',"
+  ]
+ },
+ {
+  "id": "w56-i18n.ts-228",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  noMatch: 'No tasks match the filters',"
+  ],
+  "after": [
+   "  noMatch: 'Ни одна задача не подходит под фильтры',"
+  ]
+ },
+ {
+  "id": "w56-i18n.ts-229",
+  "file": "apps/desktop/src/plugins/kanban/i18n.ts",
+  "before": [
+   "  noTasks: 'No tasks on this board',"
+  ],
+  "after": [
+   "  noTasks: 'На доске нет задач',"
+  ]
+ },
+ {
+  "id": "w56-client.ts-31",
+  "file": "apps/desktop/src/api/client.ts",
+  "before": [
+   "      closedErrorMessage: 'Hermes gateway connection closed',"
+  ],
+  "after": [
+   "      closedErrorMessage: 'Соединение со шлюзом Hermes закрыто',"
+  ]
+ },
+ {
+  "id": "w56-client.ts-32",
+  "file": "apps/desktop/src/api/client.ts",
+  "before": [
+   "      connectErrorMessage: 'Could not connect to Hermes gateway',"
+  ],
+  "after": [
+   "      connectErrorMessage: 'Не удалось подключиться к шлюзу Hermes',"
+  ]
+ },
+ {
+  "id": "w56-mcp-directory.ts-40",
+  "file": "apps/desktop/src/lib/mcp-directory.ts",
+  "before": [
+   "    description: 'Jira issues and Confluence pages via Atlassian’s hosted MCP.',"
+  ],
+  "after": [
+   "    description: 'Задачи Jira и страницы Confluence через хостинг MCP Atlassian.',"
+  ]
+ },
+ {
+  "id": "w56-mcp-directory.ts-48",
+  "file": "apps/desktop/src/lib/mcp-directory.ts",
+  "before": [
+   "    description: 'Find, create, and update Linear issues and projects.',"
+  ],
+  "after": [
+   "    description: 'Поиск, создание и обновление задач и проектов Linear.',"
+  ]
+ },
+ {
+  "id": "w56-mcp-directory.ts-56",
+  "file": "apps/desktop/src/lib/mcp-directory.ts",
+  "before": [
+   "    description: 'Design context and Code Connect from Figma files.',"
+  ],
+  "after": [
+   "    description: 'Дизайн-контекст и Code Connect из файлов Figma.',"
+  ]
+ },
+ {
+  "id": "w56-mcp-directory.ts-64",
+  "file": "apps/desktop/src/lib/mcp-directory.ts",
+  "before": [
+   "    description: 'Issues, stack traces, and error context from Sentry.',"
+  ],
+  "after": [
+   "    description: 'Задачи, стектрейсы и контекст ошибок из Sentry.',"
+  ]
+ },
+ {
+  "id": "w56-mcp-directory.ts-72",
+  "file": "apps/desktop/src/lib/mcp-directory.ts",
+  "before": [
+   "    description: 'Logs, monitors, dashboards, and incidents from Datadog.',"
+  ],
+  "after": [
+   "    description: 'Логи, метрики, дашборды и инциденты из Datadog.',"
+  ]
+ },
+ {
+  "id": "w56-field-control.tsx-106",
+  "file": "apps/desktop/src/app/settings/memory/field-control.tsx",
+  "before": [
+   "          placeholder={field.is_set ? 'Leave blank to keep current value' : field.placeholder}"
+  ],
+  "after": [
+   "          placeholder={field.is_set ? 'Оставьте пустым, чтобы сохранить текущее значение' : field.placeholder}"
+  ]
+ },
+ {
+  "id": "w56-provider-config-modal.tsx-84",
+  "file": "apps/desktop/src/app/settings/memory/provider-config-modal.tsx",
+  "before": [
+   "      notify({ kind: 'success', title: `${config.label} saved`, message: 'Memory provider configuration updated.' })"
+  ],
+  "after": [
+   "      notify({ kind: 'success', title: `${config.label} saved`, message: 'Конфигурация провайдера памяти обновлена.' })"
+  ]
+ },
+ {
+  "id": "w56-auto-reload-row.tsx-98",
+  "file": "apps/desktop/src/app/settings/billing/auto-reload-row.tsx",
+  "before": [
+   "    setMessage({ kind: 'success', text: 'Auto-refill updated.' })"
+  ],
+  "after": [
+   "    setMessage({ kind: 'success', text: 'Автопополнение обновлено.' })"
+  ]
+ },
+ {
+  "id": "w56-auto-reload-row.tsx-128",
+  "file": "apps/desktop/src/app/settings/billing/auto-reload-row.tsx",
+  "before": [
+   "    setMessage({ kind: 'success', text: 'Auto-refill turned off.' })"
+  ],
+  "after": [
+   "    setMessage({ kind: 'success', text: 'Автопополнение выключено.' })"
+  ]
+ },
+ {
+  "id": "w56-use-step-up.ts-124",
+  "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
+  "before": [
+   "        text: 'Verification finished without allowing Remote Spending for this terminal.',"
+  ],
+  "after": [
+   "        text: 'Проверка завершена без включения удалённых расходов для этого терминала.',"
+  ]
+ },
+ {
+  "id": "w56-use-step-up.ts-137",
+  "file": "apps/desktop/src/app/settings/billing/use-step-up.ts",
+  "before": [
+   "      text: 'Remote Spending is allowed for this terminal.',"
+  ],
+  "after": [
+   "      text: 'Удалённые расходы разрешены для этого терминала.',"
+  ]
+ },
+ {
+  "id": "w56-simulated-api.ts-74",
+  "file": "apps/desktop/src/app/settings/billing/simulated-api.ts",
+  "before": [
+   "      return ok({ message: 'Change cancelled.', ok: true })"
+  ],
+  "after": [
+   "      return ok({ message: 'Изменение отменено.', ok: true })"
+  ]
+ },
+ {
+  "id": "w56-simulated-api.ts-84",
+  "file": "apps/desktop/src/app/settings/billing/simulated-api.ts",
+  "before": [
+   "      return ok({ message: 'Downgrade scheduled.', ok: true })"
+  ],
+  "after": [
+   "      return ok({ message: 'Переход на тариф запланирован.', ok: true })"
+  ]
+ },
+ {
+  "id": "w56-use-charge-poller.ts-242",
+  "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+  "before": [
+   "          message: 'The billing service accepted the request but did not return a charge id.',"
+  ],
+  "after": [
+   "          message: 'Биллинг принял запрос, но не вернул id платежа.',"
+  ]
+ },
+ {
+  "id": "w56-use-charge-poller.ts-277",
+  "file": "apps/desktop/src/app/settings/billing/use-charge-poller.ts",
+  "before": [
+   "    message: 'Charge may still settle. Check the portal before retrying.',"
+  ],
+  "after": [
+   "    message: 'Платёж может ещё пройти. Проверьте портал перед повтором.',"
+  ]
+ },
+ {
+  "id": "w56-billing-amounts.ts-67",
+  "file": "apps/desktop/src/app/settings/billing/billing-amounts.ts",
+  "before": [
+   "    return { error: 'Reload-to amount must be greater than the threshold.' }"
+  ],
+  "after": [
+   "    return { error: 'Сумма пополнения должна быть больше порога.' }"
+  ]
+ },
+ {
+  "id": "w56-session-tile.tsx-403",
+  "file": "apps/desktop/src/app/chat/session-tile.tsx",
+  "before": [
+   "          <div className=\"text-(--ui-danger,#f87171)\">Couldn't open this session</div>"
+  ],
+  "after": [
+   "          <div className=\"text-(--ui-danger,#f87171)\">Не удалось открыть эту сессию</div>"
+  ]
+ },
+ {
+  "id": "w56-preview-act.ts-249",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+  "before": [
+   "      return JSON.stringify({ note: 'The page changed before it could be re-read: ' + err, success: true });"
+  ],
+  "after": [
+   "      return JSON.stringify({ note: 'Страница изменилась до повторного чтения: ' + err, success: true });"
+  ]
+ },
+ {
+  "id": "w56-preview-act.ts-282",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+  "before": [
+   "      result.note = 'The page changed before it could be re-read: ' + err;"
+  ],
+  "after": [
+   "      result.note = 'Страница изменилась до повторного чтения: ' + err;"
+  ]
+ },
+ {
+  "id": "w56-preview-act.ts-306",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+  "before": [
+   "    return { error: 'The page rejected the action: ' + raw.message, kind: 'failed' }"
+  ],
+  "after": [
+   "    return { error: 'Страница отклонила действие: ' + raw.message, kind: 'failed' }"
+  ]
+ },
+ {
+  "id": "w56-preview-act.ts-310",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+  "before": [
+   "    return { error: 'The page did not answer the action.', kind: 'failed' }"
+  ],
+  "after": [
+   "    return { error: 'Страница не ответила на действие.', kind: 'failed' }"
+  ]
+ },
+ {
+  "id": "w56-preview-act.ts-358",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+  "before": [
+   "    return { error: 'Could not work out where that element is on screen.', success: false }"
+  ],
+  "after": [
+   "    return { error: 'Не удалось определить положение элемента на экране.', success: false }"
+  ]
+ },
+ {
+  "id": "w56-preview-act.ts-410",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+  "before": [
+   "      error: 'The pointer input never reached the page, so nothing was ' + acted.split(' ')[0] + '.',"
+  ],
+  "after": [
+   "      error: 'Ввод указателя не достиг страницы, поэтому ничего не было ' + acted.split(' ')[0] + '.',"
+  ]
+ },
+ {
+  "id": "w56-preview-act.ts-464",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+  "before": [
+   "    return { ...anchor, acted: 'scrolled the page', note: 'The page has nothing to scroll — it all fits already.' }"
+  ],
+  "after": [
+   "    return { ...anchor, acted: 'scrolled the page', note: 'На странице нечего прокручивать — всё уже помещается.' }"
+  ]
+ },
+ {
+  "id": "w56-preview-act.ts-503",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-act.ts",
+  "before": [
+   "    return { acted: nav, note: 'Page is loading — call elements to see what is on it.', success: true }"
+  ],
+  "after": [
+   "    return { acted: nav, note: 'Страница загружается — вызовите elements, чтобы увидеть её содержимое.', success: true }"
+  ]
+ },
+ {
+  "id": "w56-preview-tour.ts-57",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-tour.ts",
+  "before": [
+   "    return { error: 'No live page is open in the preview pane — open one first.', success: false }"
+  ],
+  "after": [
+   "    return { error: 'В панели предпросмотра нет открытой страницы — откройте её сначала.', success: false }"
+  ]
+ },
+ {
+  "id": "w56-preview-tour.ts-63",
+  "file": "apps/desktop/src/app/chat/right-rail/preview-tour.ts",
+  "before": [
+   "    return { error: 'The page did not answer the tour action.', success: false }"
+  ],
+  "after": [
+   "    return { error: 'Страница не ответила на действие тура.', success: false }"
+  ]
+ },
+ {
+  "id": "w56-use-composer-actions.ts-400",
+  "file": "apps/desktop/src/app/chat/hooks/use-composer-actions.ts",
+  "before": [
+   "        title: kind === 'file' ? 'Add files as context' : 'Add folders as context',"
+  ],
+  "after": [
+   "        title: kind === 'file' ? 'Добавить файлы как контекст' : 'Add folders as context',"
+  ]
+ },
+ {
+  "id": "w56-use-slash-completions.ts-134",
+  "file": "apps/desktop/src/app/chat/composer/hooks/use-slash-completions.ts",
+  "before": [
+   "          display: 'Browse all sessions…',"
+  ],
+  "after": [
+   "          display: 'Смотреть все сессии…',"
+  ]
+ },
+ {
+  "id": "w56-use-at-completions.ts-22",
+  "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+  "before": [
+   "  file: 'Attach a file reference',"
+  ],
+  "after": [
+   "  file: 'Прикрепить файл',"
+  ]
+ },
+ {
+  "id": "w56-use-at-completions.ts-23",
+  "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+  "before": [
+   "  folder: 'Attach a folder reference',"
+  ],
+  "after": [
+   "  folder: 'Прикрепить папку',"
+  ]
+ },
+ {
+  "id": "w56-use-at-completions.ts-24",
+  "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+  "before": [
+   "  url: 'Attach a URL reference',"
+  ],
+  "after": [
+   "  url: 'Прикрепить ссылку',"
+  ]
+ },
+ {
+  "id": "w56-use-at-completions.ts-25",
+  "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+  "before": [
+   "  image: 'Attach an image reference',"
+  ],
+  "after": [
+   "  image: 'Прикрепить изображение',"
+  ]
+ },
+ {
+  "id": "w56-use-at-completions.ts-26",
+  "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+  "before": [
+   "  tool: 'Attach a tool reference',"
+  ],
+  "after": [
+   "  tool: 'Прикрепить инструмент',"
+  ]
+ },
+ {
+  "id": "w56-use-at-completions.ts-27",
+  "file": "apps/desktop/src/app/chat/composer/hooks/use-at-completions.ts",
+  "before": [
+   "  git: 'Attach git context'"
+  ],
+  "after": [
+   "  git: 'Прикрепить контекст git'"
+  ]
+ },
+ {
+  "id": "w56b-split-up",
+  "file": "apps/desktop/src/app/chat/sidebar/split-submenu.tsx",
+  "before": [
+   "  { dir: 'top', icon: 'arrow-up', label: 'Up' }"
+  ],
+  "after": [
+   "  { dir: 'top', icon: 'arrow-up', label: 'Вверх' }"
+  ]
+ },
+ {
+  "id": "w56b-session-still-avail",
+  "file": "apps/desktop/src/app/chat/session-tile.tsx",
+  "before": [
+   "    return 'Session is still available — retry resuming it.'"
+  ],
+  "after": [
+   "    return 'Сессия всё ещё доступна — попробуйте возобновить её.'"
+  ]
+ },
+ {
+  "id": "w56b-session-unavail",
+  "file": "apps/desktop/src/app/chat/session-tile.tsx",
+  "before": [
+   "  return 'Session unavailable — you can retry resuming it.'"
+  ],
+  "after": [
+   "  return 'Сессия недоступна — вы можете попробовать возобновить её.'"
+  ]
+ },
+ {
+  "id": "connection-registry.ts-2",
+  "file": "apps/desktop/electron/connection-registry.ts",
+  "mode": "insert-after",
+  "insertAfterLine": "      let label = String(entry.label || '').trim()",
+  "after": [
+   "    // MOD: hermes-desktop-ru — a registry saved before the ru-mod wrote the",
+   "    // local entry with the English default. Normalize the stock default so a",
+   "    // persisted file (created before the patch) still shows «Это устройство».",
+   "    // Only the stock default is remapped — user-renamed labels are untouched.",
+   "    if (kind === 'local' && label === 'This device') {",
+   "      label = 'Это устройство'",
+   "    }"
+  ],
+  "severity": "critical"
+ },
+ {
+  "id": "main-ts-ticket-auth-v2",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "          'Your Hermes Cloud session has expired. Open Settings → Gateway and sign in again.'"
+  ],
+  "after": [
+   "          'Ваша сессия Hermes Cloud истекла. Откройте «Настройки → Шлюз» и войдите снова.'"
+  ]
+ },
+ {
+  "id": "main-ts-ticket-auth-v2b",
+  "file": "apps/desktop/electron/main.ts",
+  "before": [
+   "    const err = new Error('Your Hermes Cloud session has expired. Sign in to Hermes Cloud again.') as any"
+  ],
+  "after": [
+   "    const err = new Error('Ваша сессия Hermes Cloud истекла. Войдите в Hermes Cloud снова.') as any"
+  ]
+ },
+ {
+  "id": "hermes-bots-This_chat_never_resets",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
+  "before": [
+   "                title: 'This chat never resets',"
+  ],
+  "after": [
+   "                title: 'Этот чат никогда не сбрасывается',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w3-830",
+  "file": "apps/desktop/src/plugins/hermes-bots/profile-ops.ts",
+  "before": [
+   "        title: meta.title ? `${meta.title} (copy)` : ''"
+  ],
+  "after": [
+   "      title: meta.title ? `${meta.title} (копия)` : ''"
+  ]
+ },
+ {
+  "id": "hermes-bots-w3-2404",
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "before": [
+   "                    {locked ? 'Unlock' : 'Lock face'}"
+  ],
+  "after": [
+   "                          {locked ? 'Снять блокировку' : 'Зафиксировать лицо'}"
+  ]
+ },
+ {
+  "id": "hermes-bots-w3-6996",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                'Create on',"
+  ],
+  "after": [
+   "                  'Создать на',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w3b-4051",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-rounds.ts",
+  "before": [
+   "            const label = img.kind === 'pdf' ? 'attached PDF' : img.kind === 'file' ? 'attached file' : 'attached image'"
+  ],
+  "after": [
+   "          const label = img.kind === 'pdf' ? 'прикреплённый PDF' : img.kind === 'file' ? 'прикреплённый файл' : 'прикреплённое изображение'"
+  ]
+ },
+ {
+  "id": "hermes-bots-w4-7135",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                    remoteTarget ? `Clone from profile (on ${targetLabel})` : 'Clone from profile',"
+  ],
+  "after": [
+   "                              remoteTarget ? `Клон профиля (на ${targetLabel})` : 'Клон профиля',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-5614",
+  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
+  "before": [
+   "          'Provider',"
+  ],
+  "after": [
+   "          'Провайдер',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-5622",
+  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
+  "before": [
+   "          'Model',"
+  ],
+  "after": [
+   "          'Модель',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-5678",
+  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
+  "before": [
+   "        'Provider',"
+  ],
+  "after": [
+   "        'Провайдер',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-5717",
+  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
+  "before": [
+   "        'Model',"
+  ],
+  "after": [
+   "        'Модель',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w5-7174",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                    'SOUL.md (optional — replaces the generated persona)',"
+  ],
+  "after": [
+   "                              'SOUL.md (необязательно — заменяет сгенерированную персону)',"
+  ]
+ },
+ {
+  "id": "hermes-bots-w6-7022",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                          ? `${connection.label || connection.id} (current)`"
+  ],
+  "after": [
+   "                                  ? `${connection.label || connection.id} (текущий)`"
+  ]
+ },
+ {
+  "id": "hermes-bots-w6-7215",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                      ? 'That name is taken — pick another before configuring capabilities.'"
+  ],
+  "after": [
+   "                      ? 'Это имя уже занято — выберите другое, прежде чем настраивать возможности.'"
+  ]
+ },
+ {
+  "id": "groupchat-in-groups",
+  "before": [
+   "                            ? `@${botHandle(bot.name, bot)} · in ${currentGroups.map(group => `“${group}”`).join(', ')}`"
+  ],
+  "after": [
+   "                                ? `@${botHandle(bot.name, bot)} · в ${currentGroups.map(group => `«${group}»`).join(', ')}`"
+  ],
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "severity": "cosmetic"
+ },
+ {
+  "id": "groupchat-hidden-label",
+  "before": [
+   "                    : `${displayName(bot, current)} hidden — use the eye button in the Bots header to see hidden bots`"
+  ],
+  "after": [
+   "                    : `${displayName(bot, current)} скрыт — используйте кнопку-глаз в шапке Bots, чтобы увидеть скрытых ботов`"
+  ],
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "severity": "cosmetic"
+ },
+ {
+  "id": "wave2-gen-1",
+  "before": [
+   "              {genBusy ? 'Generating…' : 'Generate'}"
+  ],
+  "after": [
+   "                    {genBusy ? 'Генерация…' : 'Сгенерировать'}"
+  ],
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "severity": "cosmetic"
+ },
+ {
+  "id": "wave2-catalog-installed2",
+  "before": [
+   "                            {m.installed ? 'catalog · installed' : 'catalog'}"
+  ],
+  "after": [
+   "                                                              ? 'каталог · установлено'"
+  ],
+  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
+  "severity": "cosmetic"
+ },
+ {
+  "id": "wave3-tabtitle",
+  "file": "apps/desktop/src/plugins/hermes-bots/canonical-chat.ts",
+  "before": [
+   "    tabTitle: CANONICAL_CHAT_TITLE"
+  ],
+  "after": [
+   "    tabTitle: 'Чат бота'"
+  ]
+ },
+ {
+  "id": "wave3-meta-bot",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
+  "before": [
+   "              meta: `Bot · ${display}${source}`"
+  ],
+  "after": [
+   "              meta: `Бот · ${display}${source}`"
+  ]
+ },
+ {
+  "id": "wave3-this-device-row",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "  const gatewayLabel = bot.connectionLabel || (bot.connectionId === 'local' ? 'This device' : '')"
+  ],
+  "after": [
+   "  const gatewayLabel = bot.connectionLabel || (bot.connectionId === 'local' ? 'Это устройство' : '')"
+  ]
+ },
+ {
+  "id": "wave3-current-gateway-a",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-sections.tsx",
+  "before": [
+   "  const label = option?.label || option?.connectionId || 'Current gateway'"
+  ],
+  "after": [
+   "  const label = option?.label || option?.connectionId || 'Текущий шлюз'"
+  ]
+ },
+ {
+  "id": "wave3-current-gateway-c",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-sections.tsx",
+  "before": [
+   "        label: bot?.connectionLabel || (id === 'legacy' ? 'Current gateway' : id),"
+  ],
+  "after": [
+   "        label: bot?.connectionLabel || (id === 'legacy' ? 'Текущий шлюз' : id),"
+  ]
+ },
+ {
+  "id": "wave3-avail",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "  const availabilityLabel = `${availableMembers} of ${members.length} available`"
+  ],
+  "after": [
+   "  const availabilityLabel = `${availableMembers} из ${members.length} доступно`"
+  ],
+  "all": true
+ },
+ {
+  "id": "wave3-act-queued",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  queued: 'sent a message',"
+  ],
+  "after": [
+   "  queued: 'отправил(а) сообщение',"
+  ]
+ },
+ {
+  "id": "wave3-act-working",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  working: 'is working…',"
+  ],
+  "after": [
+   "  working: 'работает…',"
+  ]
+ },
+ {
+  "id": "wave3-act-replied",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  replied: 'replied',"
+  ],
+  "after": [
+   "  replied: 'ответил(а)',"
+  ]
+ },
+ {
+  "id": "wave3-act-passed",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  passed: 'passed',"
+  ],
+  "after": [
+   "  passed: 'передал(а) ход',"
+  ]
+ },
+ {
+  "id": "wave3-act-timedout",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  'timed-out': 'took too long',"
+  ],
+  "after": [
+   "  'timed-out': 'превысил(а) таймаут',"
+  ]
+ },
+ {
+  "id": "wave3-act-failed",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  failed: 'hit an error',"
+  ],
+  "after": [
+   "  failed: 'столкнулся(лась) с ошибкой',"
+  ]
+ },
+ {
+  "id": "wave3-act-cancelled",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  cancelled: 'turn interrupted by a newer message',"
+  ],
+  "after": [
+   "  cancelled: 'ход прерван новым сообщением',"
+  ]
+ },
+ {
+  "id": "wave3-act-settled",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  settled: 'turn settled',"
+  ],
+  "after": [
+   "  settled: 'ход завершён',"
+  ]
+ },
+ {
+  "id": "wave3-act-delivered",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  delivered: 'delivered a late reply',"
+  ],
+  "after": [
+   "  delivered: 'доставил(а) поздний ответ',"
+  ]
+ },
+ {
+  "id": "wave3-who",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  const who = event?.member === 'You' ? 'You' : groupSpeakerLabel(event?.member || 'A bot')"
+  ],
+  "after": [
+   "  const who = event?.member === 'You' ? 'Вы' : groupSpeakerLabel(event?.member || 'Бот')"
+  ]
+ },
+ {
+  "id": "wave3-who-template",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  return `${who} ${base}`"
+  ],
+  "after": [
+   "  return who === 'Вы' ? `${who} ${base.endsWith('(а) сообщение') ? 'отправили сообщение' : base}` : `${who} ${base}`"
+  ]
+ },
+ {
+  "id": "wave3-speaker-fallback",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-chat.ts",
+  "before": [
+   "        name: String(entry?.from?.name || (entry?.from?.kind === 'member' ? 'Bot' : 'You')).slice(0, 128),"
+  ],
+  "after": [
+   "        name: String(entry?.from?.name || (entry?.from?.kind === 'member' ? 'Бот' : 'Вы')).slice(0, 128),"
+  ]
+ },
+ {
+  "id": "w5-newbot",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
+  "before": [
+   "        label: 'New Bot…',"
+  ],
+  "after": [
+   "        label: 'Новый бот…',"
+  ]
+ },
+ {
+  "id": "v112-bots-provider-custom",
+  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
+  "before": [
+   "            'Provider (Custom)',"
+  ],
+  "after": [
+   "              'Провайдер (Пользовательский)',"
+  ]
+ },
+ {
+  "id": "v112-bots-model-custom",
+  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
+  "before": [
+   "            'Model (Custom)',"
+  ],
+  "after": [
+   "              'Модель (Пользовательская)',"
+  ]
+ },
+ {
+  "id": "v112-bots-capabilities-applies",
+  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
+  "before": [
+   "          'Capabilities (applies immediately — skills, tools, MCP)',"
+  ],
+  "after": [
+   "          'Возможности (применяется сразу — навыки, инструменты, MCP)',"
+  ]
+ },
+ {
+  "id": "v112-bots-soul-persona",
+  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
+  "before": [
+   "          'SOUL.md (persona + agent-messaging protocol)',"
+  ],
+  "after": [
+   "          'SOUL.md (персона + протокол сообщений агента)',"
+  ],
+  "all": true
+ },
+ {
+  "id": "v112-bots-soul-persona-indent",
+  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
+  "before": [
+   "        'SOUL.md (persona + agent-messaging protocol)',"
+  ],
+  "after": [
+   "        'SOUL.md (персона + протокол сообщений агента)',"
+  ]
+ },
+ {
+  "id": "w56-plugin.js-4336",
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "before": [
+   "              ? 'No image model available. If you just enabled one (or updated Hermes), restart the gateway: Ctrl+K → \"Restart gateway\".'"
+  ],
+  "after": [
+   "                  ? 'Нет доступной модели изображений. Если вы только что включили её (или обновили Hermes), перезапустите шлюз: Ctrl+K → «Перезапустить шлюз».'"
+  ]
+ },
+ {
+  "id": "hermes-bots-model-switch-failed",
+  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
+  "before": [
+   "      failureMessage: 'Model switch failed',"
+  ],
+  "after": [
+   "      failureMessage: 'Не удалось переключить модель',"
+  ]
+ },
+ {
+  "id": "hermes-bots-activity-capped",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  capped: 'turn stopped at the round/message cap',"
+  ],
+  "after": [
+   "  capped: 'ход остановлен — лимит раунда/сообщений',"
+  ]
+ },
+ {
+  "id": "hermes-bots-activity-held",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  held: 'is held (stopped by you) — @mention it or say resume to release',"
+  ],
+  "after": [
+   "  held: 'удержан (остановлен вами) — @упомяните его или напишите resume, чтобы отпустить',"
+  ]
+ },
+ {
+  "id": "hermes-bots-activity-stopped",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
+  "before": [
+   "  stopped: 'stopped the room — remaining turns are held until resumed'"
+  ],
+  "after": [
+   "  stopped: 'остановил(а) комнату — оставшиеся ходы удержаны до возобновления'"
+  ]
+ },
+ {
+  "id": "hermes-bots-name-the-bot-first",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                      : 'Name the bot first — a draft profile is created when you open this tab (discarded if you cancel).'}"
+  ],
+  "after": [
+   "                      : 'Сначала назовите бота — черновой профиль создаётся при открытии этой вкладки (при отмене удаляется).'}"
+  ]
+ },
+ {
+  "id": "bots-avatar-choose-image",
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "before": [
+   "          Choose an image…"
+  ],
+  "after": [
+   "          Выберите изображение…"
+  ]
+ },
+ {
+  "id": "bots-avatar-face-follows",
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "before": [
+   "                  {locked ? 'Face locked — renaming won\\u2019t change it.' : 'Face follows the name.'}"
+  ],
+  "after": [
+   "                  {locked ? 'Лицо закреплено — переименование его не изменит.' : 'Лицо следует за именем.'}"
+  ]
+ },
+ {
+  "id": "bots-avatar-checking-backend",
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "before": [
+   "              : 'Checking image backend…'}"
+  ],
+  "after": [
+   "              : 'Проверка модели изображений…'}"
+  ]
+ },
+ {
+  "id": "bots-create-button",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            {busy ? 'Creating…' : 'Create Bot'}"
+  ],
+  "after": [
+   "            {busy ? 'Создание…' : 'Создать бота'}"
+  ]
+ },
+ {
+  "id": "bots-create-share-keys",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                    Share keys & accounts with the main profile"
+  ],
+  "after": [
+   "                    Общий доступ к ключам и учётным записям с основным профилем"
+  ]
+ },
+ {
+  "id": "bots-create-empty",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                    Create empty (skip bundled skills)"
+  ],
+  "after": [
+   "                    Создать пустым (без встроенных навыков)"
+  ]
+ },
+ {
+  "id": "bots-create-empty-checked-hint",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                    “Create empty” is checked — no bundled skills will be installed."
+  ],
+  "after": [
+   "                    Отмечено «Создать пустым» — встроенные навыки установлены не будут."
+  ]
+ },
+ {
+  "id": "bots-create-teammate-desc",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            A named teammate with its own memory, skills, and chat. It can message your other agents."
+  ],
+  "after": [
+   "            Именованный участник со своей памятью, навыками и чатом. Он может писать другим агентам."
+  ]
+ },
+ {
+  "id": "bots-create-pick-2",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            title={selected.length < 2 ? 'Pick at least 2 bots' : undefined}"
+  ],
+  "after": [
+   "            title={selected.length < 2 ? 'Выберите минимум 2 ботов' : undefined}"
+  ]
+ },
+ {
+  "id": "bots-create-nomatch",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                {query.trim() ? `No bots match “${query.trim()}”` : 'No bots yet — create one first.'}"
+  ],
+  "after": [
+   "                {query.trim() ? `Ни один бот не соответствует «${query.trim()}»` : 'Ботов пока нет — создайте первого.'}"
+  ]
+ },
+ {
+  "id": "bots-create-group-placeholder",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            placeholder={groups.length ? 'New group…' : 'Group name (e.g. Research)'}"
+  ],
+  "after": [
+   "            placeholder={groups.length ? 'Новая группа…' : 'Имя группы (например, Исследования)'}"
+  ]
+ },
+ {
+  "id": "bots-create-group-created",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "      message: `“${groupName}” created with ${selected.length} bots`"
+  ],
+  "after": [
+   "        message: `«${groupName}» создана с ${selected.length} ${selected.length === 1 ? 'ботом' : 'ботами'}`"
+  ]
+ },
+ {
+  "id": "bots-cron-stop-after",
+  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
+  "before": [
+   "          <span className=\"text-xs text-(--ui-text-tertiary)\">Stop after</span>"
+  ],
+  "after": [
+   "          <span className=\"text-xs text-(--ui-text-tertiary)\">Остановить после</span>"
+  ]
+ },
+ {
+  "id": "bots-cron-blank-forever",
+  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
+  "before": [
+   "          <span className=\"text-xs text-(--ui-text-tertiary)\">runs (blank = forever)</span>"
+  ],
+  "after": [
+   "          <span className=\"text-xs text-(--ui-text-tertiary)\">запусков (пусто = без ограничений)</span>"
+  ]
+ },
+ {
+  "id": "bots-roster-filter",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "              <Tip label={activeFilterCount ? `Filters (${activeFilterCount} active)` : 'Filter roster'}>"
+  ],
+  "after": [
+   "              <Tip label={activeFilterCount ? `Фильтры (${activeFilterCount} активно)` : 'Фильтр списка'}>"
+  ]
+ },
+ {
+  "id": "bots-roster-filter-aria",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "                    aria-label={activeFilterCount ? `Filter roster, ${activeFilterCount} active` : 'Filter roster'}"
+  ],
+  "after": [
+   "                    aria-label={activeFilterCount ? `Фильтровать список: ${activeFilterCount} активно` : 'Фильтр списка'}"
+  ]
+ },
+ {
+  "id": "bots-roster-toasts",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "            label={activityToasts ? 'Activity toasts on — click to silence' : 'Activity toasts off — click to enable'}"
+  ],
+  "after": [
+   "            label={activityToasts ? 'Уведомления активны — нажмите, чтобы отключить' : 'Уведомления выключены — нажмите, чтобы включить'}"
+  ]
+ },
+ {
+  "id": "bots-roster-new",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "            <Tip label=\"New…\">"
+  ],
+  "after": [
+   "            <Tip label=\"Новый…\">"
+  ]
+ },
+ {
+  "id": "bots-gcv-availability",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
+  "before": [
+   "  const availabilityLabel = `${availableMembers} of ${members.length} available`"
+  ],
+  "after": [
+   "  const availabilityLabel = `${availableMembers} из ${members.length} доступно`"
+  ]
+ },
+ {
+  "id": "bots-gcv-no-bots",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
+  "before": [
+   "    members.map(b => displayName(b, botRosterMeta(b, allMeta))).join(', ') || 'No bots in this group chat'"
+  ],
+  "after": [
+   "    members.map(b => displayName(b, botRosterMeta(b, allMeta))).join(', ') || 'В этом групповом чате нет ботов'"
+  ]
+ },
+ {
+  "id": "bots-gc-no-free-name",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-chat.ts",
+  "before": [
+   "  throw new Error('No free name for the group.')"
+  ],
+  "after": [
+   "  throw new Error('Нет свободного имени для группы.')"
+  ]
+ },
+ {
+  "id": "bots-gc-gw-changed",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-chat.ts",
+  "before": [
+   "    throw new Error('Group chat gateway changed before sync')"
+  ],
+  "after": [
+   "    throw new Error('Шлюз группового чата изменился до синхронизации')"
+  ]
+ },
+ {
+  "id": "bots-plugin-metadata",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
+  "before": [
+   "  name: 'Bots',"
+  ],
+  "after": [
+   "    name: 'Боты',"
+  ]
+ },
+ {
+  "id": "bots-plugin-desc",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
+  "before": [
+   "    'Bot Mode — a one-chat-per-agent roster with avatars, routines, group chats, and bot-to-bot messaging. Ships with the app; disable here if unwanted.',"
+  ],
+  "after": [
+   "    'Режим ботов — список с чатом на каждого агента: аватары, расписания, групповые чаты и обмен сообщениями между ботами. Входит в приложение; отключите здесь, если не нужен.',"
+  ]
+ },
+ {
+  "id": "bots-plugin-select-first",
+  "file": "apps/desktop/src/plugins/hermes-bots/routing.ts",
+  "before": [
+   "  blockedMessage = 'Select a Bot or group first.'"
+  ],
+  "after": [
+   "          title: 'Сначала выберите бота или группу.',"
+  ]
+ },
+ {
+  "delete": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
+  "id": "bots-gcv-gateway-error-migrated-dead"
+ },
+ {
+  "delete": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
+  "id": "bots-plugin-with-desc-migrated-dead"
+ },
+ {
+  "id": "v122-bots-general-label",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                        { id: 'general', label: 'General' },"
+  ],
+  "after": [
+   "                        { id: 'general', label: 'Основные' },"
+  ],
+  "all": true
+ },
+ {
+  "id": "v122-bots-capabilities-label",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                        { id: 'capabilities', label: 'Capabilities' }"
+  ],
+  "after": [
+   "                        { id: 'capabilities', label: 'Возможности' }"
+  ]
+ },
+ {
+  "id": "v122-bots-skills-label",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                        { id: 'skills', label: 'Skills' },"
+  ],
+  "after": [
+   "                        { id: 'skills', label: 'Навыки' },"
+  ]
+ },
+ {
+  "id": "v122-bots-tools-label",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                        { id: 'toolsets', label: 'Tools' },"
+  ],
+  "after": [
+   "                        { id: 'toolsets', label: 'Инструменты' },"
+  ]
+ },
+ {
+  "id": "v122-bots-fresh-profile",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                        <SelectItem value=\"__none__\">Fresh profile (bundled skills)</SelectItem>"
+  ],
+  "after": [
+   "                        <SelectItem value=\"__none__\">Новый профиль (со стандартными навыками)</SelectItem>"
+  ]
+ },
+ {
+  "id": "v122-bots-pin-unpin",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "          {pinned ? 'Unpin' : 'Pin to top'}"
+  ],
+  "after": [
+   "          {pinned ? 'Открепить' : 'Закрепить вверху'}"
+  ],
+  "all": true
+ },
+ {
+  "id": "v122-bots-hide-unhide",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "          {hidden ? 'Unhide' : 'Hide'}"
+  ],
+  "after": [
+   "          {hidden ? 'Показать' : 'Скрыть'}"
+  ],
+  "all": true
+ },
+ {
+  "id": "v122-bots-handle-toggle",
+  "file": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
+  "before": [
+   "                title={revealed ? 'Hide full handle' : 'Show full handle'}"
+  ],
+  "after": [
+   "                title={revealed ? 'Скрыть полный адрес' : 'Показать полный адрес'}"
+  ],
+  "all": true
+ },
+ {
+  "id": "v122-bots-cron-repeat",
+  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
+  "before": [
+   "      ['Repeat', job?.repeat],"
+  ],
+  "after": [
+   "      ['Повтор', job?.repeat],"
+  ]
+ },
+ {
+  "id": "v122-bots-cron-next-run",
+  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
+  "before": [
+   "      ['Next run', paused ? null : routineTimestamp(job?.next_run_at)],"
+  ],
+  "after": [
+   "      ['След. запуск', paused ? null : routineTimestamp(job?.next_run_at)],"
+  ]
+ },
+ {
+  "id": "v122-bots-cron-last-run",
+  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
+  "before": [
+   "      ['Last run', routineTimestamp(job?.last_run_at)],"
+  ],
+  "after": [
+   "      ['Посл. запуск', routineTimestamp(job?.last_run_at)],"
+  ]
+ },
+ {
+  "id": "v122-bots-cron-last-result",
+  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
+  "before": [
+   "      ['Last result', routineLastResult(job?.last_status)],"
+  ],
+  "after": [
+   "      ['Посл. результат', routineLastResult(job?.last_status)],"
+  ]
+ },
+ {
+  "id": "v122-bots-cron-delivers-to",
+  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
+  "before": [
+   "      ['Delivers to', job?.deliver],"
+  ],
+  "after": [
+   "      ['Куда доставить', job?.deliver],"
+  ]
+ },
+ {
+  "id": "v122-bots-cron-workdir",
+  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
+  "before": [
+   "      ['Working directory', job?.workdir]"
+  ],
+  "after": [
+   "      ['Рабочий каталог', job?.workdir]"
+  ]
+ },
+ {
+  "id": "v122-bots-avatar-auto",
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "before": [
+   "                        <span className=\"text-[0.6rem] text-(--ui-text-tertiary)\">Auto</span>"
+  ],
+  "after": [
+   "                        <span className=\"text-[0.6rem] text-(--ui-text-tertiary)\">Авто</span>"
+  ]
+ },
+ {
+  "id": "v122-bots-avatar-auto-title",
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "before": [
+   "                      title={k || 'Auto — the name decides'}"
+  ],
+  "after": [
+   "                      title={k || 'Авто — по имени'}"
+  ],
+  "all": true
+ },
+ {
+  "id": "v122-bots-create-group-btn",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "          >{`Create Group${selected.length ? ` (${selected.length})` : ''}`}</Button>"
+  ],
+  "after": [
+   "          >{`Создать группу${selected.length ? ` (${selected.length})` : ''}`}</Button>"
+  ]
+ },
+ {
+  "id": "v122-bots-create-group-desc",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "          <DialogDescription>{`Pick 2–${GROUP_CHAT_MAX_MEMBERS} bots. Local memberships sync through each Bot profile; cross-machine members stay scoped to this room.`}</DialogDescription>"
+  ],
+  "after": [
+   "          <DialogDescription>{`Выберите 2–${GROUP_CHAT_MAX_MEMBERS} ботов. Членства синхронизируются через профили ботов; участники с других машин остаются в этой комнате.`}</DialogDescription>"
+  ]
+ },
+ {
+  "id": "v123-bots-pin-toast",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "                  message: `${displayName(bot, current)} ${pinned ? 'unpinned' : 'pinned to top'}`"
+  ],
+  "after": [
+   "                  message: `${displayName(bot, current)} ${pinned ? 'откреплён' : 'закреплён сверху'}`"
+  ]
+ },
+ {
+  "id": "v123-bots-meta-errors",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "              .catch(error => host.notifyError?.(error, 'Could not load bot metadata'))"
+  ],
+  "after": [
+   "              .catch(error => host.notifyError?.(error, 'Не удалось загрузить метаданные бота'))"
+  ],
+  "all": true
+ },
+ {
+  "id": "v123-bots-back-in-roster",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "                    ? `${displayName(bot, current)} is back in the roster`"
+  ],
+  "after": [
+   "                    ? `${displayName(bot, current)} снова в списке`"
+  ]
+ },
+ {
+  "id": "v123-bots-edit-error",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "              .catch(error => host.notifyError?.(error, 'Could not load bot'))"
+  ],
+  "after": [
+   "              .catch(error => host.notifyError?.(error, 'Не удалось загрузить бота'))"
+  ]
+ },
+ {
+  "id": "v123-bots-groups-error",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "              .catch(error => host.notifyError?.(error, 'Could not load bot groups'))"
+  ],
+  "after": [
+   "              .catch(error => host.notifyError?.(error, 'Не удалось загрузить группы бота'))"
+  ]
+ },
+ {
+  "id": "v123-bots-groups-menu",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "          {groups.length ? `Groups: ${groups.join(', ')}…` : 'Manage groups…'}"
+  ],
+  "after": [
+   "          {groups.length ? `Группы: ${groups.join(', ')}…` : 'Управлять группами…'}"
+  ]
+ },
+ {
+  "id": "v123-bots-duplicating",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "              message: `Duplicating ${displayName(bot, meta)}…`"
+  ],
+  "after": [
+   "              message: `Дублирую ${displayName(bot, meta)}…`"
+  ]
+ },
+ {
+  "id": "v123-bots-duplicated",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "                  message: `Created ${name} — full copy of ${bot.name}`"
+  ],
+  "after": [
+   "                  message: `Создан ${name} — полная копия ${bot.name}`"
+  ]
+ },
+ {
+  "id": "v123-bots-open-group",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "        <ContextMenuItem onSelect={() => onOpen(group)}>Open Group Chat</ContextMenuItem>"
+  ],
+  "after": [
+   "        <ContextMenuItem onSelect={() => onOpen(group)}>Открыть групповой чат</ContextMenuItem>"
+  ]
+ },
+ {
+  "id": "v123-bots-all-gateways",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "                    <span className=\"min-w-0 flex-1\">All gateways</span>"
+  ],
+  "after": [
+   "                    <span className=\"min-w-0 flex-1\">Все шлюзы</span>"
+  ]
+ },
+ {
+  "id": "v123-bots-keep-face",
+  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
+  "before": [
+   "                    title={locked ? b.avatar.unlockFollowsName : 'Keep this exact face even if the name changes'}"
+  ],
+  "after": [
+   "                    title={locked ? b.avatar.unlockFollowsName : 'Оставить это лицо, даже если имя изменится'}"
+  ]
+ },
+ {
+  "id": "v123-bots-field-name",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            'Name',"
+  ],
+  "after": [
+   "            'Имя',"
+  ],
+  "all": true
+ },
+ {
+  "id": "v123-bots-field-title",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            'Title',"
+  ],
+  "after": [
+   "            'Заголовок',"
+  ],
+  "all": true
+ },
+ {
+  "id": "v123-bots-field-desc",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            'Description',"
+  ],
+  "after": [
+   "            'Описание',"
+  ],
+  "all": true
+ },
+ {
+  "id": "v123-bots-edit-title",
+  "file": "apps/desktop/src/plugins/hermes-bots/edit-profile-dialog.tsx",
+  "before": [
+   "            'Title',"
+  ],
+  "after": [
+   "            'Заголовок',"
+  ],
+  "all": true
+ },
+ {
+  "id": "v123-bots-edit-desc",
+  "file": "apps/desktop/src/plugins/hermes-bots/edit-profile-dialog.tsx",
+  "before": [
+   "            'Description',"
+  ],
+  "after": [
+   "            'Описание',"
+  ],
+  "all": true
+ },
+ {
+  "id": "v123-bots-import",
+  "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
+  "mode": "insert-after",
+  "insertAfterLine": "import { BOTS_LOCALES } from './i18n'",
+  "after": [
+   "// MOD: hermes-desktop-ru — Russian bots locale (registered on import)",
+   "import './ru-locales'"
+  ],
+  "severity": "critical"
+ },
+ {
+  "id": "v1231-advanced-inherit-option",
+  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
+  "before": [
+   "            <SelectItem value={NONE}>Inherit (launch profile)</SelectItem>"
+  ],
+  "after": [
+   "            <SelectItem value={NONE}>Наследовать (профиль запуска)</SelectItem>"
+  ]
+ },
+ {
+  "id": "v1231-advanced-inherited-placeholder",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                    placeholderModel=\"inherited from launch profile\""
+  ],
+  "after": [
+   "                    placeholderModel=\"наследуется из профиля запуска\""
+  ]
+ },
+ {
+  "id": "v1231-advanced-shared-subs",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "                    Subscriptions, OAuth logins, and API keys stay shared (not copied), so token refreshes never",
+   "                    invalidate each other. Uncheck for an isolated snapshot copy."
+  ],
+  "after": [
+   "                    Подписки, OAuth-входы и API-ключи остаются общими (не копируются), поэтому обновления токенов",
+   "                    не отменяют друг друга. Снимите галочку, чтобы создать изолированную копию."
+  ]
+ },
+ {
+  "id": "v1231-group-delete-desc",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "            ? `This removes “${deletingGroup.name}” from its bots and clears the shared room log. The bots and their individual chats are kept.`"
+  ],
+  "after": [
+   "            ? `Это удаляет группу “${deletingGroup.name}” из её ботов и очищает общий журнал комнаты. Сами боты и их личные чаты сохраняются.`"
+  ]
+ },
+ {
+  "id": "v1231-group-deleting-busy",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "        busyLabel=\"Deleting…\""
+  ],
+  "after": [
+   "        busyLabel=\"Удаление…\""
+  ],
+  "all": true
+ },
+ {
+  "id": "v1231-group-deleted-done",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "        doneLabel=\"Deleted\""
+  ],
+  "after": [
+   "        doneLabel=\"Удалено\""
+  ],
+  "all": true
+ },
+ {
+  "id": "v1231-name-ph-inbox",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            <Input autoFocus onChange={event => setName(event.target.value)} placeholder=\"inbox-triage\" value={name} />"
+  ],
+  "after": [
+   "            <Input autoFocus onChange={event => setName(event.target.value)} placeholder=\"разбор-входящих\" value={name} />"
+  ]
+ },
+ {
+  "id": "v1231-title-ph-inbox",
+  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
+  "before": [
+   "            <Input onChange={event => setTitle(event.target.value)} placeholder=\"Inbox Triage\" value={title} />"
+  ],
+  "after": [
+   "            <Input onChange={event => setTitle(event.target.value)} placeholder=\"Разбор входящих\" value={title} />"
+  ]
+ },
+ {
+  "id": "v1231-bots-pane-header",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "before": [
+   "        <span className=\"text-[0.6875rem] font-semibold uppercase tracking-wider text-(--ui-text-quaternary)\">",
+   "          Bots",
+   "        </span>"
+  ],
+  "after": [
+   "        <span className=\"text-[0.6875rem] font-semibold uppercase tracking-wider text-(--ui-text-quaternary)\">",
+   "          Боты",
+   "        </span>"
+  ]
+ }
 ]

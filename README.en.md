@@ -11,7 +11,7 @@ Russian-language padding for [Hermes Desktop](https://github.com/NousResearch/he
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.2.3](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3) · Hermes Desktop 0.21.0 · 2026-09-02**  
+**Latest: [v1.2.3.1](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.3.1) · Hermes Desktop 0.21.0 · 2026-09-03**  
 **Status: frozen maintenance** — no new translations; only hardcode coverage until upstream moves those into the i18n system.
 
 ## Why this mod
@@ -21,6 +21,10 @@ An official Russian locale (`ru.ts`) was merged into Hermes Desktop at [`a922dad
 But even with Russian selected, some UI stays English — **hardcoded** strings in components that haven't been wired into `t()` keys yet: Bots, Kanban, Electron main process (gateway auth, boot-failure overlay), settings field labels, plugin metadata.
 
 This mod patches those hardcoded strings — until upstream moves them into the locale system.
+
+Note: the official `ru.ts` is **incomplete and partly debatable**. One of the most visible examples: the `Skills` section (EN `Capabilities` — “Skills, tools, and MCP servers”) is officially translated as **«Возможности»** (“capabilities”) — a word that reflects neither the English name nor the actual content of the section, and confuses rather than helps the Russian user (see the translation conventions below for examples of more precise wording).
+
+And whole menu areas the official translation does not cover at all: Bots tabs and dialogs (bot creation, group chats, user sections), parts of kanban, settings field labels (`ru-constants.ts`), main-process messages. All of that is the mod's zone, not the catalog's.
 
 This is not a portable / prebuilt installer patch. It expects a **source checkout** (`hermes desktop` / `git clone`) and rebuilds `app.asar` inside that clone.
 
@@ -41,12 +45,12 @@ This is not a portable / prebuilt installer patch. It expects a **source checkou
 | Catalog keys (buttons, settings, onboarding) | ✅ ~2200 keys | untouched |
 | Hardcoded component strings (settings labels, splash, messengers) | ❌ | ✅ |
 | Bots / kanban / main-process (gateway auth, boot-failure) | ❌ | ✅ |
-| Doctor registry (720 `before→after` rules) | — | ✅ |
+| Doctor registry (746 `before→after` rules) | — | ✅ |
 | After `hermes update` | catalog strings update | re-run `hermes-desktop-ru install` |
 
 ## How it works
 
-- **720-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
+- **746-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
 - **Doctor-gated installer** — dry-run before any write. Cosmetic misses (including an ambiguous short literal in Bots) warn — that spot stays English. Install fails only if a *critical file* is gone (kanban / connection-registry). A failed `npm run build` is the real hard stop.
 - **Survives `hermes update`**: restore tracked sources to stock → doctor → apply → register `ru` → rebuild `dist` → repack `asar` (original kept as `.stock.bak`).
 
@@ -162,7 +166,7 @@ If the working tree is dirty, doctor warns and checks the **current** tree.
 
 | Hermes Desktop | |
 |---|---|
-| **0.21.0 / Windows** | author-tested, doctor 720/720 at 1.2.3. A later Bots rewrite may WARN — install still proceeds |
+| **0.21.0 / Windows** | author-tested, doctor 746/746 at 1.2.3.1. A later Bots rewrite may WARN — install still proceeds |
 | **0.21.0 / Linux** | installer author-tested (Ubuntu 26). After install: `hermes desktop --skip-build`. Menu icon is an upstream bug, not the mod |
 | macOS | installer resolves paths; **not author-tested**. Treat as experimental |
 | older | install the mod release that matches |

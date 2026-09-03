@@ -255,3 +255,14 @@
 
 - Релиз **v1.2.3** (финальный, maintenance): +15 правил bots (General→Основные, Capabilities→Возможности, Skills→Навыки, Tools→Инструменты, Create Bot→Создать бота, Fresh profile→Новый профиль, Pin/Unpin, Hide/Unhide, Generate→Сгенерировать, Name the bot first, That name is taken, Share keys, Create empty, Handle toggle, колонки Cron, Auto→Авто, Create Group→Создать группу), +4 правила avatar-picker/create-dialog, починены 3 битых правила (wave3-you-label, bots-avatar-checking-backend, w5-6536/6544/6975), удалён filter-menu-408. Установщик: Linux не experimental, Node fallback. README/CHANGELOG: maintenance mode. EXPECTED_COMMIT → 5f048000d73f. Doctor 720/720 на ПК.
 - **Мод переведён в режим поддержки.** Апстрим v0.21+ получил официальную русскую локаль. Новые фичи не планируются — только критические фиксы. Уникальные наработки (реестр хардкодов, doctor, установщик) подготовлены для upstream PR.
+
+## 2026-09-02 06:00 (auto)
+- Релизы: нет новых (те же 5: v2026.8.31 31.08, v2026.8.27 27.08, v2026.8.19 21.08, v2026.8.18 18.08, v2026.8.16.2 17.08)
+- Коммиты apps/desktop: нет новых с прошлого прогона (RELEASES/COMMITS пусты, EN_TS_SHA ade50c78904f9e2d не менялся с 00:07)
+- Затронутые файлы → куда смотреть в UI: апстрим не менялся; изменение датчика — локальное: LITERALS_UNCOVERED 373→371 (−2) в i18n.ts (строки 250–301, вкладка «Боты»: поиск/фильтры, профиль бота, группы, cron, скиллы) — это те же 127 ключей Bot Mode, что в записи 00:07, счётчик сдвинулся из-за рабочего дерева мода (overrides.json), не апстрима
+- Новые ключи en.ts: нет изменений (EN_TS_SHA ade50c78904f9e2d совпадает с прошлым прогоном)
+- Что проверить перед следующим релизом мода: ничего срочного из апстрима; перенос из 00:07 — signInExpired (OAuth/онбординг), 127 ключей Bot Mode i18n-бандла (перевод вкладки «Боты» и Cronjobs в Bot Mode), +20 ключей из потерянных записей (skills/capabilities, consent real-profile, comment mode), +6 code-skew (errors.codeSkewRestartRequired, models.loadFailed/restartRequired/…) — всё НЕ покрыто модом v1.2.3; readOnlyTranscript.* (3 ключа, запись 28.08 00:01) тоже ждут
+
+## 2026-09-03 (release note, вручную)
+
+- Релиз **v1.2.3.1** (maintenance-фикс Bots): проводка `ru-bots-locales.ts` (правило `v123-bots-import`, как у канбана — файл копировался, но не импортировался), секция `sections` (18 ключей, апстрим 02.09), 35 пропущенных функций бандла, 16 новых хардкод-правил (`v123-*`/`v1231-*`: Advanced-плейсхолдеры, shared-подписки, Groups-меню, Open Group Chat, All gateways, Name/Title/Description, заголовок панели Bots→«Боты», плейсхолдеры разбор-входящих), фикс мусора (`savedLocally`, `staleNotice`, `deleteTitle` группы, `disbandAction`), дрейф `v122-bots-cron-last-result` (`routineLastResult`). EXPECTED_COMMIT → bb319d0d7800. Doctor 746/746 (синтетика origin/main), GATE 0.
