@@ -35,7 +35,7 @@ const ru = {
   noMatch: 'Ни одна задача не подходит под фильтры',
   noTasks: 'На этой доске нет задач',
   open: 'Открыть',
-  select: 'Выбрать (⌘-клик)',
+  select: modifier => `Выбрать (${modifier}-клик)`,
   deselect: 'Снять выбор',
   moveTo: (label: any) => `Переместить в ${label}`,
   delete: 'Удалить',
@@ -203,8 +203,36 @@ const ru = {
     crashedTitle: 'Исполнитель упал — будет повтор',
     timedOutTitle: 'Задача не уложилась в срок — будет повтор',
     openKanban: 'Открыть Канбан',
+    gaveUpBody: 'Hermes не смог закончить эту задачу. Откройте Канбан, чтобы посмотреть причину и переназначить её.',
     artifacts: (n: number) => `${n} ${n === 1 ? 'артефакт' : 'артефактов'}`
   },
+  blockKindTip: kind =>
+    kind === 'needs_input'
+      ? 'Исполнитель запросил ввод от человека.'
+      : kind === 'capability'
+        ? 'Исполнитель упёрся в ограничение возможностей, которое не может преодолеть.'
+        : 'Исполнитель запросил ввод от человека.',
+  blockReason: 'Вид блокировки',
+  blockRecurrences: 'Повторов блокировки',
+  blockRecurrencesTip: 'Сколько раз задача блокировалась по той же причине после разблокировки человеком.',
+  consecutiveFailures: 'Подряд неудач',
+  lastFailureError: 'Последняя ошибка',
+  unblockedMessage: id => `Задача ${id} разблокирована. Готова к следующему тику.`,
+  switchBoard: 'Сменить доску',
+  exportDots: 'Экспорт…',
+  importDots: 'Импорт…',
+  renameDots: 'Переименовать…',
+  settingsDots: 'Настройки…',
+  exportBoardTitle: 'Экспорт доски…',
+  importBoardTitle: 'Импорт доски…',
+  boardExported: path => `Доска экспортирована в ${path}`,
+  boardImported: name => `Импортирована ${name}`,
+  boardImportedAs: slug => `Это имя было занято — импортировано как ${slug}`,
+  renameBoardTitle: 'Переименовать доску',
+  deleteBoardTitle: name => `Удалить «${name}»?`,
+  deleteBoardConfirm:
+    'Доска архивируется, а не стирается — её задачи и вложения остаются на диске, и их можно восстановить.',
+  boardArchived: path => `Доска архивирована в ${path}`,
 }
 
 registerPluginLocales('kanban', { ru })
