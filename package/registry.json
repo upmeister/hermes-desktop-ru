@@ -4354,20 +4354,33 @@
   "id": "boot-failure-i18n-then",
   "file": "apps/desktop/src/i18n/context.tsx",
   "before": [
-   "      .then(config => {",
-   "        if (!cancelled) {",
-   "          setLocaleState(normalizeLocale(getConfigDisplayLanguage(config)))",
-   "        }",
-   "      })"
+   "          if (isSupportedLocaleValue(saved)) {",
+   "            setLocaleState(normalizeLocale(saved))",
+   "",
+   "            return",
+   "          }"
   ],
   "after": [
-   "      .then(config => {",
-   "        if (!cancelled) {",
-   "          const resolved = normalizeLocale(getConfigDisplayLanguage(config))",
-   "          setLocaleState(resolved)",
-   "          localStorage.setItem('hermes-desktop-ru.locale', resolved)",
-   "        }",
-   "      })"
+   "          if (isSupportedLocaleValue(saved)) {",
+   "            const resolved = normalizeLocale(saved)",
+   "            setLocaleState(resolved)",
+   "            localStorage.setItem('hermes-desktop-ru.locale', resolved)",
+   "",
+   "            return",
+   "          }"
+  ]
+ },
+ {
+  "id": "boot-failure-i18n-catch",
+  "file": "apps/desktop/src/i18n/context.tsx",
+  "before": [
+   "          setConfigLoadError(toError(error))",
+   "          setLocaleState(DEFAULT_LOCALE)"
+  ],
+  "after": [
+   "          setConfigLoadError(toError(error))",
+   "          const fallback = localStorage.getItem('hermes-desktop-ru.locale')",
+   "          setLocaleState(fallback ?? DEFAULT_LOCALE)"
   ]
  },
  {

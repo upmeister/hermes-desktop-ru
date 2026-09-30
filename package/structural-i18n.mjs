@@ -31,11 +31,23 @@ function insertBeforeClose(content, closeIndex, insertLines, file, anchorName) {
   return trimmedEnd + comma + '\n' + insertLines + after
 }
 
-// ---------- types.ts: Locale = 'en' | ... | 'ru' ----------
+// ---------- types.ts: регистрация 'ru' в union типа локалей ----------
+// Апстрим (30.09+) переименовал `Locale` → `BundledLocale` и сузил `Locale` до
+// `string`; в новой схеме апстрим уже включает 'ru' сам. Поэтому:
+//   1) если 'ru' уже есть в ЛЮБОМ из union-типов — наша работа не нужна;
+//   2) иначе добавляем в первый найденный union локалей;
+//   3) если ни одного нет — считаем, что тип выводится из catalog.ts (не трогаем).
 function patchTypes(content, file) {
-  if (/export type Locale\s*=[^;\n]*'ru'/.test(content)) return { content, changed: false }
-  const m = content.match(/^(export type Locale\s*=\s*)([^\n;]+?)([ \t]*)$/m)
-  if (!m) throw PatchAnchorError(file, 'export type Locale = …')
+  // 'ru' уже зарегистрирована апстримом (или нами ранее) — идемпотентный выход.
+  if (/export type (?:Bundled)?Locale\s*=[^;\n]*'ru'/.test(content)) {
+    return { content, changed: false }
+  }
+  const m = content.match(/^(export type (?:Bundled)?Locale\s*=\s*)([^\n;]+?)([ \t]*)$/m)
+  if (!m) {
+    // Нет union-типа локалей вообще (напр. выводится из catalog.ts) — пропускаем.
+    if (/export type Locale\s*=\s*string\b/.test(content)) return { content, changed: false }
+    throw PatchAnchorError(file, 'export type (Bundled)Locale = …')
+  }
   if (!/'[a-z-]+'/.test(m[2])) throw PatchAnchorError(file, 'члены Locale-union')
   return { content: content.replace(m[0], `${m[1]}${m[2]} | 'ru'${m[3]}`), changed: true }
 }
@@ -44,6 +56,13 @@ function patchTypes(content, file) {
 function patchCatalog(content, file) {
   let out = content
   let changed = false
+
+  // Апстрим уже импортирует и регистрирует ru сам (30.09+). Если и импорт,
+  // и запись в TRANSLATIONS на месте — наша работа не нужна.
+  const hasImport = /import\s*\{[^}]*\bru\b[^}]*\}\s*from\s*'\.\/ru'/.test(out)
+  const hasEntry = /export const TRANSLATIONS[\s\S]*?\n\}/.test(out) &&
+    /\bru\b\s*,?\s*\n/.test((out.match(/export const TRANSLATIONS[^\n]*\{[\s\S]*?\n\}/) || [''])[0])
+  if (hasImport && hasEntry) return { content: out, changed: false }
 
   if (!/from\s*'\.\/ru'/.test(out)) {
     const importRe = /^import\s+(?:type\s+)?\{\s*[\w,\s]*\w\s*\}\s*from\s*'(\.\/[\w-]+)'\s*;?\s*$/gm
@@ -79,7 +98,13 @@ function patchLanguages(content, file) {
   let changed = false
   const eol = out.includes('\r\n') ? '\r\n' : '\n'
 
-  if (!/id:\s*'ru'/.test(out)) {
+  // Апстрим (30.09+) регистрирует ru в LOCALE_OPTIONS и LOCALE_ALIASES сам.
+  // Если и то и другое на месте — наша работа не нужна (идемпотентность).
+  const hasOption = /id:\s*'ru'/.test(out)
+  const hasAlias = /^\s*ru:\s*'ru'/m.test(out)
+  if (hasOption && hasAlias) return { content: out, changed: false }
+
+  if (!hasOption) {
     const asConst = out.search(/\]\s*as const/)
     if (asConst < 0) throw PatchAnchorError(file, '] as const (LOCALE_OPTIONS)')
     if ((out.match(/\]\s*as const/g) || []).length !== 1) throw PatchAnchorError(file, '] as const не уникален')
@@ -88,7 +113,7 @@ function patchLanguages(content, file) {
     changed = true
   }
 
-  if (!/^\s*ru:\s*'ru'/m.test(out)) {
+  if (!hasAlias) {
     const aStart = out.search(/LOCALE_ALIASES[^[{]*\{/)
     if (aStart < 0) throw PatchAnchorError(file, 'LOCALE_ALIASES … {')
     const aEnd = out.indexOf('\n}', aStart)

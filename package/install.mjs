@@ -454,12 +454,18 @@ function writeDoctorStatus(gate, asInstall) {
 }
 
 function findAsarJs(root) {
-  const candidates = [
-    path.join(root, 'node_modules', '@electron', 'asar', 'bin', 'asar.js'),
-    path.join(root, 'apps', 'desktop', 'node_modules', '@electron', 'asar', 'bin', 'asar.js'),
+  // Upstream @electron/asar переименовал бинарь: был bin/asar.js, стал bin/asar.mjs
+  // (ESM). Проверяем оба, и в корне клона, и в apps/desktop.
+  const names = ['asar.js', 'asar.mjs']
+  const roots = [
+    path.join(root, 'node_modules', '@electron', 'asar', 'bin'),
+    path.join(root, 'apps', 'desktop', 'node_modules', '@electron', 'asar', 'bin'),
   ]
-  for (const p of candidates) {
-    if (existsSync(p)) return p
+  for (const dir of roots) {
+    for (const name of names) {
+      const p = path.join(dir, name)
+      if (existsSync(p)) return p
+    }
   }
   return null
 }
