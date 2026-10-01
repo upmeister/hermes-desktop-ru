@@ -100,6 +100,28 @@ function mergeOverrides(list, overridePath) {
 
 rules = mergeOverrides(rules, path.join(path.dirname(regPath), 'overrides.json'))
 
+// ── --scope <prefix,...> (01.10): ограничить набор правил подкаталогами файлов.
+// Владелец закрывает мод как полный перевод и оставляет только плагинные зоны
+// (bots/kanban), чтобы измерить реальное покрытие официального ru.ts без шума
+// от модовых переводов ядра UI. Правила вне scope отбрасываются ПОСЛЕ merge с
+// overrides, иначе delete-записи и пересъёмы откатывались бы в другую сторону.
+// Мультизначность через запятую: --scope plugins/hermes-bots,plugins/kanban
+const SCOPE_ARG = process.argv.indexOf('--scope')
+if (SCOPE_ARG !== -1) {
+  const raw = process.argv[SCOPE_ARG + 1] || ''
+  const prefixes = raw.split(',').map(s => normFile(s).trim().replace(/\/+$/, '')).filter(Boolean)
+  if (!prefixes.length) {
+    console.error('--scope: пустой список префиксов')
+    process.exit(2)
+  }
+  const before = rules.length
+  rules = rules.filter(r => {
+    const f = normFile(r.file)
+    return prefixes.some(p => f === p || f.startsWith(p + '/'))
+  })
+  console.log(`SCOPE ${prefixes.join(' + ')}: ${before} -> ${rules.length} правил`)
+}
+
 function effectiveSeverity(rule) {
   if (COSMETIC_ZONES.has(normFile(rule.file))) return 'cosmetic'
   if (rule.severity === 'critical' || rule.severity === 'code') return 'critical'
