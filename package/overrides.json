@@ -60,16 +60,6 @@
   ]
  },
  {
-  "id": "kanban-plugin-nav-label",
-  "file": "apps/desktop/src/plugins/kanban/plugin.tsx",
-  "before": [
-   "        data: { codicon: 'project', label: 'Kanban', path: '/kanban' } satisfies SidebarNavContribution"
-  ],
-  "after": [
-   "        data: { codicon: 'project', label: 'Канбан', path: '/kanban' } satisfies SidebarNavContribution"
-  ]
- },
- {
   "id": "controller-sessions-title",
   "file": "apps/desktop/src/app/contrib/controller.tsx",
   "before": [
@@ -1349,16 +1339,6 @@
   ]
  },
  {
-  "id": "w4-kan-open",
-  "file": "apps/desktop/src/plugins/kanban/plugin.tsx",
-  "before": [
-   "          label: 'Kanban: Open board',"
-  ],
-  "after": [
-   "          label: 'Канбан: открыть доску',"
-  ]
- },
- {
   "id": "about-settings.tsx-ru-credit",
   "file": "apps/desktop/src/app/settings/about-settings.tsx",
   "before": [
@@ -2343,116 +2323,6 @@
   ]
  },
  {
-  "id": "hermes-bots-w3-2404",
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "before": [
-   "                    {locked ? 'Unlock' : 'Lock face'}"
-  ],
-  "after": [
-   "                          {locked ? 'Снять блокировку' : 'Зафиксировать лицо'}"
-  ]
- },
- {
-  "id": "hermes-bots-w3-6996",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                'Create on',"
-  ],
-  "after": [
-   "                  'Создать на',"
-  ]
- },
- {
-  "id": "hermes-bots-w3b-4051",
-  "file": "apps/desktop/src/plugins/hermes-bots/group-rounds.ts",
-  "before": [
-   "            const label = img.kind === 'pdf' ? 'attached PDF' : img.kind === 'file' ? 'attached file' : 'attached image'"
-  ],
-  "after": [
-   "          const label = img.kind === 'pdf' ? 'прикреплённый PDF' : img.kind === 'file' ? 'прикреплённый файл' : 'прикреплённое изображение'"
-  ]
- },
- {
-  "id": "hermes-bots-w4-7135",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                    remoteTarget ? `Clone from profile (on ${targetLabel})` : 'Clone from profile',"
-  ],
-  "after": [
-   "                              remoteTarget ? `Клон профиля (на ${targetLabel})` : 'Клон профиля',"
-  ]
- },
- {
-  "id": "hermes-bots-w5-5614",
-  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-  "before": [
-   "          'Provider',"
-  ],
-  "after": [
-   "          'Провайдер',"
-  ]
- },
- {
-  "id": "hermes-bots-w5-5622",
-  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-  "before": [
-   "          'Model',"
-  ],
-  "after": [
-   "          'Модель',"
-  ]
- },
- {
-  "id": "hermes-bots-w5-5678",
-  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-  "before": [
-   "        'Provider',"
-  ],
-  "after": [
-   "        'Провайдер',"
-  ]
- },
- {
-  "id": "hermes-bots-w5-5717",
-  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-  "before": [
-   "        'Model',"
-  ],
-  "after": [
-   "        'Модель',"
-  ]
- },
- {
-  "id": "hermes-bots-w5-7174",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                    'SOUL.md (optional — replaces the generated persona)',"
-  ],
-  "after": [
-   "                              'SOUL.md (необязательно — заменяет сгенерированную персону)',"
-  ]
- },
- {
-  "id": "hermes-bots-w6-7022",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                          ? `${connection.label || connection.id} (current)`"
-  ],
-  "after": [
-   "                                  ? `${connection.label || connection.id} (текущий)`"
-  ]
- },
- {
-  "id": "hermes-bots-w6-7215",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                      ? 'That name is taken — pick another before configuring capabilities.'"
-  ],
-  "after": [
-   "                      ? 'Это имя уже занято — выберите другое, прежде чем настраивать возможности.'"
-  ]
- },
- {
   "id": "groupchat-in-groups",
   "before": [
    "                            ? `@${botHandle(bot.name, bot)} · in ${currentGroups.map(group => `“${group}”`).join(', ')}`"
@@ -2461,39 +2331,6 @@
    "                                ? `@${botHandle(bot.name, bot)} · в ${currentGroups.map(group => `«${group}»`).join(', ')}`"
   ],
   "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "severity": "cosmetic"
- },
- {
-  "id": "groupchat-hidden-label",
-  "before": [
-   "                    : `${displayName(bot, current)} hidden — use the eye button in the Bots header to see hidden bots`"
-  ],
-  "after": [
-   "                    : `${displayName(bot, current)} скрыт — используйте кнопку-глаз в шапке Bots, чтобы увидеть скрытых ботов`"
-  ],
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "severity": "cosmetic"
- },
- {
-  "id": "wave2-gen-1",
-  "before": [
-   "              {genBusy ? 'Generating…' : 'Generate'}"
-  ],
-  "after": [
-   "                    {genBusy ? 'Генерация…' : 'Сгенерировать'}"
-  ],
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "severity": "cosmetic"
- },
- {
-  "id": "wave2-catalog-installed2",
-  "before": [
-   "                            {m.installed ? 'catalog · installed' : 'catalog'}"
-  ],
-  "after": [
-   "                                                              ? 'каталог · установлено'"
-  ],
-  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
   "severity": "cosmetic"
  },
  {
@@ -2510,20 +2347,10 @@
   "id": "wave3-meta-bot",
   "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
   "before": [
-   "              meta: `Bot · ${display}${source}`"
+   "              meta: `Bot · ${display}${source}`,"
   ],
   "after": [
-   "              meta: `Бот · ${display}${source}`"
-  ]
- },
- {
-  "id": "wave3-this-device-row",
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "before": [
-   "  const gatewayLabel = bot.connectionLabel || (bot.connectionId === 'local' ? 'This device' : '')"
-  ],
-  "after": [
-   "  const gatewayLabel = bot.connectionLabel || (bot.connectionId === 'local' ? 'Это устройство' : '')"
+   "              meta: `Бот · ${display}${source}`,"
   ]
  },
  {
@@ -2545,17 +2372,6 @@
   "after": [
    "        label: bot?.connectionLabel || (id === 'legacy' ? 'Текущий шлюз' : id),"
   ]
- },
- {
-  "id": "wave3-avail",
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "before": [
-   "  const availabilityLabel = `${availableMembers} of ${members.length} available`"
-  ],
-  "after": [
-   "  const availabilityLabel = `${availableMembers} из ${members.length} доступно`"
-  ],
-  "all": true
  },
  {
   "id": "wave3-act-queued",
@@ -2651,30 +2467,30 @@
   "id": "wave3-who",
   "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
   "before": [
-   "  const who = event?.member === 'You' ? 'You' : groupSpeakerLabel(event?.member || 'A bot')"
+   "  const who = event?.member === 'You' ? 'You' : groupSpeakerLabel(event?.member || 'A bot', group)"
   ],
   "after": [
-   "  const who = event?.member === 'You' ? 'Вы' : groupSpeakerLabel(event?.member || 'Бот')"
+   "  const who = event?.member === 'Вы' ? 'Вы' : groupSpeakerLabel(event?.member || 'Бот', group)"
   ]
  },
  {
   "id": "wave3-who-template",
   "file": "apps/desktop/src/plugins/hermes-bots/group-activity.ts",
   "before": [
-   "  return `${who} ${base}`"
+   "  return `${who} ${base}${reason ? ` — ${reason}` : ''}`"
   ],
   "after": [
-   "  return who === 'Вы' ? `${who} ${base.endsWith('(а) сообщение') ? 'отправили сообщение' : base}` : `${who} ${base}`"
+   "  return `${who} ${base}${reason ? ` — ${reason}` : ''}`"
   ]
  },
  {
   "id": "wave3-speaker-fallback",
   "file": "apps/desktop/src/plugins/hermes-bots/group-chat.ts",
   "before": [
-   "        name: String(entry?.from?.name || (entry?.from?.kind === 'member' ? 'Bot' : 'You')).slice(0, 128),"
+   "          name: String(entry?.from?.name || (entry?.from?.kind === 'member' ? 'Bot' : 'You')).slice(0, 128),"
   ],
   "after": [
-   "        name: String(entry?.from?.name || (entry?.from?.kind === 'member' ? 'Бот' : 'Вы')).slice(0, 128),"
+   "          name: String(entry?.from?.name || (entry?.from?.kind === 'member' ? 'Бот' : 'Вы')).slice(0, 128),"
   ]
  },
  {
@@ -2685,77 +2501,6 @@
   ],
   "after": [
    "        label: 'Новый бот…',"
-  ]
- },
- {
-  "id": "v112-bots-provider-custom",
-  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-  "before": [
-   "            'Provider (Custom)',"
-  ],
-  "after": [
-   "              'Провайдер (Пользовательский)',"
-  ]
- },
- {
-  "id": "v112-bots-model-custom",
-  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-  "before": [
-   "            'Model (Custom)',"
-  ],
-  "after": [
-   "              'Модель (Пользовательская)',"
-  ]
- },
- {
-  "id": "v112-bots-capabilities-applies",
-  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-  "before": [
-   "          'Capabilities (applies immediately — skills, tools, MCP)',"
-  ],
-  "after": [
-   "          'Возможности (применяется сразу — навыки, инструменты, MCP)',"
-  ]
- },
- {
-  "id": "v112-bots-soul-persona",
-  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-  "before": [
-   "          'SOUL.md (persona + agent-messaging protocol)',"
-  ],
-  "after": [
-   "          'SOUL.md (персона + протокол сообщений агента)',"
-  ],
-  "all": true
- },
- {
-  "id": "v112-bots-soul-persona-indent",
-  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-  "before": [
-   "        'SOUL.md (persona + agent-messaging protocol)',"
-  ],
-  "after": [
-   "        'SOUL.md (персона + протокол сообщений агента)',"
-  ]
- },
- {
-  "id": "w56-plugin.js-4336",
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "before": [
-   "              ? 'No image model available. If you just enabled one (or updated Hermes), restart the gateway: Ctrl+K → \"Restart gateway\".'"
-  ],
-  "after": [
-   "                  ? 'Нет доступной модели изображений. Если вы только что включили её (или обновили Hermes), перезапустите шлюз: Ctrl+K → «Перезапустить шлюз».'"
-  ]
- },
- {
-  "id": "hermes-bots-model-switch-failed",
-  "file": "apps/desktop/src/plugins/hermes-bots/profile-config.tsx",
-  "before": [
-   "      failureMessage: 'Model switch failed',"
-  ],
-  "after": [
-   "      failureMessage: 'Не удалось переключить модель',"
   ]
  },
  {
@@ -2789,106 +2534,6 @@
   ]
  },
  {
-  "id": "hermes-bots-name-the-bot-first",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                      : 'Name the bot first — a draft profile is created when you open this tab (discarded if you cancel).'}"
-  ],
-  "after": [
-   "                      : 'Сначала назовите бота — черновой профиль создаётся при открытии этой вкладки (при отмене удаляется).'}"
-  ]
- },
- {
-  "id": "bots-avatar-choose-image",
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "before": [
-   "          Choose an image…"
-  ],
-  "after": [
-   "          Выберите изображение…"
-  ]
- },
- {
-  "id": "bots-avatar-face-follows",
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "before": [
-   "                  {locked ? 'Face locked — renaming won\\u2019t change it.' : 'Face follows the name.'}"
-  ],
-  "after": [
-   "                  {locked ? 'Лицо закреплено — переименование его не изменит.' : 'Лицо следует за именем.'}"
-  ]
- },
- {
-  "id": "bots-avatar-checking-backend",
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "before": [
-   "              : 'Checking image backend…'}"
-  ],
-  "after": [
-   "              : 'Проверка модели изображений…'}"
-  ]
- },
- {
-  "id": "bots-create-button",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "            {busy ? 'Creating…' : 'Create Bot'}"
-  ],
-  "after": [
-   "            {busy ? 'Создание…' : 'Создать бота'}"
-  ]
- },
- {
-  "id": "bots-create-share-keys",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                    Share keys & accounts with the main profile"
-  ],
-  "after": [
-   "                    Общий доступ к ключам и учётным записям с основным профилем"
-  ]
- },
- {
-  "id": "bots-create-empty",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                    Create empty (skip bundled skills)"
-  ],
-  "after": [
-   "                    Создать пустым (без встроенных навыков)"
-  ]
- },
- {
-  "id": "bots-create-empty-checked-hint",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                    “Create empty” is checked — no bundled skills will be installed."
-  ],
-  "after": [
-   "                    Отмечено «Создать пустым» — встроенные навыки установлены не будут."
-  ]
- },
- {
-  "id": "bots-create-teammate-desc",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "            A named teammate with its own memory, skills, and chat. It can message your other agents."
-  ],
-  "after": [
-   "            Именованный участник со своей памятью, навыками и чатом. Он может писать другим агентам."
-  ]
- },
- {
-  "id": "bots-create-pick-2",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "            title={selected.length < 2 ? 'Pick at least 2 bots' : undefined}"
-  ],
-  "after": [
-   "            title={selected.length < 2 ? 'Выберите минимум 2 ботов' : undefined}"
-  ]
- },
- {
   "id": "bots-create-nomatch",
   "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
   "before": [
@@ -2919,58 +2564,8 @@
   ]
  },
  {
-  "id": "bots-cron-stop-after",
-  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-  "before": [
-   "          <span className=\"text-xs text-(--ui-text-tertiary)\">Stop after</span>"
-  ],
-  "after": [
-   "          <span className=\"text-xs text-(--ui-text-tertiary)\">Остановить после</span>"
-  ]
- },
- {
-  "id": "bots-cron-blank-forever",
-  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-  "before": [
-   "          <span className=\"text-xs text-(--ui-text-tertiary)\">runs (blank = forever)</span>"
-  ],
-  "after": [
-   "          <span className=\"text-xs text-(--ui-text-tertiary)\">запусков (пусто = без ограничений)</span>"
-  ]
- },
- {
-  "id": "bots-roster-filter",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-  "before": [
-   "              <Tip label={activeFilterCount ? `Filters (${activeFilterCount} active)` : 'Filter roster'}>"
-  ],
-  "after": [
-   "              <Tip label={activeFilterCount ? `Фильтры (${activeFilterCount} активно)` : 'Фильтр списка'}>"
-  ]
- },
- {
-  "id": "bots-roster-filter-aria",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-  "before": [
-   "                    aria-label={activeFilterCount ? `Filter roster, ${activeFilterCount} active` : 'Filter roster'}"
-  ],
-  "after": [
-   "                    aria-label={activeFilterCount ? `Фильтровать список: ${activeFilterCount} активно` : 'Фильтр списка'}"
-  ]
- },
- {
-  "id": "bots-roster-toasts",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-  "before": [
-   "            label={activityToasts ? 'Activity toasts on — click to silence' : 'Activity toasts off — click to enable'}"
-  ],
-  "after": [
-   "            label={activityToasts ? 'Уведомления активны — нажмите, чтобы отключить' : 'Уведомления выключены — нажмите, чтобы включить'}"
-  ]
- },
- {
   "id": "bots-roster-new",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-toolbar.tsx",
   "before": [
    "            <Tip label=\"New…\">"
   ],
@@ -3019,16 +2614,6 @@
   ]
  },
  {
-  "id": "bots-plugin-metadata",
-  "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
-  "before": [
-   "  name: 'Bots',"
-  ],
-  "after": [
-   "    name: 'Боты',"
-  ]
- },
- {
   "id": "bots-plugin-desc",
   "file": "apps/desktop/src/plugins/hermes-bots/plugin.tsx",
   "before": [
@@ -3057,75 +2642,13 @@
   "id": "bots-plugin-with-desc-migrated-dead"
  },
  {
-  "id": "v122-bots-general-label",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                        { id: 'general', label: 'General' },"
-  ],
-  "after": [
-   "                        { id: 'general', label: 'Основные' },"
-  ],
-  "all": true
- },
- {
-  "id": "v122-bots-capabilities-label",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                        { id: 'capabilities', label: 'Capabilities' }"
-  ],
-  "after": [
-   "                        { id: 'capabilities', label: 'Возможности' }"
-  ]
- },
- {
-  "id": "v122-bots-skills-label",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                        { id: 'skills', label: 'Skills' },"
-  ],
-  "after": [
-   "                        { id: 'skills', label: 'Навыки' },"
-  ]
- },
- {
-  "id": "v122-bots-tools-label",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                        { id: 'toolsets', label: 'Tools' },"
-  ],
-  "after": [
-   "                        { id: 'toolsets', label: 'Инструменты' },"
-  ]
- },
- {
-  "id": "v122-bots-fresh-profile",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                        <SelectItem value=\"__none__\">Fresh profile (bundled skills)</SelectItem>"
-  ],
-  "after": [
-   "                        <SelectItem value=\"__none__\">Новый профиль (со стандартными навыками)</SelectItem>"
-  ]
- },
- {
   "id": "v122-bots-pin-unpin",
   "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
   "before": [
-   "          {pinned ? 'Unpin' : 'Pin to top'}"
+   "          {room.pinned ? 'Unpin' : 'Pin to top'}"
   ],
   "after": [
-   "          {pinned ? 'Открепить' : 'Закрепить вверху'}"
-  ],
-  "all": true
- },
- {
-  "id": "v122-bots-hide-unhide",
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "before": [
-   "          {hidden ? 'Unhide' : 'Hide'}"
-  ],
-  "after": [
-   "          {hidden ? 'Показать' : 'Скрыть'}"
+   "          {room.pinned ? 'Открепить' : 'Закрепить вверху'}"
   ],
   "all": true
  },
@@ -3133,91 +2656,10 @@
   "id": "v122-bots-handle-toggle",
   "file": "apps/desktop/src/plugins/hermes-bots/group-chat-view.tsx",
   "before": [
-   "                title={revealed ? 'Hide full handle' : 'Show full handle'}"
+   "              <Tip label={revealed ? 'Hide full handle' : 'Show full handle'}>"
   ],
   "after": [
-   "                title={revealed ? 'Скрыть полный адрес' : 'Показать полный адрес'}"
-  ],
-  "all": true
- },
- {
-  "id": "v122-bots-cron-repeat",
-  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-  "before": [
-   "      ['Repeat', job?.repeat],"
-  ],
-  "after": [
-   "      ['Повтор', job?.repeat],"
-  ]
- },
- {
-  "id": "v122-bots-cron-next-run",
-  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-  "before": [
-   "      ['Next run', paused ? null : routineTimestamp(job?.next_run_at)],"
-  ],
-  "after": [
-   "      ['След. запуск', paused ? null : routineTimestamp(job?.next_run_at)],"
-  ]
- },
- {
-  "id": "v122-bots-cron-last-run",
-  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-  "before": [
-   "      ['Last run', routineTimestamp(job?.last_run_at)],"
-  ],
-  "after": [
-   "      ['Посл. запуск', routineTimestamp(job?.last_run_at)],"
-  ]
- },
- {
-  "id": "v122-bots-cron-last-result",
-  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-  "before": [
-   "      ['Last result', routineLastResult(job?.last_status)],"
-  ],
-  "after": [
-   "      ['Посл. результат', routineLastResult(job?.last_status)],"
-  ]
- },
- {
-  "id": "v122-bots-cron-delivers-to",
-  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-  "before": [
-   "      ['Delivers to', job?.deliver],"
-  ],
-  "after": [
-   "      ['Куда доставить', job?.deliver],"
-  ]
- },
- {
-  "id": "v122-bots-cron-workdir",
-  "file": "apps/desktop/src/plugins/hermes-bots/cron.tsx",
-  "before": [
-   "      ['Working directory', job?.workdir]"
-  ],
-  "after": [
-   "      ['Рабочий каталог', job?.workdir]"
-  ]
- },
- {
-  "id": "v122-bots-avatar-auto",
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "before": [
-   "                        <span className=\"text-[0.6rem] text-(--ui-text-tertiary)\">Auto</span>"
-  ],
-  "after": [
-   "                        <span className=\"text-[0.6rem] text-(--ui-text-tertiary)\">Авто</span>"
-  ]
- },
- {
-  "id": "v122-bots-avatar-auto-title",
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "before": [
-   "                      title={k || 'Auto — the name decides'}"
-  ],
-  "after": [
-   "                      title={k || 'Авто — по имени'}"
+   "              <Tip label={revealed ? 'Скрыть полный адрес' : 'Показать полный адрес'}>"
   ],
   "all": true
  },
@@ -3245,61 +2687,10 @@
   "id": "v123-bots-pin-toast",
   "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
   "before": [
-   "                  message: `${displayName(bot, current)} ${pinned ? 'unpinned' : 'pinned to top'}`"
+   "              host.notify({ kind: 'info', message: `${group} ${pinned ? 'pinned to top' : 'unpinned'}` })"
   ],
   "after": [
-   "                  message: `${displayName(bot, current)} ${pinned ? 'откреплён' : 'закреплён сверху'}`"
-  ]
- },
- {
-  "id": "v123-bots-meta-errors",
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "before": [
-   "              .catch(error => host.notifyError?.(error, 'Could not load bot metadata'))"
-  ],
-  "after": [
-   "              .catch(error => host.notifyError?.(error, 'Не удалось загрузить метаданные бота'))"
-  ],
-  "all": true
- },
- {
-  "id": "v123-bots-back-in-roster",
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "before": [
-   "                    ? `${displayName(bot, current)} is back in the roster`"
-  ],
-  "after": [
-   "                    ? `${displayName(bot, current)} снова в списке`"
-  ]
- },
- {
-  "id": "v123-bots-edit-error",
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "before": [
-   "              .catch(error => host.notifyError?.(error, 'Could not load bot'))"
-  ],
-  "after": [
-   "              .catch(error => host.notifyError?.(error, 'Не удалось загрузить бота'))"
-  ]
- },
- {
-  "id": "v123-bots-groups-error",
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "before": [
-   "              .catch(error => host.notifyError?.(error, 'Could not load bot groups'))"
-  ],
-  "after": [
-   "              .catch(error => host.notifyError?.(error, 'Не удалось загрузить группы бота'))"
-  ]
- },
- {
-  "id": "v123-bots-groups-menu",
-  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
-  "before": [
-   "          {groups.length ? `Groups: ${groups.join(', ')}…` : 'Manage groups…'}"
-  ],
-  "after": [
-   "          {groups.length ? `Группы: ${groups.join(', ')}…` : 'Управлять группами…'}"
+   "              host.notify({ kind: 'info', message: `${group} ${pinned ? 'закреплён сверху' : 'откреплён'}` })"
   ]
  },
  {
@@ -3334,78 +2725,13 @@
  },
  {
   "id": "v123-bots-all-gateways",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-toolbar.tsx",
   "before": [
    "                    <span className=\"min-w-0 flex-1\">All gateways</span>"
   ],
   "after": [
    "                    <span className=\"min-w-0 flex-1\">Все шлюзы</span>"
   ]
- },
- {
-  "id": "v123-bots-keep-face",
-  "file": "apps/desktop/src/plugins/hermes-bots/avatar-picker.tsx",
-  "before": [
-   "                    title={locked ? b.avatar.unlockFollowsName : 'Keep this exact face even if the name changes'}"
-  ],
-  "after": [
-   "                    title={locked ? b.avatar.unlockFollowsName : 'Оставить это лицо, даже если имя изменится'}"
-  ]
- },
- {
-  "id": "v123-bots-field-name",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "            'Name',"
-  ],
-  "after": [
-   "            'Имя',"
-  ],
-  "all": true
- },
- {
-  "id": "v123-bots-field-title",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "            'Title',"
-  ],
-  "after": [
-   "            'Заголовок',"
-  ],
-  "all": true
- },
- {
-  "id": "v123-bots-field-desc",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "            'Description',"
-  ],
-  "after": [
-   "            'Описание',"
-  ],
-  "all": true
- },
- {
-  "id": "v123-bots-edit-title",
-  "file": "apps/desktop/src/plugins/hermes-bots/edit-profile-dialog.tsx",
-  "before": [
-   "            'Title',"
-  ],
-  "after": [
-   "            'Заголовок',"
-  ],
-  "all": true
- },
- {
-  "id": "v123-bots-edit-desc",
-  "file": "apps/desktop/src/plugins/hermes-bots/edit-profile-dialog.tsx",
-  "before": [
-   "            'Description',"
-  ],
-  "after": [
-   "            'Описание',"
-  ],
-  "all": true
  },
  {
   "id": "v123-bots-import",
@@ -3419,66 +2745,13 @@
   "severity": "critical"
  },
  {
-  "id": "v1231-advanced-inherit-option",
-  "file": "apps/desktop/src/plugins/hermes-bots/model-picker.tsx",
-  "before": [
-   "            <SelectItem value={NONE}>Inherit (launch profile)</SelectItem>"
-  ],
-  "after": [
-   "            <SelectItem value={NONE}>Наследовать (профиль запуска)</SelectItem>"
-  ]
- },
- {
-  "id": "v1231-advanced-inherited-placeholder",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                    placeholderModel=\"inherited from launch profile\""
-  ],
-  "after": [
-   "                    placeholderModel=\"наследуется из профиля запуска\""
-  ]
- },
- {
-  "id": "v1231-advanced-shared-subs",
-  "file": "apps/desktop/src/plugins/hermes-bots/create-dialog.tsx",
-  "before": [
-   "                    Subscriptions, OAuth logins, and API keys stay shared (not copied), so token refreshes never",
-   "                    invalidate each other. Uncheck for an isolated snapshot copy."
-  ],
-  "after": [
-   "                    Подписки, OAuth-входы и API-ключи остаются общими (не копируются), поэтому обновления токенов",
-   "                    не отменяют друг друга. Снимите галочку, чтобы создать изолированную копию."
-  ]
- },
- {
-  "id": "v1231-group-delete-desc",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-  "before": [
-   "            ? `This removes “${deletingGroup.name}” from its bots and clears the shared room log. The bots and their individual chats are kept.`"
-  ],
-  "after": [
-   "            ? `Это удаляет группу “${deletingGroup.name}” из её ботов и очищает общий журнал комнаты. Сами боты и их личные чаты сохраняются.`"
-  ]
- },
- {
   "id": "v1231-group-deleting-busy",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-dialogs.tsx",
   "before": [
    "        busyLabel=\"Deleting…\""
   ],
   "after": [
    "        busyLabel=\"Удаление…\""
-  ],
-  "all": true
- },
- {
-  "id": "v1231-group-deleted-done",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
-  "before": [
-   "        doneLabel=\"Deleted\""
-  ],
-  "after": [
-   "        doneLabel=\"Удалено\""
   ],
   "all": true
  },
@@ -3504,7 +2777,7 @@
  },
  {
   "id": "v1231-bots-pane-header",
-  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane.tsx",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-toolbar.tsx",
   "before": [
    "        <span className=\"text-[0.6875rem] font-semibold uppercase tracking-wider text-(--ui-text-quaternary)\">",
    "          Bots",

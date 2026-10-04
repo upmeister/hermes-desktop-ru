@@ -154,6 +154,14 @@ function parseArgs(argv) {
     else if (al === 'version' || al === 'v') out.cmd = 'version'
     else if (al === 'self-test' || al === 'selftest') out.cmd = 'self-test'
     else if (al === 'allowstaledist' || al === 'allow-stale-dist') out.allowStaleDist = true
+    else if (al === 'scope') {
+      const v = args[++i]
+      if (!v) {
+        console.error('--scope требует значение: список префиксов через запятую')
+        process.exit(2)
+      }
+      out.scope = v
+    }
     else if (al === 'root') {
       const v = args[++i]
       if (!v || v.startsWith('-')) {
@@ -395,13 +403,16 @@ function parseGate(output) {
   return gate
 }
 
-function invokeDoctor(root, registry) {
+function invokeDoctor(root, registry, scope = null) {
   const applyJs = path.join(here, 'apply-hardcodes.mjs')
   if (!existsSync(applyJs)) {
     console.error('ОШИБКА: apply-hardcodes.mjs не найден рядом с установщиком')
     process.exit(1)
   }
-  const r = run(process.execPath, [applyJs, root, registry, '--doctor'], { cwd: root })
+  // --scope пробрасывается в apply-hardcodes: ограничивает набор правил
+  // подкаталогами файлов (плагинная сборка = только bots/kanban).
+  const scopeArgs = scope ? ['--scope', scope] : []
+  const r = run(process.execPath, [applyJs, root, registry, '--doctor', ...scopeArgs], { cwd: root })
   const output = `${r.stdout || ''}${r.stderr || ''}`
   if (output) process.stdout.write(output.endsWith('\n') ? output : `${output}\n`)
   if (r.error) {
@@ -715,7 +726,7 @@ function selfTest() {
   process.exit(0)
 }
 
-function cmdDoctor(root) {
+function cmdDoctor(root, scope = null) {
   const registry = path.join(here, 'registry.json')
   const expectFile = path.join(here, 'EXPECTED_COMMIT')
   if (!existsSync(registry)) {
@@ -729,7 +740,7 @@ function cmdDoctor(root) {
     console.log('  Для проверки против стока сначала: git restore --source=HEAD --staged --worktree .')
   }
   const actual = showVersionGate(root, expectFile)
-  const gate = invokeDoctor(root, registry)
+  const gate = invokeDoctor(root, registry, scope)
   console.log('')
   console.log('=== ОТЧЁТ DOCTOR ===')
   console.log(`HEAD клона : ${actual}`)
@@ -800,7 +811,7 @@ function ensureDeps(root) {
   console.log('зависимости восстановлены')
 }
 
-function cmdInstall(root, allowStaleDist) {
+function cmdInstall(root, allowStaleDist, scope = null) {
   const registry = path.join(here, 'registry.json')
   const expectFile = path.join(here, 'EXPECTED_COMMIT')
   const desktop = path.join(root, 'apps', 'desktop')
@@ -825,7 +836,7 @@ function cmdInstall(root, allowStaleDist) {
   const restoreExit = restore.error ? 1 : restore.status
   console.log(`сброс к стоку: exit=${restoreExit} (untracked-локали не трогаем)`)
 
-  const gate = invokeDoctor(root, registry)
+  const gate = invokeDoctor(root, registry, scope)
   if (doctorShouldFail(gate)) {
     writeDoctorStatus(gate, true)
     process.exit(1)
@@ -833,19 +844,28 @@ function cmdInstall(root, allowStaleDist) {
   writeDoctorStatus(gate, true)
 
   const applyJs = path.join(here, 'apply-hardcodes.mjs')
-  const apply = run(process.execPath, [applyJs, root, registry], { cwd: root, stdio: 'inherit' })
+  const apply = run(process.execPath, [applyJs, root, registry, ...(scope ? ['--scope', scope] : [])], { cwd: root, stdio: 'inherit' })
   if (apply.error || apply.status !== 0) {
     console.error('ОШИБКА: apply реестра прерван (пропал файл критичного правила)')
     process.exit(1)
   }
   console.log('apply: реестр применён (косметические пропуски, если были, оставлены как есть)')
 
-  const fileMap = [
-    ['files/ru.ts', path.join('apps', 'desktop', 'src', 'i18n', 'ru.ts')],
-    ['files/ru-constants.ts', path.join('apps', 'desktop', 'src', 'app', 'settings', 'ru-constants.ts')],
-    ['files/ru-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'kanban', 'ru-locales.ts')],
-    ['files/ru-bots-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'hermes-bots', 'ru-locales.ts')],
-  ]
+  // --scope plugins: плагинная сборка. Кладём ТОЛЬКО локали плагинов
+  // (bots/kanban) и НЕ трогаем core ru.ts / ru-constants.ts — ядро остаётся
+  // на официальном переводе. Это и даёт «чистую линзу» для измерения.
+  const scopePluginsOnly = Boolean(scope && scope.includes('plugins/'))
+  const fileMap = scopePluginsOnly
+    ? [
+        ['files/ru-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'kanban', 'ru-locales.ts')],
+        ['files/ru-bots-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'hermes-bots', 'ru-locales.ts')],
+      ]
+    : [
+        ['files/ru.ts', path.join('apps', 'desktop', 'src', 'i18n', 'ru.ts')],
+        ['files/ru-constants.ts', path.join('apps', 'desktop', 'src', 'app', 'settings', 'ru-constants.ts')],
+        ['files/ru-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'kanban', 'ru-locales.ts')],
+        ['files/ru-bots-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'hermes-bots', 'ru-locales.ts')],
+      ]
   let copied = 0
   for (const [srcRel, dstRel] of fileMap) {
     const src = resolveModFile(srcRel)
@@ -1050,9 +1070,9 @@ function main(argv = process.argv.slice(2)) {
   console.log(`клон: ${root}`)
   console.log(`платформа: ${process.platform}/${process.arch}${isMac ? ' (macOS — экспериментально)' : ''}`)
 
-  if (args.cmd === 'doctor') cmdDoctor(root)
+  if (args.cmd === 'doctor') cmdDoctor(root, args.scope)
   else if (args.cmd === 'uninstall') cmdUninstall(root)
-  else cmdInstall(root, args.allowStaleDist)
+  else cmdInstall(root, args.allowStaleDist, args.scope)
 }
 
 const launchedAsMain = (() => {
