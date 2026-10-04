@@ -105,7 +105,9 @@ rules = mergeOverrides(rules, path.join(path.dirname(regPath), 'overrides.json')
 // (bots/kanban), чтобы измерить реальное покрытие официального ru.ts без шума
 // от модовых переводов ядра UI. Правила вне scope отбрасываются ПОСЛЕ merge с
 // overrides, иначе delete-записи и пересъёмы откатывались бы в другую сторону.
-// Мультизначность через запятую: --scope plugins/hermes-bots,plugins/kanban
+// Мультизначность через запятую. ВАЖНО: префиксы — полные пути реестра,
+// начиная с 'apps/desktop/src/...'. Короткая форма ('plugins/hermes-bots')
+// НЕ является префиксом и даёт 0 правил (см. гейт ниже).
 const SCOPE_ARG = process.argv.indexOf('--scope')
 if (SCOPE_ARG !== -1) {
   const raw = process.argv[SCOPE_ARG + 1] || ''
@@ -120,6 +122,18 @@ if (SCOPE_ARG !== -1) {
     return prefixes.some(p => f === p || f.startsWith(p + '/'))
   })
   console.log(`SCOPE ${prefixes.join(' + ')}: ${before} -> ${rules.length} правил`)
+
+  // Гейт от «тихого» промаха по scope. Короткая форма (plugins/hermes-bots)
+  // не является префиксом пути реестра (apps/desktop/src/plugins/...), поэтому
+  // фильтр даёт 0 правил — а scopePluginsOnly в install.mjs при этом всё
+  // равно срабатывает по подстроке 'plugins/'. Раньше это давало «успешную»
+  // установку без единого применённого правила. Теперь это ошибка.
+  if (rules.length === 0) {
+    console.error(`ОШИБКА --scope: ни одно правило не попало в scope «${prefixes.join(', ')}».`)
+    console.error(`  Правил до фильтра: ${before}. Возможны опечатка в пути или слишком короткий префикс.`)
+    console.error(`  Ожидаемый вид: apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban`)
+    process.exit(2)
+  }
 }
 
 function effectiveSeverity(rule) {

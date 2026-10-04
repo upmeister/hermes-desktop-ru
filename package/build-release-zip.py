@@ -42,6 +42,7 @@ FILES = [
     "files/ru-constants.ts",
     "files/ru-locales.ts",
     "files/ru-bots-locales.ts",
+    "files/intro-ru.ts",
 ]
 ROOT_DOCS = [
     "README.md",

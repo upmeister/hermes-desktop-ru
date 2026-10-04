@@ -4,7 +4,8 @@ param(
   [switch]$Uninstall,
   [switch]$AllowStaleDist,
   [switch]$Version,
-  [string]$Root
+  [string]$Root,
+  [string]$Scope
 )
 # Thin wrapper. Source of truth is install.mjs (Node). Kept so existing
 # docs / double-click / old muscle memory keep working on Windows.
@@ -27,5 +28,8 @@ elseif ($Version) { $argv += 'version' }
 else { $argv += 'install' }
 if ($AllowStaleDist) { $argv += '--allow-stale-dist' }
 if ($Root) { $argv += '--root'; $argv += $Root }
+# --scope пробрасывается в install.mjs (01.10+). Без этого Windows-обёртки
+# не могли ограничить установку плагинами и всегда ставили полный мод.
+if ($Scope) { $argv += '--scope'; $argv += $Scope }
 & node @argv
 exit $LASTEXITCODE

@@ -73,7 +73,28 @@ function showHelp() {
   node install.mjs --self-test        проверка установщика без клона Hermes
   node install.mjs --root <path>      явный путь к клону hermes-agent
   node install.mjs --allow-stale-dist если npm run build упал — взять package/dist
+  node install.mjs --with-intro        + русские приветствия (отдельный пакет)
   node install.mjs help               эта справка
+
+Пакет приветствий (--with-intro):
+  node install.mjs install --scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban --with-intro
+  node install.mjs install --with-intro
+      Ставит i18n/intro-ru.ts (75 фраз, 15 personality). В апстриме
+      intro-ru.ts НЕТ — без этого флага приветствия остаются английскими.
+      Флаг независим от --scope: аддитивный файл, ядро не перезаписывает.
+      С двумя независимыми пакетами (плагины / приветствия) ставить можно
+      вместе или по отдельности.
+
+Область установки (--scope):
+  node install.mjs install --scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban
+      Ставит ТОЛЬКО плагинные локали (Bots + Kanban) и их точечные переводы.
+      Ядро UI не трогается — остаётся на официальном переводе ru в апстриме.
+  node install.mjs doctor --scope <тот же список>
+      Сухая проверка: сколько правил попало в область и что из них применится.
+  ВАЖНО: префиксы — полные пути внутри apps/desktop/src, начиная с
+  'apps/desktop/src/...'. Короткая форма ('plugins/hermes-bots') не
+  совпадёт с путями реестра: установщик прервётся с ошибкой, а не
+  молча поставит пустую сборку.
 
 CLI (npm):
   hermes-desktop-ru install | doctor | uninstall | version | help
@@ -154,6 +175,7 @@ function parseArgs(argv) {
     else if (al === 'version' || al === 'v') out.cmd = 'version'
     else if (al === 'self-test' || al === 'selftest') out.cmd = 'self-test'
     else if (al === 'allowstaledist' || al === 'allow-stale-dist') out.allowStaleDist = true
+    else if (al === 'with-intro' || al === 'withintro') out.withIntro = true
     else if (al === 'scope') {
       const v = args[++i]
       if (!v) {
@@ -630,6 +652,8 @@ function selfTest() {
   if (c.cmd !== 'self-test') failures.push('parseArgs --self-test')
   const d = parseArgs(['install', '--allow-stale-dist'])
   if (!d.allowStaleDist) failures.push('parseArgs --allow-stale-dist')
+  const e = parseArgs(['install', '--with-intro'])
+  if (!e.withIntro) failures.push('parseArgs --with-intro')
 
   const tmp = mkdtempSync(path.join(tmpdir(), 'hdru-self-'))
   try {
@@ -811,7 +835,7 @@ function ensureDeps(root) {
   console.log('зависимости восстановлены')
 }
 
-function cmdInstall(root, allowStaleDist, scope = null) {
+function cmdInstall(root, allowStaleDist, scope = null, withIntro = false) {
   const registry = path.join(here, 'registry.json')
   const expectFile = path.join(here, 'EXPECTED_COMMIT')
   const desktop = path.join(root, 'apps', 'desktop')
@@ -836,6 +860,18 @@ function cmdInstall(root, allowStaleDist, scope = null) {
   const restoreExit = restore.error ? 1 : restore.status
   console.log(`сброс к стоку: exit=${restoreExit} (untracked-локали не трогаем)`)
 
+  // Раньше restoreExit только печатался. Если git restore не сработал
+  // (shallow clone, права, грязный сабмодуль), установка продолжалась поверх
+  // изменённого дерева — то есть мод мог наложиться сам на себя. Теперь это
+  // блокирует: без чистого старта результат недействителен и опаснее отказа.
+  if (restoreExit !== 0) {
+    console.error('ОШИБКА: не удалось сбросить клон к стоку (git restore вернул ' + restoreExit + ').')
+    if (restore.stderr) console.error('  git: ' + String(restore.stderr).trim().split('\n')[0])
+    console.error('  Установка прервана: поверх изменённого дерева ставить нельзя.')
+    console.error('  Проверьте clone вручную: git -C "' + root + '" status --porcelain')
+    process.exit(1)
+  }
+
   const gate = invokeDoctor(root, registry, scope)
   if (doctorShouldFail(gate)) {
     writeDoctorStatus(gate, true)
@@ -854,7 +890,16 @@ function cmdInstall(root, allowStaleDist, scope = null) {
   // --scope plugins: плагинная сборка. Кладём ТОЛЬКО локали плагинов
   // (bots/kanban) и НЕ трогаем core ru.ts / ru-constants.ts — ядро остаётся
   // на официальном переводе. Это и даёт «чистую линзу» для измерения.
-  const scopePluginsOnly = Boolean(scope && scope.includes('plugins/'))
+  //
+  // Раньше здесь стояло scope.includes('plugins/') — подстрочный поиск. Он
+  // срабатывал и на короткой форме ('plugins/hermes-bots'), которую фильтр
+  // apply-hardcodes.mjs трактует как НЕ-префикс пути реестра: doctor падал
+  // с exit 2 (0 правил), но локали всё равно копировались ниже. Теперь
+  // ориентируемся на doctor: он единственный знает, что реально применится.
+  const scopePluginsOnly = Boolean(scope) && (() => {
+    const raw = String(scope).split(',').map(s => s.trim().replace(/\\/g, '/').replace(/\/+$/, '')).filter(Boolean)
+    return raw.length > 0 && raw.every(p => p.includes('/plugins/'))
+  })()
   const fileMap = scopePluginsOnly
     ? [
         ['files/ru-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'kanban', 'ru-locales.ts')],
@@ -866,6 +911,16 @@ function cmdInstall(root, allowStaleDist, scope = null) {
         ['files/ru-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'kanban', 'ru-locales.ts')],
         ['files/ru-bots-locales.ts', path.join('apps', 'desktop', 'src', 'plugins', 'hermes-bots', 'ru-locales.ts')],
       ]
+
+  // Пакет приветствий (05.10, опция A владельца): отдельный независимый слой.
+  // intro — НЕ плагинная поверхность: components/chat/intro.tsx:169 читает
+  // t.intro.stock[key] ?? t.intro.custom(...), то есть тексты живут только в
+  // локали. В апстриме intro-ru.ts НЕТ (есть de/es/fr/ja/zh/zh-hant), поэтому
+  // без этого флага русские приветствия просто не появляются.
+  // Ставится ВМЕСТЕ с любым scope: файл аддитивный, ядро не перезаписывает.
+  if (withIntro) {
+    fileMap.push(['files/intro-ru.ts', path.join('apps', 'desktop', 'src', 'i18n', 'intro-ru.ts')])
+  }
   let copied = 0
   for (const [srcRel, dstRel] of fileMap) {
     const src = resolveModFile(srcRel)
@@ -1072,7 +1127,7 @@ function main(argv = process.argv.slice(2)) {
 
   if (args.cmd === 'doctor') cmdDoctor(root, args.scope)
   else if (args.cmd === 'uninstall') cmdUninstall(root)
-  else cmdInstall(root, args.allowStaleDist, args.scope)
+  else cmdInstall(root, args.allowStaleDist, args.scope, Boolean(args.withIntro))
 }
 
 const launchedAsMain = (() => {

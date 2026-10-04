@@ -2828,5 +2828,107 @@
   "after": [
    "          Открыть последнюю сессию"
   ]
+ },
+ {
+  "id": "bots-roster-global-group-chat-count",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-sections.tsx",
+  "before": [
+   "          tip={`${sortedGroupRows.length} global group chat${sortedGroupRows.length === 1 ? '' : 's'}`}"
+  ],
+  "after": [
+   "          tip={`${sortedGroupRows.length} групповых чатов`}"
+  ]
+ },
+ {
+  "id": "bots-group-delete-description",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-dialogs.tsx",
+  "before": [
+   "            ? `This removes “${deletingGroup.name}” from its bots and clears the shared room log. The bots and their individual chats are kept.`"
+  ],
+  "after": [
+   "            ? `Удаляет «${deletingGroup.name}» из её ботов и очищает общий журнал комнаты. Сами боты и их личные чаты сохраняются.`"
+  ]
+ },
+ {
+  "id": "bots-dialog-deleting-busy",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-dialogs.tsx",
+  "before": [
+   "        busyLabel=\"Deleting…\""
+  ],
+  "after": [
+   "        busyLabel=\"Удаление…\""
+  ],
+  "all": true
+ },
+ {
+  "id": "bots-dialog-deleted-done",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-dialogs.tsx",
+  "before": [
+   "        doneLabel=\"Deleted\""
+  ],
+  "after": [
+   "        doneLabel=\"Удалено\""
+  ],
+  "all": true
+ },
+ {
+  "id": "bots-dialog-delete-bot-desc-1",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-dialogs.tsx",
+  "before": [
+   "              {'This will permanently delete the bot '}"
+  ],
+  "after": [
+   "              {'Это навсегда удалит бота '}"
+  ]
+ },
+ {
+  "id": "bots-dialog-delete-bot-desc-2",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-dialogs.tsx",
+  "before": [
+   "              {' and its associated Hermes profile at '}"
+  ],
+  "after": [
+   "              {' и связанный с ним профиль Hermes по пути '}"
+  ]
+ },
+ {
+  "id": "bots-dialog-delete-bot-desc-3",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-dialogs.tsx",
+  "before": [
+   "              <span className=\"font-mono text-xs\">{deleting.path}</span>. This cannot be undone."
+  ],
+  "after": [
+   "              <span className=\"font-mono text-xs\">{deleting.path}</span>. Это действие необратимо."
+  ]
+ },
+ {
+  "id": "bots-section-current-gateway",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-sections.tsx",
+  "before": [
+   "          {section.option?.label || section.option?.connectionId || 'Current gateway'}"
+  ],
+  "after": [
+   "          {section.option?.label || section.option?.connectionId || 'Текущий шлюз'}"
+  ]
+ },
+ {
+  "id": "i18n-intro-wire-import",
+  "file": "apps/desktop/src/i18n/ru.ts",
+  "before": [
+   "import { defineLocale } from './define-locale'"
+  ],
+  "after": [
+   "import { defineLocale } from './define-locale'\nimport { introRu } from './intro-ru'"
+  ]
+ },
+ {
+  "id": "i18n-intro-wire-field",
+  "file": "apps/desktop/src/i18n/ru.ts",
+  "before": [
+   "  messaging: {"
+  ],
+  "after": [
+   "  intro: introRu,\n  messaging: {"
+  ]
  }
 ]
