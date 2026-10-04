@@ -1,6 +1,7 @@
 import { RU_FIELD_DESCRIPTIONS, RU_FIELD_LABELS } from '@/app/settings/ru-constants'
 
 import { defineLocale } from './define-locale'
+import { introRu } from './intro-ru'
 
 // Хелпер русской плюрализации: 1/2-4/5+
 function ruPlural(count: number, one: string, few: string, many: string): string {
@@ -1683,6 +1684,7 @@ export const ru = defineLocale({
     openBrowser: 'Открыть в браузере',
     reloadWindow: 'Перезагрузить окно',
   },
+  intro: introRu,
   messaging: {
     search: 'Поиск',
     loading: 'Загрузка возможностей...',
