@@ -2788,5 +2788,45 @@
    "          Боты",
    "        </span>"
   ]
+ },
+ {
+  "id": "bots-roster-filter",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-toolbar.tsx",
+  "before": [
+   "              <Tip label={activeFilterCount ? `Filters (${activeFilterCount} active)` : 'Filter roster'}>"
+  ],
+  "after": [
+   "              <Tip label={activeFilterCount ? `Фильтры (${activeFilterCount} активно)` : 'Фильтр списка'}>"
+  ]
+ },
+ {
+  "id": "bots-roster-filter-aria",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-toolbar.tsx",
+  "before": [
+   "                    aria-label={activeFilterCount ? `Filter roster, ${activeFilterCount} active` : 'Filter roster'}"
+  ],
+  "after": [
+   "                    aria-label={activeFilterCount ? `Фильтровать список: ${activeFilterCount} активно` : 'Фильтр списка'}"
+  ]
+ },
+ {
+  "id": "bots-roster-toasts",
+  "file": "apps/desktop/src/plugins/hermes-bots/roster-pane-toolbar.tsx",
+  "before": [
+   "            label={activityToasts ? 'Activity toasts on — click to silence' : 'Activity toasts off — click to enable'}"
+  ],
+  "after": [
+   "            label={activityToasts ? 'Уведомления активны — нажмите, чтобы отключить' : 'Уведомления выключены — нажмите, чтобы включить'}"
+  ]
+ },
+ {
+  "id": "bots-recent-session",
+  "file": "apps/desktop/src/plugins/hermes-bots/bot-row.tsx",
+  "before": [
+   "          Open recent session"
+  ],
+  "after": [
+   "          Открыть последнюю сессию"
+  ]
  }
 ]
