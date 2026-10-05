@@ -11,8 +11,19 @@ Russian-language padding for [Hermes Desktop](https://github.com/NousResearch/he
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Latest: [v1.2.4](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.4) · Hermes Desktop 0.21.0 · 2026-09-03**  
+**Latest: [v1.2.6](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.6) · Hermes Desktop 0.21.0 · 2026-10-05**  
 **Status: frozen maintenance** — no new translations; only hardcode coverage until upstream moves those into the i18n system.
+
+## Release 1.2.6 architecture: two independent zip packages
+
+| Package | Contents | Install flag |
+|---|---|---|
+| `hermes-desktop-ru-plugins-v1.2.6.zip` | **Bots** + **Kanban** plugins (guiding idea: "clean lens" — core UI on official ru) | `--scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban` |
+| `hermes-desktop-ru-intro-v1.2.6.zip` | Russian **greetings** (`i18n/intro-ru.ts`, 75 phrases). Upstream has no Russian intro | `--with-intro` |
+
+Both packages install independently or together — `--scope` and `--with-intro` are decoupled.
+
+Removed from release: core translations (`ru.ts`, `ru-constants.ts`) — remain only in the repo (upstream Hermes v0.21+ has official Russian locale).
 
 ## Why this mod
 
@@ -46,7 +57,7 @@ This is not a portable / prebuilt installer patch. It expects a **source checkou
 
 ## How it works
 
-- **746-rule structural registry** rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
+- **683-rule structural registry** (85 plugin rules) rewrites unique `before → after` blocks in renderer, `ru-constants.ts`, Bots, kanban, and `electron/main.ts`.
 - **Doctor-gated installer** — dry-run before any write. Cosmetic misses (including an ambiguous short literal in Bots) warn — that spot stays English. Install fails only if a *critical file* is gone (kanban / connection-registry). A failed `npm run build` is the real hard stop.
 - **Survives `hermes update`**: restore tracked sources to stock → doctor → apply → register `ru` → rebuild `dist` → repack `asar` (original kept as `.stock.bak`).
 

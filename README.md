@@ -11,8 +11,19 @@
 [![Downloads](https://img.shields.io/github/downloads/upmeister/hermes-desktop-ru/total?style=for-the-badge&color=orange)](https://github.com/upmeister/hermes-desktop-ru/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-**Последний релиз: [v1.2.4](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.4) · Hermes 0.21.0 · 3 сентября 2026**  
+**Последний релиз: [v1.2.6](https://github.com/upmeister/hermes-desktop-ru/releases/tag/v1.2.6) · Hermes 0.21.0 · 5 октября 2026**  
 **Статус: frozen maintenance** — новые переводы не добавляются, только поддержка хардкодов, пока апстрим их не вынесет.
+
+## Архитектура релиза 1.2.6: два независимых zip-пакета
+
+| Пакет | Содержимое | Флаг установки |
+|---|---|---|
+| `hermes-desktop-ru-plugins-v1.2.6.zip` | плагины **Bots** + **Kanban** (руководящая идея: «чистая линза» — ядро UI на официальном ru) | `--scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban` |
+| `hermes-desktop-ru-intro-v1.2.6.zip` | русские **приветствия** (`i18n/intro-ru.ts`, 75 фраз). В апстриме русского intro нет | `--with-intro` |
+
+Оба пакета ставятся независимо или вместе — флаги `--scope` и `--with-intro` не связаны.
+
+Вычищено из релиза: ядровые переводы (`ru.ts`, `ru-constants.ts`) — остаются только в репо (апстрим Hermes v0.21+ имеет официальную русскую локаль).
 
 ## Зачем этот мод
 
@@ -31,7 +42,7 @@
 | Каталог i18n (кнопки, настройки, онбординг) | ✅ ~2200 ключей | не трогает |
 | Хардкоды компонентов: поля настроек, splash, мессенджеры | ❌ | ✅ |
 | Боты, канбан, main-process (gateway auth, boot-failure) | ❌ | ✅ |
-| Реестр doctor (746 правил `before→after`) | — | ✅ |
+|| Реестр doctor (якоря `before→after`) | — | ✅ **683 правила** (85 плагинных) ||
 | После `hermes update` | строки из каталога обновляются | `hermes-desktop-ru install` |
 
 ## Как выглядит
@@ -93,11 +104,11 @@ hermes update  →  hermes-desktop-ru install  →  запуск Desktop
 
 ## Что покрывает мод (реестр хардкодов)
 
-| Область | Покрытие |
+|| Область | Покрытие ||
 |---|---|
 | Хардкоды компонентов: поля настроек, splash, мессенджеры, темы | ✅ |
 | Канбан, плагин Bots, сообщения main-процесса (gateway auth, boot-failure) | ✅ |
-| Реестр doctor (якоря `before→after`) | ✅ 746 правил |
+| Реестр doctor (якоря `before→after`) | ✅ **683 правила** (85 плагинных) |
 
 Официальный каталог `ru.ts` (v0.21+) покрывает i18n-строки отдельно — мод их не дублирует.
 

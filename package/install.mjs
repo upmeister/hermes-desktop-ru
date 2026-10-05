@@ -65,6 +65,13 @@ function showHelp() {
   const ver = readVersion()
   const text = `Hermes Desktop RU — установщик мода v${ver}
 
+ДВА НЕЗАВИСИМЫХ ПАКЕТА (релиз 1.2.6+):
+  1. Плагины (Bots + Kanban):    --scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban
+  2. Приветствия (intro):         --with-intro
+
+Оба пакета можно ставить вместе или по отдельности. Ядро UI остаётся
+на официальном переводе ru в апстриме — мод не перезаписывает его.
+
 Использование:
   node install.mjs                    установить / переустановить
   node install.mjs doctor             сухая проверка (ничего не пишет)
@@ -73,28 +80,26 @@ function showHelp() {
   node install.mjs --self-test        проверка установщика без клона Hermes
   node install.mjs --root <path>      явный путь к клону hermes-agent
   node install.mjs --allow-stale-dist если npm run build упал — взять package/dist
-  node install.mjs --with-intro        + русские приветствия (отдельный пакет)
+  node install.mjs --scope <pref...>  плагины Bots + Kanban (полные пути)
+  node install.mjs --with-intro       + русские приветствия (75 фраз)
   node install.mjs help               эта справка
 
-Пакет приветствий (--with-intro):
-  node install.mjs install --scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban --with-intro
-  node install.mjs install --with-intro
-      Ставит i18n/intro-ru.ts (75 фраз, 15 personality). В апстриме
-      intro-ru.ts НЕТ — без этого флага приветствия остаются английскими.
-      Флаг независим от --scope: аддитивный файл, ядро не перезаписывает.
-      С двумя независимыми пакетами (плагины / приветствия) ставить можно
-      вместе или по отдельности.
-
-Область установки (--scope):
+Примеры:
+  # Только плагины (режим "чистая линза")
   node install.mjs install --scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban
-      Ставит ТОЛЬКО плагинные локали (Bots + Kanban) и их точечные переводы.
-      Ядро UI не трогается — остаётся на официальном переводе ru в апстриме.
-  node install.mjs doctor --scope <тот же список>
-      Сухая проверка: сколько правил попало в область и что из них применится.
-  ВАЖНО: префиксы — полные пути внутри apps/desktop/src, начиная с
-  'apps/desktop/src/...'. Короткая форма ('plugins/hermes-bots') не
-  совпадёт с путями реестра: установщик прервётся с ошибкой, а не
-  молча поставит пустую сборку.
+  node install.mjs doctor --scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban
+
+  # Только приветствия
+  node install.mjs install --with-intro
+  node install.mjs doctor --with-intro
+
+  # Всё вместе
+  node install.mjs install --scope apps/desktop/src/plugins/hermes-bots,apps/desktop/src/plugins/kanban --with-intro
+
+ВАЖНО: префиксы --scope — полные пути внутри apps/desktop/src, начиная с
+'apps/desktop/src/...'. Короткая форма ('plugins/hermes-bots') не
+совпадёт с путями реестра: установщик прервётся с ошибкой, а не
+молча поставит пустую сборку.
 
 CLI (npm):
   hermes-desktop-ru install | doctor | uninstall | version | help
@@ -102,6 +107,7 @@ CLI (npm):
 Обёртки:
   install.bat / install.ps1           Windows, в т.ч. двойной клик
   install.sh                          Linux / macOS
+  install.ps1 / install-asar.ps1      поддерживают -Scope и -WithIntro
 
 Требования:
   - Hermes Desktop из исходников (git clone / hermes desktop), не prebuilt
